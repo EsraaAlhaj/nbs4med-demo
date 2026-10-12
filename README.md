@@ -51,3 +51,4 @@ The interface does not need to change when records or parameter values change.
 ## Flat layout
 
 This copy keeps every file in one folder (no js/, data/, docs/ subfolders) so it can be uploaded through the GitHub web page. Script paths in index.html were changed accordingly. CALCULATIONS.md describes the same calculations.
+
