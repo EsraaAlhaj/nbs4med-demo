@@ -1,7 +1,7 @@
 /*
  * NBS4MED demo: "Explore impact and cost" step, results blocks and report.
- * Presentation only. All numbers come from NBS4MED_ENGINE (js/engine.js), which reads
- * data/evidence.json and data/demo_parameters.json (via the .js wrappers so that the
+ * Presentation only. All numbers come from NBS4MED_ENGINE (engine.js), which reads
+ * evidence.json and demo_parameters.json (via the .js wrappers so that the
  * page also works from file://).
  */
 (function () {

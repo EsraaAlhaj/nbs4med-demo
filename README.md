@@ -10,7 +10,7 @@ A local, no-backend demo of the NBS4MED self-evaluation tool with an optional
 1. Double-click `run-demo.bat`. It starts a local server on `http://127.0.0.1:8765` and opens the page.
    Close the black window to stop it.
 2. Or double-click `index.html`. This also works from `file://` because the data files are loaded
-   as scripts (`data/*.js`), not with `fetch`.
+   as scripts (`evidence.js`, `demo_parameters.js`), not with `fetch`.
 
 No account, no backend, no build step. Fonts come from Google Fonts when online; without internet
 the page uses system fonts.
@@ -20,19 +20,19 @@ the page uses system fonts.
 | File | Role |
 |---|---|
 | `index.html` | Markup and styles. Same design as the frontend version. |
-| `js/app.js` | Assessment (14 questions, 5 criteria), scoring, recommendations, routing, language. Logic unchanged. |
-| `js/explore.js` | Explore step, results blocks, printable report, CSV. Presentation only. |
-| `js/engine.js` | Calculation methods. No DOM. |
-| `data/evidence.json` | Evidence database exported from `NBS4MED_Starter_Database (2).xlsx`. Source of truth. |
-| `data/demo_parameters.json` | Demo assumptions with class, unit, purpose, validity range. |
-| `data/*.js` | Generated copies of the two JSON files so the page works from `file://`. |
-| `tools/sync-data.ps1` | Regenerates `data/*.js` after you edit a `.json` file. |
-| `docs/CALCULATIONS.md` | Formulas, assumptions, parameter table, what to replace. |
+| `app.js` | Assessment (14 questions, 5 criteria), scoring, recommendations, routing, language. Logic unchanged. |
+| `explore.js` | Explore step, results blocks, printable report, CSV. Presentation only. |
+| `engine.js` | Calculation methods. No DOM. |
+| `evidence.json` | Evidence database exported from `NBS4MED_Starter_Database (2).xlsx`. Source of truth. |
+| `demo_parameters.json` | Demo assumptions with class, unit, purpose, validity range. |
+| `evidence.js`, `demo_parameters.js` | Copies of the two JSON files as scripts, so the page works from `file://`. |
+| `tools/sync-data.ps1` | Not included in this copy. It regenerated the two `.js` data files from the `.json` files. |
+| `CALCULATIONS.md` | Formulas, assumptions, parameter table, what to replace. |
 
 ## Updating data
 
-1. Edit `data/evidence.json` or `data/demo_parameters.json`.
-2. Run `powershell -ExecutionPolicy Bypass -File tools\sync-data.ps1`.
+1. Edit `evidence.json` or `demo_parameters.json`.
+2. Update the matching `.js` file (`evidence.js`, `demo_parameters.js`) to the same content. The sync script `tools\sync-data.ps1` is not in this copy.
 3. Reload the page.
 
 The interface does not need to change when records or parameter values change.

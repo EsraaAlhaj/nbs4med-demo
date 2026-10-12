@@ -1,9 +1,9 @@
 /*
  * NBS4MED demo calculation engine.
- * No DOM access. Reads window.NBS4MED_EVIDENCE (data/evidence.json) and
- * window.NBS4MED_PARAMS (data/demo_parameters.json). Replace those two data files
+ * No DOM access. Reads window.NBS4MED_EVIDENCE (evidence.json) and
+ * window.NBS4MED_PARAMS (demo_parameters.json). Replace those two data files
  * when the repository / PROMEA framework arrives; the formulas live here and are
- * documented in docs/CALCULATIONS.md.
+ * documented in CALCULATIONS.md.
  *
  * Rules enforced here (from the evidence database, ReadMe and Rules sheets):
  *  - No record is used as a local forecast (usable_for_local_forecast stays false).

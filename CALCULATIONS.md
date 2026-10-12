@@ -2,10 +2,10 @@
 
 Demo version: illustrative estimates, to be reviewed when project data become available.
 
-Nothing here is a local forecast. Every quantitative record in `data/evidence.json` has
+Nothing here is a local forecast. Every quantitative record in `evidence.json` has
 `usable_for_local_forecast = false` and it was left that way. Published values are shown as
 reference evidence or used only as clearly labelled scenarios. Values that are not published
-are `demo_assumption` in `data/demo_parameters.json`. The `partner_validated` field is empty
+are `demo_assumption` in `demo_parameters.json`. The `partner_validated` field is empty
 for every parameter.
 
 ## 1. What did not change
@@ -124,13 +124,13 @@ taken from a dated price list and no price index is applied.
 
 | Item | Where | Action |
 |---|---|---|
-| NBS repository and PROMEA decision-making framework | `data/evidence.json` | Replace or extend records; keep `usable_for_local_forecast` honest per record; run `tools\sync-data.ps1` |
-| All `demo_assumption` unit prices and design factors | `data/demo_parameters.json` | Replace with local item prices (currency, price year, scope) or partner values; then fill `partner_validated` |
-| Runoff coefficient, usable storage fraction, water demand rates | `data/demo_parameters.json` | Replace with design values for each pilot site |
-| Price-year update (method M02) and life-cycle cost (M05) | `js/engine.js` | Not implemented: no index and no discount rate were supplied |
-| Surface temperature, air temperature and thermal comfort | `js/engine.js`, evidence | Needs intervention-specific primary data and a comparator before any calculation |
+| NBS repository and PROMEA decision-making framework | `evidence.json` | Replace or extend records; keep `usable_for_local_forecast` honest per record; run `tools\sync-data.ps1` |
+| All `demo_assumption` unit prices and design factors | `demo_parameters.json` | Replace with local item prices (currency, price year, scope) or partner values; then fill `partner_validated` |
+| Runoff coefficient, usable storage fraction, water demand rates | `demo_parameters.json` | Replace with design values for each pilot site |
+| Price-year update (method M02) and life-cycle cost (M05) | `engine.js` | Not implemented: no index and no discount rate were supplied |
+| Surface temperature, air temperature and thermal comfort | `engine.js`, evidence | Needs intervention-specific primary data and a comparator before any calculation |
 | Annual retention, peak reduction, captured volume | engine | Needs rainfall series and hydrologic modelling (PySWMM is deliberately not integrated) |
 | Smart-technology benefits of the eco-park | evidence | No separate evidence was collected |
-| Rule R07 threshold (very low match) | `js/app.js` ranking | Threshold pending partners |
-| Arabic text of evidence records | `data/evidence.json` | Records are shown in English as in the source database |
-| Demo label and assessment-to-solution mapping | `js/explore.js` | The five NBS4MED solutions map to the recommendation options: urban forest, green roof, smart eco-park (called multifunctional eco-park in the database), rainwater retention basin, green corridor |
+| Rule R07 threshold (very low match) | `app.js` ranking | Threshold pending partners |
+| Arabic text of evidence records | `evidence.json` | Records are shown in English as in the source database |
+| Demo label and assessment-to-solution mapping | `explore.js` | The five NBS4MED solutions map to the recommendation options: urban forest, green roof, smart eco-park (called multifunctional eco-park in the database), rainwater retention basin, green corridor |

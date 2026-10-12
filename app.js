@@ -564,7 +564,7 @@ function setLang(l){
   g.innerHTML=h;
 })();
 
-/* shared with js/explore.js (impact and cost step, report) */
+/* shared with explore.js (impact and cost step, report) */
 window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,calc:calc,ranked:ranked,
   riskList:riskList,indDone:indDone,allComplete:allComplete,CRIT:CRIT,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,LEVELS:LEVELS,OPT:OPT,
   WEAK:WEAK,lvlIdx:lvlIdx,nav:nav};
