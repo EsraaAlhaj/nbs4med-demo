@@ -48,6 +48,16 @@ The interface does not need to change when records or parameter values change.
 - Costs show currency, price year (none for demo values), scope and basis, and are never called local.
 - No login, no backend, no PySWMM.
 
+## Assessment logic (provisional, for partner review)
+
+- The assessment starts by defining the area (name, scope, boundary, organisation, date). All answers refer to that area as it is today.
+- The 14 indicators keep the 0 to 2 scale. Each score has a specific description (a provisional project rubric). Rationale, evidence or source, and confidence are optional per indicator. Nothing is uploaded.
+- Unknown is missing information, not 0. Not applicable needs a justification. Both are left out of the score and reported separately. The overall percentage is not shown while any indicator is Unknown, and a criterion percentage is not shown while that criterion has an Unknown answer.
+- Results show the criterion profile first (C1 current integration, C2 to C5 enabling conditions), then the overall score. Levels use provisional project thresholds. These are not scores or thresholds of any external standard.
+- After the climate-risk step, short Yes / No / Unknown applicability checks screen the NBS options (Preliminary candidate, Requires verification, Not applicable). They are screening outcomes, not engineering approval.
+- The recommendation ranking uses a rule-based match score out of 100 (the earlier demo risk weights, kept provisionally; see the methodology section in the results). It is neither a probability of success nor an expected impact. Funding, maintenance and technical-capacity gaps are shown as implementation conditions and do not change the score. Income is optional context and is not used.
+- Answers are kept in the page only. Nothing is saved between visits, so there are no stored answers to migrate.
+
 ## Flat layout
 
 This copy keeps every file in one folder (no js/, data/, docs/ subfolders) so it can be uploaded through the GitHub web page. Script paths in index.html were changed accordingly. CALCULATIONS.md describes the same calculations.

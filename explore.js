@@ -13,7 +13,6 @@
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
   function esc(s) { return C().esc(s); }
 
-  var NBS_OF = { tiny: 'NBS01', roof: 'NBS02', eco: 'NBS03', wet: 'NBS04', street: 'NBS05' };
   var SOL_ORDER = ['NBS01', 'NBS02', 'NBS03', 'NBS04', 'NBS05'];
 
   /* ---------- strings ---------- */
@@ -21,14 +20,6 @@
     exploreH: { en: 'Explore impact and cost', ar: 'استكشف الأثر والتكلفة' },
     ctaP: { en: 'Optional. Choose one of five solution types and see illustrative quantities, impact evidence and costs. This step does not change your assessment result.', ar: 'اختياري. اختر أحد خمسة أنواع من الحلول لترى كميات وأدلة أثر وتكاليف توضيحية. لا تغيّر هذه الخطوة نتيجة تقييمك.' },
     ctaB: { en: 'Explore impact and cost', ar: 'استكشف الأثر والتكلفة' },
-    why: { en: 'Why suggested', ar: 'سبب الترشيح' },
-    whyNote: { en: 'Rule-based match to your selected risks and site context. It is not an impact estimate.', ar: 'مطابقة قائمة على قواعد مع المخاطر التي اخترتها وسياق موقعك. وهي ليست تقديرًا للأثر.' },
-    match: { en: 'matches', ar: 'يطابق' },
-    w3: { en: 'strongly', ar: 'بقوة' }, w2: { en: 'moderately', ar: 'بدرجة متوسطة' }, w1: { en: 'weakly', ar: 'بدرجة ضعيفة' }, w0: { en: 'not a target risk of this option', ar: 'ليس خطرًا مستهدفًا لهذا الخيار' },
-    landFit: { en: 'Land need exceeds available public land: ranking is reduced.', ar: 'حاجة الأرض تفوق الأراضي العامة المتاحة: يُخفَّض الترتيب.' },
-    landOk: { en: 'Land need fits the available public land.', ar: 'حاجة الأرض تناسب الأراضي العامة المتاحة.' },
-    noEvidence: { en: 'No evidence record for this option in the demo database.', ar: 'لا يوجد سجل أدلة لهذا الخيار في قاعدة بيانات التجربة.' },
-    canExplore: { en: 'Can be explored in the next step.', ar: 'يمكن استكشافه في الخطوة التالية.' },
     demoLabel: { en: 'Demo version: illustrative estimates, to be reviewed when project data become available', ar: 'نسخة تجريبية: تقديرات توضيحية ستُراجع عند توفر بيانات المشروع' },
     back: { en: 'Back to results', ar: 'العودة إلى النتائج' },
     intro: { en: 'Optional step. Pick a solution, enter the essentials, and see what can be calculated, what is only reference evidence, and what is still unknown.', ar: 'خطوة اختيارية. اختر حلًا وأدخل المعلومات الأساسية لترى ما يمكن حسابه وما هو دليل مرجعي فقط وما لا يزال مجهولًا.' },
@@ -125,9 +116,9 @@
     nc_peak_reduction: { en: 'Reduction of peak discharge', ar: 'خفض ذروة التصريف' },
     nc_peak_reduction_r: { en: 'It needs outlet design and hydrologic modelling, which this demo does not include.', ar: 'يحتاج إلى تصميم المخارج ونمذجة هيدرولوجية لا تشملها هذه التجربة.' },
     nc_aggregate_impact: { en: 'Aggregate park impact', ar: 'الأثر الإجمالي للمنتزه' },
-    nc_aggregate_impact_r: { en: 'No total coefficient exists for a multifunctional park (rule R04). Only component quantities and costs are shown.', ar: 'لا يوجد معامل إجمالي للمنتزه متعدد الوظائف (القاعدة R04). تُعرض كميات المكونات وتكاليفها فقط.' },
+    nc_aggregate_impact_r: { en: 'No total coefficient exists for a multifunctional park. Only component quantities and costs are shown.', ar: 'لا يوجد معامل إجمالي للمنتزه متعدد الوظائف. تُعرض كميات المكونات وتكاليفها فقط.' },
     nc_annual_capture: { en: 'Annual captured volume', ar: 'الحجم المحتجز سنويًا' },
-    nc_annual_capture_r: { en: 'It needs catchment, storage, outlets and a rainfall series (rule R05).', ar: 'يحتاج إلى الحوض المائي والتخزين والمخارج وسلسلة أمطار (القاعدة R05).' },
+    nc_annual_capture_r: { en: 'It needs catchment, storage, outlets and a rainfall series.', ar: 'يحتاج إلى الحوض المائي والتخزين والمخارج وسلسلة أمطار.' },
     nc_flood_risk: { en: 'Flood-risk reduction', ar: 'خفض خطر الفيضان' },
     nc_flood_risk_r: { en: 'A volume balance for one storm is not a flood-risk reduction.', ar: 'ميزان الحجم لعاصفة واحدة ليس خفضًا لخطر الفيضان.' },
     costH: { en: 'Cost from quantities and unit prices', ar: 'التكلفة من الكميات وأسعار الوحدة' },
@@ -167,7 +158,6 @@
     solDesc_NBS03: { en: 'A park that combines trees, meadow, water features and paths.', ar: 'منتزه يجمع الأشجار والمروج والعناصر المائية والممرات.' },
     solDesc_NBS04: { en: 'A basin that holds runoff from a catchment and releases it slowly.', ar: 'حوض يحجز الجريان من حوض مائي ويطلقه ببطء.' },
     solDesc_NBS05: { en: 'A strip of connected trees and planting along a street or path.', ar: 'شريط من الأشجار والنباتات المتصلة على امتداد شارع أو ممر.' },
-    solName_NBS03_note: { en: 'Called "Smart eco-park" in the assessment recommendation list.', ar: 'يُسمى «منتزه بيئي ذكي» في قائمة توصيات التقييم.' },
     needC: { en: 'Local item prices, quantities and specification', ar: 'أسعار البنود المحلية والكميات والمواصفات' },
     needI_NBS01: { en: 'Canopy, geometry, weather, irrigation and a comparison site', ar: 'الظلة النباتية والهندسة والطقس والري وموقع مقارنة' },
     needI_NBS02: { en: 'Roof system, rainfall series and substrate moisture', ar: 'نظام السطح وسلسلة الأمطار ورطوبة وسط النمو' },
@@ -189,7 +179,38 @@
     ruleR10: { en: 'R10: a missing value is reported as unavailable, never as zero.', ar: 'R10: القيمة الناقصة تُعرض «غير متاحة» ولا تُعد صفرًا.' },
     showFormula: { en: 'Formula', ar: 'المعادلة' },
     resultsFor: { en: 'Results for', ar: 'نتائج' },
-    perYear: { en: 'per year', ar: 'في السنة' }
+    perYear: { en: 'per year', ar: 'في السنة' },
+    fromAssess: { en: 'From your assessment', ar: 'من تقييمك' },
+    matchL: { en: 'Rule-based match score', ar: 'درجة المطابقة القائمة على القواعد' },
+    notRanked: { en: 'This option is not in the ranked candidates for your assessment.', ar: 'هذا الخيار ليس ضمن المرشحين المرتبين في تقييمك.' },
+    outH: { en: 'Illustrative outputs', ar: 'مخرجات توضيحية' },
+    outP: { en: 'Results change with your inputs. Each group says what kind of figure it is: arithmetic, a literature-based scenario, or a demo assumption.', ar: 'تتغير النتائج مع مدخلاتك. تبيّن كل مجموعة نوع الرقم: حساب حسابي أو سيناريو مبني على الأدبيات أو افتراض تجريبي.' },
+    grpA: { en: 'Quantities calculated from your inputs', ar: 'كميات محسوبة من مدخلاتك' },
+    grpAn: { en: 'Arithmetic on your inputs and on demo design assumptions. These are quantities, not impact forecasts.', ar: 'حسابات على مدخلاتك وعلى افتراضات تصميم تجريبية. هذه كميات وليست توقعات للأثر.' },
+    grpB: { en: 'Literature-based scenario', ar: 'سيناريو مبني على الأدبيات' },
+    grpBn: { en: 'Literature-based event retention is an illustrative scenario, not a validated local forecast. It applies published results from other places to your roof.', ar: 'احتجاز الحدث المبني على الأدبيات سيناريو توضيحي وليس توقعًا محليًا مُتحقَّقًا منه. فهو يطبّق نتائج منشورة من أماكن أخرى على سطحك.' },
+    grpC: { en: 'Illustrative ranges from demo assumptions', ar: 'نطاقات توضيحية من افتراضات تجريبية' },
+    grpCn: { en: 'Low, base and high are alternative demo assumptions. They are not a statistical confidence interval and not a forecast.', ar: 'القيم الدنيا والأساسية والعليا افتراضات تجريبية بديلة. وهي ليست فترة ثقة إحصائية ولا توقعًا.' },
+    roofStruct: { en: 'Roof structural suitability requires verification. These figures assume the roof can carry the system, which has not been checked.', ar: 'تتطلب الملاءمة الإنشائية للسطح تحققًا. تفترض هذه الأرقام أن السطح يتحمل المنظومة، وهذا لم يُفحص.' },
+    roofStructOk: { en: 'You reported the structural suitability as confirmed in the applicability checks. This tool does not verify it, so check it before any design or cost decision.', ar: 'أفدتَ في فحوص قابلية التطبيق بأن الملاءمة الإنشائية مؤكدة. لا تتحقق هذه الأداة منها، فتأكد قبل أي قرار تصميم أو كلفة.' },
+    costGrp: { en: 'Demo cost assumptions', ar: 'افتراضات كلفة تجريبية' },
+    refCostWarn: { en: 'Reference costs from another place and year are not current local prices.', ar: 'الكلف المرجعية من مكان آخر وسنة أخرى ليست أسعارًا محلية حالية.' },
+    condCostH: { en: 'Funding and maintenance conditions from your assessment', ar: 'شروط التمويل والصيانة من تقييمك' },
+    limitsH: { en: 'Main assumptions and limitations', ar: 'أهم الافتراضات والقيود' },
+    lim1: { en: 'All figures are illustrative and for early planning only. They are not a quote, a design or a forecast for your site.', ar: 'كل الأرقام توضيحية وللتخطيط المبكر فقط. وليست عرض سعر ولا تصميمًا ولا توقعًا لموقعك.' },
+    lim2: { en: 'Demo values are placeholders until project partners review them.', ar: 'القيم التجريبية بديلة مؤقتة إلى أن يراجعها شركاء المشروع.' },
+    lim3: { en: 'Published evidence from other places is listed under Methodology and sources. It is not a forecast for your site.', ar: 'الأدلة المنشورة من أماكن أخرى مدرجة تحت «المنهجية والمصادر». وهي ليست توقعًا لموقعك.' },
+    ncSub: { en: 'Not calculated, and why', ar: 'ما لا يُحسب، ولماذا' },
+    methH: { en: 'Methodology and sources', ar: 'المنهجية والمصادر' },
+    methP: { en: 'Technical details: formulas, parameter keys, rule codes, published evidence and sources.', ar: 'تفاصيل تقنية: المعادلات ومفاتيح المعاملات ورموز القواعد والأدلة المنشورة والمصادر.' },
+    fxH: { en: 'Formulas used', ar: 'المعادلات المستخدمة' },
+    refEvH: { en: 'Published reference evidence (not a forecast)', ar: 'أدلة مرجعية منشورة (وليست توقعًا)' },
+    fracNote: { en: function (a, b) { return 'Published range: ' + a + ' to ' + b + '% of the event rainfall.'; }, ar: function (a, b) { return 'نطاق منشور: ' + a + ' إلى ' + b + '% من أمطار الحدث.'; } },
+    why2: { en: 'Why it matches the selected risks', ar: 'سبب مطابقته للمخاطر المختارة' },
+    repScope: { en: 'Assessment scope', ar: 'نطاق التقييم' },
+    repCompl: { en: 'Completeness and confidence', ar: 'الاكتمال والثقة' },
+    repScreen: { en: 'Applicability screening', ar: 'فرز قابلية التطبيق' },
+    repNotRanked: { en: 'Options not shortlisted', ar: 'خيارات غير مُدرجة في القائمة' }
   };
   function x(k) { var v = X[k]; if (!v) return k; return v[L()]; }
 
@@ -209,12 +230,12 @@
   }
   function eur(n) { return Number(Math.round(n)).toLocaleString('en-US'); }
   function pname(p) { return L() === 'ar' ? p.name_ar : p.name_en; }
-  function solName(id) { var s = E.solutions().filter(function (z) { return z.solution_id === id; })[0]; return L() === 'ar' ? s.name_ar : s.name_en; }
+  function solName(id) { var o = C().optByNbs(id); return o ? C().nm(o) : id; }
   function basisTag(b) { return '<span class="chip tag-' + b + '">' + x('basis_' + b) + '</span>'; }
   function en(text) { return '<span lang="en" dir="ltr">' + esc(text) + '</span>'; }
 
   /* ---------- state ---------- */
-  var ex = { sol: null, by: {}, openAdv: false, res: null };
+  var ex = { sol: null, by: {}, openAdv: false, openMeth: false, res: null };
   function cur() {
     var s = ex.sol; if (!s) return null;
     if (!ex.by[s]) ex.by[s] = { vals: E.defaults(s), touched: {}, prices: {} };
@@ -222,34 +243,28 @@
   }
 
   /* ---------- results-page pieces used by app.js ---------- */
-  function candidates() {
-    var c = C(), rk = c.ranked().slice(0, 3);
-    return rk.map(function (x1, i) {
-      var o = x1.o, rs = c.riskList(), parts = rs.map(function (r) {
-        return c.nm(r) + ' (' + x('w' + o.w[r.k]) + ')';
-      });
-      var landAvail = c.st.ctx.land === 'low' ? 0 : c.st.ctx.land === 'mid' ? 1 : 2;
-      return { rank: i + 1, opt: o, s: x1.s, nbs: NBS_OF[o.id] || null, reasons: parts, landOk: o.land <= landAvail };
-    });
-  }
-  function reasonsHtml(cd) {
-    return '<div class="why"><b>' + x('why') + ':</b> ' + esc(cd.reasons.join('; ')) + '. ' + (cd.landOk ? x('landOk') : x('landFit')) + '</div>';
-  }
   function ctaHtml() {
     return '<p class="sub">' + x('ctaP') + '</p><div class="demo-box">' + C().ico('alert') + '<span>' + esc(x('demoLabel')) + '</span></div>' +
       '<button class="btn btn-primary" type="button" id="openExplore"><span>' + x('ctaB') + '</span>' + C().ico('arrow', 'flip') + '</button>';
   }
+  /* opens the impact and cost view for the option picked in the recommendations */
+  function openSol(nbs) { ex.sol = nbs; C().nav('explore'); }
 
   /* ---------- explore view ---------- */
-  function isCandidate(nbs) { return candidates().some(function (c) { return c.nbs === nbs; }); }
+  function recOf(nbs) { var o = C().optByNbs(nbs); return o ? C().recFor(o.id) : null; }
+  function picker(nbs) {
+    var r = recOf(nbs);
+    if (!r || r.raw === 0 || !C().riskList().length) return '';
+    return ' <span class="chip st-' + r.scr.status + '">' + esc(C().stLabel(r.scr.status)) + '</span>';
+  }
   function render() {
     var root = $('#view-explore'); if (!root) return;
     var c = C();
     var solRadios = SOL_ORDER.map(function (id) {
       var checked = ex.sol === id;
       return '<label class="sol' + (checked ? ' on' : '') + '"><input type="radio" name="exsol" value="' + id + '"' + (checked ? ' checked' : '') + '>' +
-        '<span><b>' + esc(solName(id)) + '</b>' + (isCandidate(id) ? ' <span class="chip l2">' + x('candidate') + '</span>' : '') +
-        '<small>' + x('solDesc_' + id) + (id === 'NBS03' ? ' ' + x('solName_NBS03_note') : '') + '</small></span></label>';
+        '<span><b>' + esc(solName(id)) + '</b>' + picker(id) +
+        '<small>' + x('solDesc_' + id) + '</small></span></label>';
     }).join('');
     root.innerHTML = '<section class="as ex"><div class="wrap ex-wrap">' +
       '<button class="link no-print" type="button" id="exBack">' + c.ico('back', 'flip') + ' ' + x('back') + '</button>' +
@@ -312,19 +327,43 @@
   }
 
   /* shared by screen and report */
-  function outputsTable(res) {
-    var rows = res.outputs.map(function (o) {
-      var f = E.FORMULAS[o.formula];
+  function outRows(list) {
+    return list.map(function (o) {
       var note = '';
       if (o.unavailable && o.reason === 'small_event') note = '<div class="rnote">' + x('r_small_event') + '</div>';
       if (o.unavailable && o.reason === 'no_catchment') note = '<div class="rnote">' + x('r_no_catchment') + '</div>';
-      if (o.fraction) note = '<div class="rnote">' + en('G01: ' + o.fraction[0] + '–' + o.fraction[1] + '% of event rainfall') + '</div>';
+      if (o.fraction) note = '<div class="rnote">' + x('fracNote')(o.fraction[0], o.fraction[1]) + '</div>';
       return '<tr><td><b>' + x('o_' + o.id) + '</b><div class="g">' + x('g_' + o.group) + '</div>' + note + '</td>' +
-        '<td class="num">' + fmtRange(o) + '</td><td>' + esc(o.unit) + '</td><td>' + basisTag(o.basis) + '</td>' +
-        '<td class="fx">' + (f ? '<code>' + esc(f.expr) + '</code>' : '') + '</td></tr>';
+        '<td class="num">' + fmtRange(o) + '</td><td>' + esc(o.unit) + '</td><td>' + basisTag(o.basis) + '</td></tr>';
     }).join('');
-    return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>' + x('colInd') + '</th><th class="num">' + x('colRes') + '</th><th>' + x('colUnit') + '</th><th>' + x('colBasis') + '</th><th>' + x('showFormula') + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
-      '<p class="note-s">' + x('scenarioNote') + '</p>';
+  }
+  function outTable(list) {
+    return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>' + x('colInd') + '</th><th class="num">' + x('colRes') + '</th><th>' + x('colUnit') + '</th><th>' + x('colBasis') + '</th></tr></thead><tbody>' + outRows(list) + '</tbody></table></div>';
+  }
+  function outputsGroups(res) {
+    var A = [], B = [], K = [];
+    res.outputs.forEach(function (o) {
+      if (o.basis === 'published_reference') B.push(o);
+      else if (o.exact || o.value !== undefined) A.push(o);
+      else K.push(o);
+    });
+    var h = '';
+    if (res.solution_id === 'NBS02') h += roofNote();
+    if (A.length) h += '<h4>' + x('grpA') + '</h4>' + outTable(A) + '<p class="note-s">' + x('grpAn') + '</p>';
+    if (B.length) h += '<h4>' + x('grpB') + '</h4>' + outTable(B) + '<div class="note warn">' + C().ico('alert') + '<span>' + x('grpBn') + '</span></div>';
+    if (K.length) h += '<h4>' + x('grpC') + '</h4>' + outTable(K) + '<p class="note-s">' + x('grpCn') + '</p>';
+    return h;
+  }
+  function roofNote() {
+    var conf = C().st.scr['roof.struct'] === 'yes';
+    return '<div class="note warn">' + C().ico('alert') + '<span>' + (conf ? x('roofStructOk') : x('roofStruct')) + '</span></div>';
+  }
+  function formulasTable(res) {
+    var rows = res.outputs.map(function (o) {
+      var f = E.FORMULAS[o.formula];
+      return f ? '<tr><td>' + x('o_' + o.id) + '</td><td class="fx"><code>' + esc(f.expr) + '</code><div class="g">' + esc(o.formula) + '</div></td></tr>' : '';
+    }).join('');
+    return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>' + x('colInd') + '</th><th>' + x('showFormula') + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
   }
   function evidenceBlock(sol, res) {
     var ev = E.evidenceCards(sol), h = '';
@@ -392,7 +431,7 @@
     h += '<p class="note-s"><b>' + x('scenario') + ':</b> ' + x('scenarioNote') + '</p><p class="note-s">' + x('includes') + ' ' + x('excludes') + '</p><p class="note-s">' + x('lumpNote') + '</p>';
     return h;
   }
-  function inputsBlock(res) {
+  function inputsBlock(res, part) {
     var def = E.solutionDef(res.solution_id), st = ex.by[res.solution_id] || { touched: {} };
     var rows = def.inputs.map(function (d) {
       var v = res.inputs[d.id];
@@ -415,8 +454,9 @@
         prm += '<tr><td>' + esc(L() === 'ar' ? p.name_ar : p.name_en) + '<div class="g">' + esc(pid) + '</div></td><td class="num">' + en(p.evidence_refs.join(', ')) + '</td><td>' + basisTag('published_reference') + '</td><td>' + en(p.valid_range_en) + '</td><td>' + x('pvEmpty') + '</td></tr>';
       });
     }
-    return '<h4>' + x('inputsT') + '</h4><div class="tbl-wrap"><table class="tbl"><tbody>' + rows + '</tbody></table></div>' +
-      '<h4>' + x('paramsT') + '</h4><div class="tbl-wrap"><table class="tbl"><thead><tr><th>' + x('colParam') + '</th><th class="num">' + x('colValue') + '</th><th>' + x('colClass') + '</th><th>' + x('colValid') + '</th><th>' + x('colPV') + '</th></tr></thead><tbody>' + prm + '</tbody></table></div>';
+    var tIn = '<h4>' + x('inputsT') + '</h4><div class="tbl-wrap"><table class="tbl"><tbody>' + rows + '</tbody></table></div>';
+    var tPm = '<h4>' + x('paramsT') + '</h4><div class="tbl-wrap"><table class="tbl"><thead><tr><th>' + x('colParam') + '</th><th class="num">' + x('colValue') + '</th><th>' + x('colClass') + '</th><th>' + x('colValid') + '</th><th>' + x('colPV') + '</th></tr></thead><tbody>' + prm + '</tbody></table></div>';
+    return part === 'inputs' ? tIn : part === 'params' ? tPm : tIn + tPm;
   }
   function PR(id) {
     var m = window.NBS4MED_PARAMS.published_reference_parameters || [];
@@ -450,19 +490,54 @@
       return t ? '<div class="note warn">' + C().ico('alert') + '<span>' + t + '</span></div>' : '';
     }).join('');
   }
-  function resultsHtml(res) {
+  function det(summary, body, open) {
+    return '<details class="adv" id="methBox"' + ((open || ex.openMeth) ? ' open' : '') + '><summary>' + summary + '</summary>' + body + '</details>';
+  }
+  function assessBox(sol) {
+    var c = C(), o = c.optByNbs(sol);
+    if (!o || !c.riskList().length) return '';
+    var r = c.recFor(o.id); if (!r) return '';
+    var h = '<div class="note fromA"><b>' + x('fromAssess') + ':</b> ';
+    if (r.raw === 0) return h + esc(c.T('exNoWhy')) + '</div>';
+    h += x('matchL') + ': <b>' + r.s + ' / 100</b>. <span class="chip st-' + r.scr.status + '">' + esc(c.stLabel(r.scr.status)) + '</span>';
+    if (r.scr.reasons.length) h += '<ul class="rl">' + r.scr.reasons.map(function (q) { return '<li>' + esc(c.pick(q.t)) + '</li>'; }).join('') + '</ul>';
+    return h + '</div>';
+  }
+  function costConditions(sol) {
+    var c = C(), o = c.optByNbs(sol); if (!o) return '';
+    var r = c.recFor(o.id); if (!r) return '';
+    var items = r.conds.filter(function (k) { return k.id === '5.1' || k.id === '5.2'; }).map(function (k) {
+      var t = k.u ? c.T('condU') : (c.T('condScore')(k.v) + ': ' + c.rubricText(k.i, k.v));
+      return '<li><b>' + k.id + ' ' + esc(c.nm(k.i)) + '</b>: ' + esc(t) + '</li>';
+    });
+    return items.length ? '<div class="note warn">' + c.ico('alert') + '<div><b>' + x('condCostH') + '</b><ul class="rl">' + items.join('') + '</ul></div></div>' : '';
+  }
+  function limitsHtml(res) {
+    var sol = res.solution_id;
+    var li = ['<li>' + x('lim1') + '</li>', '<li>' + x('lim2') + '</li>'];
+    if (sol === 'NBS02') li.push('<li>' + (C().st.scr['roof.struct'] === 'yes' ? x('roofStructOk') : x('roofStruct')) + '</li>', '<li>' + x('grpBn') + '</li>');
+    if (sol === 'NBS02' || res.reference_cost) li.push('<li>' + x('refCostWarn') + '</li>');
+    li.push('<li>' + x('lim3') + '</li>');
+    return '<ul class="nc">' + li.join('') + '</ul><h4>' + x('ncSub') + '</h4><ul class="nc">' +
+      res.not_calculated.map(function (k) { return '<li><b>' + x('nc_' + k) + '.</b> ' + x('nc_' + k + '_r') + '</li>'; }).join('') + '</ul>';
+  }
+  /* forPrint opens every expandable section so that the printed report is complete */
+  function resultsHtml(res, forPrint) {
     var sol = res.solution_id;
     var h = '<h2>' + x('s3') + ' <span class="solname">' + esc(solName(sol)) + '</span></h2><div class="demo-box">' + C().ico('alert') + '<span>' + esc(x('demoLabel')) + '</span></div>';
     if (res.status === 'invalid') return h + '<div class="note">' + x('invalidBox') + '</div>';
-    h += warningsHtml(res);
-    h += '<h3>' + x('calcH') + '</h3><p class="sub">' + x('calcP') + '</p>' + outputsTable(res);
-    h += '<h3>' + x('refH') + '</h3><p class="sub">' + x('refP') + '</p>' + evidenceBlock(sol, res) + roofReferenceBlock(res);
-    h += '<h3>' + x('ncH') + '</h3><ul class="nc">' + res.not_calculated.map(function (k) { return '<li><b>' + x('nc_' + k) + '.</b> ' + x('nc_' + k + '_r') + '</li>'; }).join('') + '</ul>';
-    h += '<h3>' + x('costH') + '</h3>' + costTables(res);
-    h += '<h3>' + x('inH') + '</h3>' + inputsBlock(res);
-    h += '<h3>' + x('rulesH') + '</h3>' + rulesBlock(sol, res);
+    h += assessBox(sol) + warningsHtml(res);
+    h += '<h3>' + x('outH') + '</h3><p class="sub">' + x('outP') + '</p>' + outputsGroups(res);
+    h += '<h4>' + x('costGrp') + '</h4>' + costConditions(sol) + costTables(res) + roofReferenceBlock(res);
+    if (res.reference_cost) h += '<div class="note warn">' + C().ico('alert') + '<span>' + x('refCostWarn') + '</span></div>';
+    h += '<h3>' + x('limitsH') + '</h3>' + limitsHtml(res);
     h += '<h3>' + x('needH') + '</h3>' + needBlock(sol);
-    h += '<h3>' + x('srcH') + '</h3>' + sourcesBlock(sol);
+    var meth = '<h4>' + x('fxH') + '</h4>' + formulasTable(res) +
+      '<h4>' + x('refEvH') + '</h4><p class="sub">' + x('refP') + '</p>' + evidenceBlock(sol, res) +
+      '<h4>' + x('inH') + '</h4>' + inputsBlock(res) +
+      '<h4>' + x('rulesH') + '</h4>' + rulesBlock(sol, res) +
+      '<h4>' + x('srcH') + '</h4>' + sourcesBlock(sol);
+    h += det(x('methH'), '<p class="note-s">' + x('methP') + '</p>' + meth, forPrint);
     return h;
   }
   function compute() {
@@ -509,6 +584,7 @@
   });
   document.addEventListener('toggle', function (e) {
     if (e.target && e.target.id === 'advBox') ex.openAdv = e.target.open;
+    if (e.target && e.target.id === 'methBox') ex.openMeth = e.target.open;
   }, true);
   document.addEventListener('click', function (e) {
     var t = e.target.closest('button'); if (!t) return;
@@ -519,33 +595,73 @@
   });
 
   /* ---------- report ---------- */
-  function tableRows(arr) { return arr.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join(''); }
+  function tbl(head, rows, cls) {
+    return '<table class="tbl' + (cls ? ' ' + cls : '') + '"><thead><tr>' + head.map(function (t) { return '<th>' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      rows.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
+  }
+  function critCells(p) {
+    var c = C(), lv = p.status === 'complete' ? c.LEVELS[c.lvlIdx(p.pct)] : null;
+    var cmp = c.T('cmpl')(p.scored, p.n, p.unk, p.na);
+    if (p.status === 'complete') return [p.sum + ' / ' + p.max + ' (' + p.pct + '%)', esc(c.nm(lv)), esc(cmp)];
+    if (p.status === 'na') return [esc(c.T('naCrit')), esc(c.T('naCrit')), esc(cmp)];
+    return [esc(c.T('notRated')), '–', esc(cmp + (p.scored ? '. ' + c.T('partial')(p.sum, p.max, p.scored, p.n) : ''))];
+  }
   function reportHtml() {
-    var c = C(), r = c.calc(), L1 = c.LEVELS[r.lvl], st = c.st, t = c.nm;
+    var c = C(), r = c.calc(), st = c.st, t = c.nm, T = c.T, o = r.ov, R = c.recs();
     var d = new Date(); var date = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
     var h = '<div class="rp-head"><h1>' + x('repTitle') + '</h1><p>' + x('repDate') + ': ' + date + '</p></div>' +
-      '<div class="demo-box">' + esc(x('demoLabel')) + '</div>';
-    h += '<h2>1. ' + x('repAssess') + '</h2><p class="note-s">' + x('repSep') + '</p>';
-    h += '<h3>' + x('ctxT') + '</h3><table class="tbl"><tbody>' + c.CTX.map(function (cx) {
-      var o = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0];
-      return '<tr><td>' + esc(t(cx)) + '</td><td>' + esc(o ? (L() === 'ar' ? o[2] : o[1]) : '–') + '</td></tr>';
-    }).join('') + '<tr><td>' + esc(c.T('stRisk')) + '</td><td>' + esc(c.riskList().map(function (z) { return t(z); }).join('; ')) + '</td></tr>' +
-      '<tr><td>' + esc(c.T('stConf')) + '</td><td>' + esc((c.CONF.filter(function (z) { return z[0] === st.conf; })[0] || ['', '', ''])[L() === 'ar' ? 2 : 1]) + '</td></tr></tbody></table>';
-    h += '<h3>' + c.T('overall') + '</h3><p class="rp-score"><b>' + r.sum + ' / 28</b> (' + r.pct + '%) &nbsp; <span class="chip ' + L1.c + '">' + esc(t(L1)) + '</span></p><p class="note-s">' + c.T('thresholds') + '</p>';
-    h += '<table class="tbl"><thead><tr><th>' + c.T('crit') + '</th><th class="num">' + c.T('score') + '</th><th>' + c.T('level') + '</th></tr></thead><tbody>' +
-      c.CRIT.map(function (cr, i) { var p = r.per[i], lv = c.LEVELS[c.lvlIdx(p.pct)]; return '<tr><td>' + cr.id + ' ' + esc(t(cr)) + '</td><td class="num">' + p.sum + ' / ' + p.max + ' (' + p.pct + '%)</td><td>' + esc(t(lv)) + '</td></tr>'; }).join('') + '</tbody></table>';
-    var gs = { g: [], a: [], r: [] }; r.per.forEach(function (p, i) { gs[p.pct >= 70 ? 'g' : p.pct >= 40 ? 'a' : 'r'].push(c.CRIT[i].id + ' ' + t(c.CRIT[i])); });
-    h += '<h3>' + c.T('sgH') + '</h3><table class="tbl"><tbody><tr><td>' + c.T('strengths') + '</td><td>' + esc(gs.g.join('; ') || '–') + '</td></tr><tr><td>' + c.T('watch') + '</td><td>' + esc(gs.a.join('; ') || '–') + '</td></tr><tr><td>' + c.T('gap') + '</td><td>' + esc(gs.r.join('; ') || '–') + '</td></tr></tbody></table>';
-    h += '<p class="note-s">' + esc(c.WEAK[L()][r.weak]) + '</p>';
-    h += '<h3>' + c.T('heatH') + '</h3><table class="tbl"><thead><tr><th>ID</th><th>' + x('colInd') + '</th><th class="num">' + c.T('score') + '</th></tr></thead><tbody>' +
-      c.IND.map(function (i) { return '<tr><td>' + i.id + '</td><td>' + esc(t(i)) + '</td><td class="num">' + st.sc[i.id] + ' · ' + c.S.s[L()][st.sc[i.id]] + '</td></tr>'; }).join('') + '</tbody></table>';
-    h += '<h2>2. ' + x('repCand') + '</h2><p class="note-s">' + x('whyNote') + '</p><table class="tbl"><thead><tr><th>#</th><th>' + c.T('option') + '</th><th>' + c.T('suit') + '</th><th>' + x('why') + '</th></tr></thead><tbody>' +
-      candidates().map(function (cd) {
-        var si = cd.s >= 60 ? 0 : cd.s >= 35 ? 1 : 2;
-        return '<tr><td>' + cd.rank + '</td><td>' + esc(t(cd.opt)) + '</td><td>' + (L() === 'ar' ? c.S.sHa[si] : c.S.sH[si]) + ' (' + cd.s + '%)</td><td>' + esc(cd.reasons.join('; ')) + '. ' + (cd.landOk ? x('landOk') : x('landFit')) + '</td></tr>';
-      }).join('') + '</tbody></table>';
-    h += '<h2>3. ' + x('repExplore') + '</h2>';
-    if (ex.sol && ex.res) h += resultsHtml(ex.res).replace(/<h2>.*?<\/h2>/, '<h3 class="rp-sol">' + esc(solName(ex.sol)) + '</h3>');
+      '<div class="demo-box">' + esc(x('demoLabel')) + '</div><p class="note-s">' + esc(T('protoNote')) + '</p>';
+    /* 1. scope */
+    var SL = T('scopeLabs');
+    h += '<h2>1. ' + x('repScope') + '</h2>' + tbl(['', ''], [[esc(SL[0]), esc(st.scope.name || '–')], [esc(SL[1]), esc(c.scopeTypeLabel() || '–')], [esc(SL[2]), esc(st.scope.boundary || '–')], [esc(SL[3]), esc(st.scope.org || T('notStated'))], [esc(SL[4]), esc(st.scope.date || T('notStated'))]]);
+    /* 2. assessment */
+    h += '<h2>2. ' + x('repAssess') + '</h2><p class="note-s">' + x('repSep') + '</p>';
+    h += '<h3>' + T('compH') + '</h3><p>' + esc(T('compTxt')(o.scored, o.unk, o.na)) + '</p>';
+    h += '<h3>' + T('profH') + '</h3><p class="note-s">' + esc(T('g1H')) + '. ' + esc(T('g1P')) + '</p>' +
+      tbl([T('crit'), T('score'), T('level'), x('repCompl')], [0].map(function (i) { var cc = critCells(r.per[i]); return [c.CRIT[i].id + ' ' + esc(t(c.CRIT[i])), cc[0], cc[1], cc[2]]; })) +
+      '<p class="note-s">' + esc(T('g2H')) + '. ' + esc(T('g2P')) + '</p>' +
+      tbl([T('crit'), T('score'), T('level'), x('repCompl')], [1, 2, 3, 4].map(function (i) { var cc = critCells(r.per[i]); return [c.CRIT[i].id + ' ' + esc(t(c.CRIT[i])), cc[0], cc[1], cc[2]]; }));
+    h += '<h3>' + T('overallH') + '</h3>';
+    if (o.status === 'complete') h += '<p class="rp-score"><b>' + o.sum + ' / ' + o.max + '</b> (' + o.pct + '%) &nbsp; <span class="chip ' + c.LEVELS[r.lvl].c + '">' + esc(t(c.LEVELS[r.lvl])) + '</span></p>';
+    else if (o.status === 'na') h += '<p>' + esc(T('ovNA')) + '</p>';
+    else h += '<p>' + esc(T('ovSupp')(o.open, c.IND.filter(function (i) { return st.sc[i.id] === 'U'; }).map(function (i) { return i.id; }).join(', '))) + '</p>';
+    h += '<p class="note-s">' + esc(c.eqWeightText(r)) + ' ' + esc(T('thresholds')) + '</p>';
+    var g = c.gapsData();
+    function names(arr, withText) { return arr.length ? arr.map(function (i) { return esc(i.id + ' ' + t(i)) + (withText ? ': ' + esc(c.rubricText(i, st.sc[i.id])) : ''); }).join('<br>') : '–'; }
+    h += '<h3>' + T('sgH') + '</h3>' + tbl(['', ''], [[T('gap0'), names(g.z, true)], [T('gap1'), names(g.o, true)], [T('strong'), names(g.t)], [T('gapU'), names(g.u)], [T('gapNA'), g.n.length ? g.n.map(function (i) { return esc(i.id + ' ' + t(i) + ': ' + (st.just[i.id] || '')); }).join('<br>') : '–']]);
+    var cf = c.confCounts();
+    h += '<h3>' + T('confH') + '</h3><p>' + esc(T('confTxt')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + ' ' + esc(T('confNote')) + '</p>';
+    h += '<h3>' + T('detH') + '</h3>' + tbl(['ID', T('colInd'), T('colAns'), T('colRat'), T('colEvd'), T('colCf')], c.IND.map(function (i) {
+      return [i.id, esc(t(i)), esc(c.ansLabel(i.id)), esc(st.rat[i.id] || (st.sc[i.id] === 'NA' ? st.just[i.id] || '' : '') || '–'), esc(st.evd[i.id] || '–'), esc(c.cfLabel(i.id))];
+    }), 'rp-ans');
+    var yn = function (v) { return v === 'yes' ? T('yes') : v === 'no' ? T('no') : v === 'unknown' ? T('unk') : '–'; };
+    h += '<p class="note-s">' + esc(T('tgtQ')) + ' ' + esc(yn(st.tgt.target)) + '. ' + esc(T('covQ')) + ' ' + esc(yn(st.tgt.cov)) + '.</p>';
+    h += '<h3>' + x('ctxT') + '</h3>' + tbl(['', ''], c.CTX.map(function (cx) {
+      var oo = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0];
+      return [esc(t(cx)), esc(oo ? (L() === 'ar' ? oo[2] : oo[1]) : T('notStated'))];
+    }).concat([[esc(T('stRisk')), esc(c.riskList().map(function (z) { return t(z); }).join('; '))]]));
+    h += '<h4>' + esc(T('methA')) + '</h4><ul>' + c.methA().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
+    /* 3. screening */
+    h += '<h2>3. ' + x('repScreen') + '</h2><p class="note-s">' + esc(T('screenP')) + '</p>';
+    h += tbl([T('stScreen'), T('colAns')], c.visGroups().reduce(function (acc, gr) {
+      c.visChecks(gr).forEach(function (k) { acc.push([esc(c.pick(gr.t) + ': ' + c.pick(c.CHK[k].q)), esc(yn(st.scr[k]))]); });
+      return acc;
+    }, []));
+    /* 4. recommendations */
+    h += '<h2>4. ' + x('repCand') + '</h2><p class="note-s">' + esc(T('matchNote')) + '</p>';
+    h += R.ranked.length ? tbl(['#', T('option'), T('matchL'), T('status'), x('why2'), T('verL').replace(':', ''), T('condL')], R.ranked.map(function (q) {
+      return [q.rank, esc(t(q.o)), q.s + ' / 100', esc(c.stLabel(q.scr.status)), esc(c.whyText(q)),
+        esc(q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' ') || T('candDone')),
+        esc(q.conds.map(function (k) { return k.id + ' ' + t(k.i) + ': ' + (k.u ? T('stU') : c.rubricText(k.i, k.v)); }).join(' | ') || T('condNone'))];
+    })) : '<p>' + esc(T('recNone')) + '</p>';
+    if (R.na.length || R.nomatch.length) {
+      h += '<h3>' + x('repNotRanked') + '</h3>' + tbl([T('option'), T('status'), x('why2')], R.na.map(function (q) { return [esc(t(q.o)), esc(T('exNA')), esc(q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' '))]; })
+        .concat(R.nomatch.map(function (q) { return [esc(t(q.o)), esc(T('exNo')), esc(T('exNoWhy'))]; })));
+    }
+    h += '<h4>' + esc(T('methB')) + '</h4><ul>' + c.methB().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' + c.weightsTable();
+    /* 5. impact and cost */
+    h += '<h2>5. ' + x('repExplore') + '</h2>';
+    if (ex.sol && ex.res) h += resultsHtml(ex.res, true).replace(/<h2>.*?<\/h2>/, '<h3 class="rp-sol">' + esc(solName(ex.sol)) + '</h3>');
     else h += '<p>' + x('notExplored') + '</p>';
     h += '<p class="rp-foot">' + esc(x('demoLabel')) + '</p>';
     return h;
@@ -560,41 +676,71 @@
   }
 
   /* ---------- CSV ---------- */
+  /* columns: section, item, value, unit, basis, notes, rationale, evidence, confidence */
   function csvRows() {
-    var c = C(), r = c.calc(), st = c.st, rows = [['section', 'item', 'value', 'unit', 'basis', 'notes']];
-    rows.push(['label', 'status', E_label(), '', '', '']);
-    c.CTX.forEach(function (cx) { var o = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0]; rows.push(['assessment context', cx.en, o ? o[1] : '', '', 'user input', 'not scored']); });
-    rows.push(['assessment context', 'climate risks', c.riskList().map(function (z) { return z.en; }).join('; '), '', 'user input', '']);
-    c.IND.forEach(function (i) { rows.push(['assessment indicator', i.id + ' ' + i.en, st.sc[i.id], '0-2', 'user input', '']); });
-    c.CRIT.forEach(function (cr, i) { rows.push(['assessment criterion', cr.id + ' ' + cr.en, r.per[i].sum + '/' + r.per[i].max, 'points', 'calculated', r.per[i].pct + '%']); });
-    rows.push(['assessment overall', 'score', r.sum + '/28', 'points', 'calculated', r.pct + '%']);
-    rows.push(['assessment overall', 'level', c.LEVELS[r.lvl].en, '', 'calculated', '']);
-    rows.push(['assessment overall', 'data confidence', st.conf, '', 'user input', '']);
-    candidates().forEach(function (cd) { rows.push(['candidate solution', '#' + cd.rank + ' ' + cd.opt.en, cd.s + '%', 'suitability', 'rule-based match', cd.reasons.join('; ')]); });
+    var c = C(), r = c.calc(), st = c.st, R = c.recs();
+    var rows = [['section', 'item', 'value', 'unit', 'basis', 'notes', 'rationale', 'evidence or source', 'confidence']];
+    function add(a) { while (a.length < 9) a.push(''); rows.push(a); }
+    add(['label', 'status', E_label(), '', '', 'Preliminary prototype. Scores are not official scores of any external standard.']);
+    add(['assessment scope', 'area name', st.scope.name, '', 'user input', '']);
+    add(['assessment scope', 'scope', c.scopeTypeLabel('en'), '', 'user input', '']);
+    add(['assessment scope', 'boundary description', st.scope.boundary, '', 'user input', 'All answers refer to this area and its current situation']);
+    add(['assessment scope', 'organisation', st.scope.org, '', 'user input', '']);
+    add(['assessment scope', 'assessment date', st.scope.date, '', 'user input', '']);
+    c.CTX.forEach(function (cx) { var o = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0]; add(['assessment context', cx.en, o ? o[1] : 'Not specified', '', 'user input', cx.opt ? 'optional, not scored, not used in ranking' : 'not scored']); });
+    add(['assessment context', 'climate risks and environmental challenges', c.riskList().map(function (z) { return z.en; }).join('; '), '', 'user input', '']);
+    add(['assessment local target', 'local NBS or green-blue coverage target exists', st.tgt.target || 'not answered', 'yes/no/unknown', 'user input', 'Indicator 1.2']);
+    add(['assessment local target', 'current coverage known', st.tgt.cov || 'not answered', 'yes/no/unknown', 'user input', 'Indicator 1.2']);
+    c.IND.forEach(function (i) {
+      add(['assessment indicator', i.id + ' ' + i.en, c.ansCsv(i.id), '0-2 scale (provisional project rubric)', 'user input',
+        c.ansState(i.id) === 'scored' ? 'scored: ' + c.rubricText(i, st.sc[i.id]).replace(/^/, '') : c.ansState(i.id) === 'na' ? 'Not applicable, excluded from score. Justification: ' + (st.just[i.id] || '') : c.ansState(i.id) === 'unknown' ? 'Unknown: missing information, excluded from score, not 0' : 'Unanswered',
+        st.rat[i.id] || '', st.evd[i.id] || '', st.cf[i.id] ? c.cfLabel(i.id, 'en') : '']);
+    });
+    c.CRIT.forEach(function (cr, i) {
+      var p = r.per[i];
+      var v = p.status === 'complete' ? p.sum + '/' + p.max : p.status === 'na' ? 'Not applicable' : 'Not rated (Unknown answers)';
+      add(['assessment criterion', cr.id + ' ' + cr.en, v, 'points', 'calculated',
+        (p.status === 'complete' ? p.pct + '%; level ' + c.LEVELS[c.lvlIdx(p.pct)].en + ' (provisional threshold); ' : '') + p.scored + ' of ' + p.n + ' indicators scored, ' + p.unk + ' Unknown, ' + p.na + ' Not applicable' + (p.status === 'incomplete' && p.scored ? '; available points ' + p.sum + '/' + p.max + ' (not a criterion score)' : '')]);
+    });
+    var o = r.ov;
+    add(['assessment completeness', 'indicators with numeric score', o.scored + ' of 14', '', 'calculated', o.unk + ' Unknown; ' + o.na + ' Not applicable']);
+    add(['assessment overall', 'score', o.status === 'complete' ? o.sum + '/' + o.max : o.status === 'na' ? 'Not applicable' : 'Not shown (Unknown answers)', 'points', 'calculated', o.status === 'complete' ? o.pct + '%; equal weight per indicator; provisional thresholds' : 'overall percentage suppressed because an indicator is Unknown']);
+    if (o.status === 'complete') add(['assessment overall', 'level', c.LEVELS[r.lvl].en, '', 'calculated', 'provisional project thresholds']);
+    var cf = c.confCounts();
+    add(['assessment confidence summary', 'scored indicators by confidence', 'documented evidence ' + cf.high + '; staff estimate ' + cf.mid + '; informal judgement ' + cf.low + '; not stated ' + cf.none, '', 'user input', 'confidence does not change scores']);
+    c.visGroups().forEach(function (gr) { c.visChecks(gr).forEach(function (k) { add(['applicability check', gr.t[0] + ': ' + c.CHK[k].q[0], st.scr[k] || 'not answered', 'yes/no/unknown', 'user input', 'screening only, not engineering approval']); }); });
+    R.ranked.forEach(function (q) {
+      add(['recommendation', '#' + q.rank + ' ' + q.o.en, q.s + ' / 100', 'rule-based match score', c.stLabel(q.scr.status),
+        'why: ' + c.whyText(q) + (q.scr.reasons.length ? ' | to verify: ' + q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ') : '') +
+        (q.conds.length ? ' | conditions: ' + q.conds.map(function (k) { return k.id + ' ' + k.i.en + ': ' + (k.u ? 'Unknown' : 'score ' + k.v); }).join('; ') : '') + (q.o.nbs ? '' : ' | Impact/cost module not yet available')]);
+    });
+    R.na.forEach(function (q) { add(['option not shortlisted', q.o.en, 'Not applicable', '', 'screening', q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ')]); });
+    R.nomatch.forEach(function (q) { add(['option not shortlisted', q.o.en, 'No match with selected risks', '', 'rule-based match', '']); });
     if (ex.sol && ex.res && ex.res.status === 'ok') {
       var res = ex.res;
-      rows.push(['explore', 'solution', E.solutions().filter(function (s) { return s.solution_id === ex.sol; })[0].name_en, '', '', '']);
-      Object.keys(res.inputs).forEach(function (k) { rows.push(['explore input', k, res.inputs[k], '', res.provenance[k] || '', '']); });
-      res.outputs.forEach(function (o) {
-        var v = o.unavailable ? 'unavailable' : (o.value !== undefined ? o.value : (round(o.low) + ' to ' + round(o.high) + (o.base !== null && o.base !== undefined ? ' (base ' + round(o.base) + ')' : '')));
-        rows.push(['explore output', o.id, v, o.unit, o.basis, o.formula + (o.unavailable ? '; ' + o.reason : '')]);
+      add(['explore', 'solution', solName(ex.sol), '', '', '']);
+      Object.keys(res.inputs).forEach(function (k) { add(['explore input', k, res.inputs[k], '', res.provenance[k] || '', '']); });
+      res.outputs.forEach(function (op) {
+        var v = op.unavailable ? 'unavailable' : (op.value !== undefined ? op.value : (round(op.low) + ' to ' + round(op.high) + (op.base !== null && op.base !== undefined ? ' (base ' + round(op.base) + ')' : '')));
+        add(['explore output', op.id, v, op.unit, op.basis, op.formula + (op.unavailable ? '; ' + op.reason : '') + (op.basis === 'published_reference' ? '; literature-based scenario, not a validated local forecast' : '')]);
       });
       ['capex', 'annual'].forEach(function (k) {
         res.costs[k].components.forEach(function (cm) {
-          if (!cm.included) { rows.push(['explore cost ' + k, cm.id, 'not included', 'EUR', '', cm.reason]); return; }
-          if (cm.unavailable) { rows.push(['explore cost ' + k, cm.id, 'unavailable', 'EUR', '', '']); return; }
-          rows.push(['explore cost ' + k, cm.id + ' (' + round(cm.quantity) + ' ' + cm.qty_unit + ')', round(cm.subtotal.low) + ' to ' + round(cm.subtotal.high) + ' (base ' + round(cm.subtotal.base) + ')', 'EUR', cm.source_class, 'illustrative scenario range, not a confidence interval; no price year']);
+          if (!cm.included) { add(['explore cost ' + k, cm.id, 'not included', 'EUR', '', cm.reason]); return; }
+          if (cm.unavailable) { add(['explore cost ' + k, cm.id, 'unavailable', 'EUR', '', '']); return; }
+          add(['explore cost ' + k, cm.id + ' (' + round(cm.quantity) + ' ' + cm.qty_unit + ')', round(cm.subtotal.low) + ' to ' + round(cm.subtotal.high) + ' (base ' + round(cm.subtotal.base) + ')', 'EUR', cm.source_class, 'illustrative scenario range, not a confidence interval; no price year']);
         });
         var tt = res.costs[k].total;
-        rows.push(['explore cost ' + k, 'total', tt ? round(tt.low) + ' to ' + round(tt.high) + ' (base ' + round(tt.base) + ')' : 'unavailable', 'EUR', 'demo_assumption', 'not a local cost']);
+        add(['explore cost ' + k, 'total', tt ? round(tt.low) + ' to ' + round(tt.high) + ' (base ' + round(tt.base) + ')' : 'unavailable', 'EUR', 'demo_assumption', 'not a local cost']);
       });
       if (res.reference_cost && res.reference_cost.scaled) {
-        var s = res.reference_cost.scaled;
-        rows.push(['explore reference', 'Hamburg extensive roofs scaled by area', round(s.low) + ' to ' + round(s.high) + ' (median ' + round(s.median) + ')', 'EUR', 'published_reference', 'source example, 2017 prices, VAT incl., waterproofing excluded; not a local cost']);
+        var sc = res.reference_cost.scaled;
+        add(['explore reference', 'Hamburg extensive roofs scaled by area', round(sc.low) + ' to ' + round(sc.high) + ' (median ' + round(sc.median) + ')', 'EUR', 'published_reference', 'source example, 2017 prices, VAT incl., waterproofing excluded; reference costs from another place and year are not current local prices']);
       }
-      res.not_calculated.forEach(function (k) { rows.push(['explore not calculated', k, 'not calculated', '', '', X['nc_' + k + '_r'].en]); });
-    } else rows.push(['explore', 'status', 'not completed', '', '', '']);
-    rows.push(['note', '', E_label(), '', '', '']);
+      if (ex.sol === 'NBS02') add(['explore limitation', 'roof structural suitability', 'requires verification', '', '', X.roofStruct.en]);
+      res.not_calculated.forEach(function (k) { add(['explore not calculated', k, 'not calculated', '', '', X['nc_' + k + '_r'].en]); });
+    } else add(['explore', 'status', 'not completed', '', '', '']);
+    add(['note', '', E_label(), '', '', '']);
     return rows;
   }
   function round(n) { return Math.round(n * 100) / 100; }
@@ -609,8 +755,8 @@
   }
 
   window.NBS4MED_EXPLORE = {
-    render: render, ctaHtml: ctaHtml, reasonsHtml: reasonsHtml, candidates: candidates, csv: csv, print: print,
+    render: render, ctaHtml: ctaHtml, csv: csv, print: print, open: openSol,
     reportHtml: reportHtml, csvRows: csvRows, state: ex, label: function () { return x('demoLabel'); },
-    exploreTitle: function () { return x('exploreH'); }, whyNote: function () { return x('whyNote'); }
+    exploreTitle: function () { return x('exploreH'); }
   };
 })();
