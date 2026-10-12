@@ -47,3 +47,7 @@ The interface does not need to change when records or parameter values change.
 - Records of one study are not counted as independent studies.
 - Costs show currency, price year (none for demo values), scope and basis, and are never called local.
 - No login, no backend, no PySWMM.
+
+## Flat layout
+
+This copy keeps every file in one folder (no js/, data/, docs/ subfolders) so it can be uploaded through the GitHub web page. Script paths in index.html were changed accordingly. CALCULATIONS.md describes the same calculations.
