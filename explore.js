@@ -254,6 +254,10 @@
     sumMatchNote: { en: 'Options come from a provisional rule-based match to the selected risks. This is not a validated ranking, a feasibility check or a predicted impact.', ar: 'تأتي الخيارات من مطابقة مؤقتة قائمة على قواعد مع المخاطر المختارة. وهذا ليس ترتيبًا معتمدًا ولا فحصًا للجدوى ولا أثرًا متوقعًا.' },
     sumApp: { en: 'Applicability', ar: 'قابلية التطبيق' }, sumShared: { en: 'Shared applicability checks', ar: 'فحوص قابلية تطبيق مشتركة' },
     impl_reg: { en: 'Regulation', ar: 'الأنظمة' }, impl_stake: { en: 'Stakeholders', ar: 'أصحاب المصلحة' }, impl_tech: { en: 'Expertise', ar: 'الخبرة' }, impl_maint: { en: 'Maintenance', ar: 'الصيانة' }, impl_fund: { en: 'Funding', ar: 'التمويل' },
+    sumLimH: { en: 'Scientific limitations', ar: 'القيود العلمية' },
+    sumLim: { en: ['The existing NBS indicators use a provisional rubric prepared by the project team. It is not an official PROMEA scoring method, and the indicators are not combined into a score.', 'Preliminary matching exists only for heatwaves, flooding and drought, using provisional demo rules. It is not a feasibility check or an estimate of impact.', 'Costs are illustrative demo ranges, not local prices. Quantitative climate-risk mitigation impact is not currently estimated. Physical quantities and published reference evidence are shown separately.'],
+      ar: ['تستخدم مؤشرات الحلول القائمة قاعدة مؤقتة أعدّها فريق المشروع. وهي ليست طريقة تقييم رسمية لإطار PROMEA، ولا تُجمع المؤشرات في درجة.', 'توجد مطابقة أولية فقط للموجات الحارة والفيضانات والجفاف، وفق قواعد تجريبية مؤقتة. وهي ليست فحصًا للجدوى ولا تقديرًا للأثر.', 'التكاليف نطاقات تجريبية توضيحية وليست أسعارًا محلية. ولا يُقدَّر حاليًا الأثر الكمي للتخفيف من المخاطر المناخية. وتُعرض الكميات المادية والأدلة المرجعية المنشورة كلًّا على حدة.'] },
+    sumCalcH: { en: 'Supporting calculations and indicative cost', ar: 'الحسابات الداعمة والتكلفة الإرشادية' },
     repLevel: { en: 'Level', ar: 'المستوى' },
     prov: { en: 'provisional', ar: 'مؤقتة' },
     repNbsInd: { en: 'Existing NBS indicators', ar: 'مؤشرات الحلول القائمة' },
@@ -292,6 +296,8 @@
     if (o.base !== null && o.base !== undefined) s += ' (' + x('base') + ' ' + fmtN(o.base) + ')';
     return s;
   }
+  var UNITS_AR = { 'm³ (one event)': 'm³ (حدث واحد)', 'm³ per event': 'm³ لكل حدث', 'm³/year': 'm³/سنة', 'plants': 'نبتة', 'trees': 'شجرة', '% of one-event runoff volume': '% من حجم جريان حدث واحد', 'days/year': 'يوم/سنة', 'plants/m²': 'نبتة/m²', 'rows': 'صفوف', 'count': 'عدد', 'm² / trees': 'm² / شجرة' };
+  function unitT(u) { return L() === 'ar' && UNITS_AR[u] ? UNITS_AR[u] : u; }
   function eur(n) { return Number(Math.round(n)).toLocaleString('en-US'); }
   function pname(p) { return L() === 'ar' ? p.name_ar : p.name_en; }
   function solName(id) { var o = C().optByNbs(id); return o ? C().nm(o) : id; }
@@ -358,7 +364,7 @@
     var tag = d.default === null || d.default === undefined ? '<span class="tagq">' + (d.required ? x('required') : x('optional')) + '</span>'
       : '<span class="tagq' + (touched ? ' u' : '') + '" data-tag="' + d.id + '">' + (touched ? x('tagUser') : x('tagDefault')) + '</span>';
     return '<div class="exf"><label for="' + id + '">' + esc(label) + ' ' + tag + '</label>' +
-      '<div class="exrow"><input type="number" inputmode="decimal" id="' + id + '" data-in="' + d.id + '" step="any" value="' + (val === null || val === undefined ? '' : esc(val)) + '" aria-describedby="' + id + '-m ' + id + '-e"><span class="unit">' + esc(d.unit) + '</span></div>' +
+      '<div class="exrow"><input type="number" inputmode="decimal" id="' + id + '" data-in="' + d.id + '" step="any" value="' + (val === null || val === undefined ? '' : esc(val)) + '" aria-describedby="' + id + '-m ' + id + '-e"><span class="unit">' + esc(unitT(d.unit)) + '</span></div>' +
       '<div class="mean" id="' + id + '-m">' + esc(meaning) + '</div><div class="inline-err" id="' + id + '-e" role="alert"></div></div>';
   }
   function renderInputs() {
@@ -403,7 +409,7 @@
       if (o.unavailable && o.reason === 'no_catchment') note = '<div class="rnote">' + x('r_no_catchment') + '</div>';
       if (o.fraction) note = '<div class="rnote">' + x('fracNote')(o.fraction[0], o.fraction[1]) + '</div>';
       return '<tr><td><b>' + x('o_' + o.id) + '</b><div class="g">' + x('g_' + o.group) + '</div>' + note + '</td>' +
-        '<td class="num">' + fmtRange(o) + '</td><td>' + esc(o.unit) + '</td><td>' + basisTag(o.basis) + '</td></tr>';
+        '<td class="num">' + fmtRange(o) + '</td><td>' + esc(unitT(o.unit)) + '</td><td>' + basisTag(o.basis) + '</td></tr>';
     }).join('');
   }
   function outTable(list) {
@@ -509,7 +515,7 @@
       var v = res.inputs[d.id];
       var vs = d.type === 'boolean' ? (v ? '✓' : '–') : (v === null || v === undefined ? x('unavailable') : fmtN(v));
       var pv = res.provenance[d.id];
-      return '<tr><td>' + esc(L() === 'ar' ? d.label_ar : d.label_en) + '</td><td class="num">' + vs + (d.unit && d.type !== 'boolean' ? ' <span class="unit">' + esc(d.unit) + '</span>' : '') + '</td><td>' +
+      return '<tr><td>' + esc(L() === 'ar' ? d.label_ar : d.label_en) + '</td><td class="num">' + vs + (d.unit && d.type !== 'boolean' ? ' <span class="unit">' + esc(unitT(d.unit)) + '</span>' : '') + '</td><td>' +
         (pv === 'user_entered' ? x('tagUser') : pv === 'demo_default' ? x('tagDefault') : x('unavailable')) + '</td></tr>';
     }).join('');
     var used = {}, prm = '';
@@ -573,7 +579,7 @@
     var r = c.recFor(o.id); if (!r) return '';
     var h = '<div class="note fromA"><b>' + x('fromAssess') + ':</b> ';
     if (r.raw === 0) return h + esc(c.T('exNoWhy')) + '</div>';
-    h += x('matchL') + ': <b>' + r.s + ' / 100</b>. <span class="chip st-' + r.scr.status + '">' + esc(c.stLabel(r.scr.status)) + '</span>';
+    h += c.T('relRisk') + ': <b>' + esc(r.why.hit.map(function (z) { return c.nm(z.r); }).join('; ')) + '</b>. <span class="chip st-' + r.scr.status + '">' + esc(c.stLabel(r.scr.status)) + '</span>';
     if (r.scr.reasons.length) h += '<ul class="rl">' + r.scr.reasons.map(function (q) { return '<li>' + esc(c.pick(q.t)) + '</li>'; }).join('') + '</ul>';
     return h + '</div>';
   }
@@ -641,12 +647,12 @@
     var inp = def.inputs.filter(function (d) { return d.primary && d.type !== 'boolean'; }).map(function (d) {
       var v = res.inputs[d.id], pv = res.provenance[d.id], lab = esc(L() === 'ar' ? d.label_ar : d.label_en);
       if (v === null || v === undefined) return lab + ' <i>' + esc(x('sumNotEntered')) + '</i>';
-      return lab + ' <b><bdi dir="ltr">' + esc(fmtN(v)) + '</bdi></b>' + (d.unit ? ' ' + esc(d.unit) : '') + ' (' + esc(pv === 'user_entered' ? x('tagUser') : x('tagDefault')) + ')';
+      return lab + ' <b><bdi dir="ltr">' + esc(fmtN(v)) + '</bdi></b>' + (d.unit ? ' ' + esc(unitT(d.unit)) : '') + ' (' + esc(pv === 'user_entered' ? x('tagUser') : x('tagDefault')) + ')';
     });
     return '<p class="exbasis"><b>' + x('sumInputs') + ':</b> ' + inp.join(' · ') + '</p>';
   }
   function kvs(o) {
-    return '<div class="kvs"><span>' + esc(x('o_' + o.id)) + '</span><span>' + (o.unavailable ? '<i>' + esc(x('unavailable')) + '</i>' : '<b><bdi dir="ltr">' + esc(fmtRange(o)) + '</bdi></b> ' + esc(o.unit)) + ' <em>' + esc(x('basis_' + o.basis)) + '</em></span></div>' +
+    return '<div class="kvs"><span>' + esc(x('o_' + o.id)) + '</span><span>' + (o.unavailable ? '<i>' + esc(x('unavailable')) + '</i>' : '<b><bdi dir="ltr">' + esc(fmtRange(o)) + '</bdi></b> ' + esc(unitT(o.unit))) + ' <em>' + esc(x('basis_' + o.basis)) + '</em></span></div>' +
       (o.unavailable && o.reason === 'small_event' ? '<div class="note-s">' + esc(x('r_small_event')) + '</div>' : '') + (o.unavailable && o.reason === 'no_catchment' ? '<div class="note-s">' + esc(x('r_no_catchment')) + '</div>' : '');
   }
   var PHYS = ['quantity', 'context', 'storage_capacity', 'event_volume'], OPS = ['resource'], PERF = ['event_retention', 'volume_balance'];
@@ -820,6 +826,7 @@
       return [esc(t(cx)), esc(oo ? (L() === 'ar' ? oo[2] : oo[1]) : T('notStated'))];
     }).concat([[esc(T('stRisk')), esc(c.riskText())]]));
     h += '<h4>' + esc(T('methA')) + '</h4><ul>' + c.methA().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
+    var yn = function (v) { return v === 'yes' ? T('yes') : v === 'no' ? T('no') : v === 'unknown' ? T('unk') : '–'; };
     /* 3. applicability checks (optional, answered after the results) */
     h += '<h2>3. ' + x('repScreen') + '</h2><p class="note-s">' + esc(T('chkNote')) + '</p>';
     var checked = R.all.filter(function (q) { return q.scr.status !== 'unchecked'; });
@@ -841,7 +848,7 @@
         R.na.map(function (q) { return [esc(t(q.o)), esc(c.catText(q.o)), esc(T('exNA')), esc(q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' '))]; })
           .concat(R.other.map(function (q) { return [esc(t(q.o)), esc(c.catText(q.o)), esc(T('otherH')), esc(q.raw === 0 ? T('exNoWhy') : T('exZeroWhy'))]; })));
     }
-    h += '<h4>' + esc(T('methB')) + '</h4><ul>' + c.methB().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' + c.weightsTable();
+    h += '<h4>' + esc(T('methB')) + '</h4><ul>' + c.methB().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' + c.weightsTable() + '<h4>' + esc(T('promH')) + '</h4><p class="note-s">' + esc(T('promNote')) + '</p>' + c.promTable();
     /* implementation considerations */
     var implAll = c.OPT.filter(function (o) { return c.IMPL.some(function (k) { return c.implVal(o, k); }); });
     if (implAll.length) h += '<h3>' + esc(x('repImplH')) + '</h3>' + tbl([T('option')].concat(c.IMPL.map(function (k) { return esc(x('impl_' + k)); })), implAll.map(function (o) { return [esc(t(o))].concat(c.IMPL.map(function (k) { return esc(c.implLabel(c.implVal(o, k))); })); }));
@@ -889,6 +896,7 @@
       h += '<div class="ps-two"><div class="ps-box"><b>' + esc(x('sumCompl')(g.scored, g.unk, g.un, 0)) + '</b></div>' +
         '<div class="ps-box">' + esc(x('sumConf')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + '. ' + esc(x('sumConfNote')) + '</div></div>';
     } else h += '<p class="ps-sub">' + esc(g.status === 'absent' ? T('nbsNo') : T('nbsUn')) + '</p>';
+    h += '<h2 class="ps-h">' + esc(x('sumLimH')) + '</h2><ul class="ps-areas">' + x('sumLim').map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>';
     return h + '<div class="ps-foot"><span>' + x('sumFoot1') + '</span><b>' + x('sumPage')(1) + '</b></div></section>';
   }
   function evRef(sol, id) {
@@ -898,7 +906,7 @@
   function sumRoofText() { var rs = C().roofStruct(); return rs === 'confirmed' ? x('sumRoofOk') : rs === 'unsuitable' ? x('sumRoofNo') : x('sumRoof'); }
   var QTY_GROUPS = ['quantity', 'resource', 'context', 'storage_capacity', 'event_volume', 'volume_balance'];
   function sumExplore() {
-    var c = C(), h = '<h2 class="ps-h">' + esc(x('exploreH')) + '</h2>';
+    var c = C(), h = '<h2 class="ps-h">' + esc(x('sumCalcH')) + '</h2>';
     var b = ex.sol && ex.by[ex.sol];
     if (!b) return h + '<p>' + x('sumExNone') + '</p>';
     var res = E.calculate(ex.sol, b.vals, b.touched, b.prices);   /* always the current solution and current inputs */
@@ -909,12 +917,12 @@
       var v = res.inputs[d.id], pv = res.provenance[d.id];
       var lab = esc((L() === 'ar' ? d.label_ar : d.label_en));
       if (v === null || v === undefined) return lab + ' <i>' + esc(x('sumNotEntered')) + '</i>';
-      return lab + ' <b>' + ltr(esc(fmtN(v))) + '</b>' + (d.unit ? ' ' + esc(d.unit) : '') + ' (' + esc(pv === 'user_entered' ? x('tagUser') : x('tagDefault')) + ')';
+      return lab + ' <b>' + ltr(esc(fmtN(v))) + '</b>' + (d.unit ? ' ' + esc(unitT(d.unit)) : '') + ' (' + esc(pv === 'user_entered' ? x('tagUser') : x('tagDefault')) + ')';
     });
     h += '<p class="ps-in"><b>' + x('sumInputs') + ':</b> ' + inp.join(' · ') + '</p>';
     if (ex.sol === 'NBS02') h += '<div class="ps-lim ps-warn"><b>' + esc(sumRoofText()) + '</b></div>';
     function val(o) {
-      return o.unavailable ? '<i>' + esc(x('unavailable')) + '</i>' : '<b>' + ltr(esc(fmtRange(o))) + '</b> ' + esc(o.unit);
+      return o.unavailable ? '<i>' + esc(x('unavailable')) + '</i>' : '<b>' + ltr(esc(fmtRange(o))) + '</b> ' + esc(unitT(o.unit));
     }
     function li(o) { return '<div class="ps-kv"><span>' + esc(x('o_' + o.id)) + '</span><span>' + val(o) + ' <em>' + esc(x('basis_' + o.basis)) + '</em></span></div>'; }
     var Q = res.outputs.filter(function (o) { return QTY_GROUPS.indexOf(o.group) >= 0; }), I = res.outputs.filter(function (o) { return QTY_GROUPS.indexOf(o.group) < 0; });

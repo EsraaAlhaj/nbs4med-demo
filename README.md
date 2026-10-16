@@ -106,3 +106,7 @@ Unknown and unanswered values are never exported or drawn as zero. The charts ar
 This copy keeps every file in one folder (no js/, data/, docs/ subfolders) so it can be uploaded through the GitHub web page. Script paths in index.html were changed accordingly. CALCULATIONS.md describes the same calculations.
 
 **Site context and local climate risks.** Step 2 asks for urban density and public land available for NBS (Limited, Moderate, Abundant or Unknown). Step 3 lists five risks aligned with PROMEA (heatwaves, flooding, drought, coastal storms, land degradation) plus a mutually exclusive Not Sure option. The provisional demo weights exist only for heatwaves, flooding and drought and have not been validated by PROMEA. NBS matching is not produced, and no score or ranking is exported, when Coastal Storms, Land Degradation or Not Sure is selected, or when public land availability is Unknown. Climate type is not used yet; it is a methodology item for later integration.
+
+## Demonstration and quality assurance
+
+`DEMO_VIDEO_PACKAGE.md` holds the illustrative İzmir Green Roof demonstration scenario with exact inputs and expected outputs, a storyboard, an English voice-over script and recording instructions. All demonstration inputs are hypothetical.

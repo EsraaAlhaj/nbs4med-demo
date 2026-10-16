@@ -121,7 +121,6 @@ var RULE={
  wet:{chk:['wet.catch','wet.space','wet.safety'],fatal:['wet.catch','wet.space']},
  dune:{chk:['dune.coast'],fatal:['dune.coast']}
 };
-function optById(id){return OPT.filter(function(o){return o.id===id})[0]}
 function optByNbs(n){return OPT.filter(function(o){return o.nbs===n})[0]}
 
 /* ---------- strings ---------- */
@@ -193,7 +192,7 @@ cfL:{en:'Strength of evidence for this answer',ar:'قوة الأدلة المؤ�
  mUnass:{en:function(n){return 'Matching rules for '+n+' have not been defined and require methodology review. No match score or ranking is shown.'},ar:function(n){return 'لم تُحدَّد قواعد المطابقة الخاصة بـ '+n+' وهي تحتاج إلى مراجعة منهجية. لا تُعرض درجة مطابقة ولا ترتيب.'}},
  mLand:{en:'Public land availability is unknown. Matching needs this information, so no match score or ranking is shown.',ar:'توفر الأراضي العامة غير معروف. تحتاج المطابقة إلى هذه المعلومة، لذا لا تُعرض درجة مطابقة ولا ترتيب.'},
  mNoCtx:{en:'Urban density and public land availability are required for matching.',ar:'الكثافة العمرانية وتوفر الأراضي العامة مطلوبان للمطابقة.'},
- chkNote:{en:'Screening only, not engineering approval. These checks do not change the assessment score or the match score. Answers about planting space, soil and water are shared by the planting-based options.',ar:'فرز أولي وليس اعتمادًا هندسيًا. لا تغيّر هذه الفحوص درجة التقييم ولا درجة المطابقة. تُشارَك الإجابات عن مساحة الزراعة والتربة والمياه بين الخيارات القائمة على الزراعة.'},
+ chkNote:{en:'Screening only, not engineering approval. These checks do not change the existing NBS description or the preliminary match. Answers about planting space, soil and water are shared by the planting-based options.',ar:'فرز أولي وليس اعتمادًا هندسيًا. لا تغيّر هذه الفحوص وصف الحلول القائمة ولا المطابقة الأولية. تُشارَك الإجابات عن مساحة الزراعة والتربة والمياه بين الخيارات القائمة على الزراعة.'},
  evalP:{en:'Score each indicator for the assessed area as it is today, not as planned.',ar:'قيّم كل مؤشر للمنطقة المقيَّمة بحسب وضعها اليوم لا المخطط له.'},
  forArea:{en:function(n){return 'Answering for: '+n},ar:function(n){return 'الإجابة عن: '+n}},
  optionalHint:{en:'Select all that apply.',ar:'اختر كل ما ينطبق.'},
@@ -327,6 +326,31 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
   'لم يُستخدم نوع المناخ بعد في المطابقة. سيُنظر فيه عند توفر معلومات موثقة خاصة بالموقع وقواعد قرار.',
   'لا يُستخدم توفر الأراضي العامة دليلًا على توفر سطح. تُفحص الأسطح بشكل منفصل في فحوص قابلية التطبيق.',
   'الفرز: لا ينطبق الخيار إلا عندما يُجاب بـ «لا» عن شرط أساسي (مثل عدم وجود سطح أو ساحل أو مصدر جريان). «غير معروف»، أو «لا» عن شرط يمكن تقييمه أو تصميمه (مثل الملاءمة الإنشائية)، يعني «يتطلب تحققًا».']},
+ promH:{en:'Working alignment with the ten PROMEA considerations',ar:'المواءمة العملية مع اعتبارات PROMEA العشرة'},
+ promNote:{en:'Working framework used by the project team. This is not a formal PROMEA validation. Items marked Pending are not yet operational in this prototype.',ar:'إطار عمل يستخدمه فريق المشروع. وهذا ليس اعتمادًا رسميًا من PROMEA. البنود المعلّمة «قيد الانتظار» غير مفعّلة بعد في هذا النموذج.'},
+ promCols:{en:['Consideration','Status in this prototype'],ar:['الاعتبار','الحالة في هذا النموذج']},
+ prom:{en:[
+  ['Climate Risks','Step 3 offers five risks. Provisional matching rules exist only for heatwaves, flooding and drought.'],
+  ['Climate Type','Pending. Not asked and not inferred. Needs verified location-specific information and decision rules.'],
+  ['Urban Context','Step 2: urban density and public land availability, as qualitative answers.'],
+  ['NBS Categories','Provisional labels on each option. They do not affect matching.'],
+  ['Cost','Indicative demo cost ranges for five of the nine options. Not local prices.'],
+  ['Stakeholders','Optional question for each solution. Not scored.'],
+  ['Regulations','Optional question for each solution. Not scored.'],
+  ['Technical Expertise','Optional question for each solution. Not scored.'],
+  ['Maintenance','Optional question for each solution, and an annual maintenance cost range for supported options.'],
+  ['Evaluation','Pending. No monitoring or evaluation module. Step 4 describes existing NBS and is a prototype design of the project team.']],
+ ar:[
+  ['المخاطر المناخية','تتيح الخطوة 3 خمسة مخاطر. وقواعد المطابقة المؤقتة موجودة فقط للموجات الحارة والفيضانات والجفاف.'],
+  ['نوع المناخ','قيد الانتظار. لا يُسأل عنه ولا يُستنتج. يحتاج إلى معلومات موثقة خاصة بالموقع وقواعد قرار.'],
+  ['السياق الحضري','الخطوة 2: الكثافة العمرانية وتوفر الأراضي العامة، كإجابتين نوعيتين.'],
+  ['فئات الحلول','تسميات مؤقتة لكل خيار. ولا تؤثر في المطابقة.'],
+  ['التكلفة','نطاقات تكلفة تجريبية إرشادية لخمسة من الخيارات التسعة. وهي ليست أسعارًا محلية.'],
+  ['أصحاب المصلحة','سؤال اختياري لكل حل. ولا يُحتسب.'],
+  ['الأنظمة والتشريعات','سؤال اختياري لكل حل. ولا يُحتسب.'],
+  ['الخبرة الفنية','سؤال اختياري لكل حل. ولا يُحتسب.'],
+  ['الصيانة','سؤال اختياري لكل حل، ونطاق تكلفة صيانة سنوية للخيارات المدعومة.'],
+  ['التقييم','قيد الانتظار. لا توجد وحدة رصد أو تقييم. وتصف الخطوة 4 الحلول القائمة وهي تصميم أولي من فريق المشروع.']]},
  wTitle:{en:'Provisional risk weights (0 to 3)',ar:'أوزان المخاطر المؤقتة (0 إلى 3)'},
  costP:{en:'Enter the area you could treat and a time horizon. Ranges are for early planning only.',ar:'أدخل المساحة التي يمكن معالجتها وأفقًا زمنيًا. النطاقات للتخطيط المبكر فقط.'},
  fbH:{en:'Feedback for project partners',ar:'ملاحظات لشركاء المشروع'},
@@ -407,7 +431,6 @@ function matchMessages(l){
   });
   return {title:S.mNA[L],items:out,ok:m.ok};
 }
-function indById(id){return IND.filter(function(i){return i.id===id})[0]}
 function blank(s){return !s||!String(s).trim()}
 
 /* answer states: scored (0, 1, 2), unknown ('U'), na ('NA'), unanswered (undefined) */
@@ -419,7 +442,6 @@ function indDone(){return nbsOk()}
 function pilotOf(id){return PILOTS.filter(function(p){return p.id===id})[0]}
 function areaOk(){var s=st.scope;return !!pilotOf(s.area)||(s.area==='other'&&!blank(s.mName)&&!blank(s.mCountry)&&!blank(s.mCity))}
 function scaleOk(){return !!st.scope.type}
-function scopeOk(){return areaOk()&&scaleOk()}
 function areaName(l){var s=st.scope,p=pilotOf(s.area);return p?p.name[(l||lang)==='ar'?1:0]:(s.area==='other'?(s.mName||'').trim():'')}
 function areaCountry(l){var s=st.scope,p=pilotOf(s.area);return p?p.country[(l||lang)==='ar'?1:0]:(s.area==='other'?(s.mCountry||'').trim():'')}
 function areaCity(l){var s=st.scope,p=pilotOf(s.area);return p?(p.city?p.city[(l||lang)==='ar'?1:0]:''):(s.area==='other'?(s.mCity||'').trim():'')}
@@ -443,10 +465,10 @@ var AR={
  eyebrow:'مشروع إنتربرغ نكست ميد · الجامعة الأردنية',
  h1:'أداة التقييم الذاتي للحلول القائمة على الطبيعة في المدن المتوسطية',
  lead:'قيّموا مدى دمج الحلول القائمة على الطبيعة في مدينتكم، واطّلعوا على الخيارات الأنسب لمخاطركم المناخية، مع نطاقات إرشادية للأثر والتكلفة.',
- f1:'نحو 10 دقائق',f2:'أربع خطوات',f3:'دون حاجة إلى تسجيل',
+ f1:'فحوص وحاسبات اختيارية',f2:'أربع خطوات',f3:'دون حاجة إلى تسجيل',
  start:'ابدأ التقييم',startNote:'لا تُحفظ النتائج. حمّل التقرير قبل إغلاق الصفحة.',
  whatH:'ما هذه الأداة',whatP:'أداة مجانية على الإنترنت لها أربع مهام: تبيّن مدى دمج الحلول القائمة على الطبيعة في منطقة محددة، وتقترح حلولًا تناسب المخاطر المناخية المحلية، وتقيّم أثرها المحتمل في التخفيف من هذه المخاطر حيث تتوفر طرق وأدلة داعمة، وتعطي تقديرات إرشادية للتكلفة. موجّهة إلى الشركاء والسلطات العامة والمنظمات التي تخطط للحلول القائمة على الطبيعة أو تنفذها.',
- whyH:'لماذا تهم',whyP:'تخفف الحلول القائمة على الطبيعة الحرارة والفيضانات والجفاف في المدن المتوسطية، لكن اعتمادها الأوسع تعيقه فجوات المعرفة وضعف إشراك أصحاب المصلحة المحليين وقلة الخبرة في تخطيطها وتنسيقها. يبيّن التقييم مواضع القوة والفجوات لتخطيط حلول مناسبة قبل الالتزام بالموارد.',
+ whyH:'لماذا تهم',whyP:'تخفف الحلول القائمة على الطبيعة الحرارة والفيضانات والجفاف في المدن المتوسطية، لكن اعتمادها الأوسع تعيقه فجوات المعرفة وضعف إشراك أصحاب المصلحة المحليين وقلة الخبرة في تخطيطها وتنسيقها. تصف الأداة الحلول القائمة في المنطقة، وتقترح خيارات تناسب المخاطر المناخية المحلية، وتبيّن الكميات والتكاليف التي يمكن تقديرها حاليًا، ليتمكن الشركاء من التخطيط قبل الالتزام بالموارد.',
  devBy:'طورتها الجامعة الأردنية ضمن مشروع NBS4MED (حلول قائمة على الطبيعة لمدن متوسطية قادرة على التكيف مع المناخ)، بتمويل مشترك من الاتحاد الأوروبي عبر برنامج إنتربرغ نكست ميد. يختبر شركاء المشروع هذه النسخة وتشكّل ملاحظاتهم النسخة المحسّنة.',
  howH:'كيف تعمل',s1h:'ابدأ',s1p:'افتح الأداة. لا حاجة إلى حساب أو تسجيل دخول.',s2h:'أجب',s2p:'حدّد منطقة التقييم، وصِف الموقع، واختر المخاطر المناخية المحلية، ثم صِف الحلول القائمة على الطبيعة.',
  s3h:'احصل على النتائج',s3p:'اطّلع على حالة الحلول القائمة والخيارات الأولية والحسابات الداعمة، ثم افحص الخيارات واستكشفها.',s4h:'حمّل وحسّن',s4p:'احفظ تقريرًا بصيغة PDF أو CSV، وعدّل إجاباتك وأعد التشغيل.',
@@ -564,7 +586,6 @@ function recs(){
   return {ranked:ranked,na:na,other:rest.filter(function(x){return x.s===0}),all:all};
 }
 function recFor(id){var r=recs().all.filter(function(x){return x.o.id===id})[0];if(r)r.conds=conds(r.o);return r}
-function suitIdx(s){return s>=60?0:s>=35?1:2}
 function meter(n,of){var h='<span class="meter" aria-hidden="true">';for(var i=0;i<of;i++)h+='<i class="'+(i<n?'on':'')+'"></i>';return h+'</span>'}
 function stLabel(s){return s==='cand'?T('stCand'):s==='verify'?T('stVer'):s==='na'?T('stNA2'):T('stUn')}
 
@@ -816,7 +837,10 @@ function detailsTable(){
 /* one methodology section: existing NBS indicators and the provisional match method */
 function methodologyHtml(){
   return dtl('meth',T('methAll'),'<h4 class="subh2">'+T('methA')+'</h4><ul class="meth">'+S.methAL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>'+
-    '<h4 class="subh2">'+T('methB')+'</h4><ul class="meth">'+S.methBL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul><h4 class="subh2">'+T('wTitle')+'</h4>'+weightsTable(),false);
+    '<h4 class="subh2">'+T('methB')+'</h4><ul class="meth">'+S.methBL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul><h4 class="subh2">'+T('wTitle')+'</h4>'+weightsTable()+'<h4 class="subh2">'+T('promH')+'</h4><p class="note-s">'+T('promNote')+'</p>'+promTable(),false);
+}
+function promTable(){
+  return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>'+esc(S.promCols[lang][0])+'</th><th>'+esc(S.promCols[lang][1])+'</th></tr></thead><tbody>'+S.prom[lang].map(function(r){return '<tr><td><b>'+esc(r[0])+'</b></td><td>'+esc(r[1])+'</td></tr>'}).join('')+'</tbody></table></div>';
 }
 function weightsTable(){
   return '<div class="tbl-wrap"><table class="tbl"><caption class="sr">'+T('wTitle')+'</caption><thead><tr><th>'+T('option')+'</th>'+RISK.filter(function(r){return MATCHABLE.indexOf(r.k)>=0}).map(function(r){return '<th class="num">'+esc(nm(r))+'</th>'}).join('')+'</tr></thead><tbody>'+
@@ -841,7 +865,6 @@ function screenHtml(x){
 }
 /* provisional category (display only) */
 function catText(o){var t=pick(CATS[o.cat]);if(o.cat2)t+=' · '+pick(CATS[o.cat2]);return t}
-function catLine(o){return '<p class="catline"><b>'+T('catL')+':</b> '+esc(catText(o))+' <span class="soft">('+T('catProv')+')</span></p>'}
 /* applicability checks: one small panel per solution, opened from the results page. Answers live in st.scr and are shared
    by key, so opening, closing or switching panels never loses them. */
 function chkBtn(o,reopen){
@@ -921,12 +944,6 @@ function sectionB(){
     h+='<div class="ocards">'+top.map(function(q){return optCard(q,sharedChk)}).join('')+'</div>'+sharedBox(top,sharedChk)+'<p class="note-s">'+T('matchNote')+'</p>';
   }
   return h+otherHtml(R)+'</section>';
-}
-/* cost and impact exploration: direct access; the last explored solution stays available */
-function sectionC(){
-  var X=window.NBS4MED_EXPLORE,last=X.lastSolution();
-  return '<section class="rs no-print" aria-labelledby="coH"><h2 id="coH">'+X.exploreTitle()+'</h2><p class="sub">'+T('exSecP')+'</p>'+
-    '<button class="btn btn-primary" type="button" id="openExplore"><span>'+X.ctaLabel()+'</span>'+ico('arrow','flip')+'</button>'+(last?'<p class="note-s">'+esc(T('lastEx')(last))+'</p>':'')+'</section>';
 }
 /* sections 3 and 4: supporting calculations and cost. Direct access to the calculators; an explored solution stays available. */
 function sectionC(){
@@ -1172,7 +1189,7 @@ function setLang(l){
 window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,pick:pick,integ:integ,nbsTypes:nbsTypes,lvLabel:lvLabel,implQ:implQ,implVal:implVal,implLabel:implLabel,IMPL:IMPL,recs:recs,recFor:recFor,
   riskList:riskList,riskOk:riskOk,riskText:riskText,matchStatus:matchStatus,matchMessages:matchMessages,UNSURE:UNSURE,indDone:indDone,allComplete:allComplete,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,OPT:OPT,CHK:CHK,
   nav:nav,ansLabel:ansLabel,ansCsv:ansCsv,ansState:ansState,cfLabel:cfLabel,confCounts:confCounts,scopeTypeLabel:scopeTypeLabel,areaName:areaName,areaCountry:areaCountry,areaCity:areaCity,
-  rubricText:rubricText,stLabel:stLabel,whyText:whyText,optByNbs:optByNbs,weightsTable:weightsTable,
+  rubricText:rubricText,stLabel:stLabel,whyText:whyText,optByNbs:optByNbs,weightsTable:weightsTable,promTable:promTable,
   chkKeys:chkKeys,chkVal:chkVal,roofStruct:roofStruct,catText:catText,CATS:CATS,RULE:RULE,methA:function(){return S.methAL[lang]},methB:function(){return S.methBL[lang]},
   isNum:isNum,today:today,fillSample:fillSample,renderAssess:renderAssess,freshState:freshState,setState:function(n){st=n;window.NBS4MED_CORE.st=n}};
 
