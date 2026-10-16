@@ -50,16 +50,16 @@ The interface does not need to change when records or parameter values change.
 
 ## Assessment logic (provisional, for partner review)
 
-**Eight stages.** 1 Assessment scope, 2 Site context, 3 Climate risks and environmental challenges, then 4 to 8 the five criteria C1 to C5 (14 indicators, 0 to 2 scale). Results can be viewed as soon as these eight stages are complete.
+**Four steps.** 1 Assessment Area, 2 Site Context, 3 Local Climate Risks, 4 Existing NBS Integration. After Step 4 the Results page opens. Applicability checks and cost and impact exploration are optional and follow the results. The four-step workflow and the three existing-NBS indicators are UJ prototype design decisions, not officially approved PROMEA scoring rules.
 
-**Results page.** Three sections: assessment summary (one criteria chart, completeness and confidence, up to three improvement areas), preliminary NBS options (up to three compact cards; extra options and detail are collapsed) and cost and impact exploration. Collapsed sections on screen are always included in the downloadable reports. The calculators' formulas, defaults and units are unchanged; the cost range chart appears only when a valid lower and upper estimate exist.
+**Results page.** Four sections that follow the four functions of the tool: Existing NBS Integration; Preliminary NBS options (up to three compact cards with relevant risk, limitation and a Check this solution action); Potential Climate Impact and Supporting Calculations; Indicative Cost and Implementation Considerations. Collapsed sections on screen are always included in the downloadable reports.
 
 **Three separate things.** They never feed into each other:
 
 | What | Where it comes from | What it is |
 |---|---|---|
-| Assessment score | The 14 indicator answers | Criterion profile and overall score, with provisional project thresholds |
-| Matching score | Selected risks and site context (density, public land) | Rule-based match out of 100 for each of the nine NBS options. Not a probability of success or an expected impact |
+| Existing NBS integration | Step 4: existing NBS (Yes, No, Not sure), optional types, and three indicators on a provisional 0 to 2 rubric | Described one by one. No overall score, percentage or level. No and Not sure are recorded as reported absence and insufficient information, never as 0 |
+| Preliminary matching | Selected risks and site context (density, public land) | Provisional rule-based match for heatwaves, flooding and drought only. Shown as the risks an option is relevant to and a list order. No numeric score on the results page. Not a probability of success, a feasibility check or an expected impact |
 | Applicability status | Optional checks on the results page | Not yet checked, Requires verification, Preliminary candidate, Not applicable. Screening only, not engineering approval |
 
 **Applicability checks (after the results).** Each recommendation card, ranked row, excluded option and other option has a **Check this solution** button that opens a small panel on the same page. Only the checks relevant to that solution are shown, and a dependent question is hidden when its prerequisite is answered No. Answers are kept per question, so closing, reopening or switching panels never loses them. Questions about planting space, soil and water are genuinely shared by the urban forest, green corridor, pocket park and eco-park, so they are asked once. Roof, rain garden, paving, basin, shoreline and eco-park space questions belong to their own solution. Nothing is saved between visits.
@@ -72,7 +72,7 @@ Statuses: *Not yet checked* (no relevant answer), *Requires verification* (incom
 
 **Solution categories (provisional, display only).** Green infrastructure, Blue-green water management, Ecosystem restoration, Hybrid/integrated solutions, with an optional secondary category. Several depend on design. Categories do not affect matching, scoring or calculator selection.
 
-**Other rules kept.** Unknown is missing information, never 0. Not applicable needs a justification and is left out of the denominator. The overall percentage is hidden while any indicator is Unknown. Funding, maintenance and technical-capacity gaps are shown as implementation conditions and do not change any score.
+**Other rules kept.** Unknown is missing information, never 0. Evidence strength (documented, staff estimate, informal judgement) is recorded separately from each indicator answer. Policy, regulation, stakeholder, technical-expertise, maintenance and funding considerations are no longer mandatory questions. They are optional, solution-specific implementation considerations inside each Check this solution panel. They never change an applicability status.
 
 ### Mapping to the draft framework
 
@@ -80,15 +80,15 @@ This table covers only the elements named in the update request. It is not a cla
 
 | Element | Status in this prototype |
 |---|---|
-| Five criteria and 14 indicators (provisional rubric) | Existing coverage |
+| Existing NBS integration (status question and three provisional indicators) | Prototype design, not an official PROMEA scoring rule |
 | Applicability checks for each of the nine solutions | Existing coverage (optional, after the results) |
 | Climate risks and environmental challenges (six, multi-select) | Partial: no primary-risk selector |
 | Solution categories | Partial: provisional labels on the nine options |
 | Impact and cost exploration | Partial: five of the nine options have a calculator |
-| NGO involvement | Partial: named in indicator 4.2 |
+| NGO involvement | Not a separate question; covered by the stakeholder consideration in each solution check |
 | Climate type | Not implemented in this prototype |
 | Primary-risk selector, country or city fields | Missing |
-| Readiness questionnaire beyond the 14 indicators | Missing |
+| Institutional readiness questionnaire (former C2 to C5) | Replaced by optional implementation considerations per solution |
 | Monitoring forms | Missing |
 | Budget inputs and budget comparison | Missing |
 
@@ -96,10 +96,10 @@ This table covers only the elements named in the update request. It is not a cla
 
 The results page and the cost and impact page offer two print options:
 
-- **Summary report — 2 pages** (default). A4 portrait. Page 1 is the assessment summary: area, scale and date, site context, a bar chart of C1 to C5 on a fixed 0 to 100% axis (C1 current integration shown apart from C2 to C5 enabling conditions), the overall score as secondary information, completeness, confidence (kept separate from completeness), and up to three selected improvement areas. Page 2 is the preliminary NBS options: a bar chart of up to three match indexes on a fixed 0 to 100 axis with the applicability status, shared implementation conditions shown once, and, only when a calculation is valid, the explored solution with its cost and impact outputs. Otherwise it says "Cost and impact exploration not completed."
+- **Summary report — 2 pages** (default). A4 portrait. Page 1: area, scale and date, site context, existing NBS status, the three indicators described one by one (no score), completeness and evidence strength. Page 2: up to three preliminary options with relevant risk, applicability status and limitation, and the explored solution's physical quantities, literature reference evidence and cost range where a valid calculation exists. When matching is not assessed the page says so instead of listing options.
 - **Detailed report.** The full report with all indicator answers, methodology, weights, screening and calculator tables.
 
-Unknown, unanswered and Not applicable are never plotted as zero: a criterion without a percentage shows its status instead of a bar. Improvement areas are chosen in a fixed order (scores of 0, then 1, then Unknown, in indicator order; capital and maintenance funding are combined). This is not a validated priority ranking. The charts are inline SVG and work offline. Printing does not change any answer or result. Browser print settings for headers, footers and background graphics do not affect the layout.
+Unknown and unanswered values are never exported or drawn as zero. The charts are inline SVG and work offline.
 
 ## Flat layout
 

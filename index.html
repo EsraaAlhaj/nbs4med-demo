@@ -499,6 +499,17 @@ details.adv h3{margin-top:10px}
 .sbox p{margin:4px 0 0}
 .impl{margin:6px 0 4px;padding-inline-start:22px}
 .impl li{margin:0 0 8px}
+.stline{margin:12px 0 8px;font-size:16px}
+.irows{list-style:none;margin:12px 0 0;padding:0}
+.irow{padding:10px 0;border-top:1px solid var(--line)}
+.irow:last-child{border-bottom:1px solid var(--line)}
+.irow .iname{font-size:15.5px}
+.irow .ilv{margin-top:4px;display:flex;align-items:center;gap:10px;font-size:15.5px}
+.irow .note-s{margin:4px 0 0}
+.lvm{display:inline-flex;gap:3px}
+.lvm i{display:inline-block;width:16px;height:10px;border:1px solid #6F7B74;background:#fff}
+.lvm i.on{background:var(--g800);border-color:var(--g800)}
+.impl dd{margin:0}
 .ocards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;align-items:start}
 .oc{border:1px solid var(--line);padding:16px 18px;background:#fff}
 .och{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -682,7 +693,7 @@ details.adv h3{margin-top:10px}
         <p class="lead" data-i18n="lead">Check how well nature-based solutions are integrated in your city, see which options fit your climate risks, and get indicative impact and cost ranges.</p>
         <ul class="facts">
           <li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="f1">About 10 minutes</span></li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg><span data-i18n="f2">14 indicators, 5 criteria</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg><span data-i18n="f2">Four steps</span></li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="f3">No registration needed</span></li>
         </ul>
         <div class="hero-cta">
@@ -734,7 +745,7 @@ details.adv h3{margin-top:10px}
     <div class="wrap about">
       <div>
         <h2 id="about-h" data-i18n="whatH">What is the tool</h2>
-        <p data-i18n="whatP">A free online tool with four jobs: it shows how far nature-based solutions (NBS) are integrated in a specific area, suggests NBS that fit local climate risks, assesses their potential to reduce those risks, and estimates their costs. It is meant for partners, public authorities and other organisations that plan or implement NBS.</p>
+        <p data-i18n="whatP">A free online tool with four jobs: it shows how far nature-based solutions (NBS) are integrated in a specific area, suggests NBS that fit local climate risks, assesses their potential climate-risk mitigation impact where supported by available methods and evidence, and gives indicative cost estimates. It is meant for partners, public authorities and other organisations that plan or implement NBS.</p>
       </div>
       <div>
         <h2 data-i18n="whyH">Why it matters</h2>
@@ -749,8 +760,8 @@ details.adv h3{margin-top:10px}
       <h2 id="how-h" data-i18n="howH">How it works</h2>
       <ol class="steps4">
         <li><span class="n">1</span><h3 data-i18n="s1h">Start</h3><p data-i18n="s1p">Open the tool. No account or login is needed.</p></li>
-        <li><span class="n">2</span><h3 data-i18n="s2h">Answer</h3><p data-i18n="s2p">Define the assessed area, pick climate risks and environmental challenges, then score 14 indicators from 0 to 2, or mark them Unknown or Not applicable.</p></li>
-        <li><span class="n">3</span><h3 data-i18n="s3h">Get results</h3><p data-i18n="s3p">See your criterion profile, strengths and gaps, then NBS options that suit your risks.</p></li>
+        <li><span class="n">2</span><h3 data-i18n="s2h">Answer</h3><p data-i18n="s2p">Select the assessment area, describe the site, choose the local climate risks and describe the existing NBS.</p></li>
+        <li><span class="n">3</span><h3 data-i18n="s3h">Get results</h3><p data-i18n="s3p">See the status of existing NBS, preliminary NBS options and supporting calculations, then check and explore the options.</p></li>
         <li><span class="n">4</span><h3 data-i18n="s4h">Download &amp; improve</h3><p data-i18n="s4p">Save a PDF or CSV report, adjust answers and run it again.</p></li>
       </ol>
     </div>
