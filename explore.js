@@ -210,7 +210,10 @@
     repScope: { en: 'Assessment scope', ar: 'نطاق التقييم' },
     repCompl: { en: 'Completeness and confidence', ar: 'الاكتمال والثقة' },
     repScreen: { en: 'Applicability screening', ar: 'فرز قابلية التطبيق' },
-    repNotRanked: { en: 'Options not shortlisted', ar: 'خيارات غير مُدرجة في القائمة' }
+    repNotRanked: { en: 'Excluded and other options', ar: 'خيارات مستبعدة وخيارات أخرى' },
+    roofStructNo: { en: 'Your applicability check records the roof as assessed and unsuitable. The roof figures below are shown only for exploration and do not apply unless that answer changes.', ar: 'تسجّل فحوص قابلية التطبيق لديك أن السطح جرى تقييمه وهو غير ملائم. أرقام السطح أدناه للاستكشاف فقط ولا تنطبق ما لم تتغير تلك الإجابة.' },
+    noChecked: { en: 'No solution has been checked yet. Applicability statuses show Not yet checked.', ar: 'لم يُفحص أي حل بعد. تظهر حالات قابلية التطبيق «لم يُفحص بعد».' },
+    colCat: { en: 'Category (provisional)', ar: 'الفئة (مؤقتة)' }
   };
   function x(k) { var v = X[k]; if (!v) return k; return v[L()]; }
 
@@ -252,6 +255,10 @@
 
   /* ---------- explore view ---------- */
   function recOf(nbs) { var o = C().optByNbs(nbs); return o ? C().recFor(o.id) : null; }
+  function catSmall(nbs) {
+    var o = C().optByNbs(nbs); if (!o) return '';
+    return '<small>' + esc(C().T('catL')) + ': ' + esc(C().catText(o)) + ' (' + (L() === 'ar' ? 'مؤقتة' : 'provisional') + ')</small>';
+  }
   function picker(nbs) {
     var r = recOf(nbs);
     if (!r || r.raw === 0 || !C().riskList().length) return '';
@@ -264,7 +271,7 @@
       var checked = ex.sol === id;
       return '<label class="sol' + (checked ? ' on' : '') + '"><input type="radio" name="exsol" value="' + id + '"' + (checked ? ' checked' : '') + '>' +
         '<span><b>' + esc(solName(id)) + '</b>' + picker(id) +
-        '<small>' + x('solDesc_' + id) + '</small></span></label>';
+        '<small>' + x('solDesc_' + id) + '</small>' + catSmall(id) + '</span></label>';
     }).join('');
     root.innerHTML = '<section class="as ex"><div class="wrap ex-wrap">' +
       '<button class="link no-print" type="button" id="exBack">' + c.ico('back', 'flip') + ' ' + x('back') + '</button>' +
@@ -354,9 +361,12 @@
     if (K.length) h += '<h4>' + x('grpC') + '</h4>' + outTable(K) + '<p class="note-s">' + x('grpCn') + '</p>';
     return h;
   }
+  function roofText() {
+    var rs = C().roofStruct();
+    return rs === 'confirmed' ? x('roofStructOk') : rs === 'unsuitable' ? x('roofStructNo') : x('roofStruct');
+  }
   function roofNote() {
-    var conf = C().st.scr['roof.struct'] === 'yes';
-    return '<div class="note warn">' + C().ico('alert') + '<span>' + (conf ? x('roofStructOk') : x('roofStruct')) + '</span></div>';
+    return '<div class="note warn">' + C().ico('alert') + '<span>' + roofText() + '</span></div>';
   }
   function formulasTable(res) {
     var rows = res.outputs.map(function (o) {
@@ -515,7 +525,7 @@
   function limitsHtml(res) {
     var sol = res.solution_id;
     var li = ['<li>' + x('lim1') + '</li>', '<li>' + x('lim2') + '</li>'];
-    if (sol === 'NBS02') li.push('<li>' + (C().st.scr['roof.struct'] === 'yes' ? x('roofStructOk') : x('roofStruct')) + '</li>', '<li>' + x('grpBn') + '</li>');
+    if (sol === 'NBS02') li.push('<li>' + roofText() + '</li>', '<li>' + x('grpBn') + '</li>');
     if (sol === 'NBS02' || res.reference_cost) li.push('<li>' + x('refCostWarn') + '</li>');
     li.push('<li>' + x('lim3') + '</li>');
     return '<ul class="nc">' + li.join('') + '</ul><h4>' + x('ncSub') + '</h4><ul class="nc">' +
@@ -641,22 +651,25 @@
       return [esc(t(cx)), esc(oo ? (L() === 'ar' ? oo[2] : oo[1]) : T('notStated'))];
     }).concat([[esc(T('stRisk')), esc(c.riskList().map(function (z) { return t(z); }).join('; '))]]));
     h += '<h4>' + esc(T('methA')) + '</h4><ul>' + c.methA().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
-    /* 3. screening */
-    h += '<h2>3. ' + x('repScreen') + '</h2><p class="note-s">' + esc(T('screenP')) + '</p>';
-    h += tbl([T('stScreen'), T('colAns')], c.visGroups().reduce(function (acc, gr) {
-      c.visChecks(gr).forEach(function (k) { acc.push([esc(c.pick(gr.t) + ': ' + c.pick(c.CHK[k].q)), esc(yn(st.scr[k]))]); });
-      return acc;
-    }, []));
+    /* 3. applicability checks (optional, answered after the results) */
+    h += '<h2>3. ' + x('repScreen') + '</h2><p class="note-s">' + esc(T('chkNote')) + '</p>';
+    var checked = R.all.filter(function (q) { return q.scr.status !== 'unchecked'; });
+    if (!checked.length) h += '<p>' + x('noChecked') + '</p>';
+    else h += tbl([T('option'), x('colCat'), T('status'), T('colAns')], checked.map(function (q) {
+      var ans = c.chkKeys(q.o).map(function (k) { var v = c.chkVal(k); return c.pick(c.CHK[k].q) + ' ' + (v === undefined ? T('stUn') : k === 'roof.struct' ? (v === 'yes' ? T('rsConf') : v === 'unsuitable' ? T('rsNo') : T('rsPend')) : yn(v)); }).join(' | ');
+      return [esc(t(q.o)), esc(c.catText(q.o)), esc(c.stLabel(q.scr.status)), esc(ans)];
+    }));
     /* 4. recommendations */
-    h += '<h2>4. ' + x('repCand') + '</h2><p class="note-s">' + esc(T('matchNote')) + '</p>';
-    h += R.ranked.length ? tbl(['#', T('option'), T('matchL'), T('status'), x('why2'), T('verL').replace(':', ''), T('condL')], R.ranked.map(function (q) {
-      return [q.rank, esc(t(q.o)), q.s + ' / 100', esc(c.stLabel(q.scr.status)), esc(c.whyText(q)),
-        esc(q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' ') || T('candDone')),
+    h += '<h2>4. ' + x('repCand') + '</h2><p class="note-s">' + esc(T('recP')) + ' ' + esc(T('matchNote')) + '</p>';
+    h += R.ranked.length ? tbl(['#', T('option'), x('colCat'), T('matchL'), T('status'), x('why2'), T('verL').replace(':', ''), T('condL')], R.ranked.map(function (q) {
+      return [q.rank, esc(t(q.o)), esc(c.catText(q.o)), q.s + ' / 100', esc(c.stLabel(q.scr.status)), esc(c.whyText(q)),
+        esc(q.scr.status === 'unchecked' ? T('unchkTxt') : q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' ') || T('candDone')),
         esc(q.conds.map(function (k) { return k.id + ' ' + t(k.i) + ': ' + (k.u ? T('stU') : c.rubricText(k.i, k.v)); }).join(' | ') || T('condNone'))];
     })) : '<p>' + esc(T('recNone')) + '</p>';
-    if (R.na.length || R.nomatch.length) {
-      h += '<h3>' + x('repNotRanked') + '</h3>' + tbl([T('option'), T('status'), x('why2')], R.na.map(function (q) { return [esc(t(q.o)), esc(T('exNA')), esc(q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' '))]; })
-        .concat(R.nomatch.map(function (q) { return [esc(t(q.o)), esc(T('exNo')), esc(T('exNoWhy'))]; })));
+    if (R.na.length || R.other.length) {
+      h += '<h3>' + x('repNotRanked') + '</h3><p class="note-s">' + esc(T('otherP')) + '</p>' + tbl([T('option'), x('colCat'), T('status'), x('why2')],
+        R.na.map(function (q) { return [esc(t(q.o)), esc(c.catText(q.o)), esc(T('exNA')), esc(q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' '))]; })
+          .concat(R.other.map(function (q) { return [esc(t(q.o)), esc(c.catText(q.o)), esc(T('otherH')), esc(q.raw === 0 ? T('exNoWhy') : T('exZeroWhy'))]; })));
     }
     h += '<h4>' + esc(T('methB')) + '</h4><ul>' + c.methB().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' + c.weightsTable();
     /* 5. impact and cost */
@@ -679,8 +692,9 @@
   /* columns: section, item, value, unit, basis, notes, rationale, evidence, confidence */
   function csvRows() {
     var c = C(), r = c.calc(), st = c.st, R = c.recs();
-    var rows = [['section', 'item', 'value', 'unit', 'basis', 'notes', 'rationale', 'evidence or source', 'confidence']];
-    function add(a) { while (a.length < 9) a.push(''); rows.push(a); }
+    var rows = [['section', 'item', 'value', 'unit', 'basis', 'notes', 'rationale', 'evidence or source', 'confidence', 'applicability status', 'solution category']];
+    function add(a) { while (a.length < 11) a.push(''); rows.push(a); }
+    function optCols(q) { return ['', '', '', q.scr.status === 'unchecked' ? 'Not yet checked' : q.scr.status === 'cand' ? 'Preliminary candidate' : q.scr.status === 'verify' ? 'Requires verification' : 'Not applicable', c.catText(q.o) + ' (provisional)']; }
     add(['label', 'status', E_label(), '', '', 'Preliminary prototype. Scores are not official scores of any external standard.']);
     add(['assessment scope', 'area name', st.scope.name, '', 'user input', '']);
     add(['assessment scope', 'scope', c.scopeTypeLabel('en'), '', 'user input', '']);
@@ -708,14 +722,19 @@
     if (o.status === 'complete') add(['assessment overall', 'level', c.LEVELS[r.lvl].en, '', 'calculated', 'provisional project thresholds']);
     var cf = c.confCounts();
     add(['assessment confidence summary', 'scored indicators by confidence', 'documented evidence ' + cf.high + '; staff estimate ' + cf.mid + '; informal judgement ' + cf.low + '; not stated ' + cf.none, '', 'user input', 'confidence does not change scores']);
-    c.visGroups().forEach(function (gr) { c.visChecks(gr).forEach(function (k) { add(['applicability check', gr.t[0] + ': ' + c.CHK[k].q[0], st.scr[k] || 'not answered', 'yes/no/unknown', 'user input', 'screening only, not engineering approval']); }); });
+    Object.keys(c.CHK).forEach(function (k) {
+      var raw = st.scr[k]; if (raw === undefined) return;
+      var val = k === 'roof.struct' ? ({ confirmed: 'confirmed suitable', pending: 'assessment pending or unknown', unsuitable: 'assessed and unsuitable' })[c.roofStruct()] : raw;
+      var apply = c.OPT.filter(function (o) { return c.RULE[o.id].chk.indexOf(k) >= 0; }).map(function (o) { return o.en; }).join('; ');
+      add(['applicability check', c.CHK[k].q[0], val, k === 'roof.struct' ? 'confirmed/pending/unsuitable' : 'yes/no/unknown', 'user input', 'screening only, not engineering approval; applies to: ' + apply + (k === 'roof.struct' && raw === 'no' ? '; earlier answer No read as assessment pending' : '')]);
+    });
     R.ranked.forEach(function (q) {
       add(['recommendation', '#' + q.rank + ' ' + q.o.en, q.s + ' / 100', 'rule-based match score', c.stLabel(q.scr.status),
         'why: ' + c.whyText(q) + (q.scr.reasons.length ? ' | to verify: ' + q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ') : '') +
-        (q.conds.length ? ' | conditions: ' + q.conds.map(function (k) { return k.id + ' ' + k.i.en + ': ' + (k.u ? 'Unknown' : 'score ' + k.v); }).join('; ') : '') + (q.o.nbs ? '' : ' | Impact/cost module not yet available')]);
+        (q.conds.length ? ' | conditions: ' + q.conds.map(function (k) { return k.id + ' ' + k.i.en + ': ' + (k.u ? 'Unknown' : 'score ' + k.v); }).join('; ') : '') + (q.o.nbs ? '' : ' | Impact/cost module not yet available')].concat(optCols(q)));
     });
-    R.na.forEach(function (q) { add(['option not shortlisted', q.o.en, 'Not applicable', '', 'screening', q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ')]); });
-    R.nomatch.forEach(function (q) { add(['option not shortlisted', q.o.en, 'No match with selected risks', '', 'rule-based match', '']); });
+    R.na.forEach(function (q) { add(['option excluded', q.o.en, 'Not applicable', '', 'applicability check', q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ')].concat(optCols(q).slice(0))); });
+    R.other.forEach(function (q) { add(['other option', q.o.en, q.s + ' / 100', 'rule-based match score', 'rule-based match', (q.raw === 0 ? 'None of the selected risks is a target of this option' : 'Land need exceeds the public land available') + '; not recommended; not a finding of technical unsuitability'].concat(optCols(q))); });
     if (ex.sol && ex.res && ex.res.status === 'ok') {
       var res = ex.res;
       add(['explore', 'solution', solName(ex.sol), '', '', '']);

@@ -55,7 +55,7 @@ var IND=[
   r:[['Residents are not involved in planning or designing NBS.','لا يشارك السكان في تخطيط الحلول أو تصميمها.'],
      ['Residents are consulted, but mostly after the main decisions have been made.','يُستشار السكان، لكن غالبًا بعد اتخاذ القرارات الرئيسية.'],
      ['Residents help set priorities or design NBS from an early stage.','يساعد السكان في تحديد الأولويات أو تصميم الحلول منذ مرحلة مبكرة.']]},
- {id:'4.2',c:3,en:'Coordination across departments and owners',ar:'التنسيق بين الإدارات والقطاع الخاص',h:'Departments, utilities and private owners coordinate on NBS actions.',ha:'تنسق الإدارات والمرافق والملاك الخواص إجراءات الحلول.',
+ {id:'4.2',c:3,en:'Coordination across departments and owners',ar:'التنسيق بين الإدارات والقطاع الخاص',h:'Departments, utilities, NGOs and private owners coordinate on NBS actions.',ha:'تنسق الإدارات والمرافق والمنظمات غير الحكومية والملاك الخواص إجراءات الحلول.',
   r:[['Departments, utilities and private owners do not coordinate on NBS actions.','لا تنسق الإدارات والمرافق والملاك الخواص إجراءات الحلول.'],
      ['Coordination happens case by case, or only between some of the actors.','يحدث التنسيق حالة بحالة، أو بين بعض الأطراف فقط.'],
      ['Departments, utilities and private owners coordinate on NBS actions through a regular mechanism.','تنسق الإدارات والمرافق والملاك الخواص إجراءات الحلول عبر آلية منتظمة.']]},
@@ -92,16 +92,18 @@ var LEVELS=[
  {en:'Insufficient',ar:'غير كافٍ',c:'l0'},{en:'Partial',ar:'جزئي',c:'l1'},{en:'Adequate',ar:'كافٍ',c:'l2'},{en:'Strong',ar:'قوي',c:'l3'}
 ];
 var OPT=[
- {id:'tiny',en:'Urban forest (Miyawaki method)',ar:'غابة حضرية (طريقة ميازاكي)',eg:'NBS4MED pilot: Cerdanyola del Vallès, Spain',w:{heat:3,flood:1,drought:1,coast:0,fire:0,air:2},land:1,cx:1,nbs:'NBS01'},
- {id:'roof',en:'Green roof',ar:'سطح أخضر',eg:'NBS4MED pilot: Izmir, Türkiye',w:{heat:2,flood:2,drought:1,coast:0,fire:0,air:1},land:0,cx:2,nbs:'NBS02'},
- {id:'street',en:'Green corridor',ar:'ممر أخضر',eg:'NBS4MED pilot: Heliopolis, Egypt',w:{heat:3,flood:1,drought:0,coast:0,fire:0,air:2},land:0,cx:0,nbs:'NBS05'},
- {id:'swale',en:'Rain garden and bioswale',ar:'حديقة مطرية وخندق نباتي',eg:'',w:{heat:1,flood:3,drought:1,coast:0,fire:0,air:0},land:1,cx:1,nbs:null},
- {id:'perm',en:'Permeable paving',ar:'رصف نفّاذ',eg:'',w:{heat:0,flood:3,drought:1,coast:0,fire:0,air:0},land:0,cx:0,nbs:null},
- {id:'pocket',en:'Pocket park',ar:'حديقة صغيرة',eg:'',w:{heat:2,flood:1,drought:0,coast:0,fire:0,air:2},land:1,cx:0,nbs:null},
- {id:'eco',en:'Smart eco-park',ar:'منتزه بيئي ذكي',eg:'NBS4MED pilot: Sikionies, Greece',w:{heat:3,flood:2,drought:2,coast:0,fire:1,air:2},land:2,cx:2,nbs:'NBS03'},
- {id:'wet',en:'Rainwater retention basin',ar:'حوض احتجاز مياه الأمطار',eg:'NBS4MED pilot: Tunisia',w:{heat:1,flood:3,drought:3,coast:1,fire:0,air:0},land:2,cx:2,nbs:'NBS04'},
- {id:'dune',en:'Vegetated dune and shoreline',ar:'كثبان وشاطئ نباتي',eg:'',w:{heat:0,flood:1,drought:0,coast:3,fire:0,air:0},land:1,cx:1,nbs:null}
+ {id:'tiny',en:'Urban forest (Miyawaki method)',ar:'غابة حضرية (طريقة ميازاكي)',eg:'NBS4MED pilot: Cerdanyola del Vallès, Spain',w:{heat:3,flood:1,drought:1,coast:0,fire:0,air:2},land:1,cx:1,nbs:'NBS01',cat:'green',cat2:'restoration'},
+ {id:'roof',en:'Green roof',ar:'سطح أخضر',eg:'NBS4MED pilot: Izmir, Türkiye',w:{heat:2,flood:2,drought:1,coast:0,fire:0,air:1},land:0,cx:2,nbs:'NBS02',cat:'green'},
+ {id:'street',en:'Green corridor',ar:'ممر أخضر',eg:'NBS4MED pilot: Heliopolis, Egypt',w:{heat:3,flood:1,drought:0,coast:0,fire:0,air:2},land:0,cx:0,nbs:'NBS05',cat:'green'},
+ {id:'swale',en:'Rain garden and bioswale',ar:'حديقة مطرية وخندق نباتي',eg:'',w:{heat:1,flood:3,drought:1,coast:0,fire:0,air:0},land:1,cx:1,nbs:null,cat:'bluegreen'},
+ {id:'perm',en:'Permeable paving',ar:'رصف نفّاذ',eg:'',w:{heat:0,flood:3,drought:1,coast:0,fire:0,air:0},land:0,cx:0,nbs:null,cat:'bluegreen',cat2:'hybrid'},
+ {id:'pocket',en:'Pocket park',ar:'حديقة صغيرة',eg:'',w:{heat:2,flood:1,drought:0,coast:0,fire:0,air:2},land:1,cx:0,nbs:null,cat:'green'},
+ {id:'eco',en:'Smart eco-park',ar:'منتزه بيئي ذكي',eg:'NBS4MED pilot: Sikionies, Greece',w:{heat:3,flood:2,drought:2,coast:0,fire:1,air:2},land:2,cx:2,nbs:'NBS03',cat:'hybrid',cat2:'green'},
+ {id:'wet',en:'Rainwater retention basin',ar:'حوض احتجاز مياه الأمطار',eg:'NBS4MED pilot: Tunisia',w:{heat:1,flood:3,drought:3,coast:1,fire:0,air:0},land:2,cx:2,nbs:'NBS04',cat:'bluegreen',cat2:'hybrid'},
+ {id:'dune',en:'Vegetated dune and shoreline',ar:'كثبان وشاطئ نباتي',eg:'',w:{heat:0,flood:1,drought:0,coast:3,fire:0,air:0},land:1,cx:1,nbs:null,cat:'restoration'}
 ];
+/* provisional solution categories (display only; they do not affect matching, scoring or calculator selection) */
+var CATS={green:['Green infrastructure','البنية التحتية الخضراء'],bluegreen:['Blue-green water management','إدارة المياه الزرقاء والخضراء'],restoration:['Ecosystem restoration','استعادة النظم البيئية'],hybrid:['Hybrid/integrated solutions','حلول هجينة/متكاملة']};
 var CLAB={land:[['Low','منخفضة'],['Medium','متوسطة'],['High','عالية']],cx:[['Low','منخفض'],['Medium','متوسط'],['High','مرتفع']]};
 
 /* ---------- applicability screening (preliminary checks, not engineering approval) ---------- */
@@ -111,9 +113,11 @@ var CHK={
  'roof.avail':{q:['Is there a roof in the area that could potentially host a green roof?','هل يوجد في المنطقة سطح يمكن أن يستضيف سطحًا أخضر؟'],
    na:['No roof that could potentially host a green roof is available.','لا يتوفر سطح يمكن أن يستضيف سطحًا أخضر.'],
    v:['Roof availability still needs to be confirmed.','لا يزال توفر السطح بحاجة إلى تأكيد.']},
- 'roof.struct':{q:['Has the structural suitability of that roof been confirmed?','هل تأكدت الملاءمة الإنشائية لذلك السطح؟'],
-   h:['Yes = confirmed. No = not confirmed yet, so it still requires assessment. A missing confirmation does not rule the option out.','نعم = تأكدت. لا = لم تتأكد بعد، ولا يزال يحتاج إلى تقييم. غياب التأكيد لا يستبعد الخيار.'],
-   v:['Structural suitability of the roof requires assessment.','تتطلب الملاءمة الإنشائية للسطح تقييمًا.']},
+
+ 'roof.struct':{q:['What is the structural suitability of that roof?','ما الملاءمة الإنشائية لذلك السطح؟'],
+   h:['Assessment pending or Unknown does not mean unsuitable. Choose “Assessed and unsuitable” only when an assessment has found the roof unsuitable.','«التقييم قيد الإجراء أو غير معروف» لا يعني أن السطح غير ملائم. اختر «جرى تقييمه وهو غير ملائم» فقط عندما يكون تقييم قد وجد السطح غير ملائم.'],
+   na:['The roof was assessed and found structurally unsuitable.','جرى تقييم السطح وتبيّن أنه غير ملائم إنشائيًا.'],
+   v:['Structural suitability of the roof requires assessment (assessment pending or Unknown).','تتطلب الملاءمة الإنشائية للسطح تقييمًا (التقييم قيد الإجراء أو غير معروف).']},
  'plant.space':{q:['Is there open space where trees or other plants could be planted?','هل توجد مساحة مفتوحة يمكن زراعة الأشجار أو النباتات فيها؟'],
    na:['No planting space is available.','لا تتوفر مساحة للزراعة.'],v:['Planting space still needs to be confirmed.','لا تزال مساحة الزراعة بحاجة إلى تأكيد.']},
  'plant.soil':{q:['Is there enough soil or rooting space for the plants?','هل توجد تربة أو مساحة جذور كافية للنباتات؟'],
@@ -144,14 +148,10 @@ var CHK={
  'dune.coast':{q:['Is the area on the coast, at a shoreline or dune system?','هل تقع المنطقة على الساحل، عند شاطئ أو منظومة كثبان؟'],
    na:['The area is not coastal.','المنطقة ليست ساحلية.'],v:['Coastal location still needs to be confirmed.','لا يزال الموقع الساحلي بحاجة إلى تأكيد.']}
 };
-var SCRG=[
- {id:'roof',opts:['roof'],chk:['roof.avail','roof.struct'],t:['Green roof','سطح أخضر']},
- {id:'plant',opts:['tiny','street','pocket','eco'],chk:['plant.space','eco.space','plant.soil','plant.water'],t:['Urban forest, green corridor, pocket park and eco-park','الغابة الحضرية والممر الأخضر والحديقة الصغيرة والمنتزه البيئي']},
- {id:'swale',opts:['swale'],chk:['swale.source','swale.space','swale.infil'],t:['Rain garden and bioswale','حديقة مطرية وخندق نباتي']},
- {id:'perm',opts:['perm'],chk:['perm.surface','perm.tech'],t:['Permeable paving','رصف نفّاذ']},
- {id:'wet',opts:['wet'],chk:['wet.catch','wet.space','wet.safety'],t:['Rainwater retention basin','حوض احتجاز مياه الأمطار']},
- {id:'dune',opts:['dune'],chk:['dune.coast'],t:['Vegetated dune and shoreline','كثبان وشاطئ نباتي']}
-];
+/* A dependent check is hidden when an essential prerequisite is answered No (the option is then Not applicable).
+   '@space' stands for the planting-space check of the option (the eco-park has its own space check). */
+var SPACEKEY={tiny:'plant.space',street:'plant.space',pocket:'plant.space',eco:'eco.space'};
+var DEP={'roof.struct':['roof.avail'],'plant.soil':['@space'],'plant.water':['@space'],'swale.space':['swale.source'],'swale.infil':['swale.source','swale.space'],'perm.tech':['perm.surface'],'wet.space':['wet.catch'],'wet.safety':['wet.catch','wet.space']};
 var RULE={
  roof:{chk:['roof.avail','roof.struct'],fatal:['roof.avail']},
  tiny:{chk:['plant.space','plant.soil','plant.water'],fatal:['plant.space']},
@@ -190,7 +190,6 @@ var S={
  back:{en:'Back',ar:'رجوع'},cont:{en:'Continue',ar:'متابعة'},seeRes:{en:'See results',ar:'عرض النتائج'},
  stScope:{en:'Assessment scope',ar:'نطاق التقييم'},stCtx:{en:'Site context',ar:'سياق الموقع'},
  stRisk:{en:'Climate risks and environmental challenges',ar:'المخاطر المناخية والتحديات البيئية'},
- stScreen:{en:'Applicability checks',ar:'فحوص قابلية التطبيق'},
  scopeP:{en:'Define the area you are assessing. All answers in this assessment must refer to this same area and to its current situation, as it is today and not as planned.',ar:'حدّد المنطقة التي تقيّمها. يجب أن تشير كل الإجابات في هذا التقييم إلى هذه المنطقة نفسها وإلى وضعها الحالي، كما هو اليوم لا كما هو مخطط.'},
  fName:{en:'Assessment area name',ar:'اسم منطقة التقييم'},
  fScope:{en:'Scope of the area',ar:'نطاق المنطقة'},
@@ -202,8 +201,7 @@ var S={
  opt:{en:'optional',ar:'اختياري'},
  ctxP:{en:'Two questions about the area help filter the NBS options. Income is optional context and does not change the ranking. None of these answers is scored.',ar:'سؤالان عن المنطقة يساعدان في تصفية خيارات الحلول. الدخل سياق اختياري ولا يغيّر الترتيب. لا تُحتسب أي من هذه الإجابات في النتيجة.'},
  riskP:{en:'Select every climate risk or environmental challenge that affects the area. The recommendations are matched to these.',ar:'اختر كل خطر مناخي أو تحدٍّ بيئي يؤثر في المنطقة. تُطابَق التوصيات مع هذه الاختيارات.'},
- screenP:{en:'A few Yes, No or Unknown checks show which options are worth considering for this area. They are screening checks, not engineering approval. Unknown is allowed: it marks an option as requiring verification and does not rule it out.',ar:'بضعة فحوص بنعم أو لا أو غير معروف تبيّن الخيارات التي تستحق النظر في هذه المنطقة. هي فحوص فرز أولي وليست اعتمادًا هندسيًا. «غير معروف» مسموح: يجعل الخيار «يتطلب تحققًا» ولا يستبعده.'},
- screenFor:{en:'Applies to: ',ar:'ينطبق على: '},
+ chkNote:{en:'Screening only, not engineering approval. These checks do not change the assessment score or the match score. Answers about planting space, soil and water are shared by the planting-based options.',ar:'فرز أولي وليس اعتمادًا هندسيًا. لا تغيّر هذه الفحوص درجة التقييم ولا درجة المطابقة. تُشارَك الإجابات عن مساحة الزراعة والتربة والمياه بين الخيارات القائمة على الزراعة.'},
  evalP:{en:'Score each indicator for the assessed area as it is today, not as planned.',ar:'قيّم كل مؤشر للمنطقة المقيَّمة بحسب وضعها اليوم لا المخطط له.'},
  forArea:{en:function(n){return 'Answering for: '+n},ar:function(n){return 'الإجابة عن: '+n}},
  optionalHint:{en:'Select all that apply.',ar:'اختر كل ما ينطبق.'},
@@ -214,7 +212,6 @@ var S={
  eName:{en:'Assessment area name',ar:'اسم منطقة التقييم'},eType:{en:'Scope of the area',ar:'نطاق المنطقة'},eOther:{en:'Description of the other scope',ar:'وصف النطاق الآخر'},eBound:{en:'Description of the assessed boundary',ar:'وصف حدود المنطقة المقيَّمة'},
  eCtx:{en:function(n){return 'Context: '+n},ar:function(n){return 'السياق: '+n}},
  eRisk:{en:'Climate risks and environmental challenges: choose at least one',ar:'المخاطر المناخية والتحديات البيئية: اختر واحدًا على الأقل'},
- eScr:{en:function(n){return 'Applicability check: '+n},ar:function(n){return 'فحص قابلية التطبيق: '+n}},
  eJust:{en:function(n){return n+': justification for Not applicable'},ar:function(n){return n+': مبرر «لا ينطبق»'}},
  loading:{en:'Calculating results',ar:'جارٍ حساب النتائج'},
  resTitle:{en:'Your results',ar:'نتائجك'},
@@ -283,7 +280,7 @@ var S={
   'لا تُضرب الدرجات في الثقة. تُعرض الثقة بشكل منفصل لكل مؤشر.',
   'يصف C1 الدمج الحالي للحلول فقط، وليس مقياسًا للفعالية البيئية.']},
  recH:{en:'NBS recommendations',ar:'توصيات الحلول القائمة على الطبيعة'},
- recP:{en:'Options ranked by a rule-based match to your selected risks. Screening statuses are preliminary checks, not engineering approval.',ar:'خيارات مرتبة بحسب مطابقة قائمة على قواعد مع المخاطر التي اخترتها. حالات الفرز فحوص أولية وليست اعتمادًا هندسيًا.'},
+ recP:{en:'Preliminary options ranked by a rule-based match to your selected risks. Applicability statuses come from optional checks and are not engineering approval.',ar:'خيارات أولية مرتبة بحسب مطابقة قائمة على قواعد مع المخاطر التي اخترتها. حالات قابلية التطبيق تأتي من فحوص اختيارية وليست اعتمادًا هندسيًا.'},
  matchL:{en:'Rule-based match score',ar:'درجة المطابقة القائمة على القواعد'},
  matchNote:{en:'The rule-based match score (out of 100) shows how well an option matches your selected risks and the land context. It is neither a probability of success nor an expected impact.',ar:'تبيّن درجة المطابقة القائمة على القواعد (من 100) مدى مطابقة الخيار للمخاطر التي اخترتها ولسياق الأرض. وهي ليست احتمال نجاح ولا أثرًا متوقعًا.'},
  stCand:{en:'Preliminary candidate',ar:'مرشح أولي'},stVer:{en:'Requires verification',ar:'يتطلب تحققًا'},stNA2:{en:'Not applicable',ar:'لا ينطبق'},
@@ -293,7 +290,15 @@ var S={
  noTarget:{en:'Not a target of this option: ',ar:'ليست من أهداف هذا الخيار: '},
  landOk:{en:'Land need fits the available public land.',ar:'حاجة الأرض تناسب الأراضي العامة المتاحة.'},
  landFit:{en:'Land need exceeds the available public land, which lowers the match score.',ar:'حاجة الأرض تفوق الأراضي العامة المتاحة، مما يخفض درجة المطابقة.'},
- screenL:{en:'Screening',ar:'الفرز'},
+ screenL:{en:'Applicability',ar:'قابلية التطبيق'},
+ stUn:{en:'Not yet checked',ar:'لم يُفحص بعد'},
+ unchkTxt:{en:'No check has been answered yet. The recommendation is preliminary.',ar:'لم يُجب عن أي فحص بعد. التوصية أولية.'},
+ chkBtn:{en:'Check this solution',ar:'افحص هذا الحل'},chkHide:{en:'Hide checks',ar:'إخفاء الفحوص'},chkReopen:{en:'Review checks',ar:'مراجعة الفحوص'},
+ chkTitle:{en:'Applicability checks',ar:'فحوص قابلية التطبيق'},
+ rsConf:{en:'Confirmed suitable',ar:'مؤكدة الملاءمة'},rsPend:{en:'Assessment pending or Unknown',ar:'التقييم قيد الإجراء أو غير معروف'},rsNo:{en:'Assessed and unsuitable',ar:'جرى تقييمه وهو غير ملائم'},
+ prelim:{en:'Preliminary and unchecked: these recommendations use only your selected risks and site context. Use Check this solution to screen each option for applicability.',ar:'أولية وغير مفحوصة: تستخدم هذه التوصيات المخاطر المختارة وسياق الموقع فقط. استخدم «افحص هذا الحل» لفرز كل خيار من حيث قابلية التطبيق.'},
+ catL:{en:'Category',ar:'الفئة'},
+ catProv:{en:'Provisional category. It can depend on design and does not affect matching or scoring.',ar:'فئة مؤقتة. قد تعتمد على التصميم ولا تؤثر في المطابقة أو التقييم.'},
  verL:{en:'To verify:',ar:'للتحقق:'},
  candDone:{en:'All screening checks are answered Yes.',ar:'كل فحوص الفرز أُجيب عنها بنعم.'},
  condL:{en:'Implementation conditions',ar:'شروط التنفيذ'},
@@ -305,12 +310,14 @@ var S={
  noMod:{en:'Impact/cost module not yet available',ar:'وحدة الأثر والتكلفة غير متاحة بعد'},
  allOpt:{en:'All ranked options',ar:'كل الخيارات المرتبة'},
  option:{en:'Option',ar:'الخيار'},status:{en:'Screening status',ar:'حالة الفرز'},
- exclH:{en:'Options not shortlisted',ar:'خيارات غير مُدرجة في القائمة'},
- exNA:{en:'Not applicable after screening',ar:'لا تنطبق بعد الفرز'},
- exNo:{en:'No match with the selected risks',ar:'لا تطابق المخاطر المختارة'},
- exNoWhy:{en:'None of the selected risks is a target of this option.',ar:'لا يستهدف هذا الخيار أيًّا من المخاطر المختارة.'},
+ exclH:{en:'Excluded and other options',ar:'خيارات مستبعدة وخيارات أخرى'},
+ exNA:{en:'Not applicable after checking',ar:'لا تنطبق بعد الفحص'},
+ otherH:{en:'Other options',ar:'خيارات أخرى'},
+ otherP:{en:'These options have a rule-based match score of 0, so they are not recommended for the selected risks and context. A score of 0 is not a finding that an option is technically unsuitable.',ar:'درجة المطابقة القائمة على القواعد لهذه الخيارات 0، لذا لا يُوصى بها للمخاطر والسياق المختارين. الدرجة 0 ليست حكمًا بأن الخيار غير ملائم فنيًا.'},
+ exNoWhy:{en:'None of the selected risks is a target of this option, so its match score is 0.',ar:'لا يستهدف هذا الخيار أيًّا من المخاطر المختارة، لذا درجة مطابقته 0.'},
+ exZeroWhy:{en:'Its land need exceeds the public land available, which brings the match score to 0.',ar:'حاجته إلى الأرض تفوق الأراضي العامة المتاحة، مما يجعل درجة المطابقة 0.'},
  recEmpty:{en:'Recommendations need at least one climate risk or environmental challenge and the context answers.',ar:'تحتاج التوصيات إلى خطر مناخي أو تحدٍّ بيئي واحد على الأقل وإلى إجابات السياق.'},
- recNone:{en:'No option is left after screening. Review the applicability checks.',ar:'لم يبقَ أي خيار بعد الفرز. راجع فحوص قابلية التطبيق.'},
+ recNone:{en:'No option qualifies as a recommendation for the selected risks and context. See the other options below, or review your risk selection and applicability checks.',ar:'لا يوجد خيار مؤهل للتوصية للمخاطر والسياق المختارين. راجع الخيارات الأخرى أدناه، أو راجع اختيار المخاطر وفحوص قابلية التطبيق.'},
  methB:{en:'How the rule-based match score is calculated (provisional)',ar:'كيف تُحسب درجة المطابقة القائمة على القواعد (مؤقتًا)'},
  methBL:{en:[
   'Each option has a weight from 0 (not a target) to 3 (strong) for each risk. The weights are the earlier demo weights, kept provisionally for partner review.',
@@ -344,13 +351,13 @@ var S={
 function T(k){return S[k][lang]}
 
 /* ---------- state ---------- */
-var STEPS=[{k:'scope'},{k:'ctx'},{k:'risk'},{k:'screen'},{k:'crit',i:0},{k:'crit',i:1},{k:'crit',i:2},{k:'crit',i:3},{k:'crit',i:4}];
-/* scope (1) + density and land (2) + risks (1) + applicability checks (1) + 14 indicators */
-var TOTAL_Q=1+2+1+1+14;
+var STEPS=[{k:'scope'},{k:'ctx'},{k:'risk'},{k:'crit',i:0},{k:'crit',i:1},{k:'crit',i:2},{k:'crit',i:3},{k:'crit',i:4}];
+/* scope (1) + density and land (2) + risks (1) + 14 indicators */
+var TOTAL_Q=1+2+1+14;
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function freshState(){
   return {scope:{name:'',type:'',other:'',boundary:'',org:'',date:today()},ctx:{},risks:{},scr:{},
-    sc:{},just:{},rat:{},evd:{},cf:{},tgt:{},
+    sc:{},just:{},rat:{},evd:{},cf:{},tgt:{},chkOpen:{},
     area:2000,horizon:10,step:0,view:'intro',res:'ready',fb:'form',miss:{},open:{}};
 }
 var st=freshState();
@@ -372,31 +379,12 @@ function indOk(id){var v=st.sc[id];if(v===undefined)return false;if(v==='NA')ret
 function indDone(){return IND.every(function(i){return indOk(i.id)})}
 function scopeOk(){var s=st.scope;return !blank(s.name)&&!!s.type&&(s.type!=='other'||!blank(s.other))&&!blank(s.boundary)}
 function ctxOk(){return !!st.ctx.density&&!!st.ctx.land}
-function scrOpts(){ /* option ids that have a risk match and therefore need screening */
-  return OPT.filter(function(o){return rawMatch(o)>0}).map(function(o){return o.id});
-}
-function visGroups(){
-  var ids=scrOpts();
-  return SCRG.filter(function(g){return g.opts.some(function(id){return ids.indexOf(id)>=0})});
-}
-function visChecks(g){
-  var ids=scrOpts();
-  var active=g.opts.filter(function(id){return ids.indexOf(id)>=0});
-  return g.chk.filter(function(k){return active.some(function(id){return RULE[id].chk.indexOf(k)>=0})});
-}
-function scrMissingKeys(){
-  var m=[];
-  visGroups().forEach(function(g){visChecks(g).forEach(function(k){if(!st.scr[k])m.push(k)})});
-  return m;
-}
-function scrOk(){return riskList().length>0&&!scrMissingKeys().length}
 function answered(){
   var n=0;
   if(scopeOk())n++;
   if(st.ctx.density)n++;
   if(st.ctx.land)n++;
   if(riskList().length)n++;
-  if(scrOk())n++;
   IND.forEach(function(i){if(indOk(i.id))n++});
   return n;
 }
@@ -491,16 +479,29 @@ function suitability(o){
   if(st.ctx.density==='high'&&o.land===2)p-=10;
   return Math.max(0,Math.min(100,Math.round(p)));
 }
+/* roof structural check: Yes -> confirmed; No or Unknown or unanswered (older ambiguous question) -> assessment pending;
+   only the explicit 'unsuitable' answer means assessed and unsuitable */
+function roofStruct(){var v=st.scr['roof.struct'];return v==='yes'||v==='confirmed'?'confirmed':v==='unsuitable'?'unsuitable':'pending'}
+function chkVisible(optId,k){
+  var d=DEP[k];if(!d)return true;
+  return !d.some(function(p){if(p==='@space')p=SPACEKEY[optId];return !!p&&st.scr[p]==='no'});
+}
+function chkKeys(o){return RULE[o.id].chk.filter(function(k){return chkVisible(o.id,k)})}
+function chkVal(k){return k==='roof.struct'?(st.scr[k]===undefined?undefined:({confirmed:'yes',pending:'unknown',unsuitable:'unsuitable'})[roofStruct()]):st.scr[k]}
+/* statuses: unchecked (no relevant answer), na (essential prerequisite confirmed absent, or roof assessed unsuitable),
+   verify (incomplete or an essential condition uncertain), cand (all required checks Yes) */
 function screenOpt(o){
-  var rule=RULE[o.id],fatal=[],ver=[];
+  var rule=RULE[o.id],fatal=[],ver=[],seen=0;
   rule.chk.forEach(function(k){
-    var v=st.scr[k]||'unknown';
-    if(v==='no'&&rule.fatal.indexOf(k)>=0)fatal.push({k:k,t:CHK[k].na});
-    else if(v!=='yes')ver.push({k:k,v:v,t:CHK[k].v});
+    var v=chkVal(k);
+    if((v==='no'&&rule.fatal.indexOf(k)>=0)||(k==='roof.struct'&&v==='unsuitable'))fatal.push({k:k,t:CHK[k].na});
   });
   if(fatal.length)return {status:'na',reasons:fatal};
-  if(ver.length)return {status:'verify',reasons:ver};
-  return {status:'cand',reasons:[]};
+  var keys=chkKeys(o);
+  keys.forEach(function(k){if(chkVal(k)!==undefined)seen++});
+  if(!seen)return {status:'unchecked',reasons:[]};
+  keys.forEach(function(k){var v=chkVal(k);if(v!=='yes')ver.push({k:k,v:v||'unknown',t:CHK[k].v})});
+  return ver.length?{status:'verify',reasons:ver}:{status:'cand',reasons:[]};
 }
 function riskWhy(o){
   var hit=[],miss=[];
@@ -519,23 +520,25 @@ function conds(o){
   });
   return out;
 }
+/* ranked: options with a final match score above 0 that are not Not applicable. The match formula is unchanged. */
 function recs(){
   var all=OPT.map(function(o,ix){return {o:o,ix:ix,s:suitability(o),raw:rawMatch(o),scr:screenOpt(o),why:riskWhy(o)}});
-  var ranked=all.filter(function(x){return x.raw>0&&x.scr.status!=='na'}).sort(function(a,b){return b.s-a.s||a.ix-b.ix});
+  var na=all.filter(function(x){return x.scr.status==='na'});
+  var rest=all.filter(function(x){return x.scr.status!=='na'});
+  var ranked=rest.filter(function(x){return x.s>0}).sort(function(a,b){return b.s-a.s||a.ix-b.ix});
   ranked.forEach(function(x,i){x.rank=i+1;x.conds=conds(x.o)});
-  return {ranked:ranked,na:all.filter(function(x){return x.raw>0&&x.scr.status==='na'}),nomatch:all.filter(function(x){return x.raw===0}),all:all};
+  return {ranked:ranked,na:na,other:rest.filter(function(x){return x.s===0}),all:all};
 }
 function recFor(id){var r=recs().all.filter(function(x){return x.o.id===id})[0];if(r)r.conds=conds(r.o);return r}
 function suitIdx(s){return s>=60?0:s>=35?1:2}
 function meter(n,of){var h='<span class="meter" aria-hidden="true">';for(var i=0;i<of;i++)h+='<i class="'+(i<n?'on':'')+'"></i>';return h+'</span>'}
-function stLabel(s){return s==='cand'?T('stCand'):s==='verify'?T('stVer'):T('stNA2')}
+function stLabel(s){return s==='cand'?T('stCand'):s==='verify'?T('stVer'):s==='na'?T('stNA2'):T('stUn')}
 
 /* ---------- step helpers ---------- */
 function stepName(s){
   if(s.k==='scope')return T('stScope');
   if(s.k==='ctx')return T('stCtx');
   if(s.k==='risk')return T('stRisk');
-  if(s.k==='screen')return T('stScreen');
   return CRIT[s.i].id+' '+nm(CRIT[s.i]);
 }
 function stepMissing(s){
@@ -549,8 +552,6 @@ function stepMissing(s){
     CTX.forEach(function(c){if(!c.opt&&!st.ctx[c.k])m.push({t:T('eCtx')(nm(c)),href:'#f-'+c.k,key:'ctx:'+c.k})});
   }else if(s.k==='risk'){
     if(!riskList().length)m.push({t:T('eRisk'),href:'#riskField',key:'risk'});
-  }else if(s.k==='screen'){
-    scrMissingKeys().forEach(function(k){m.push({t:T('eScr')(pick(CHK[k].q)),href:'#scr-'+k.replace('.','-'),key:'scr:'+k})});
   }else{
     IND.forEach(function(i){
       if(i.c!==s.i)return;
@@ -651,17 +652,6 @@ function renderPanel(){
       RISK.map(function(r){
         return '<label class="chk"><input type="checkbox" name="risk" value="'+r.k+'"'+(st.risks[r.k]?' checked':'')+'><span><b>'+esc(nm(r))+'</b><small>'+esc(lang==='ar'?r.da:r.d)+'</small></span></label>';
       }).join('')+'</div><div id="riskErr">'+ierr('risk',T('pickOne'))+'</div></fieldset>';
-  }else if(s.k==='screen'){
-    desc=T('screenP');
-    h=visGroups().map(function(g){
-      var ids=scrOpts();
-      var names=g.opts.filter(function(id){return ids.indexOf(id)>=0}).map(function(id){return nm(optById(id))});
-      return '<section class="scrg"><h3>'+esc(pick(g.t))+'</h3><p class="note-s">'+T('screenFor')+esc(names.join(', '))+'</p>'+
-        visChecks(g).map(function(k){
-          var c=CHK[k],idc='scr-'+k.replace('.','-');
-          return '<fieldset class="field" id="'+idc+'"><legend>'+esc(pick(c.q))+'</legend>'+(c.h?'<p class="hint">'+esc(pick(c.h))+'</p>':'')+yn('scr-'+k,st.scr[k])+ierr('scr:'+k,T('pickAns'))+'</fieldset>';
-        }).join('')+'</section>';
-    }).join('');
   }else{
     desc=T('evalP');
     h='<p class="areaTag">'+esc(T('forArea')((st.scope.name||'').trim()||'…'))+'</p>'+
@@ -828,8 +818,9 @@ function whyText(x){
 function screenHtml(x){
   var s=x.scr;
   var h='<div class="rline"><b>'+T('screenL')+':</b> '+statusChip(s.status)+'</div>';
-  if(s.status==='cand')h+='<p class="rtxt">'+T('candDone')+'</p>';
-  else h+='<p class="rtxt"><b>'+T('verL')+'</b></p><ul class="rl">'+s.reasons.map(function(q){return '<li>'+esc(pick(q.t))+'</li>'}).join('')+'</ul>';
+  if(s.status==='unchecked')h+='<p class="rtxt">'+T('unchkTxt')+'</p>';
+  else if(s.status==='cand')h+='<p class="rtxt">'+T('candDone')+'</p>';
+  else h+='<p class="rtxt"><b>'+(s.status==='na'?T('exNA'):T('verL'))+'</b></p><ul class="rl">'+s.reasons.map(function(q){return '<li>'+esc(pick(q.t))+'</li>'}).join('')+'</ul>';
   return h;
 }
 function condsHtml(x){
@@ -845,33 +836,56 @@ function exploreLink(x){
   if(x.o.nbs)return '<button class="btn btn-sm no-print" type="button" data-explore="'+x.o.nbs+'">'+T('exBtn')+ico('arrow','flip')+'</button>';
   return '<p class="note-s nomod">'+T('noMod')+'</p>';
 }
+/* provisional category (display only) */
+function catText(o){var t=pick(CATS[o.cat]);if(o.cat2)t+=' · '+pick(CATS[o.cat2]);return t}
+function catLine(o){return '<p class="catline"><b>'+T('catL')+':</b> '+esc(catText(o))+' <span class="soft">('+T('catProv')+')</span></p>'}
+/* applicability checks: one small panel per solution, opened from the results page. Answers live in st.scr and are shared
+   by key, so opening, closing or switching panels never loses them. */
+function chkBtn(o,reopen){
+  var open=!!st.chkOpen[o.id];
+  return '<button class="btn btn-sm no-print" type="button" data-check="'+o.id+'" aria-expanded="'+open+'" aria-controls="chk-'+o.id+'" aria-label="'+(open?T('chkHide'):(reopen?T('chkReopen'):T('chkBtn')))+': '+esc(nm(o))+'">'+(open?T('chkHide'):(reopen?T('chkReopen'):T('chkBtn')))+'</button>';
+}
+function chkPanel(o){
+  if(!st.chkOpen[o.id])return '';
+  var s=screenOpt(o),name=esc(nm(o));
+  var h='<div class="chkpanel no-print" id="chk-'+o.id+'" role="group" aria-label="'+T('chkTitle')+': '+name+'"><h4>'+T('chkTitle')+': '+name+'</h4><p class="note-s">'+T('chkNote')+'</p>';
+  chkKeys(o).forEach(function(k){
+    var c=CHK[k],opts=k==='roof.struct'?[['yes',T('rsConf')],['unknown',T('rsPend')],['unsuitable',T('rsNo')]]:[['yes',T('yes')],['no',T('no')],['unknown',T('unk')]];
+    h+='<fieldset class="field"><legend>'+esc(pick(c.q))+'</legend>'+(c.h?'<p class="hint">'+esc(pick(c.h))+'</p>':'')+seg('chk|'+o.id+'|'+k,opts,chkVal(k),k==='roof.struct'?'stack':'')+'</fieldset>';
+  });
+  return h+'<div class="chkres">'+screenHtml({scr:s})+'</div></div>';
+}
 function recsHtml(){
   if(!riskList().length||!st.ctx.density||!st.ctx.land)return '<div class="note">'+T('recEmpty')+'</div>';
   var R=recs(),top=R.ranked.slice(0,3);
-  function row(x){return {s:x.s,si:suitIdx(x.s),name:nm(x.o),eg:x.o.eg,lnd:CLAB.land[x.o.land][lang==='ar'?1:0],cx:CLAB.cx[x.o.cx][lang==='ar'?1:0],cxN:x.o.cx,lndN:x.o.land}}
-  if(!R.ranked.length)return '<div class="note">'+T('recNone')+'</div>'+exclHtml(R);
-  var cards=top.map(function(x){
-    var d=row(x);
-    return '<div class="rc"><div class="rank">'+x.rank+'</div><h3>'+esc(d.name)+'</h3><p>'+(d.eg?esc(d.eg):'&nbsp;')+'</p>'+
-      '<div class="mscore"><span class="mlab">'+T('matchL')+'</span><span class="mval">'+x.s+' / 100</span></div>'+
-      '<dl><dt>'+T('cplx')+'</dt><dd>'+meter(d.cxN+1,3)+d.cx+'</dd><dt>'+T('landN')+'</dt><dd>'+meter(d.lndN+1,3)+d.lnd+'</dd></dl>'+
-      '<div class="why"><b>'+T('whyL')+':</b> '+esc(whyText(x))+'</div>'+
-      '<div class="why">'+screenHtml(x)+'</div><div class="why">'+condsHtml(x)+'</div><div class="why">'+exploreLink(x)+'</div></div>';
-  }).join('');
-  var rows=R.ranked.map(function(x){
-    var d=row(x);
-    return '<tr class="'+(x.rank<=3?'top-row':'')+'"><td>'+x.rank+'</td><td>'+esc(d.name)+'</td><td class="num">'+x.s+' / 100</td><td>'+statusChip(x.scr.status)+'</td><td>'+d.cx+'</td><td>'+d.lnd+'</td></tr>';
-  }).join('');
-  return '<p class="note-s" style="margin:0 0 14px">'+T('matchNote')+'</p>'+
-    '<div class="top3">'+cards+'</div><h3 class="sub" style="font-size:19px;color:var(--g900);margin-bottom:12px">'+T('allOpt')+'</h3>'+
-    '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>'+T('option')+'</th><th class="num">'+T('matchL')+'</th><th>'+T('status')+'</th><th>'+T('cplx')+'</th><th>'+T('landN')+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
-    exclHtml(R)+methBHtml();
+  function row(x){return {s:x.s,name:nm(x.o),eg:x.o.eg,lnd:CLAB.land[x.o.land][lang==='ar'?1:0],cx:CLAB.cx[x.o.cx][lang==='ar'?1:0],cxN:x.o.cx,lndN:x.o.land}}
+  var h='<p class="note-s" style="margin:0 0 14px">'+T('matchNote')+'</p>';
+  if(R.ranked.some(function(x){return x.scr.status==='unchecked'}))h+='<div class="note">'+T('prelim')+'</div>';
+  if(!R.ranked.length)h+='<div class="note">'+T('recNone')+'</div>';
+  else{
+    h+='<div class="top3">'+top.map(function(x){
+      var d=row(x);
+      return '<div class="rc"><div class="rank">'+x.rank+'</div><h3>'+esc(d.name)+'</h3><p>'+(d.eg?esc(d.eg):'&nbsp;')+'</p>'+catLine(x.o)+
+        '<div class="mscore"><span class="mlab">'+T('matchL')+'</span><span class="mval">'+x.s+' / 100</span></div>'+
+        '<dl><dt>'+T('cplx')+'</dt><dd>'+meter(d.cxN+1,3)+d.cx+'</dd><dt>'+T('landN')+'</dt><dd>'+meter(d.lndN+1,3)+d.lnd+'</dd></dl>'+
+        '<div class="why"><b>'+T('whyL')+':</b> '+esc(whyText(x))+'</div>'+
+        '<div class="why">'+screenHtml(x)+'<div class="chkact">'+chkBtn(x.o)+'</div>'+chkPanel(x.o)+'</div><div class="why">'+condsHtml(x)+'</div><div class="why">'+exploreLink(x)+'</div></div>';
+    }).join('')+'</div><h3 class="sub" style="font-size:19px;color:var(--g900);margin-bottom:12px">'+T('allOpt')+'</h3>';
+    var rows=R.ranked.map(function(x){
+      var d=row(x),first=x.rank<=3;
+      return '<tr class="'+(first?'top-row':'')+'"><td>'+x.rank+'</td><td>'+esc(d.name)+'<div class="g">'+esc(catText(x.o))+'</div></td><td class="num">'+x.s+' / 100</td><td>'+statusChip(x.scr.status)+'</td><td>'+d.cx+'</td><td>'+d.lnd+'</td><td>'+(first?'':chkBtn(x.o))+'</td></tr>'+
+        (!first&&st.chkOpen[x.o.id]?'<tr class="chkrow"><td colspan="7">'+chkPanel(x.o)+'</td></tr>':'');
+    }).join('');
+    h+='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>'+T('option')+'</th><th class="num">'+T('matchL')+'</th><th>'+T('status')+'</th><th>'+T('cplx')+'</th><th>'+T('landN')+'</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  return h+exclHtml(R)+methBHtml();
 }
 function exclHtml(R){
-  if(!R.na.length&&!R.nomatch.length)return '';
+  if(!R.na.length&&!R.other.length)return '';
+  function li(x,why,reopen){return '<li><b>'+esc(nm(x.o))+'.</b> '+esc(why)+' <span class="soft">'+esc(catText(x.o))+'</span><div class="chkact">'+chkBtn(x.o,reopen)+'</div>'+chkPanel(x.o)+'</li>'}
   var h='<h3 class="sub" style="font-size:19px;color:var(--g900);margin:28px 0 8px">'+T('exclH')+'</h3>';
-  if(R.na.length)h+='<h4 class="subh2">'+T('exNA')+'</h4><ul class="rl exl">'+R.na.map(function(x){return '<li><b>'+esc(nm(x.o))+'.</b> '+esc(x.scr.reasons.map(function(q){return pick(q.t)}).join(' '))+'</li>'}).join('')+'</ul>';
-  if(R.nomatch.length)h+='<h4 class="subh2">'+T('exNo')+'</h4><ul class="rl exl">'+R.nomatch.map(function(x){return '<li><b>'+esc(nm(x.o))+'.</b> '+T('exNoWhy')+'</li>'}).join('')+'</ul>';
+  if(R.na.length)h+='<h4 class="subh2">'+T('exNA')+'</h4><ul class="rl exl">'+R.na.map(function(x){return li(x,x.scr.reasons.map(function(q){return pick(q.t)}).join(' '),true)}).join('')+'</ul>';
+  if(R.other.length)h+='<h4 class="subh2">'+T('otherH')+'</h4><p class="note-s">'+T('otherP')+'</p><ul class="rl exl">'+R.other.map(function(x){return li(x,x.raw===0?T('exNoWhy'):T('exZeroWhy'),false)}).join('')+'</ul>';
   return h;
 }
 function fbHtml(){
@@ -968,6 +982,13 @@ function afterEdit(t){
   if(!stepMissing(s).length){clearErrors();$$('.inline-err',$('#stepPanel')).forEach(function(x){x.remove()})}
   renderSide();updateChrome();
 }
+/* re-render the results page after an applicability answer or panel toggle; scroll position and focus are kept */
+function refreshResults(focusSel){
+  var y=window.scrollY;
+  renderResults();
+  window.scrollTo({top:y,behavior:'instant'});
+  var el=focusSel&&$(focusSel);if(el)el.focus({preventScroll:true});
+}
 function setBind(el){
   var p=el.dataset.bind.split('|'),v=el.value;
   if(p[0]==='scope')st.scope[p[1]]=v;
@@ -988,7 +1009,7 @@ document.addEventListener('change',function(e){
   }
   else if(n.indexOf('ctx-')===0){st.ctx[n.slice(4)]=t.value}
   else if(n==='risk'){st.risks[t.value]=t.checked;var re=$('#riskErr');if(re&&riskList().length)re.innerHTML=''}
-  else if(n.indexOf('scr-')===0){st.scr[n.slice(4)]=t.value}
+  else if(n.indexOf('chk|')===0){st.scr[n.split('|')[2]]=t.value;refreshResults('input[name="'+n+'"][value="'+t.value+'"]');return}
   else if(n.indexOf('tgt-')===0){
     st.tgt[n.slice(4)]=t.value;
     var hn=$('#tgtHint');if(hn)hn.textContent=st.tgt.target==='yes'&&st.tgt.cov==='yes'?T('tgtBoth'):T('tgtNone');
@@ -1018,6 +1039,7 @@ document.addEventListener('click',function(e){
   if(id==='btnBack'){goStep(st.step-1);return}
   if(t.dataset.step!==undefined&&t.closest('#stepList')){goStep(+t.dataset.step);return}
   if(t.dataset.explore){window.NBS4MED_EXPLORE.open(t.dataset.explore);return}
+  if(t.dataset.check){st.chkOpen[t.dataset.check]=!st.chkOpen[t.dataset.check];refreshResults('[data-check="'+t.dataset.check+'"]');return}
   if(id==='editAns'){st.step=0;nav('assess');return}
   if(id==='fillSample'){fillSample();return}
   if(id==='clearAll'){var keep=st.view;st=freshState();st.view=keep;window.NBS4MED_CORE.st=st;clearErrors();renderAssess(true);return}
@@ -1049,7 +1071,7 @@ function fillSample(){
   st.scope={name:'SAMPLE DATA: Example neighbourhood (not a real area)',type:'neighbourhood',other:'',boundary:'SAMPLE DATA for testing only. This is not a real assessment and the boundary is invented.',org:'Sample organisation (test)',date:today()};
   st.ctx={density:'high',land:'low',income:'mid'};
   st.risks={heat:true,flood:true};
-  st.scr={'roof.avail':'yes','roof.struct':'unknown','plant.space':'yes','plant.soil':'yes','plant.water':'no','swale.source':'yes','swale.space':'yes','swale.infil':'unknown','perm.surface':'yes','perm.tech':'no','wet.catch':'yes','wet.space':'no','wet.safety':'unknown','eco.space':'no','dune.coast':'no'};
+  st.scr={};st.chkOpen={};
   st.sc={'1.1':2,'1.2':1,'1.3':1,'2.1':1,'2.2':1,'2.3':0,'3.1':1,'3.2':1,'3.3':1,'4.1':2,'4.2':1,'5.1':1,'5.2':0,'5.3':0};
   st.just={};st.tgt={target:'no',cov:'no'};
   st.rat={'1.1':'SAMPLE: inventory is a spreadsheet kept by the parks department.','5.2':'SAMPLE: no budget line for upkeep.'};
@@ -1079,10 +1101,10 @@ function setLang(l){
 
 /* shared with explore.js (impact and cost step, report) */
 window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,pick:pick,calc:calc,recs:recs,recFor:recFor,
-  riskList:riskList,indDone:indDone,allComplete:allComplete,CRIT:CRIT,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,LEVELS:LEVELS,OPT:OPT,CHK:CHK,SCRG:SCRG,
+  riskList:riskList,indDone:indDone,allComplete:allComplete,CRIT:CRIT,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,LEVELS:LEVELS,OPT:OPT,CHK:CHK,
   lvlIdx:lvlIdx,nav:nav,ansLabel:ansLabel,ansCsv:ansCsv,ansState:ansState,cfLabel:cfLabel,confCounts:confCounts,scopeTypeLabel:scopeTypeLabel,
   rubricText:rubricText,gapsData:gapsData,stLabel:stLabel,whyText:whyText,optByNbs:optByNbs,eqWeightText:eqWeightText,weightsTable:weightsTable,
-  visGroups:visGroups,visChecks:visChecks,scrOpts:scrOpts,methA:function(){return S.methAL[lang]},methB:function(){return S.methBL[lang]},
+  chkKeys:chkKeys,chkVal:chkVal,roofStruct:roofStruct,catText:catText,CATS:CATS,RULE:RULE,methA:function(){return S.methAL[lang]},methB:function(){return S.methBL[lang]},
   isNum:isNum,today:today,fillSample:fillSample,renderAssess:renderAssess,freshState:freshState,setState:function(n){st=n;window.NBS4MED_CORE.st=n}};
 
 /* init */
