@@ -50,13 +50,45 @@ The interface does not need to change when records or parameter values change.
 
 ## Assessment logic (provisional, for partner review)
 
-- The assessment starts by defining the area (name, scope, boundary, organisation, date). All answers refer to that area as it is today.
-- The 14 indicators keep the 0 to 2 scale. Each score has a specific description (a provisional project rubric). Rationale, evidence or source, and confidence are optional per indicator. Nothing is uploaded.
-- Unknown is missing information, not 0. Not applicable needs a justification. Both are left out of the score and reported separately. The overall percentage is not shown while any indicator is Unknown, and a criterion percentage is not shown while that criterion has an Unknown answer.
-- Results show the criterion profile first (C1 current integration, C2 to C5 enabling conditions), then the overall score. Levels use provisional project thresholds. These are not scores or thresholds of any external standard.
-- After the climate-risk step, short Yes / No / Unknown applicability checks screen the NBS options (Preliminary candidate, Requires verification, Not applicable). They are screening outcomes, not engineering approval.
-- The recommendation ranking uses a rule-based match score out of 100 (the earlier demo risk weights, kept provisionally; see the methodology section in the results). It is neither a probability of success nor an expected impact. Funding, maintenance and technical-capacity gaps are shown as implementation conditions and do not change the score. Income is optional context and is not used.
-- Answers are kept in the page only. Nothing is saved between visits, so there are no stored answers to migrate.
+**Eight stages.** 1 Assessment scope, 2 Site context, 3 Climate risks and environmental challenges, then 4 to 8 the five criteria C1 to C5 (14 indicators, 0 to 2 scale). Results can be viewed as soon as these eight stages are complete.
+
+**Three separate things.** They never feed into each other:
+
+| What | Where it comes from | What it is |
+|---|---|---|
+| Assessment score | The 14 indicator answers | Criterion profile and overall score, with provisional project thresholds |
+| Matching score | Selected risks and site context (density, public land) | Rule-based match out of 100 for each of the nine NBS options. Not a probability of success or an expected impact |
+| Applicability status | Optional checks on the results page | Not yet checked, Requires verification, Preliminary candidate, Not applicable. Screening only, not engineering approval |
+
+**Applicability checks (after the results).** Each recommendation card, ranked row, excluded option and other option has a **Check this solution** button that opens a small panel on the same page. Only the checks relevant to that solution are shown, and a dependent question is hidden when its prerequisite is answered No. Answers are kept per question, so closing, reopening or switching panels never loses them. Questions about planting space, soil and water are genuinely shared by the urban forest, green corridor, pocket park and eco-park, so they are asked once. Roof, rain garden, paving, basin, shoreline and eco-park space questions belong to their own solution. Nothing is saved between visits.
+
+Statuses: *Not yet checked* (no relevant answer), *Requires verification* (incomplete, or an essential condition is uncertain), *Preliminary candidate* (all required checks Yes), *Not applicable* (an essential prerequisite is confirmed absent, or the roof is assessed and unsuitable). A No on a condition that can still be assessed or designed (for example soil, establishment water, paving suitability, basin discharge) only gives Requires verification.
+
+**Green-roof structural check.** If a roof is available: Confirmed suitable, Assessment pending or Unknown, or Assessed and unsuitable. Pending never means unsuitable. An older Yes/No/Unknown answer is read as: Yes means confirmed, No or Unknown means assessment pending. It is never read as unsuitable.
+
+**Recommendations.** Before any check they are labelled preliminary and unchecked. Options with a final match score of 0 are not recommended cards; they appear under Other options with the reason, which is never described as technical unsuitability. Not applicable options are listed separately with their check-based reasons and can be reopened and corrected. Fewer than three cards are shown when fewer qualify, and a message is shown when none do. The matching formula, risk weights and land adjustments are unchanged.
+
+**Solution categories (provisional, display only).** Green infrastructure, Blue-green water management, Ecosystem restoration, Hybrid/integrated solutions, with an optional secondary category. Several depend on design. Categories do not affect matching, scoring or calculator selection.
+
+**Other rules kept.** Unknown is missing information, never 0. Not applicable needs a justification and is left out of the denominator. The overall percentage is hidden while any indicator is Unknown. Income is optional and is not used. Funding, maintenance and technical-capacity gaps are shown as implementation conditions and do not change any score.
+
+### Mapping to the draft framework
+
+This table covers only the elements named in the update request. It is not a claim of full framework coverage, and nothing here has been formally validated.
+
+| Element | Status in this prototype |
+|---|---|
+| Five criteria and 14 indicators (provisional rubric) | Existing coverage |
+| Applicability checks for each of the nine solutions | Existing coverage (optional, after the results) |
+| Climate risks and environmental challenges (six, multi-select) | Partial: no primary-risk selector |
+| Solution categories | Partial: provisional labels on the nine options |
+| Impact and cost exploration | Partial: five of the nine options have a calculator |
+| NGO involvement | Partial: named in indicator 4.2 |
+| Climate type | Not implemented in this prototype |
+| Primary-risk selector, country or city fields | Missing |
+| Readiness questionnaire beyond the 14 indicators | Missing |
+| Monitoring forms | Missing |
+| Budget inputs and budget comparison | Missing |
 
 ## Flat layout
 
