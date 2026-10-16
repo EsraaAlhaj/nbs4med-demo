@@ -345,6 +345,26 @@ var S={
  fbSend:{en:'Send feedback',ar:'إرسال الملاحظات'},
  fbErr:{en:'Rate usefulness and tick the consent box to send.',ar:'قيّم الفائدة وضع علامة الموافقة للإرسال.'},
  fbOk:{en:'Thank you. In this prototype the feedback is not transmitted.',ar:'شكرًا لك. لا تُرسل الملاحظات في هذا النموذج التجريبي.'},
+ asH:{en:'Assessment summary',ar:'ملخص التقييم'},
+ areaDet:{en:'Area details',ar:'تفاصيل المنطقة'},
+ protoShort:{en:'Preliminary prototype with provisional methodology, to be reviewed against the PROMEA framework and the NBS repository. Scores are not official scores.',ar:'نموذج تجريبي أولي بمنهجية مؤقتة ستُراجع مقابل إطار PROMEA ومستودع الحلول القائمة على الطبيعة. الدرجات ليست درجات رسمية.'},
+ profSubS:{en:'Every bar uses the same 0 to 100% scale. A criterion without a percentage shows its status instead of a bar.',ar:'يستخدم كل شريط المقياس نفسه من 0 إلى 100%. يعرض المعيار الذي لا نسبة له حالته بدلًا من الشريط.'},
+ ptsOnly:{en:function(s,m){return s+' of '+m+' points'},ar:function(s,m){return s+' من '+m+' نقطة'}},
+ critCounts:{en:function(a,n,u,un,na){return a+' of '+n+' indicators scored'+(u?' · '+u+' Unknown':'')+(un?' · '+un+' unanswered':'')+(na?' · '+na+' Not applicable':'')},ar:function(a,n,u,un,na){return a+' من '+n+' مؤشرات مُقيَّمة'+(u?' · '+u+' غير معروف':'')+(un?' · '+un+' بلا إجابة':'')+(na?' · '+na+' لا ينطبق':'')}},
+ notRatedUn:{en:'Not rated: unanswered indicators',ar:'غير مُقيَّم: مؤشرات بلا إجابة'},
+ ovNotShown:{en:'not shown (see the warning above)',ar:'غير معروضة (انظر التحذير أعلاه)'},
+ warnNA:{en:function(n){return n+(n===1?' indicator is':' indicators are')+' Not applicable: left out of the score and reported separately.'},ar:function(n){return n+(n===1?' مؤشر':' مؤشرات')+' لا ينطبق: يُستبعد من النتيجة ويُعرض بشكل منفصل.'}},
+ methAll:{en:'Methodology (provisional)',ar:'المنهجية (مؤقتة)'},
+ optsH:{en:'Preliminary NBS options',ar:'خيارات أولية للحلول القائمة على الطبيعة'},
+ solDet:{en:'Solution details',ar:'تفاصيل الحل'},
+ shortWhy:{en:function(l){return 'Matches your selected risks: '+l+'.'},ar:function(l){return 'تطابق المخاطر المختارة: '+l+'.'}},
+ sharedH:{en:'Shared implementation conditions',ar:'شروط تنفيذ مشتركة'},
+ sharedChkH:{en:'To verify (applies to several options)',ar:'للتحقق (ينطبق على عدة خيارات)'},
+ otherSum:{en:function(n){return 'Other options ('+n+')'},ar:function(n){return 'خيارات أخرى ('+n+')'}},
+ furtherH:{en:'Further qualifying options',ar:'خيارات مؤهلة أخرى'},
+ noCalc:{en:'No quantitative calculator for this option yet.',ar:'لا توجد حاسبة كمية لهذا الخيار بعد.'},
+ exSecP:{en:'Optional. Calculators exist for five of the nine options and give illustrative quantities, costs and reference evidence. They do not change the assessment.',ar:'اختياري. تتوفر حاسبات لخمسة من الخيارات التسعة وتعطي كميات وتكاليف وأدلة مرجعية توضيحية. ولا تغيّر التقييم.'},
+ lastEx:{en:function(n){return 'Last explored: '+n},ar:function(n){return 'آخر ما استُكشف: '+n}},
  doneL:{en:'completed',ar:'مكتمل'},
  sampleNote:{en:'SAMPLE DATA for testing only. This is not a real assessment.',ar:'بيانات نموذجية للاختبار فقط. هذا ليس تقييمًا حقيقيًا.'}
 };
@@ -357,10 +377,12 @@ var TOTAL_Q=1+2+1+14;
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function freshState(){
   return {scope:{name:'',type:'',other:'',boundary:'',org:'',date:today()},ctx:{},risks:{},scr:{},
-    sc:{},just:{},rat:{},evd:{},cf:{},tgt:{},chkOpen:{},
+    sc:{},just:{},rat:{},evd:{},cf:{},tgt:{},chkOpen:{},rOpen:{},
     area:2000,horizon:10,step:0,view:'intro',res:'ready',fb:'form',miss:{},open:{}};
 }
 var st=freshState();
+/* the partner feedback form stays implemented (fbHtml and its submit handler) but is not shown in the demonstration interface */
+var SHOW_FEEDBACK=false;
 
 function nm(o){return lang==='ar'?o.ar:o.en}
 function pick(a){return lang==='ar'?a[1]:a[0]}
@@ -705,58 +727,67 @@ function stateCell(i){
   var txt=s==='scored'?String(v):s==='unknown'?T('stU'):s==='na'?T('stNA'):'–';
   return '<div class="cell '+cls+'" title="'+esc(nm(i)+': '+ansLabel(i.id))+'"><span>'+i.id+'</span><span>'+esc(txt)+'<span class="sr"> ('+esc(ansLabel(i.id))+')</span></span></div>';
 }
-function scopeCardHtml(){
-  var s=st.scope,L=T('scopeLabs');
-  var rows=[[L[0],s.name],[L[1],scopeTypeLabel()],[L[2],s.boundary],[L[3],s.org],[L[4],s.date]];
-  return '<section class="rs first scopecard" aria-labelledby="scH"><h2 id="scH">'+T('scopeH')+'</h2><dl class="sdl">'+
-    rows.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+(blank(r[1])?'<span class="soft">'+T('notStated')+'</span>':esc(r[1]))+'</dd>'}).join('')+'</dl>'+
-    '<p class="note-s">'+T('protoNote')+'</p></section>';
+function dtl(key,sum,body,force){
+  var o=force||st.rOpen[key];
+  return '<details class="adv" data-rk="'+key+'"'+(o?' open':'')+'><summary>'+sum+'</summary>'+body+'</details>';
 }
-function critRow(ci,r){
-  var p=r.per[ci],cr=CRIT[ci],h='',bar='';
+function ctxLabel(k){
+  var cx=CTX.filter(function(z){return z.k===k})[0],o=cx.o.filter(function(z){return z[0]===st.ctx[k]})[0];
+  return o?(lang==='ar'?o[2]:o[1]):T('notStated');
+}
+/* compact area line; the remaining area information is collapsed */
+function areaSummaryHtml(){
+  var s=st.scope,L=T('scopeLabs');
+  function v(x){return blank(x)?'<span class="soft">'+T('notStated')+'</span>':esc(x)}
+  var rows=[[L[2],v(s.boundary)],[L[3],v(s.org)],[T('stRisk'),esc(riskList().map(function(r){return nm(r)}).join('; ')||'–')],[nm(CTX[0]),esc(ctxLabel('density'))],[nm(CTX[1]),esc(ctxLabel('land'))],[nm(CTX[2]),esc(st.ctx.income?ctxLabel('income'):T('notStated'))]];
+  return '<p class="arealine"><b>'+esc(s.name)+'</b> · '+esc(scopeTypeLabel())+' · '+esc(s.date||T('notStated'))+'</p>'+
+    dtl('area',T('areaDet'),'<dl class="sdl">'+rows.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>',false);
+}
+/* horizontal bars: five categories compared on one fixed 0 to 100% scale. Labels carry the numbers, so colour is not the only cue. */
+function barSvg(pct,shade){
+  var g=[25,50,75].map(function(v){return '<line x1="'+v+'" y1="0" x2="'+v+'" y2="14" stroke="#C4CCC6" stroke-width="1" vector-effect="non-scaling-stroke"/>'}).join('');
+  var fill=pct>0?'<rect x="0" y="2.5" width="'+pct+'" height="9" fill="'+shade+'"/>':'<line x1="0.8" y1="1" x2="0.8" y2="13" stroke="'+shade+'" stroke-width="3" vector-effect="non-scaling-stroke"/>';
+  return '<svg class="cbar" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100" height="14" fill="#FFFFFF" stroke="#6F7B74" stroke-width="1" vector-effect="non-scaling-stroke"/>'+g+fill+'</svg>';
+}
+function critChartRow(ci,r,shade){
+  var p=r.per[ci],cr=CRIT[ci],name='<div class="cname"><b>'+cr.id+'</b> '+esc(nm(cr))+'</div>';
   if(p.status==='complete'){
     var lv=LEVELS[lvlIdx(p.pct)];
-    bar='<div class="pbar" role="img" aria-label="'+esc(cr.id+' '+nm(cr)+': '+p.pct+'%')+'"><i class="'+lv.c+'" style="width:'+Math.max(p.pct,2)+'%"></i></div>';
-    h='<div class="pval"><b>'+T('pts')(p.sum,p.max,p.pct)+'</b> <span class="chip '+lv.c+'">'+esc(nm(lv))+'</span></div>';
-  }else if(p.status==='na'){
-    bar='<div class="pbar none" role="img" aria-label="'+esc(cr.id+': '+T('naCrit'))+'"></div>';
-    h='<div class="pval"><b>'+T('naCrit')+'</b></div>';
-  }else{
-    bar='<div class="pbar none" role="img" aria-label="'+esc(cr.id+': '+T('notRated'))+'"></div>';
-    h='<div class="pval"><b>'+T('notRated')+'</b></div>';
+    return '<div class="crow">'+name+barSvg(p.pct,shade)+'<div class="cval"><b><bdi dir="ltr">'+p.pct+'%</bdi></b> <span class="chip '+lv.c+'">'+esc(nm(lv))+'</span><small><bdi dir="ltr">'+esc(T('ptsOnly')(p.sum,p.max))+'</bdi></small></div></div>';
   }
-  var extra=p.status==='incomplete'&&p.scored>0?'<div class="pcomp">'+T('partial')(p.sum,p.max,p.scored,p.n)+'</div>':'';
-  return '<div class="prow"><div class="pname"><b>'+cr.id+'</b> '+esc(nm(cr))+'</div>'+bar+h+
-    '<div class="pcomp">'+T('cmpl')(p.scored,p.n,p.unk,p.na)+'</div>'+extra+'</div>';
+  var msg=p.status==='na'?T('naCrit'):(p.unk?T('notRated'):T('notRatedUn'));
+  return '<div class="crow">'+name+'<div class="cnobar"><b>'+esc(msg)+'</b><small>'+esc(T('critCounts')(p.scored,p.n,p.unk,p.un,p.na))+'</small></div></div>';
 }
-function profileHtml(r){
-  return '<section class="rs" aria-labelledby="prH"><h2 id="prH">'+T('profH')+'</h2><p class="sub">'+T('profSub')+'</p>'+
-    '<div class="pgroup"><h3>'+T('g1H')+'</h3><p class="note-s">'+T('g1P')+'</p>'+critRow(0,r)+'</div>'+
-    '<div class="pgroup"><h3>'+T('g2H')+'</h3><p class="note-s">'+T('g2P')+'</p>'+[1,2,3,4].map(function(ci){return critRow(ci,r)}).join('')+'</div>'+
-    '<h3 class="subh">'+T('heatH')+'</h3>'+
-    '<div class="heat">'+CRIT.map(function(cr,ci){return '<div><h4>'+cr.id+' '+esc(lang==='ar'?cr.shAr:cr.sh)+'</h4>'+IND.filter(function(i){return i.c===ci}).map(stateCell).join('')+'</div>'}).join('')+'</div>'+
-    '<p class="note-s">'+T('heatKey')+'</p></section>';
+function critChartHtml(r){
+  return '<div class="cchart" role="group" aria-label="'+esc(T('profH'))+'">'+
+    '<div class="cgrp">'+esc(T('g1H'))+'</div>'+critChartRow(0,r,'#17402F')+
+    '<div class="cgrp en">'+esc(T('g2H'))+'</div>'+[1,2,3,4].map(function(i){return critChartRow(i,r,'#7DB07F')}).join('')+
+    '<div class="crow caxis" aria-hidden="true"><div></div><div class="cax">'+[0,25,50,75,100].map(function(v){return '<span style="inset-inline-start:'+v+'%">'+v+'%</span>'}).join('')+'</div><div></div></div></div>';
 }
 function eqWeightText(r){
   return T('equalW')(r.per.map(function(p,i){return CRIT[i].id+' '+p.scored}).join(', '));
 }
-function overallHtml(r){
-  var o=r.ov,body='';
-  if(o.status==='complete'){
-    var L=LEVELS[r.lvl];
-    body='<div class="overall"><div><div class="big">'+o.sum+'<small> / '+o.max+'</small></div></div>'+
-      '<div><span class="chip lg '+L.c+'">'+esc(nm(L))+'</span> <span style="margin-inline-start:10px;font-weight:600">'+o.pct+'%</span>'+
-      '<div class="scale" role="img" aria-label="'+esc(T('levelIs'))+': '+esc(nm(L))+', '+o.pct+'%"><i></i><i></i><i></i><i></i><em style="inset-inline-start:'+o.pct+'%"></em></div>'+
-      '<div class="scale-lab" aria-hidden="true"><span>'+nm(LEVELS[0])+'</span><span>'+nm(LEVELS[1])+'</span><span>'+nm(LEVELS[2])+'</span><span>'+nm(LEVELS[3])+'</span></div></div></div>'+
-      (o.na?'<p class="thr">'+T('naDen')(o.max)+'</p>':'');
-  }else if(o.status==='na'){
-    body='<div class="note">'+T('ovNA')+'</div>';
-  }else{
+/* missing-data warnings stay visible on the page */
+function warnHtml(r){
+  var o=r.ov,h='';
+  if(o.open>0){
     var ul=IND.filter(function(i){return st.sc[i.id]==='U'}).map(function(i){return i.id}).join(', ');
-    body='<div class="note">'+ico('info')+' '+T('ovSupp')(o.open,ul)+'</div>';
+    h+='<div class="note warn">'+ico('alert')+'<span>'+T('ovSupp')(o.open,ul)+'</span></div>';
   }
-  return '<section class="rs" aria-labelledby="ovH"><h2 id="ovH">'+T('overallH')+'</h2>'+body+
-    '<p class="thr">'+eqWeightText(r)+'</p><p class="thr">'+T('thresholds')+'</p></section>';
+  if(o.status==='na')h+='<div class="note warn">'+ico('alert')+'<span>'+T('ovNA')+'</span></div>';
+  if(o.na>0&&o.status!=='na')h+='<div class="note">'+ico('info')+' '+T('warnNA')(o.na)+(o.status==='complete'?' '+T('naDen')(o.max):'')+'</div>';
+  return h;
+}
+function overallLine(r){
+  var o=r.ov,h='<p class="ovline"><b>'+T('overallH')+':</b> ';
+  if(o.status==='complete'){var L=LEVELS[r.lvl];h+='<b><bdi dir="ltr">'+o.sum+' / '+o.max+'</bdi> · <bdi dir="ltr">'+o.pct+'%</bdi></b> <span class="chip '+L.c+'">'+esc(nm(L))+'</span>'}
+  else if(o.status==='na')h+=esc(T('ovNA'));
+  else h+=esc(T('ovNotShown'));
+  return h+'</p>';
+}
+function heatBody(){
+  return '<div class="heat">'+CRIT.map(function(cr,ci){return '<div><h4>'+cr.id+' '+esc(lang==='ar'?cr.shAr:cr.sh)+'</h4>'+IND.filter(function(i){return i.c===ci}).map(stateCell).join('')+'</div>'}).join('')+'</div>'+
+    '<p class="note-s">'+T('heatKey')+'</p>';
 }
 function gapsData(){
   var g={z:[],o:[],t:[],u:[],n:[]};
@@ -766,7 +797,7 @@ function gapsData(){
   });
   return g;
 }
-function gapsHtml(r){
+function gapsBody(r){
   var g=gapsData();
   function li(i,withText){
     var v=st.sc[i.id];
@@ -781,30 +812,29 @@ function gapsHtml(r){
     var z=IND.filter(function(i){return i.c===r.weak&&st.sc[i.id]===0}).map(function(i){return i.id+' '+nm(i)}).join('; ');
     read=T('readTxt')(CRIT[r.weak].id+' '+nm(CRIT[r.weak]),r.per[r.weak].pct,z);
   }
-  return '<section class="rs" aria-labelledby="sgH"><h2 id="sgH">'+T('sgH')+'</h2><p class="sub">'+T('sgSub')+'</p>'+
+  return '<p class="note-s">'+T('sgSub')+'</p>'+
     '<ul class="lights glist">'+row('r',T('gap0'),g.z,true)+row('a',T('gap1'),g.o,true)+row('g',T('strong'),g.t,false)+row('u',T('gapU'),g.u,false)+row('n',T('gapNA'),g.n,false)+'</ul>'+
-    '<div class="read"><h3>'+T('readH')+'</h3><p>'+esc(read)+'</p></div></section>';
+    '<div class="read"><h3>'+T('readH')+'</h3><p>'+esc(read)+'</p></div>';
 }
-function confHtml(){
+function confBody(){
   var c=confCounts();
-  return '<section class="rs" aria-labelledby="cfH"><h2 id="cfH">'+T('confH')+'</h2>'+
-    '<p>'+T('confTxt')(c.n,c.high,c.mid,c.low,c.none)+'</p><p class="note-s">'+T('confNote')+'</p></section>';
+  return '<p>'+T('confTxt')(c.n,c.high,c.mid,c.low,c.none)+'</p><p class="note-s">'+T('confNote')+'</p>';
 }
-function detailsHtml(){
+function detailsTable(){
   var rows=IND.map(function(i){
     return '<tr><td><b>'+i.id+'</b> '+esc(nm(i))+'</td><td>'+esc(ansLabel(i.id))+'</td><td>'+esc(st.rat[i.id]||(st.sc[i.id]==='NA'?st.just[i.id]||'':'')||'–')+'</td><td>'+esc(st.evd[i.id]||'–')+'</td><td>'+esc(cfLabel(i.id))+'</td></tr>';
   }).join('');
-  return '<details class="adv"><summary>'+T('detH')+'</summary><div class="tbl-wrap"><table class="tbl"><thead><tr><th>'+T('colInd')+'</th><th>'+T('colAns')+'</th><th>'+T('colRat')+'</th><th>'+T('colEvd')+'</th><th>'+T('colCf')+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></details>';
+  return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>'+T('colInd')+'</th><th>'+T('colAns')+'</th><th>'+T('colRat')+'</th><th>'+T('colEvd')+'</th><th>'+T('colCf')+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
-function methAHtml(){
-  return '<details class="adv"><summary>'+T('methA')+'</summary><ul class="meth">'+S.methAL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></details>';
+/* one methodology section: scoring rules, thresholds, equal weighting and the match-index method */
+function methodologyHtml(r){
+  return dtl('meth',T('methAll'),'<h4 class="subh2">'+T('methA')+'</h4><ul class="meth">'+S.methAL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>'+
+    '<p class="note-s">'+eqWeightText(r)+'</p><p class="note-s">'+T('thresholds')+'</p>'+
+    '<h4 class="subh2">'+T('methB')+'</h4><ul class="meth">'+S.methBL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul><h4 class="subh2">'+T('wTitle')+'</h4>'+weightsTable(),false);
 }
 function weightsTable(){
   return '<div class="tbl-wrap"><table class="tbl"><caption class="sr">'+T('wTitle')+'</caption><thead><tr><th>'+T('option')+'</th>'+RISK.map(function(r){return '<th class="num">'+esc(nm(r))+'</th>'}).join('')+'</tr></thead><tbody>'+
     OPT.map(function(o){return '<tr><td>'+esc(nm(o))+'</td>'+RISK.map(function(r){return '<td class="num">'+o.w[r.k]+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>';
-}
-function methBHtml(){
-  return '<details class="adv"><summary>'+T('methB')+'</summary><ul class="meth">'+S.methBL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul><h4 class="subh2">'+T('wTitle')+'</h4>'+weightsTable()+'</details>';
 }
 function statusChip(s){return '<span class="chip st-'+s+'">'+stLabel(s)+'</span>'}
 function whyText(x){
@@ -832,10 +862,6 @@ function condsHtml(x){
   var tc=x.conds.some(function(c){return c.id==='3.2'})&&x.o.cx>=1?'<li>'+esc(T('condCx')(cx))+'</li>':'';
   return '<div class="rline"><b>'+T('condL')+':</b></div>'+(items.length?'<ul class="rl">'+items.join('')+tc+'</ul>':'<p class="rtxt">'+T('condNone')+'</p>');
 }
-function exploreLink(x){
-  if(x.o.nbs)return '<button class="btn btn-sm no-print" type="button" data-explore="'+x.o.nbs+'">'+T('exBtn')+ico('arrow','flip')+'</button>';
-  return '<p class="note-s nomod">'+T('noMod')+'</p>';
-}
 /* provisional category (display only) */
 function catText(o){var t=pick(CATS[o.cat]);if(o.cat2)t+=' · '+pick(CATS[o.cat2]);return t}
 function catLine(o){return '<p class="catline"><b>'+T('catL')+':</b> '+esc(catText(o))+' <span class="soft">('+T('catProv')+')</span></p>'}
@@ -855,38 +881,75 @@ function chkPanel(o){
   });
   return h+'<div class="chkres">'+screenHtml({scr:s})+'</div></div>';
 }
-function recsHtml(){
-  if(!riskList().length||!st.ctx.density||!st.ctx.land)return '<div class="note">'+T('recEmpty')+'</div>';
-  var R=recs(),top=R.ranked.slice(0,3);
-  function row(x){return {s:x.s,name:nm(x.o),eg:x.o.eg,lnd:CLAB.land[x.o.land][lang==='ar'?1:0],cx:CLAB.cx[x.o.cx][lang==='ar'?1:0],cxN:x.o.cx,lndN:x.o.land}}
-  var h='<p class="note-s" style="margin:0 0 14px">'+T('matchNote')+'</p>';
-  if(R.ranked.some(function(x){return x.scr.status==='unchecked'}))h+='<div class="note">'+T('prelim')+'</div>';
-  if(!R.ranked.length)h+='<div class="note">'+T('recNone')+'</div>';
-  else{
-    h+='<div class="top3">'+top.map(function(x){
-      var d=row(x);
-      return '<div class="rc"><div class="rank">'+x.rank+'</div><h3>'+esc(d.name)+'</h3><p>'+(d.eg?esc(d.eg):'&nbsp;')+'</p>'+catLine(x.o)+
-        '<div class="mscore"><span class="mlab">'+T('matchL')+'</span><span class="mval">'+x.s+' / 100</span></div>'+
-        '<dl><dt>'+T('cplx')+'</dt><dd>'+meter(d.cxN+1,3)+d.cx+'</dd><dt>'+T('landN')+'</dt><dd>'+meter(d.lndN+1,3)+d.lnd+'</dd></dl>'+
-        '<div class="why"><b>'+T('whyL')+':</b> '+esc(whyText(x))+'</div>'+
-        '<div class="why">'+screenHtml(x)+'<div class="chkact">'+chkBtn(x.o)+'</div>'+chkPanel(x.o)+'</div><div class="why">'+condsHtml(x)+'</div><div class="why">'+exploreLink(x)+'</div></div>';
-    }).join('')+'</div><h3 class="sub" style="font-size:19px;color:var(--g900);margin-bottom:12px">'+T('allOpt')+'</h3>';
-    var rows=R.ranked.map(function(x){
-      var d=row(x),first=x.rank<=3;
-      return '<tr class="'+(first?'top-row':'')+'"><td>'+x.rank+'</td><td>'+esc(d.name)+'<div class="g">'+esc(catText(x.o))+'</div></td><td class="num">'+x.s+' / 100</td><td>'+statusChip(x.scr.status)+'</td><td>'+d.cx+'</td><td>'+d.lnd+'</td><td>'+(first?'':chkBtn(x.o))+'</td></tr>'+
-        (!first&&st.chkOpen[x.o.id]?'<tr class="chkrow"><td colspan="7">'+chkPanel(x.o)+'</td></tr>':'');
-    }).join('');
-    h+='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>'+T('option')+'</th><th class="num">'+T('matchL')+'</th><th>'+T('status')+'</th><th>'+T('cplx')+'</th><th>'+T('landN')+'</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
-  }
-  return h+exclHtml(R)+methBHtml();
+function exploreAction(o){
+  if(o.nbs)return '<button class="btn btn-sm no-print" type="button" data-explore="'+o.nbs+'">'+T('exBtn')+ico('arrow','flip')+'</button>';
+  return '<span class="nocalc">'+T('noCalc')+'</span>';
 }
-function exclHtml(R){
-  if(!R.na.length&&!R.other.length)return '';
-  function li(x,why,reopen){return '<li><b>'+esc(nm(x.o))+'.</b> '+esc(why)+' <span class="soft">'+esc(catText(x.o))+'</span><div class="chkact">'+chkBtn(x.o,reopen)+'</div>'+chkPanel(x.o)+'</li>'}
-  var h='<h3 class="sub" style="font-size:19px;color:var(--g900);margin:28px 0 8px">'+T('exclH')+'</h3>';
-  if(R.na.length)h+='<h4 class="subh2">'+T('exNA')+'</h4><ul class="rl exl">'+R.na.map(function(x){return li(x,x.scr.reasons.map(function(q){return pick(q.t)}).join(' '),true)}).join('')+'</ul>';
-  if(R.other.length)h+='<h4 class="subh2">'+T('otherH')+'</h4><p class="note-s">'+T('otherP')+'</p><ul class="rl exl">'+R.other.map(function(x){return li(x,x.raw===0?T('exNoWhy'):T('exZeroWhy'),false)}).join('')+'</ul>';
-  return h;
+function reasonList(x){return x.scr.reasons.map(function(q){return pick(q.t)})}
+function anyPanel(ids){return ids.some(function(id){return st.chkOpen[id]})}
+/* compact card: name, status, short reason, essential solution-specific conditions, actions. Scores and extended explanations are collapsed. */
+function optCard(x,shared){
+  var o=x.o,i=lang==='ar'?1:0;
+  var specific=reasonList(x).filter(function(t){return shared.indexOf(t)<0});
+  if(x.conds.some(function(c){return c.id==='3.2'})&&o.cx>=1)specific.push(T('condCx')(CLAB.cx[o.cx][i]));
+  var hits=x.why.hit.map(function(h){return nm(h.r)}).join('; ');
+  var det='<dl class="odl"><dt>'+T('matchL')+'</dt><dd><b><bdi dir="ltr">'+x.s+' / 100</bdi></b></dd>'+
+    '<dt>'+T('catL')+'</dt><dd>'+esc(catText(o))+' <span class="soft">('+T('catProv')+')</span></dd>'+
+    '<dt>'+T('cplx')+'</dt><dd>'+meter(o.cx+1,3)+CLAB.cx[o.cx][i]+'</dd><dt>'+T('landN')+'</dt><dd>'+meter(o.land+1,3)+CLAB.land[o.land][i]+'</dd></dl>'+
+    '<p class="note-s">'+esc(whyText(x))+'</p>'+(o.eg?'<p class="note-s">'+esc(o.eg)+'</p>':'')+'<div class="why">'+screenHtml(x)+'</div>';
+  return '<article class="oc" id="opt-'+o.id+'"><header class="och"><span class="rank">'+x.rank+'</span><h3>'+esc(nm(o))+'</h3>'+statusChip(x.scr.status)+'</header>'+
+    '<p class="owhy">'+esc(T('shortWhy')(hits))+'</p>'+(specific.length?'<p class="ospec">'+esc(specific.join(' '))+'</p>':'')+
+    '<div class="oact">'+chkBtn(o)+exploreAction(o)+'</div>'+chkPanel(o)+dtl('sd-'+o.id,T('solDet'),det,false)+'</article>';
+}
+function sharedBox(top,sharedChk){
+  var conds=top[0].conds;
+  if(!conds.length&&!sharedChk.length)return '';
+  return '<div class="shared"><b>'+T('sharedH')+'</b>'+(conds.length?'<ul>'+conds.map(function(k){
+    return '<li><b>'+esc(k.id+' '+nm(k.i))+'</b>: '+esc(k.u?T('condU'):T('condScore')(k.v)+': '+rubricText(k.i,k.v))+'</li>';
+  }).join('')+'</ul>':'')+(sharedChk.length?'<p class="sch"><b>'+T('sharedChkH')+':</b> '+esc(sharedChk.join(' '))+'</p>':'')+'</div>';
+}
+/* remaining qualifying options, options excluded by checks, and options with a match score of 0 */
+function otherHtml(R){
+  var rest=R.ranked.slice(3),n=rest.length+R.na.length+R.other.length;
+  if(!n)return '';
+  var ids=rest.concat(R.na,R.other).map(function(x){return x.o.id});
+  function li(x,line,reopen,extra){
+    return '<li><div class="orow"><b>'+esc(nm(x.o))+'</b> '+statusChip(x.scr.status)+'</div><p class="note-s">'+line+(extra||'')+' <span class="soft">'+esc(catText(x.o))+'</span></p><div class="oact">'+chkBtn(x.o,reopen)+exploreAction(x.o)+'</div>'+chkPanel(x.o)+'</li>';
+  }
+  var body='';
+  if(rest.length)body+='<h4 class="subh2">'+T('furtherH')+'</h4><ul class="ol">'+rest.map(function(x){
+    return li(x,esc(T('shortWhy')(x.why.hit.map(function(h){return nm(h.r)}).join('; '))),false,' <span class="soft">'+T('matchL')+': <bdi dir="ltr">'+x.s+' / 100</bdi></span>');
+  }).join('')+'</ul>';
+  if(R.na.length)body+='<h4 class="subh2">'+T('exNA')+'</h4><ul class="ol">'+R.na.map(function(x){return li(x,esc(reasonList(x).join(' ')),true)}).join('')+'</ul>';
+  if(R.other.length)body+='<h4 class="subh2">'+T('otherH')+'</h4><p class="note-s">'+T('otherP')+'</p><ul class="ol">'+R.other.map(function(x){return li(x,esc(x.raw===0?T('exNoWhy'):T('exZeroWhy')),false)}).join('')+'</ul>';
+  return dtl('other',T('otherSum')(n),body,anyPanel(ids));
+}
+function sectionB(){
+  var h='<section class="rs" aria-labelledby="rcH"><h2 id="rcH">'+T('optsH')+'</h2>';
+  if(!riskList().length||!st.ctx.density||!st.ctx.land)return h+'<div class="note">'+T('recEmpty')+'</div></section>';
+  var R=recs(),top=R.ranked.slice(0,3);
+  h+='<p class="sub">'+(R.ranked.some(function(x){return x.scr.status==='unchecked'})?T('prelim'):T('recP'))+'</p>';
+  if(!top.length)h+='<div class="note">'+T('recNone')+'</div>';
+  else{
+    var cnt={};
+    top.forEach(function(q){reasonList(q).forEach(function(k){cnt[k]=(cnt[k]||0)+1})});
+    var sharedChk=Object.keys(cnt).filter(function(k){return cnt[k]>1});
+    h+='<div class="ocards">'+top.map(function(q){return optCard(q,sharedChk)}).join('')+'</div>'+sharedBox(top,sharedChk)+'<p class="note-s">'+T('matchNote')+'</p>';
+  }
+  return h+otherHtml(R)+'</section>';
+}
+/* cost and impact exploration: direct access; the last explored solution stays available */
+function sectionC(){
+  var X=window.NBS4MED_EXPLORE,last=X.lastSolution();
+  return '<section class="rs no-print" aria-labelledby="coH"><h2 id="coH">'+X.exploreTitle()+'</h2><p class="sub">'+T('exSecP')+'</p>'+
+    '<button class="btn btn-primary" type="button" id="openExplore"><span>'+X.ctaLabel()+'</span>'+ico('arrow','flip')+'</button>'+(last?'<p class="note-s">'+esc(T('lastEx')(last))+'</p>':'')+'</section>';
+}
+function sectionA(r){
+  return '<section class="rs first" aria-labelledby="asH"><h2 id="asH">'+T('asH')+'</h2>'+areaSummaryHtml()+warnHtml(r)+
+    '<h3 class="subh" id="cpH">'+T('profH')+'</h3><p class="note-s">'+T('profSubS')+'</p>'+critChartHtml(r)+overallLine(r)+
+    '<div class="sboxes"><div class="sbox"><b>'+T('compH')+'</b><p>'+T('compTxt')(r.ov.scored,r.ov.unk,r.ov.na)+(r.ov.un?' '+r.ov.un+' '+(lang==='ar'?'بلا إجابة.':'unanswered.'):'')+'</p></div><div class="sbox"><b>'+T('confH')+'</b>'+confBody()+'</div></div>'+
+    window.NBS4MED_EXPLORE.improvementHtml()+
+    dtl('ind',T('heatH'),heatBody(),false)+dtl('ans',T('detH'),detailsTable(),false)+dtl('gaps',T('sgH'),gapsBody(r),false)+'</section>';
 }
 function fbHtml(){
   if(st.fb==='ok')return '<div class="ok-box" role="status">'+T('fbOk')+'</div>';
@@ -908,18 +971,15 @@ function renderResults(){
   box.innerHTML=
     '<div class="res-head"><h1 id="resTitle" tabindex="-1">'+T('resTitle')+'</h1>'+
       '<button class="btn no-print" type="button" id="editAns">'+ico('back','flip')+'<span>'+T('edit')+'</span></button></div>'+
-    scopeCardHtml()+
-    '<section class="rs" aria-labelledby="cmH"><h2 id="cmH">'+T('compH')+'</h2><p class="compl">'+T('compTxt')(r.ov.scored,r.ov.unk,r.ov.na)+'</p></section>'+
+    '<p class="notice">'+ico('info')+'<span>'+T('protoShort')+'</span></p>'+
     '<div class="report no-print" role="group" aria-label="'+T('repH')+'"><b>'+T('repH')+'</b>'+
       '<button class="btn btn-primary" type="button" id="dlPdf">'+ico('print')+'<span>'+T('pdf')+'</span></button>'+
       '<button class="btn" type="button" id="dlPdfDetail">'+ico('print')+'<span>'+T('pdfDetail')+'</span></button>'+
       '<button class="btn" type="button" id="dlCsv">'+ico('down')+'<span>'+T('csv')+'</span></button>'+
       '<div class="toast" id="dlNote" role="status"></div></div>'+
-    profileHtml(r)+overallHtml(r)+methAHtml()+gapsHtml(r)+confHtml()+
-    '<section class="rs" aria-labelledby="dtH"><h2 id="dtH">'+T('detH')+'</h2>'+detailsHtml().replace('<details class="adv"><summary>'+T('detH')+'</summary>','<details class="adv" open><summary>'+T('detH')+'</summary>')+'</section>'+
-    '<section class="rs" aria-labelledby="rcH"><h2 id="rcH">'+T('recH')+'</h2><p class="sub">'+T('recP')+'</p>'+recsHtml()+'</section>'+
-    '<section class="rs no-print" aria-labelledby="coH"><h2 id="coH">'+window.NBS4MED_EXPLORE.exploreTitle()+'</h2>'+window.NBS4MED_EXPLORE.ctaHtml()+'</section>'+
-    '<section class="rs no-print" aria-labelledby="fbH"><h2 id="fbH">'+T('fbH')+'</h2><div id="fbBody" style="margin-top:14px">'+fbHtml()+'</div></section>';
+    sectionA(r)+sectionB()+sectionC()+
+    '<section class="rs" aria-label="'+esc(T('methAll'))+'">'+methodologyHtml(r)+'</section>'+
+    (SHOW_FEEDBACK?'<section class="rs no-print" aria-labelledby="fbH"><h2 id="fbH">'+T('fbH')+'</h2><div id="fbBody" style="margin-top:14px">'+fbHtml()+'</div></section>':'');
 }
 
 /* ---------- routing ---------- */
@@ -1029,6 +1089,7 @@ document.addEventListener('change',function(e){
 document.addEventListener('toggle',function(e){
   var d=e.target;
   if(d&&d.classList&&d.classList.contains('more')&&d.dataset.ind)st.open[d.dataset.ind]=d.open;
+  if(d&&d.dataset&&d.dataset.rk)st.rOpen[d.dataset.rk]=d.open;
 },true);
 document.addEventListener('click',function(e){
   var t=e.target.closest('button,a');

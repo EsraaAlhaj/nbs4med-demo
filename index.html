@@ -264,7 +264,8 @@ footer a{color:#fff}
 .il .wm{font-weight:800;font-size:34px;color:var(--g800);line-height:.9;letter-spacing:-.01em;font-family:'Source Sans 3',sans-serif}
 .il .wm small{display:block;font-size:22px;letter-spacing:0}
 .euf{display:flex;align-items:center;gap:14px;font-weight:700;color:var(--g800);line-height:1.2;font-size:19px}
-.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding:44px 0}
+.foot{display:grid;grid-template-columns:1fr;gap:48px;padding:44px 0}
+.foot > div:first-child{max-width:62em}
 .foot h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;color:#fff}
 [dir=rtl] .foot h3{text-transform:none;letter-spacing:0}
 .foot p,.foot li{font-size:15px;line-height:1.6;color:#D3E1D8}
@@ -466,6 +467,75 @@ details.adv h3{margin-top:10px}
   .lights.glist > li{grid-template-columns:1fr;gap:4px}
   .sdl{grid-template-columns:1fr;gap:0}
   .sdl dd{margin-bottom:8px}
+}
+/* ---- simplified results page and cost/impact view ---- */
+.notice{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;margin:14px 0 0;background:var(--wash);border:1px solid var(--line);font-size:15px;color:var(--mid)}
+.res .report{margin-top:16px}
+.res .rs{padding:26px 0;margin-top:26px}
+.res .rs.first{margin-top:14px;padding-top:6px}
+.arealine{font-size:19px;margin:0 0 6px}
+.subh{font-size:19px;color:var(--g900);margin:26px 0 4px}
+.cchart{margin:8px 0 6px}
+.cgrp{font-weight:700;font-size:16px;color:var(--g800);margin:16px 0 2px;padding-inline-start:10px;border-inline-start:6px solid #17402F}
+.cgrp.en{border-inline-start-color:#7DB07F}
+.crow{display:grid;grid-template-columns:minmax(180px,1.1fr) minmax(160px,1.6fr) minmax(170px,1fr);gap:4px 16px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.cname{line-height:1.3}
+.cbar{width:100%;height:18px;display:block}
+[dir=rtl] .cbar{transform:scaleX(-1)}
+.cval{line-height:1.3}
+.cval small,.cnobar small{display:block;color:var(--soft);font-size:14px}
+.cnobar{grid-column:2 / span 2;border:1.5px dashed #6F7B74;padding:6px 10px;background:#fff}
+.caxis{border-top:0;padding:0;min-height:0}
+.cax{position:relative;height:20px;font-size:13px;color:var(--soft)}
+.cax span{position:absolute;top:0;transform:translateX(-50%)}
+[dir=rtl] .cax span{transform:translateX(50%)}
+.cax span:first-child{transform:none}
+.cax span:last-child{transform:translateX(-100%)}
+[dir=rtl] .cax span:first-child{transform:none}
+[dir=rtl] .cax span:last-child{transform:translateX(100%)}
+.ovline{margin:14px 0;padding:10px 14px;background:var(--g50);border:1px solid var(--g100)}
+.sboxes{display:grid;grid-template-columns:1fr 1.2fr;gap:14px;margin:0 0 6px}
+.sbox{border:1px solid var(--line);padding:10px 14px;font-size:15.5px}
+.sbox p{margin:4px 0 0}
+.impl{margin:6px 0 4px;padding-inline-start:22px}
+.impl li{margin:0 0 8px}
+.ocards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;align-items:start}
+.oc{border:1px solid var(--line);padding:16px 18px;background:#fff}
+.och{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.och .rank{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--g500);line-height:1}
+.och h3{font-size:19px;color:var(--g900);margin:0;flex:1 1 140px}
+.owhy{margin:10px 0 0;font-size:15.5px}
+.ospec{margin:6px 0 0;font-size:14.5px;font-weight:600;color:#5A3500}
+.oact{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:12px}
+.nocalc{font-size:14.5px;font-weight:600;color:var(--mid)}
+.odl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:8px 0;font-size:15px}
+.odl dt{color:var(--soft)}.odl dd{margin:0}
+.shared{margin:16px 0 8px;padding:12px 16px;background:var(--wash);border:1px solid var(--line);font-size:15.5px}
+.shared ul{margin:6px 0 0;padding-inline-start:22px}
+.sch{margin:8px 0 0}
+.ol{list-style:none;margin:0;padding:0}
+.ol li{padding:12px 0;border-top:1px solid var(--line)}
+.orow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.oc details.adv,.ol details.adv{margin-top:12px}
+.ex .sols{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.nocalc-note{margin-top:12px}
+.exbasis{margin:6px 0 10px;font-size:15.5px}
+.cst{margin:10px 0 14px;max-width:760px}
+.cst-h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.cst-h em,.kvs em{font-style:normal;font-size:13px;color:var(--soft)}
+.rbar{width:100%;height:16px;display:block}
+[dir=rtl] .rbar{transform:scaleX(-1)}
+.rax{position:relative;height:22px;margin-bottom:8px;font-size:13px;color:var(--soft)}
+.rax span{position:absolute;top:0;white-space:nowrap}
+.rax span:last-child{transform:translateX(-100%)}
+[dir=rtl] .rax span:last-child{transform:translateX(100%)}
+.kvs{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:7px 0;border-bottom:1px solid var(--line);max-width:760px}
+.vchart{margin:12px 0 4px;max-width:760px}
+@media (max-width:700px){
+  .crow{grid-template-columns:1fr}
+  .cnobar{grid-column:1}
+  .sboxes{grid-template-columns:1fr}
+  .arealine{font-size:17px}
 }
 @media print{
   @page{size:A4;margin:14mm 14mm 16mm}
@@ -755,11 +825,12 @@ details.adv h3{margin-top:10px}
         <h3 data-i18n="fDisc">Funding disclaimer</h3>
         <p>Co-funded by the European Union. The contents of this tool are the sole responsibility of the University of Jordan and the NBS4MED project partners and can in no way be taken to reflect the views of the European Union or of the Interreg NEXT MED Programme management structures.</p>
       </div>
-      <div>
+      <!-- Placeholder partner and contact entries are hidden until they are confirmed; the markup is kept for later. -->
+      <div hidden>
         <h3 data-i18n="fPart">Project partners</h3>
         <ul><li>University of Jordan (tool development)</li><li>REGPEL (lead partner), AMB, IMM/IBB, CITET, SEKEM, LIVORNO, PROMEA</li><li>Full names and logos: to be confirmed</li></ul>
       </div>
-      <div>
+      <div hidden>
         <h3 data-i18n="fContact">Contact and privacy</h3>
         <ul><li>Contact: address to be added</li><li><a href="#resources">Privacy notice</a></li></ul>
       </div>

@@ -52,6 +52,8 @@ The interface does not need to change when records or parameter values change.
 
 **Eight stages.** 1 Assessment scope, 2 Site context, 3 Climate risks and environmental challenges, then 4 to 8 the five criteria C1 to C5 (14 indicators, 0 to 2 scale). Results can be viewed as soon as these eight stages are complete.
 
+**Results page.** Three sections: assessment summary (one criteria chart, completeness and confidence, up to three improvement areas), preliminary NBS options (up to three compact cards; extra options and detail are collapsed) and cost and impact exploration. Collapsed sections on screen are always included in the downloadable reports. The calculators' formulas, defaults and units are unchanged; the cost range chart appears only when a valid lower and upper estimate exist.
+
 **Three separate things.** They never feed into each other:
 
 | What | Where it comes from | What it is |

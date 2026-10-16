@@ -236,6 +236,17 @@
     sumRoofOk: { en: 'Structural suitability is reported as confirmed; this tool does not verify it.', ar: 'الملاءمة الإنشائية مُبلَّغ عنها مؤكدة؛ لا تتحقق الأداة منها.' },
     sumRoofNo: { en: 'The checks record the roof as assessed and unsuitable; roof figures are for exploration only.', ar: 'تسجّل الفحوص أن السطح جرى تقييمه وهو غير ملائم؛ أرقام السطح للاستكشاف فقط.' },
     sumNotEntered: { en: 'not entered', ar: 'غير مُدخل' },
+    sumImpMoreScreen: { en: function (n) { return n + (n === 1 ? ' more area is' : ' more areas are') + ' listed in the full gaps list below.'; }, ar: function (n) { return 'يرد ' + n + (n === 1 ? ' مجال آخر' : ' مجالات أخرى') + ' في القائمة الكاملة للفجوات أدناه.'; } },
+    qtyH: { en: 'Physical quantities', ar: 'الكميات المادية' },
+    opsH: { en: 'Operational requirements', ar: 'متطلبات التشغيل' },
+    perfH: { en: 'Climate-related performance estimates', ar: 'تقديرات الأداء المرتبطة بالمناخ' },
+    perfNote: { en: 'Reference evidence from other places is not usable as a local forecast. No local cooling, pollution-reduction or flood-reduction estimate is shown.', ar: 'الأدلة المرجعية من أماكن أخرى لا تصلح توقعًا محليًا. لا يُعرض أي تقدير محلي للتبريد أو خفض التلوث أو خفض الفيضانات.' },
+    costScreenH: { en: 'Cost estimate', ar: 'تقدير الكلفة' },
+    costBasis: { en: 'Currency EUR. No price year: demo prices are not from a dated price list. Not local prices. Each cost is shown on its own scale and the two are not added together.', ar: 'العملة يورو. بلا سنة أسعار: أسعار التجربة ليست من قائمة أسعار مؤرخة. ليست أسعارًا محلية. يُعرض كل بند كلفة على مقياسه الخاص ولا يُجمع البندان.' },
+    costBreak: { en: 'Cost breakdown', ar: 'تفصيل الكلفة' },
+    assumpH: { en: 'Assumptions, limitations and information needed', ar: 'الافتراضات والقيود والمعلومات المطلوبة' },
+    volChartH: { en: 'Storage capacity compared with the design-storm runoff volume (same unit, m³)', ar: 'سعة التخزين مقارنةً بحجم جريان العاصفة التصميمية (الوحدة نفسها، م³)' },
+    noCalcNote: { en: function (l) { return 'No quantitative calculator yet for: ' + l + '. These options can still be checked for applicability on the results page.'; }, ar: function (l) { return 'لا توجد حاسبة كمية بعد لـ: ' + l + '. يمكن مع ذلك فحص قابلية تطبيقها في صفحة النتائج.'; } },
     sumAnd: { en: ' and ', ar: ' و' },
     sumSeeDet: { en: '(full text in the detailed report)', ar: '(النص الكامل في التقرير المفصّل)' },
     sumOptH: { en: 'Preliminary NBS options', ar: 'خيارات أولية للحلول القائمة على الطبيعة' },
@@ -281,7 +292,7 @@
   function en(text) { return '<span lang="en" dir="ltr">' + esc(text) + '</span>'; }
 
   /* ---------- state ---------- */
-  var ex = { sol: null, by: {}, openAdv: false, openMeth: false, res: null };
+  var ex = { sol: null, by: {}, openAdv: false, openMeth: false, open: {}, res: null };
   function cur() {
     var s = ex.sol; if (!s) return null;
     if (!ex.by[s]) ex.by[s] = { vals: E.defaults(s), touched: {}, prices: {} };
@@ -314,14 +325,15 @@
       var checked = ex.sol === id;
       return '<label class="sol' + (checked ? ' on' : '') + '"><input type="radio" name="exsol" value="' + id + '"' + (checked ? ' checked' : '') + '>' +
         '<span><b>' + esc(solName(id)) + '</b>' + picker(id) +
-        '<small>' + x('solDesc_' + id) + '</small>' + catSmall(id) + '</span></label>';
+        '<small>' + x('solDesc_' + id) + '</small></span></label>';
     }).join('');
     root.innerHTML = '<section class="as ex"><div class="wrap ex-wrap">' +
       '<button class="link no-print" type="button" id="exBack">' + c.ico('back', 'flip') + ' ' + x('back') + '</button>' +
       '<h1 id="exTitle" tabindex="-1">' + x('exploreH') + '</h1>' +
       '<p class="lead-s">' + x('intro') + '</p>' +
       '<div class="demo-box">' + c.ico('alert') + '<span>' + esc(x('demoLabel')) + '</span></div>' +
-      '<section class="ex-sec"><h2>' + x('s1') + '</h2><fieldset class="field"><legend class="sr">' + x('s1') + '</legend><div class="sols">' + solRadios + '</div></fieldset></section>' +
+      '<section class="ex-sec"><h2>' + x('s1') + '</h2><fieldset class="field"><legend class="sr">' + x('s1') + '</legend><div class="sols">' + solRadios + '</div></fieldset>' +
+      '<p class="note-s nocalc-note">' + esc(x('noCalcNote')(c.OPT.filter(function (o) { return !o.nbs; }).map(function (o) { return c.nm(o); }).join('; '))) + '</p></section>' +
       '<section class="ex-sec" id="exInputs"></section>' +
       '<section class="ex-sec" id="exResults" aria-live="polite"></section>' +
       '</div></section>';
@@ -593,6 +605,80 @@
     h += det(x('methH'), '<p class="note-s">' + x('methP') + '</p>' + meth, forPrint);
     return h;
   }
+  function det2(key, sum, body) {
+    return '<details class="adv" data-xk="' + key + '"' + (ex.open[key] ? ' open' : '') + '><summary>' + sum + '</summary>' + body + '</details>';
+  }
+  function niceMax(v) { var p = Math.pow(10, Math.floor(Math.log10(v))); return Math.ceil(v / p) * p; }
+  /* floating range bar on its own 0-to-max axis: lower to upper scenario value with a base tick */
+  function rangeSvg(lo, base, hi, max) {
+    var a = lo / max * 100, w = Math.max((hi - lo) / max * 100, 0.8), b = base === null || base === undefined ? null : base / max * 100;
+    return '<svg class="rbar" viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100" height="12" fill="#FFFFFF" stroke="#6F7B74" stroke-width="1" vector-effect="non-scaling-stroke"/>' +
+      [25, 50, 75].map(function (v) { return '<line x1="' + v + '" y1="0" x2="' + v + '" y2="12" stroke="#C4CCC6" stroke-width="1" vector-effect="non-scaling-stroke"/>'; }).join('') +
+      '<rect x="' + a + '" y="2" width="' + w + '" height="8" fill="#7DB07F" stroke="#17402F" stroke-width="1" vector-effect="non-scaling-stroke"/>' +
+      (b === null ? '' : '<line x1="' + b + '" y1="0.5" x2="' + b + '" y2="11.5" stroke="#17402F" stroke-width="3" vector-effect="non-scaling-stroke"/>') + '</svg>';
+  }
+  function axisHtml(max, unit) {
+    return '<div class="rax" aria-hidden="true"><span style="inset-inline-start:0%">0</span><span style="inset-inline-start:100%">' + esc(fmtN(max)) + ' ' + esc(unit) + '</span></div>';
+  }
+  /* a range is drawn only when the calculator gives valid, different lower and upper values; otherwise the number is shown */
+  function validRange(t) { return t && isFinite(t.low) && isFinite(t.high) && t.high > t.low; }
+  function lbh(t) { return x('low') + ' <bdi dir="ltr">' + eur(t.low) + '</bdi> · ' + x('base') + ' <bdi dir="ltr">' + eur(t.base) + '</bdi> · ' + x('high') + ' <bdi dir="ltr">' + eur(t.high) + '</bdi>'; }
+  function costRow(label, t) {
+    if (!t) return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span><i>' + esc(x('unavailable')) + '</i></span></div></div>';
+    if (!validRange(t)) return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span><b><bdi dir="ltr">' + eur(t.base) + '</bdi></b> EUR <em>' + esc(x('basis_demo_assumption')) + '</em></span></div></div>';
+    var max = niceMax(t.high);
+    return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span>' + lbh(t) + ' EUR <em>' + esc(x('basis_demo_assumption')) + '</em></span></div>' + rangeSvg(t.low, t.base, t.high, max) + axisHtml(max, 'EUR') + '</div>';
+  }
+  function inputsLine(res) {
+    var def = E.solutionDef(res.solution_id);
+    var inp = def.inputs.filter(function (d) { return d.primary && d.type !== 'boolean'; }).map(function (d) {
+      var v = res.inputs[d.id], pv = res.provenance[d.id], lab = esc(L() === 'ar' ? d.label_ar : d.label_en);
+      if (v === null || v === undefined) return lab + ' <i>' + esc(x('sumNotEntered')) + '</i>';
+      return lab + ' <b><bdi dir="ltr">' + esc(fmtN(v)) + '</bdi></b>' + (d.unit ? ' ' + esc(d.unit) : '') + ' (' + esc(pv === 'user_entered' ? x('tagUser') : x('tagDefault')) + ')';
+    });
+    return '<p class="exbasis"><b>' + x('sumInputs') + ':</b> ' + inp.join(' · ') + '</p>';
+  }
+  function kvs(o) {
+    return '<div class="kvs"><span>' + esc(x('o_' + o.id)) + '</span><span>' + (o.unavailable ? '<i>' + esc(x('unavailable')) + '</i>' : '<b><bdi dir="ltr">' + esc(fmtRange(o)) + '</bdi></b> ' + esc(o.unit)) + ' <em>' + esc(x('basis_' + o.basis)) + '</em></span></div>' +
+      (o.unavailable && o.reason === 'small_event' ? '<div class="note-s">' + esc(x('r_small_event')) + '</div>' : '') + (o.unavailable && o.reason === 'no_catchment' ? '<div class="note-s">' + esc(x('r_no_catchment')) + '</div>' : '');
+  }
+  var PHYS = ['quantity', 'context', 'storage_capacity', 'event_volume'], OPS = ['resource'], PERF = ['event_retention', 'volume_balance'];
+  function volumeChart(res) {
+    var a = res.outputs.filter(function (o) { return o.id === 'storage_capacity'; })[0], b = res.outputs.filter(function (o) { return o.id === 'runoff_volume'; })[0];
+    if (!a || !b || a.unavailable || b.unavailable || !(a.high > a.low) || !(b.high > b.low)) return '';
+    var max = niceMax(Math.max(a.high, b.high));
+    function row(o) { return '<div class="cst"><div class="cst-h"><b>' + esc(x('o_' + o.id)) + '</b><span>' + x('low') + ' <bdi dir="ltr">' + esc(fmtN(o.low)) + '</bdi> · ' + x('base') + ' <bdi dir="ltr">' + esc(fmtN(o.base)) + '</bdi> · ' + x('high') + ' <bdi dir="ltr">' + esc(fmtN(o.high)) + '</bdi> m³</span></div>' + rangeSvg(o.low, o.base, o.high, max) + '</div>'; }
+    return '<div class="vchart"><div class="note-s"><b>' + x('volChartH') + '</b></div>' + row(a) + row(b) + axisHtml(max, 'm³') + '<p class="note-s">' + x('grpCn') + '</p></div>';
+  }
+  function screenResultsHtml(res) {
+    var sol = res.solution_id;
+    var h = '<h2>' + x('s3') + ' <span class="solname">' + esc(solName(sol)) + '</span></h2>';
+    if (res.status === 'invalid') return h + '<div class="note">' + x('invalidBox') + '</div>';
+    h += assessBox(sol) + warningsHtml(res) + inputsLine(res);
+    /* cost: capital and recurring costs stay separate; a range chart only for a valid lower and upper estimate */
+    var cs = res.costs;
+    h += '<h3>' + x('costScreenH') + '</h3><p class="note-s">' + x('costBasis') + ' ' + x('scenarioNote') + '</p>' +
+      costRow(x('capex'), cs.capex.total) + costRow(x('annual'), cs.annual.total) + costConditions(sol);
+    if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<p class="note-s"><b>' + x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median)) + '</b></p>'; }
+    if (sol === 'NBS02') h += '<div class="note warn">' + C().ico('alert') + '<span>' + roofText() + '</span></div>';
+    h += det2('costdet', x('costBreak'), costTables(res) + roofReferenceBlock(res));
+    var Q = res.outputs.filter(function (o) { return PHYS.indexOf(o.group) >= 0; }), O = res.outputs.filter(function (o) { return OPS.indexOf(o.group) >= 0; }), P = res.outputs.filter(function (o) { return PERF.indexOf(o.group) >= 0; });
+    if (Q.length) h += '<h3>' + x('qtyH') + '</h3>' + Q.map(kvs).join('') + volumeChart(res);
+    if (O.length) h += '<h3>' + x('opsH') + '</h3>' + O.map(kvs).join('');
+    h += '<h3>' + x('perfH') + '</h3>';
+    if (P.length) {
+      h += P.map(function (o) {
+        var src = (o.evidence || []).map(function (id) { return evRef(sol, id); }).join('; ');
+        var lim = o.group === 'event_retention' ? '<div class="note-s">' + esc(x('grpBn')) + (src ? ' <span class="ps-ref">' + esc(x('sumSrc')) + ': ' + esc(src) + '</span>' : '') + '</div>' : '<div class="note-s">' + esc(x('nc_flood_risk_r')) + '</div>';
+        return kvs(o) + lim;
+      }).join('');
+    } else h += '<p class="note-s">' + esc(x('sumNoImp')(res.not_calculated.map(function (k) { return x('nc_' + k); }).join('; '))) + '</p>';
+    h += '<p class="note-s">' + x('perfNote') + '</p>';
+    h += det2('assump', x('assumpH'), limitsHtml(res) + '<h4>' + x('needH') + '</h4>' + needBlock(sol));
+    var meth = '<h4>' + x('fxH') + '</h4>' + formulasTable(res) + '<h4>' + x('refEvH') + '</h4><p class="sub">' + x('refP') + '</p>' + evidenceBlock(sol, res) +
+      '<h4>' + x('inH') + '</h4>' + inputsBlock(res) + '<h4>' + x('rulesH') + '</h4>' + rulesBlock(sol, res) + '<h4>' + x('srcH') + '</h4>' + sourcesBlock(sol);
+    return h + det(x('methH'), '<p class="note-s">' + x('methP') + '</p>' + meth, false);
+  }
   function compute() {
     if (!ex.sol) return null;
     var st = cur();
@@ -605,7 +691,7 @@
     if (!ex.sol) { box.innerHTML = ''; return; }
     var res = compute();
     showFieldErrors(res);
-    box.innerHTML = resultsHtml(res) + '<div class="report no-print">' +
+    box.innerHTML = screenResultsHtml(res) + '<div class="report no-print">' +
       '<button class="btn btn-primary" type="button" id="exPrint">' + C().ico('print') + '<span>' + x('printB') + '</span></button>' +
       '<button class="btn" type="button" id="exPrintDetail">' + C().ico('print') + '<span>' + x('detBtn') + '</span></button>' +
       '<button class="btn" type="button" id="exCsv">' + C().ico('down') + '<span>' + x('csvB') + '</span></button></div>';
@@ -639,6 +725,7 @@
   document.addEventListener('toggle', function (e) {
     if (e.target && e.target.id === 'advBox') ex.openAdv = e.target.open;
     if (e.target && e.target.id === 'methBox') ex.openMeth = e.target.open;
+    if (e.target && e.target.dataset && e.target.dataset.xk) ex.open[e.target.dataset.xk] = e.target.open;
   }, true);
   document.addEventListener('click', function (e) {
     var t = e.target.closest('button'); if (!t) return;
@@ -760,6 +847,13 @@
       return '<b>' + esc(k.i.id + ' ' + t(k.i)) + '</b>' + (v === 'U' ? ': ' + esc(x('sumImpUnk')) : ' (' + esc(c.T('condScore')(v)) + '): ' + esc(c.rubricText(k.i, v)));
     });
     return parts.join('<br>');
+  }
+  function improvementHtml() {
+    var areas = improvementAreas(), shown = areas.slice(0, 3), h = '<h3 class="subh">' + esc(x('sumImpH')) + '</h3>';
+    if (!areas.length) return h + '<p>' + x('sumImpNone') + '</p>';
+    h += '<ol class="impl">' + shown.map(function (it) { return '<li>' + areaText(it) + '</li>'; }).join('') + '</ol>';
+    h += '<p class="note-s">' + x('sumImpN') + (areas.length > 3 ? ' ' + x('sumImpMoreScreen')(areas.length - 3) : '') + '</p>';
+    return h;
   }
   function sumPage1() {
     var c = C(), r = c.calc(), st = c.st, T = c.T, t = c.nm, o = r.ov;
@@ -975,7 +1069,7 @@
   }
 
   window.NBS4MED_EXPLORE = {
-    render: render, ctaHtml: ctaHtml, csv: csv, print: print, printSummary: printSummary, summaryHtml: summaryHtml, improvementAreas: improvementAreas, open: openSol,
+    render: render, ctaHtml: ctaHtml, csv: csv, print: print, printSummary: printSummary, summaryHtml: summaryHtml, improvementAreas: improvementAreas, improvementHtml: improvementHtml, lastSolution: function () { return ex.sol ? solName(ex.sol) : null; }, ctaLabel: function () { return x('ctaB'); }, open: openSol,
     reportHtml: reportHtml, csvRows: csvRows, state: ex, label: function () { return x('demoLabel'); },
     exploreTitle: function () { return x('exploreH'); }
   };
