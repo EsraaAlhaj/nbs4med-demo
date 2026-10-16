@@ -142,7 +142,7 @@
     needCost: { en: 'Cost information', ar: 'معلومات الكلفة' }, needImpact: { en: 'Impact information', ar: 'معلومات الأثر' },
     needCommon: { en: 'Validated definitions, source review and ranking rules from project partners; the NBS repository and the PROMEA decision-making framework.', ar: 'تعريفات معتمدة ومراجعة للمصادر وقواعد الترتيب من شركاء المشروع، ومستودع NBS وإطار اتخاذ القرار من PROMEA.' },
     rulesH: { en: 'Rules applied', ar: 'القواعد المطبقة' },
-    printB: { en: 'Print / Save as PDF', ar: 'طباعة / حفظ بصيغة PDF' }, csvB: { en: 'Download CSV', ar: 'تحميل CSV' },
+    printB: { en: 'Summary report — 2 pages', ar: 'تقرير ملخص — صفحتان' }, csvB: { en: 'Download CSV', ar: 'تحميل CSV' },
     notExplored: { en: 'The impact and cost step was not completed. Only the assessment is reported.', ar: 'لم تُستكمل خطوة الأثر والتكلفة. يُعرض التقييم فقط.' },
     repTitle: { en: 'NBS4MED self-evaluation report', ar: 'تقرير التقييم الذاتي NBS4MED' },
     repAssess: { en: 'Institutional assessment', ar: 'التقييم المؤسسي' },
@@ -213,6 +213,49 @@
     repNotRanked: { en: 'Excluded and other options', ar: 'خيارات مستبعدة وخيارات أخرى' },
     roofStructNo: { en: 'Your applicability check records the roof as assessed and unsuitable. The roof figures below are shown only for exploration and do not apply unless that answer changes.', ar: 'تسجّل فحوص قابلية التطبيق لديك أن السطح جرى تقييمه وهو غير ملائم. أرقام السطح أدناه للاستكشاف فقط ولا تنطبق ما لم تتغير تلك الإجابة.' },
     noChecked: { en: 'No solution has been checked yet. Applicability statuses show Not yet checked.', ar: 'لم يُفحص أي حل بعد. تظهر حالات قابلية التطبيق «لم يُفحص بعد».' },
+    sumTitle: { en: 'NBS4MED self-evaluation: summary report', ar: 'تقرير ملخص التقييم الذاتي NBS4MED' },
+    sumBtn: { en: 'Summary report — 2 pages', ar: 'تقرير ملخص — صفحتان' },
+    detBtn: { en: 'Detailed report', ar: 'تقرير مفصّل' },
+    sumArea: { en: 'Area', ar: 'المنطقة' }, sumScale: { en: 'Assessment scale', ar: 'مقياس التقييم' }, sumDate: { en: 'Date', ar: 'التاريخ' },
+    sumCtx: { en: 'Site context', ar: 'سياق الموقع' }, sumRisks: { en: 'Selected risks', ar: 'المخاطر المختارة' },
+    sumDens: { en: 'Urban density', ar: 'الكثافة العمرانية' }, sumLand: { en: 'Public land available', ar: 'الأراضي العامة المتاحة' },
+    sumProfSub: { en: 'Fixed 0 to 100% axis. A criterion without a percentage shows its status instead of a bar. Levels use provisional project thresholds.', ar: 'محور ثابت من 0 إلى 100%. يعرض المعيار الذي لا نسبة له حالته بدلًا من الشريط. تستخدم المستويات عتبات مؤقتة للمشروع.' },
+    sumCompl: { en: function (n, u, un, na) { return 'Completeness (14 indicators): ' + n + ' scored · ' + u + ' Unknown · ' + un + ' unanswered · ' + na + ' Not applicable'; }, ar: function (n, u, un, na) { return 'الاكتمال (14 مؤشرًا): ' + n + ' مُقيَّمة · ' + u + ' غير معروفة · ' + un + ' بلا إجابة · ' + na + ' لا تنطبق'; } },
+    sumConf: { en: function (n, a, b, c, d) { return 'Confidence in the ' + n + ' scored answers (self-reported): documented evidence ' + a + ' · staff estimate ' + b + ' · informal judgement ' + c + ' · not stated ' + d; }, ar: function (n, a, b, c, d) { return 'الثقة في ' + n + ' إجابة مُقيَّمة (بحسب ما أفاد المستخدم): أدلة موثقة ' + a + ' · تقدير الموظفين ' + b + ' · تقدير غير رسمي ' + c + ' · غير محددة ' + d; } },
+    sumConfNote: { en: 'A complete answer is not necessarily documented evidence.', ar: 'الإجابة المكتملة ليست بالضرورة موثقة بدليل.' },
+    sumImpH: { en: 'Selected improvement areas', ar: 'مجالات التحسين المختارة' },
+    sumImpN: { en: 'Selection order: scores of 0, then 1, then Unknown, in indicator order. This is not a validated priority ranking.', ar: 'ترتيب الاختيار: الدرجة 0 ثم 1 ثم «غير معروف»، بحسب ترتيب المؤشرات. وهو ليس ترتيب أولوية مُتحقَّقًا منه.' },
+    sumImpMore: { en: function (n) { return n + (n === 1 ? ' more area is' : ' more areas are') + ' listed in the detailed report.'; }, ar: function (n) { return 'يرد ' + n + (n === 1 ? ' مجال آخر' : ' مجالات أخرى') + ' في التقرير المفصّل.'; } },
+    sumImpNone: { en: 'No score of 0 or 1 and no Unknown answer was recorded, so no improvement area is selected.', ar: 'لم تُسجَّل درجة 0 أو 1 ولا إجابة «غير معروف»، لذا لا يُختار أي مجال للتحسين.' },
+    sumImpUnk: { en: 'Unknown. The information is missing; confirm it before relying on the result.', ar: 'غير معروف. المعلومة ناقصة؛ تأكد منها قبل الاعتماد على النتيجة.' },
+    sumCrit: { en: function (a, n, u, un, na) { return a + ' of ' + n + ' indicators scored' + (u ? ' · ' + u + ' Unknown' : '') + (un ? ' · ' + un + ' unanswered' : '') + (na ? ' · ' + na + ' Not applicable' : ''); }, ar: function (a, n, u, un, na) { return a + ' من ' + n + ' مؤشرات مُقيَّمة' + (u ? ' · ' + u + ' غير معروف' : '') + (un ? ' · ' + un + ' بلا إجابة' : '') + (na ? ' · ' + na + ' لا ينطبق' : ''); } },
+    sumNotRatedUn: { en: 'Not rated: unanswered indicators', ar: 'غير مُقيَّم: مؤشرات بلا إجابة' },
+    sumSharedChk: { en: 'To verify (applies to several options)', ar: 'للتحقق (ينطبق على عدة خيارات)' },
+    sumNoYear: { en: 'No price year: demo prices are not from a dated price list.', ar: 'بلا سنة أسعار: أسعار التجربة ليست من قائمة أسعار مؤرخة.' },
+    sumRoof: { en: 'Roof structural suitability requires verification; figures assume the roof can carry the system.', ar: 'تتطلب الملاءمة الإنشائية للسطح تحققًا؛ تفترض الأرقام أن السطح يتحمل المنظومة.' },
+    sumRoofOk: { en: 'Structural suitability is reported as confirmed; this tool does not verify it.', ar: 'الملاءمة الإنشائية مُبلَّغ عنها مؤكدة؛ لا تتحقق الأداة منها.' },
+    sumRoofNo: { en: 'The checks record the roof as assessed and unsuitable; roof figures are for exploration only.', ar: 'تسجّل الفحوص أن السطح جرى تقييمه وهو غير ملائم؛ أرقام السطح للاستكشاف فقط.' },
+    sumNotEntered: { en: 'not entered', ar: 'غير مُدخل' },
+    sumAnd: { en: ' and ', ar: ' و' },
+    sumSeeDet: { en: '(full text in the detailed report)', ar: '(النص الكامل في التقرير المفصّل)' },
+    sumOptH: { en: 'Preliminary NBS options', ar: 'خيارات أولية للحلول القائمة على الطبيعة' },
+    sumMatch: { en: 'Match index /100', ar: 'مؤشر المطابقة /100' },
+    sumMatchNote: { en: 'Rule-based match scores indicate preliminary relevance, not expected effectiveness.', ar: 'تدل درجات المطابقة القائمة على القواعد على صلة أولية، لا على الفعالية المتوقعة.' },
+    sumApp: { en: 'Applicability', ar: 'قابلية التطبيق' }, sumShared: { en: 'Shared implementation conditions', ar: 'شروط تنفيذ مشتركة' },
+    sumNoRec: { en: 'No recommendation: no option qualifies for the selected risks and context.', ar: 'لا توصية: لا يوجد خيار مؤهل للمخاطر والسياق المختارين.' },
+    sumNoRecN: { en: function (a, b) { return a + ' option(s) are excluded after applicability checks and ' + b + ' have a match index of 0. See the detailed report.'; }, ar: function (a, b) { return 'استُبعد ' + a + ' خيار(ات) بعد فحوص قابلية التطبيق، ولدى ' + b + ' مؤشر مطابقة 0. راجع التقرير المفصّل.'; } },
+    sumExNone: { en: 'Cost and impact exploration not completed.', ar: 'لم تكتمل استكشافات الكلفة والأثر.' },
+    sumExNA: { en: 'Estimates are unavailable because the current inputs are not valid. No values are shown.', ar: 'التقديرات غير متاحة لأن المدخلات الحالية غير صالحة. لا تُعرض أي قيم.' },
+    sumInputs: { en: 'Inputs', ar: 'المدخلات' },
+    sumQty: { en: 'Physical quantities and water volumes', ar: 'كميات مادية وأحجام مياه' },
+    sumImp: { en: 'Impact estimates', ar: 'تقديرات الأثر' },
+    sumNoImp: { en: function (l) { return 'No climate-impact estimate is calculated for this solution. Not calculated: ' + l + '.'; }, ar: function (l) { return 'لا يُحسب أي تقدير للأثر المناخي لهذا الحل. لا يُحسب: ' + l + '.'; } },
+    sumCostH: { en: 'Cost (demo assumptions, EUR, not local prices)', ar: 'الكلفة (افتراضات تجريبية، يورو، وليست أسعارًا محلية)' },
+    sumRefCost: { en: function (a, b, m) { return 'Reference example (Hamburg, 2017; source S04): EUR ' + a + ' – ' + b + ' (median ' + m + '). Another place and year: not a current local price.'; }, ar: function (a, b, m) { return 'مثال مرجعي (هامبورغ، 2017؛ المصدر S04): ' + a + ' – ' + b + ' يورو (الوسيط ' + m + '). مكان وسنة مختلفان: ليس سعرًا محليًا حاليًا.'; } },
+    sumSrc: { en: 'Source', ar: 'المصدر' },
+    sumFoot1: { en: 'Prototype with provisional methodology (rubric, thresholds, weights), to be reviewed against the PROMEA framework and the NBS repository. Scores are not official scores.', ar: 'نموذج تجريبي بمنهجية مؤقتة (المعيار والعتبات والأوزان) ستُراجع مقابل إطار PROMEA ومستودع الحلول القائمة على الطبيعة. الدرجات ليست درجات رسمية.' },
+    sumFoot2: { en: 'Demo values are illustrative. The detailed report and the CSV hold the full answers, methodology and sources.', ar: 'القيم التجريبية توضيحية. يحتوي التقرير المفصّل وملف CSV على الإجابات والمنهجية والمصادر كاملة.' },
+    sumPage: { en: function (n) { return 'Page ' + n + ' of 2'; }, ar: function (n) { return 'صفحة ' + n + ' من 2'; } },
     colCat: { en: 'Category (provisional)', ar: 'الفئة (مؤقتة)' }
   };
   function x(k) { var v = X[k]; if (!v) return k; return v[L()]; }
@@ -563,8 +606,9 @@
     var res = compute();
     showFieldErrors(res);
     box.innerHTML = resultsHtml(res) + '<div class="report no-print">' +
-      '<button class="btn btn-primary" type="button" id="exCsv">' + C().ico('down') + '<span>' + x('csvB') + '</span></button>' +
-      '<button class="btn" type="button" id="exPrint">' + C().ico('print') + '<span>' + x('printB') + '</span></button></div>';
+      '<button class="btn btn-primary" type="button" id="exPrint">' + C().ico('print') + '<span>' + x('printB') + '</span></button>' +
+      '<button class="btn" type="button" id="exPrintDetail">' + C().ico('print') + '<span>' + x('detBtn') + '</span></button>' +
+      '<button class="btn" type="button" id="exCsv">' + C().ico('down') + '<span>' + x('csvB') + '</span></button></div>';
   }
 
   /* ---------- events (explore view only) ---------- */
@@ -601,7 +645,8 @@
     if (t.id === 'openExplore') { C().nav('explore'); return; }
     if (t.id === 'exBack') { C().nav('results'); return; }
     if (t.id === 'exCsv') { csv(); return; }
-    if (t.id === 'exPrint') { print(); return; }
+    if (t.id === 'exPrint') { printSummary(); return; }
+    if (t.id === 'exPrintDetail') { print(); return; }
   });
 
   /* ---------- report ---------- */
@@ -679,11 +724,167 @@
     h += '<p class="rp-foot">' + esc(x('demoLabel')) + '</p>';
     return h;
   }
+  /* ---------- summary report: exactly two A4 pages, two inline-SVG bar charts on fixed 0 to 100 axes ---------- */
+  var SH_C1 = '#17402F', SH_EN = '#7DB07F', SH_OPT = '#235A42';
+  function sbar(pct, shade) {
+    var g = [25, 50, 75].map(function (v) { return '<line x1="' + v + '" y1="0" x2="' + v + '" y2="14" stroke="#C4CCC6" stroke-width="1" vector-effect="non-scaling-stroke"/>'; }).join('');
+    return '<svg class="ps-bar" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="14" fill="#FFFFFF" stroke="#6F7B74" stroke-width="1" vector-effect="non-scaling-stroke"/>' + g +
+      (pct === null ? '' : '<rect x="0" y="2.5" width="' + pct + '" height="9" fill="' + shade + '"/>') + '</svg>';
+  }
+  function saxis() {
+    return '<div class="ps-row ps-axis"><div></div><div class="ps-ax">' + [0, 25, 50, 75, 100].map(function (v) { return '<span style="inset-inline-start:' + v + '%">' + v + '%</span>'; }).join('') + '</div><div></div></div>';
+  }
+  function ltr(v) { return '<bdi dir="ltr">' + v + '</bdi>'; }
+  function sTrunc(v, n) { v = String(v || '').trim(); return v.length > n ? esc(v.slice(0, n - 1).trim()) + '… <span class="ps-ref">' + x('sumSeeDet') + '</span>' : esc(v); }
+  function sCtxLabel(k) {
+    var c = C(), cx = c.CTX.filter(function (z) { return z.k === k; })[0], o = cx.o.filter(function (z) { return z[0] === c.st.ctx[k]; })[0];
+    return o ? esc(L() === 'ar' ? o[2] : o[1]) : esc(c.T('notStated'));
+  }
+  /* improvement areas: gaps from the existing indicator answers. Order: score 0, then 1, then Unknown, each in indicator order.
+     Capital funding (5.1) and maintenance funding (5.2) are combined into one area. Not a validated priority ranking. */
+  function improvementAreas() {
+    var c = C(), st = c.st, cand = [];
+    c.IND.forEach(function (i, ix) { var v = st.sc[i.id]; if (v === 0 || v === 1 || v === 'U') cand.push({ i: i, ix: ix, tier: v === 0 ? 0 : v === 1 ? 1 : 2 }); });
+    var fund = cand.filter(function (k) { return k.i.id === '5.1' || k.i.id === '5.2'; }), items = [];
+    cand.forEach(function (k) {
+      if (fund.length > 1 && (k.i.id === '5.1' || k.i.id === '5.2')) { if (k.i.id === '5.1' || fund[0] === k) { if (!items.some(function (z) { return z.group; })) items.push({ group: fund, ix: fund[0].ix, tier: Math.min(fund[0].tier, fund[1].tier) }); } return; }
+      items.push({ group: [k], ix: k.ix, tier: k.tier });
+    });
+    items.sort(function (a, b) { return a.tier - b.tier || a.ix - b.ix; });
+    return items;
+  }
+  function areaText(it) {
+    var c = C(), st = c.st, t = c.nm;
+    var parts = it.group.map(function (k) {
+      var v = st.sc[k.i.id];
+      return '<b>' + esc(k.i.id + ' ' + t(k.i)) + '</b>' + (v === 'U' ? ': ' + esc(x('sumImpUnk')) : ' (' + esc(c.T('condScore')(v)) + '): ' + esc(c.rubricText(k.i, v)));
+    });
+    return parts.join('<br>');
+  }
+  function sumPage1() {
+    var c = C(), r = c.calc(), st = c.st, T = c.T, t = c.nm, o = r.ov;
+    var scaleLab = c.scopeTypeLabel();
+    var h = '<section class="pg"><div class="ps-brand">NBS4MED</div><h1 class="ps-title">' + esc(x('sumTitle')) + '</h1>' +
+      '<dl class="ps-meta"><div><dt>' + x('sumArea') + '</dt><dd>' + sTrunc(st.scope.name || '–', 110) + '</dd></div><div><dt>' + x('sumScale') + '</dt><dd>' + sTrunc(scaleLab || '–', 60) + '</dd></div><div><dt>' + x('sumDate') + '</dt><dd>' + esc(st.scope.date || T('notStated')) + '</dd></div></dl>' +
+      '<p class="ps-ctx"><b>' + x('sumCtx') + '.</b> ' + x('sumRisks') + ': ' + esc(c.riskList().map(function (z) { return t(z); }).join('; ') || '–') + '. ' + x('sumDens') + ': ' + sCtxLabel('density') + '. ' + x('sumLand') + ': ' + sCtxLabel('land') + '.</p>' +
+      '<h2 class="ps-h">' + esc(T('profH')) + '</h2><p class="ps-sub">' + x('sumProfSub') + '</p><div class="ps-chart">';
+    function row(i, shade) {
+      var p = r.per[i], cr = c.CRIT[i], name = '<div class="ps-name"><b>' + cr.id + '</b> ' + esc(t(cr)) + '</div>';
+      if (p.status === 'complete') {
+        var lv = c.LEVELS[c.lvlIdx(p.pct)];
+        return '<div class="ps-row">' + name + sbar(p.pct, shade) + '<div class="ps-val"><b>' + ltr(p.pct + '%') + '</b> · ' + esc(t(lv)) + '<span class="ps-pts">' + ltr(p.sum + ' / ' + p.max) + ' ' + (L() === 'ar' ? 'نقطة' : 'points') + '</span></div></div>';
+      }
+      var msg = p.status === 'na' ? T('naCrit') : (p.unk ? T('notRated') : x('sumNotRatedUn'));
+      return '<div class="ps-row">' + name + '<div class="ps-nobar" style="grid-column:2 / span 2"><b>' + esc(msg) + '</b><span class="ps-pts">' + esc(x('sumCrit')(p.scored, p.n, p.unk, p.un, p.na)) + '</span></div></div>';
+    }
+    h += '<div class="ps-grp">' + esc(T('g1H')) + '</div>' + row(0, SH_C1) +
+      '<div class="ps-grp en">' + esc(T('g2H')) + '</div>' + [1, 2, 3, 4].map(function (i) { return row(i, SH_EN); }).join('') + saxis() + '</div>';
+    /* overall: secondary */
+    h += '<p class="ps-overall"><b>' + esc(T('overallH')) + ':</b> ';
+    if (o.status === 'complete') h += '<b>' + ltr(o.sum + ' / ' + o.max) + ' · ' + ltr(o.pct + '%') + '</b> · ' + esc(t(c.LEVELS[r.lvl])) + '. ' + esc(T('naDen') && o.na ? T('naDen')(o.max) : '');
+    else if (o.status === 'na') h += esc(T('ovNA'));
+    else h += esc(T('ovSupp')(o.open, c.IND.filter(function (i) { return st.sc[i.id] === 'U'; }).map(function (i) { return i.id; }).join(', ')));
+    h += '</p>';
+    var cf = c.confCounts(), un = o.un;
+    h += '<div class="ps-two"><div class="ps-box"><b>' + esc(x('sumCompl')(o.scored, o.unk, un, o.na)) + '</b></div>' +
+      '<div class="ps-box">' + esc(x('sumConf')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + '. ' + esc(x('sumConfNote')) + '</div></div>';
+    var areas = improvementAreas(), shown = areas.slice(0, 3);
+    h += '<h2 class="ps-h">' + esc(x('sumImpH')) + '</h2><p class="ps-sub">' + x('sumImpN') + '</p>';
+    if (!areas.length) h += '<p>' + x('sumImpNone') + '</p>';
+    else {
+      h += '<ol class="ps-areas">' + shown.map(function (it) { return '<li>' + areaText(it) + '</li>'; }).join('') + '</ol>';
+      if (areas.length > 3) h += '<p class="ps-more">' + x('sumImpMore')(areas.length - 3) + '</p>';
+    }
+    return h + '<div class="ps-foot"><span>' + x('sumFoot1') + '</span><b>' + x('sumPage')(1) + '</b></div></section>';
+  }
+  function evRef(sol, id) {
+    var rec = E.evidenceCards(sol).records.filter(function (z) { return z.evidence_id === id; })[0];
+    return rec ? id + ' · ' + rec.location_context + ', ' + rec.price_or_publication_year + ' · ' + (rec.source_ids || []).join(', ') : id;
+  }
+  function sumRoofText() { var rs = C().roofStruct(); return rs === 'confirmed' ? x('sumRoofOk') : rs === 'unsuitable' ? x('sumRoofNo') : x('sumRoof'); }
+  var QTY_GROUPS = ['quantity', 'resource', 'context', 'storage_capacity', 'event_volume', 'volume_balance'];
+  function sumExplore() {
+    var c = C(), h = '<h2 class="ps-h">' + esc(x('exploreH')) + '</h2>';
+    var b = ex.sol && ex.by[ex.sol];
+    if (!b) return h + '<p>' + x('sumExNone') + '</p>';
+    var res = E.calculate(ex.sol, b.vals, b.touched, b.prices);   /* always the current solution and current inputs */
+    var rec = recOf(ex.sol), def = E.solutionDef(ex.sol);
+    h += '<p class="ps-exh"><b>' + esc(solName(ex.sol)) + '</b>' + (rec ? ' · ' + esc(c.T('screenL')) + ': <b>' + esc(c.stLabel(rec.scr.status)) + '</b>' : '') + '</p>';
+    if (res.status !== 'ok') return h + '<p>' + x('sumExNA') + '</p>';
+    var inp = def.inputs.filter(function (d) { return d.primary && d.type !== 'boolean'; }).map(function (d) {
+      var v = res.inputs[d.id], pv = res.provenance[d.id];
+      var lab = esc((L() === 'ar' ? d.label_ar : d.label_en));
+      if (v === null || v === undefined) return lab + ' <i>' + esc(x('sumNotEntered')) + '</i>';
+      return lab + ' <b>' + ltr(esc(fmtN(v))) + '</b>' + (d.unit ? ' ' + esc(d.unit) : '') + ' (' + esc(pv === 'user_entered' ? x('tagUser') : x('tagDefault')) + ')';
+    });
+    h += '<p class="ps-in"><b>' + x('sumInputs') + ':</b> ' + inp.join(' · ') + '</p>';
+    if (ex.sol === 'NBS02') h += '<div class="ps-lim ps-warn"><b>' + esc(sumRoofText()) + '</b></div>';
+    function val(o) {
+      return o.unavailable ? '<i>' + esc(x('unavailable')) + '</i>' : '<b>' + ltr(esc(fmtRange(o))) + '</b> ' + esc(o.unit);
+    }
+    function li(o) { return '<div class="ps-kv"><span>' + esc(x('o_' + o.id)) + '</span><span>' + val(o) + ' <em>' + esc(x('basis_' + o.basis)) + '</em></span></div>'; }
+    var Q = res.outputs.filter(function (o) { return QTY_GROUPS.indexOf(o.group) >= 0; }), I = res.outputs.filter(function (o) { return QTY_GROUPS.indexOf(o.group) < 0; });
+    if (Q.length) h += '<div class="ps-sec"><b>' + x('sumQty') + '</b><div class="ps-grid2">' + Q.map(li).join('') + '</div></div>';
+    h += '<div class="ps-sec"><b>' + x('sumImp') + '</b>';
+    if (I.length) {
+      h += I.map(function (o) {
+        var note = o.unavailable && o.reason === 'small_event' ? '<div class="ps-lim">' + esc(x('r_small_event')) + '</div>' : '';
+        var src = (o.evidence || []).map(function (id) { return evRef(ex.sol, id); }).join('; ');
+        return li(o) + note + '<div class="ps-lim">' + esc(x('grpBn')) + (src ? ' <span class="ps-ref">' + esc(x('sumSrc')) + ': ' + esc(src) + '</span>' : '') + '</div>';
+      }).join('');
+    } else h += '<div class="ps-lim">' + esc(x('sumNoImp')(res.not_calculated.map(function (k) { return x('nc_' + k); }).join('; '))) + '</div>';
+    h += '</div>';
+    var cs = res.costs, tc = cs.capex.total, ta = cs.annual.total;
+    h += '<div class="ps-sec"><b>' + x('sumCostH') + '</b>' +
+      '<div class="ps-kv"><span>' + esc(x('capex')) + '</span><span>' + (tc ? '<b>' + ltr(eur(tc.low) + ' – ' + eur(tc.high)) + '</b> EUR (' + esc(x('base')) + ' ' + ltr(eur(tc.base)) + ')' : '<i>' + esc(x('unavailable')) + '</i>') + ' <em>' + esc(x('basis_demo_assumption')) + '</em></span></div>' +
+      '<div class="ps-kv"><span>' + esc(x('annual')) + '</span><span>' + (ta ? '<b>' + ltr(eur(ta.low) + ' – ' + eur(ta.high)) + '</b> EUR (' + esc(x('base')) + ' ' + ltr(eur(ta.base)) + ')' : '<i>' + esc(x('unavailable')) + '</i>') + ' <em>' + esc(x('basis_demo_assumption')) + '</em></span></div>';
+    if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<div class="ps-lim">' + esc(x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median))) + '</div>'; }
+    h += '<div class="ps-lim">' + esc(x('sumNoYear')) + '</div></div>';
+    return h;
+  }
+  function sumPage2() {
+    var c = C(), t = c.nm, R = c.recs(), top = R.ranked.slice(0, 3);
+    var h = '<section class="pg"><div class="ps-brand">NBS4MED</div><h2 class="ps-h ps-h-top">' + esc(x('sumOptH')) + '</h2><p class="ps-note"><b>' + x('sumMatchNote') + '</b></p>';
+    if (!top.length) {
+      h += '<div class="ps-empty"><b>' + x('sumNoRec') + '</b><br>' + esc(x('sumNoRecN')(R.na.length, R.other.length)) + '</div>';
+    } else {
+      h += '<div class="ps-chart"><div class="ps-cap">' + x('sumMatch') + '</div>' + top.map(function (q) {
+        return '<div class="ps-row"><div class="ps-name"><b>' + q.rank + '.</b> ' + esc(t(q.o)) + '<span class="ps-st">' + esc(c.T('screenL')) + ': <b>' + esc(c.stLabel(q.scr.status)) + '</b></span></div>' + sbar(q.s, SH_OPT) + '<div class="ps-val"><b>' + ltr(q.s + ' / 100') + '</b></div></div>';
+      }).join('') + saxis() + '</div>';
+      if (top.some(function (q) { return q.scr.status === 'unchecked'; })) h += '<p class="ps-sub">' + esc(c.T('stUn')) + ': ' + esc(c.T('unchkTxt')) + '</p>';
+      var cnt = {};
+      top.forEach(function (q) { q.scr.reasons.forEach(function (z) { var k = c.pick(z.t); cnt[k] = (cnt[k] || 0) + 1; }); });
+      var sharedChk = Object.keys(cnt).filter(function (k) { return cnt[k] > 1; });
+      h += top.map(function (q) {
+        var specific = q.scr.reasons.map(function (z) { return c.pick(z.t); }).filter(function (k) { return sharedChk.indexOf(k) < 0; });
+        if (q.conds.some(function (k) { return k.id === '3.2'; }) && q.o.cx >= 1) specific.push(c.T('condCx')(CLAB_CX(q.o)));
+        return '<div class="ps-opt"><b>' + q.rank + '. ' + esc(t(q.o)) + '</b> (' + esc(c.catText(q.o)) + ', ' + (L() === 'ar' ? 'مؤقتة' : 'provisional') + '): ' + esc(c.whyText(q)) +
+          (specific.length ? ' <span class="ps-spec">' + esc(specific.join(' ')) + '</span>' : '') + '</div>';
+      }).join('');
+      var conds = top[0].conds;
+      h += '<div class="ps-shared"><b>' + x('sumShared') + '</b>' + (conds.length ? '<ul>' + conds.map(function (k) { return '<li><b>' + esc(k.id + ' ' + t(k.i)) + '</b>: ' + esc(k.u ? c.T('condU') : c.T('condScore')(k.v) + ': ' + c.rubricText(k.i, k.v)) + '</li>'; }).join('') + '</ul>' : '<div>' + esc(c.T('condNone')) + '</div>') +
+        (sharedChk.length ? '<div class="ps-sharedchk"><b>' + x('sumSharedChk') + ':</b> ' + esc(sharedChk.join(' ')) + '</div>' : '') + '</div>';
+    }
+    h += sumExplore();
+    return h + '<div class="ps-foot"><span>' + x('sumFoot2') + '</span><b>' + x('sumPage')(2) + '</b></div></section>';
+  }
+  function CLAB_CX(o) { return L() === 'ar' ? ['منخفض', 'متوسط', 'مرتفع'][o.cx] : ['Low', 'Medium', 'High'][o.cx]; }
+  function summaryHtml() { return sumPage1() + sumPage2(); }
+  function printSummary() {
+    var box = $('#printReport');
+    if (!box) { box = document.createElement('div'); box.id = 'printReport'; document.body.appendChild(box); }
+    box.setAttribute('dir', L() === 'ar' ? 'rtl' : 'ltr'); box.setAttribute('lang', L());
+    box.className = 'ps';
+    box.innerHTML = summaryHtml();
+    window.print();
+  }
+
   function print() {
     var box = $('#printReport');
     if (!box) { box = document.createElement('div'); box.id = 'printReport'; document.body.appendChild(box); }
     box.setAttribute('dir', L() === 'ar' ? 'rtl' : 'ltr');
     box.setAttribute('lang', L());
+    box.className = '';
     box.innerHTML = reportHtml();
     window.print();
   }
@@ -774,7 +975,7 @@
   }
 
   window.NBS4MED_EXPLORE = {
-    render: render, ctaHtml: ctaHtml, csv: csv, print: print, open: openSol,
+    render: render, ctaHtml: ctaHtml, csv: csv, print: print, printSummary: printSummary, summaryHtml: summaryHtml, improvementAreas: improvementAreas, open: openSol,
     reportHtml: reportHtml, csvRows: csvRows, state: ex, label: function () { return x('demoLabel'); },
     exploreTitle: function () { return x('exploreH'); }
   };

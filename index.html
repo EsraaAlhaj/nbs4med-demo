@@ -491,6 +491,58 @@ details.adv h3{margin-top:10px}
   #printReport code{font-size:8.5pt;font-family:Consolas,monospace}
   #printReport a{color:#000;text-decoration:none}
   #printReport .srcs{font-size:8.5pt}
+  /* summary report: two A4 pages (printable area 182 x 267 mm with the page margins above) */
+  #printReport.ps{font-size:10.5pt;line-height:1.32;color:#1D2A24;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #printReport.ps .pg{position:relative;height:262mm;overflow:visible;break-after:page;page-break-after:always}
+  #printReport.ps .pg:last-child{break-after:auto;page-break-after:auto}
+  #printReport.ps .ps-brand{font:700 10pt var(--sans);letter-spacing:.06em;color:#2F6B4F;margin:0 0 1mm}
+  #printReport.ps .ps-title{font:700 17pt/1.2 var(--serif);color:#123628;margin:0 0 2.5mm;padding:0;border:0}
+  #printReport.ps .ps-meta{display:grid;grid-template-columns:1.8fr 1fr .8fr;gap:0 6mm;margin:0 0 2.5mm;padding:1.8mm 0;border-top:.6pt solid #9AA59E;border-bottom:.6pt solid #9AA59E}
+  #printReport.ps .ps-meta dt{font-size:9.5pt;color:#44504A;font-weight:600}
+  #printReport.ps .ps-meta dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+  #printReport.ps .ps-ctx{margin:0 0 2.5mm}
+  #printReport.ps .ps-h{font:700 12.5pt/1.25 var(--serif);color:#123628;border-bottom:1pt solid #17402F;margin:3mm 0 1.5mm;padding-bottom:1mm;break-after:avoid}
+  #printReport.ps .ps-h-top{margin-top:0}
+  #printReport.ps .ps-sub,#printReport.ps .ps-note{font-size:10pt;color:#44504A;margin:0 0 2mm}
+  #printReport.ps .ps-note{color:#1D2A24}
+  #printReport.ps .ps-chart{margin:0 0 2.5mm}
+  #printReport.ps .ps-cap{font-weight:700;margin:0 0 1mm}
+  #printReport.ps .ps-grp{font-weight:700;font-size:10.5pt;color:#17402F;margin:2mm 0 .6mm;padding-inline-start:2mm;border-inline-start:2.4mm solid #17402F;break-after:avoid}
+  #printReport.ps .ps-grp.en{border-inline-start-color:#7DB07F}
+  #printReport.ps .ps-row{display:grid;grid-template-columns:60mm 58mm 1fr;gap:0 3mm;align-items:center;min-height:9mm;padding:.8mm 0;border-bottom:.4pt solid #D5DBD1;break-inside:avoid}
+  #printReport.ps .ps-name{line-height:1.25}
+  #printReport.ps .ps-st{display:block;font-size:9.5pt;color:#44504A}
+  #printReport.ps .ps-bar{width:100%;height:5.2mm;display:block}
+  #printReport[dir=rtl].ps .ps-bar{transform:scaleX(-1)}
+  #printReport.ps .ps-val{line-height:1.25}
+  #printReport.ps .ps-pts{display:block;font-size:9.5pt;color:#44504A}
+  #printReport.ps .ps-nobar{border:.8pt dashed #6F7B74;padding:1.2mm 2mm;font-weight:600}
+  #printReport.ps .ps-axis{min-height:0;border-bottom:0}
+  #printReport.ps .ps-ax{position:relative;height:4.6mm;font-size:9.5pt;color:#44504A}
+  #printReport.ps .ps-ax span{position:absolute;top:0;transform:translateX(-50%)}
+  #printReport[dir=rtl].ps .ps-ax span{transform:translateX(50%)}
+  #printReport.ps .ps-overall{margin:0 0 2.5mm;padding:1.8mm 3mm;background:#F2F7EF;border:.6pt solid #C9D8C6}
+  #printReport.ps .ps-two{display:grid;grid-template-columns:1fr 1.25fr;gap:3mm;margin:0 0 2mm}
+  #printReport.ps .ps-box{border:.6pt solid #9AA59E;padding:1.8mm 2.5mm}
+  #printReport.ps .ps-areas{margin:0;padding-inline-start:6mm}
+  #printReport.ps .ps-areas li{margin:0 0 1.6mm;break-inside:avoid}
+  #printReport.ps .ps-more{font-weight:600;margin:1mm 0 0}
+  #printReport.ps .ps-opt{border-top:.4pt solid #D5DBD1;padding:1.2mm 0;break-inside:avoid}
+  #printReport.ps .ps-spec{font-weight:600;color:#5A3500}
+  #printReport.ps .ps-shared{margin:2mm 0;padding:1.8mm 3mm;background:#F5F6F2;border:.6pt solid #C4CCC6;break-inside:avoid}
+  #printReport.ps .ps-shared ul{margin:.8mm 0 0;padding-inline-start:5mm}
+  #printReport.ps .ps-exh{margin:0 0 1mm}
+  #printReport.ps .ps-in{margin:0 0 1mm}
+  #printReport.ps .ps-sec{margin:1.2mm 0;break-inside:avoid}
+  #printReport.ps .ps-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 6mm}
+  #printReport.ps .ps-kv{display:flex;justify-content:space-between;gap:4mm;border-bottom:.3pt dotted #9AA59E;padding:.4mm 0}
+  #printReport.ps .ps-kv em{font-style:normal;font-size:9.5pt;color:#44504A}
+  #printReport.ps .ps-lim{font-size:9.5pt;color:#44504A}
+  #printReport.ps .ps-warn{color:#5A3500;margin:0 0 1mm}
+  #printReport.ps .ps-ref{font-size:9.5pt;color:#44504A;font-weight:400}
+  #printReport.ps .ps-empty{border:.8pt solid #9A5B00;background:#FCEFD3;padding:3mm;margin:2mm 0}
+  #printReport.ps .ps-foot{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-start;gap:6mm;font-size:9.5pt;color:#44504A;border-top:.6pt solid #9AA59E;padding-top:1.5mm}
+  #printReport.ps .ps-foot b{white-space:nowrap;flex:none}
   #printReport .rp-ans td,#printReport .rp-ans th{font-size:8pt}
   #printReport .note.warn{border:.5pt solid #9A5B00;padding:4pt 6pt;margin:4pt 0}
   #printReport .note.warn svg{display:none}

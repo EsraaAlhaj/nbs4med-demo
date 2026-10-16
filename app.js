@@ -242,7 +242,7 @@ var S={
  naDen:{en:function(m){return 'Not applicable indicators are left out, so the denominator is '+m+' points.'},ar:function(m){return 'تُستبعد المؤشرات التي «لا تنطبق»، لذا يكون المقام '+m+' نقطة.'}},
  thresholds:{en:'Provisional project thresholds, not taken from any external standard: Insufficient below 30%, Partial 30 to 54%, Adequate 55 to 79%, Strong 80% and above. Project partners will review them.',ar:'عتبات مؤقتة للمشروع وليست مأخوذة من أي معيار خارجي: غير كافٍ دون 30%، جزئي 30 إلى 54%، كافٍ 55 إلى 79%، قوي 80% فأكثر. سيراجعها شركاء المشروع.'},
  repH:{en:'Download report',ar:'تحميل التقرير'},
- pdf:{en:'Print / Save as PDF',ar:'طباعة / حفظ بصيغة PDF'},csv:{en:'Download CSV',ar:'تحميل CSV'},
+ pdf:{en:'Summary report — 2 pages',ar:'تقرير ملخص — صفحتان'},pdfDetail:{en:'Detailed report',ar:'تقرير مفصّل'},csv:{en:'Download CSV',ar:'تحميل CSV'},
  dlOk:{en:'CSV file prepared.',ar:'تم تجهيز ملف CSV.'},
  heatH:{en:'Indicator by indicator',ar:'مؤشرًا مؤشرًا'},
  heatKey:{en:'0, 1 and 2 are scores. Unknown is missing information and is not 0. N/A means not applicable and is left out of the score.',ar:'0 و1 و2 درجات. «غير معروف» معلومة ناقصة وليست 0. «لا ينطبق» يعني عدم الانطباق ويُستبعد من النتيجة.'},
@@ -911,8 +911,9 @@ function renderResults(){
     scopeCardHtml()+
     '<section class="rs" aria-labelledby="cmH"><h2 id="cmH">'+T('compH')+'</h2><p class="compl">'+T('compTxt')(r.ov.scored,r.ov.unk,r.ov.na)+'</p></section>'+
     '<div class="report no-print" role="group" aria-label="'+T('repH')+'"><b>'+T('repH')+'</b>'+
-      '<button class="btn btn-primary" type="button" id="dlCsv">'+ico('down')+'<span>'+T('csv')+'</span></button>'+
-      '<button class="btn" type="button" id="dlPdf">'+ico('print')+'<span>'+T('pdf')+'</span></button>'+
+      '<button class="btn btn-primary" type="button" id="dlPdf">'+ico('print')+'<span>'+T('pdf')+'</span></button>'+
+      '<button class="btn" type="button" id="dlPdfDetail">'+ico('print')+'<span>'+T('pdfDetail')+'</span></button>'+
+      '<button class="btn" type="button" id="dlCsv">'+ico('down')+'<span>'+T('csv')+'</span></button>'+
       '<div class="toast" id="dlNote" role="status"></div></div>'+
     profileHtml(r)+overallHtml(r)+methAHtml()+gapsHtml(r)+confHtml()+
     '<section class="rs" aria-labelledby="dtH"><h2 id="dtH">'+T('detH')+'</h2>'+detailsHtml().replace('<details class="adv"><summary>'+T('detH')+'</summary>','<details class="adv" open><summary>'+T('detH')+'</summary>')+'</section>'+
@@ -1044,7 +1045,8 @@ document.addEventListener('click',function(e){
   if(id==='fillSample'){fillSample();return}
   if(id==='clearAll'){var keep=st.view;st=freshState();st.view=keep;window.NBS4MED_CORE.st=st;clearErrors();renderAssess(true);return}
   if(id==='dlCsv'){window.NBS4MED_EXPLORE.csv();return}
-  if(id==='dlPdf'){window.NBS4MED_EXPLORE.print();return}
+  if(id==='dlPdf'){window.NBS4MED_EXPLORE.printSummary();return}
+  if(id==='dlPdfDetail'){window.NBS4MED_EXPLORE.print();return}
   if(t.dataset.lang){setLang(t.dataset.lang);return}
   if(t.tagName==='A'){
     var href=t.getAttribute('href')||'';
