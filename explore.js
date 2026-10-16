@@ -560,7 +560,9 @@
   }
   function assessBox(sol) {
     var c = C(), o = c.optByNbs(sol);
-    if (!o || !c.riskList().length) return '';
+    if (!o) return '';
+    var MMa = c.matchMessages();
+    if (!MMa.ok) return c.riskOk() ? '<div class="note fromA"><b>' + x('fromAssess') + ':</b> ' + esc(MMa.title) + '</div>' : '';
     var r = c.recFor(o.id); if (!r) return '';
     var h = '<div class="note fromA"><b>' + x('fromAssess') + ':</b> ';
     if (r.raw === 0) return h + esc(c.T('exNoWhy')) + '</div>';
@@ -781,7 +783,7 @@
     h += '<h3>' + x('ctxT') + '</h3>' + tbl(['', ''], c.CTX.map(function (cx) {
       var oo = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0];
       return [esc(t(cx)), esc(oo ? (L() === 'ar' ? oo[2] : oo[1]) : T('notStated'))];
-    }).concat([[esc(T('stRisk')), esc(c.riskList().map(function (z) { return t(z); }).join('; '))]]));
+    }).concat([[esc(T('stRisk')), esc(c.riskText())]]));
     h += '<h4>' + esc(T('methA')) + '</h4><ul>' + c.methA().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
     /* 3. applicability checks (optional, answered after the results) */
     h += '<h2>3. ' + x('repScreen') + '</h2><p class="note-s">' + esc(T('chkNote')) + '</p>';
@@ -793,12 +795,14 @@
     }));
     /* 4. recommendations */
     h += '<h2>4. ' + x('repCand') + '</h2><p class="note-s">' + esc(T('recP')) + ' ' + esc(T('matchNote')) + '</p>';
-    h += R.ranked.length ? tbl(['#', T('option'), x('colCat'), T('matchL'), T('status'), x('why2'), T('verL').replace(':', ''), T('condL')], R.ranked.map(function (q) {
+    var MM = c.matchMessages();
+    if (!MM.ok) h += '<p><b>' + esc(MM.title) + '</b></p><ul>' + MM.items.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
+    else h += R.ranked.length ? tbl(['#', T('option'), x('colCat'), T('matchL'), T('status'), x('why2'), T('verL').replace(':', ''), T('condL')], R.ranked.map(function (q) {
       return [q.rank, esc(t(q.o)), esc(c.catText(q.o)), q.s + ' / 100', esc(c.stLabel(q.scr.status)), esc(c.whyText(q)),
         esc(q.scr.status === 'unchecked' ? T('unchkTxt') : q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' ') || T('candDone')),
         esc(q.conds.map(function (k) { return k.id + ' ' + t(k.i) + ': ' + (k.u ? T('stU') : c.rubricText(k.i, k.v)); }).join(' | ') || T('condNone'))];
     })) : '<p>' + esc(T('recNone')) + '</p>';
-    if (R.na.length || R.other.length) {
+    if (MM.ok && (R.na.length || R.other.length)) {
       h += '<h3>' + x('repNotRanked') + '</h3><p class="note-s">' + esc(T('otherP')) + '</p>' + tbl([T('option'), x('colCat'), T('status'), x('why2')],
         R.na.map(function (q) { return [esc(t(q.o)), esc(c.catText(q.o)), esc(T('exNA')), esc(q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' '))]; })
           .concat(R.other.map(function (q) { return [esc(t(q.o)), esc(c.catText(q.o)), esc(T('otherH')), esc(q.raw === 0 ? T('exNoWhy') : T('exZeroWhy'))]; })));
@@ -860,7 +864,7 @@
     var scaleLab = c.scopeTypeLabel();
     var h = '<section class="pg"><div class="ps-brand">NBS4MED</div><h1 class="ps-title">' + esc(x('sumTitle')) + '</h1>' +
       '<dl class="ps-meta"><div><dt>' + x('sumArea') + '</dt><dd>' + sTrunc([c.areaName(), c.areaCountry()].filter(Boolean).join(', ') || '–', 110) + '</dd></div><div><dt>' + x('sumScale') + '</dt><dd>' + sTrunc(scaleLab || '–', 60) + '</dd></div><div><dt>' + x('sumDate') + '</dt><dd>' + esc(st.scope.date || T('notStated')) + '</dd></div></dl>' +
-      '<p class="ps-ctx"><b>' + x('sumCtx') + '.</b> ' + x('sumRisks') + ': ' + esc(c.riskList().map(function (z) { return t(z); }).join('; ') || '–') + '. ' + x('sumDens') + ': ' + sCtxLabel('density') + '. ' + x('sumLand') + ': ' + sCtxLabel('land') + '.</p>' +
+      '<p class="ps-ctx"><b>' + x('sumCtx') + '.</b> ' + x('sumRisks') + ': ' + esc(c.riskText() || '–') + '. ' + x('sumDens') + ': ' + sCtxLabel('density') + '. ' + x('sumLand') + ': ' + sCtxLabel('land') + '.</p>' +
       '<h2 class="ps-h">' + esc(T('profH')) + '</h2><p class="ps-sub">' + x('sumProfSub') + '</p><div class="ps-chart">';
     function row(i, shade) {
       var p = r.per[i], cr = c.CRIT[i], name = '<div class="ps-name"><b>' + cr.id + '</b> ' + esc(t(cr)) + '</div>';
@@ -939,7 +943,10 @@
   function sumPage2() {
     var c = C(), t = c.nm, R = c.recs(), top = R.ranked.slice(0, 3);
     var h = '<section class="pg"><div class="ps-brand">NBS4MED</div><h2 class="ps-h ps-h-top">' + esc(x('sumOptH')) + '</h2><p class="ps-note"><b>' + x('sumMatchNote') + '</b></p>';
-    if (!top.length) {
+    var MM = c.matchMessages();
+    if (!MM.ok) {
+      h += '<div class="ps-empty"><b>' + esc(MM.title) + '</b><br>' + MM.items.map(esc).join(' ') + '</div>';
+    } else if (!top.length) {
       h += '<div class="ps-empty"><b>' + x('sumNoRec') + '</b><br>' + esc(x('sumNoRecN')(R.na.length, R.other.length)) + '</div>';
     } else {
       h += '<div class="ps-chart"><div class="ps-cap">' + x('sumMatch') + '</div>' + top.map(function (q) {
@@ -997,8 +1004,10 @@
     add(['assessment scope', 'assessment scale', c.scopeTypeLabel('en'), '', 'user input', '']);
     add(['assessment scope', 'organisation', st.scope.org, '', 'user input', '']);
     add(['assessment scope', 'assessment date', st.scope.date, '', 'user input', '']);
-    c.CTX.forEach(function (cx) { var o = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0]; add(['assessment context', cx.en, o ? o[1] : 'Not specified', '', 'user input', cx.opt ? 'optional, not scored, not used in ranking' : 'not scored']); });
-    add(['assessment context', 'climate risks and environmental challenges', c.riskList().map(function (z) { return z.en; }).join('; '), '', 'user input', '']);
+    c.CTX.forEach(function (cx) { var o = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0]; add(['assessment context', cx.en, o ? o[1] : 'Not specified', '', 'user input', cx.k === 'land' && st.ctx.land === 'unknown' ? 'missing information: NBS matching not assessed' : 'not scored']); });
+    add(['assessment context', 'local climate risks', c.riskText('en'), '', 'user input', c.st.risks.unsure ? 'climate-risk identification needed before NBS matching' : '']);
+    var MMc = c.matchMessages('en');
+    if (!MMc.ok) add(['recommendation', 'NBS matching not yet assessed', '', '', 'not assessed', MMc.items.join(' ')]);
     add(['assessment local target', 'local NBS or green-blue coverage target exists', st.tgt.target || 'not answered', 'yes/no/unknown', 'user input', 'Indicator 1.2']);
     add(['assessment local target', 'current coverage known', st.tgt.cov || 'not answered', 'yes/no/unknown', 'user input', 'Indicator 1.2']);
     c.IND.forEach(function (i) {

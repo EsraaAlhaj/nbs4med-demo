@@ -82,18 +82,22 @@ var PILOTS=[
  {id:'eg',name:['Heliopolis University Green Corridor Pilot','تجربة الممر الأخضر في جامعة هليوبوليس'],country:['Egypt','مصر']}
 ];
 var CTX=[
- {k:'density',en:'Urban density',ar:'الكثافة العمرانية',o:[['low','Low','منخفضة'],['mid','Medium','متوسطة'],['high','High','مرتفعة']]},
- {k:'land',en:'Public land available for NBS',ar:'توفر الأراضي العامة للحلول',o:[['low','Limited','محدود'],['mid','Moderate','متوسط'],['high','Abundant','وافر']]},
- {k:'income',opt:true,en:'Income level of the area',ar:'مستوى الدخل في المنطقة',o:[['low','Low','منخفض'],['mid','Middle','متوسط'],['high','High','مرتفع'],['none','Not specified','غير محدد']]}
+ {k:'density',en:'Urban Density',ar:'الكثافة العمرانية',hint:{en:'Qualitative description, not a numerical threshold.',ar:'وصف نوعي وليس عتبة رقمية.'},
+  o:[['low','Low','منخفضة','Predominantly open or sparsely built-up.','مناطق مفتوحة أو قليلة البناء في الغالب.'],['mid','Medium','متوسطة','Mix of buildings and open spaces.','مزيج من المباني والمساحات المفتوحة.'],['high','High','مرتفعة','Predominantly built-up, with limited open space.','مبنية في معظمها، مع مساحات مفتوحة محدودة.']]},
+ {k:'land',en:'Public Land Available for NBS',ar:'الأراضي العامة المتاحة للحلول القائمة على الطبيعة',hint:{en:'Consider publicly accessible or publicly owned land within the selected assessment area.',ar:'يُقصد الأراضي المتاحة للجمهور أو المملوكة للدولة ضمن منطقة التقييم المحددة.'},
+  o:[['low','Limited','محدودة'],['mid','Moderate','متوسطة'],['high','Abundant','وفيرة'],['unknown','Unknown','غير معروفة']]}
 ];
+/* the five core risks follow the PROMEA framework; Not Sure is a separate, mutually exclusive answer */
 var RISK=[
- {k:'heat',en:'Extreme heat',ar:'الحرارة الشديدة',d:'Heat waves, urban heat island',da:'موجات الحر وجزيرة الحرارة الحضرية'},
- {k:'flood',en:'Urban flooding',ar:'الفيضانات والسيول الحضرية',d:'Intense rain, surface water',da:'أمطار غزيرة ومياه سطحية'},
- {k:'drought',en:'Drought and water scarcity',ar:'الجفاف وشح المياه',d:'Low rainfall, water stress',da:'قلة الأمطار وإجهاد مائي'},
- {k:'coast',en:'Coastal erosion and sea-level rise',ar:'تآكل السواحل وارتفاع مستوى البحر',d:'Shoreline retreat, storm surge',da:'تراجع الشاطئ وعواصف بحرية'},
- {k:'fire',en:'Wildfire at the urban edge',ar:'حرائق الغابات على أطراف المدينة',d:'Dry vegetation near homes',da:'نباتات جافة قرب المساكن'},
- {k:'air',en:'Air pollution',ar:'تلوث الهواء',d:'Traffic and dust',da:'المرور والغبار'}
+ {k:'heat',en:'Heatwaves',ar:'موجات الحر',d:'Extreme heat and prolonged periods of high temperatures.',da:'الحرارة الشديدة وفترات طويلة من درجات الحرارة المرتفعة.'},
+ {k:'flood',en:'Flooding',ar:'الفيضانات',d:'Heavy rainfall, flash floods and surface flooding.',da:'الأمطار الغزيرة والسيول والفيضانات السطحية.'},
+ {k:'drought',en:'Drought',ar:'الجفاف',d:'Prolonged dry periods and water scarcity.',da:'فترات جفاف طويلة وشح المياه.'},
+ {k:'coast',en:'Coastal Storms',ar:'العواصف الساحلية',d:'Storm surges and coastal flooding.',da:'اندفاع مياه العواصف والفيضانات الساحلية.'},
+ {k:'land',en:'Land Degradation',ar:'تدهور الأراضي',d:'Soil erosion and deterioration of land conditions.',da:'تعرية التربة وتدهور حالة الأراضي.'}
 ];
+var UNSURE={k:'unsure',en:'Not Sure / Further Assessment Needed',ar:'غير متأكد / يلزم مزيد من التقييم'};
+/* the provisional demo weights exist for these three risks only */
+var MATCHABLE=['heat','flood','drought'];
 var CONF=[['high','High: documented evidence','عالية: أدلة موثقة'],['mid','Medium: staff estimate','متوسطة: تقدير الموظفين'],['low','Low: informal judgement','منخفضة: تقدير غير رسمي']];
 /* provisional project thresholds, unchanged from the earlier demo */
 var LEVELS=[
@@ -196,8 +200,8 @@ var S={
  stepOf:{en:function(a,b){return 'Step '+a+' of '+b},ar:function(a,b){return 'الخطوة '+a+' من '+b}},
  ansN:{en:function(a,b){return a+' of '+b+' answered'},ar:function(a,b){return a+' من '+b+' مُجاب عنها'}},
  back:{en:'Back',ar:'رجوع'},cont:{en:'Continue',ar:'متابعة'},seeRes:{en:'See results',ar:'عرض النتائج'},
- stScope:{en:'Assessment area',ar:'منطقة التقييم'},stCtx:{en:'Site context',ar:'سياق الموقع'},
- stRisk:{en:'Climate risks and environmental challenges',ar:'المخاطر المناخية والتحديات البيئية'},
+ stScope:{en:'Assessment area',ar:'منطقة التقييم'},stCtx:{en:'Site Context',ar:'سياق الموقع'},
+ stRisk:{en:'Local Climate Risks',ar:'المخاطر المناخية المحلية'},
  scopeP:{en:'Select the area you want to assess. All answers should reflect its current conditions.',ar:'اختر المنطقة التي تريد تقييمها. يجب أن تعكس جميع الإجابات أوضاعها الحالية.'},
  fArea:{en:'Assessment area',ar:'منطقة التقييم'},fAreaPh:{en:'Select an assessment area',ar:'اختر منطقة التقييم'},fOtherArea:{en:'Other Area — Specify Manually',ar:'منطقة أخرى — تحديد يدوي'},
  fMName:{en:'Area name',ar:'اسم المنطقة'},fCountry:{en:'Country',ar:'الدولة'},fCity:{en:'City / municipality',ar:'المدينة / البلدية'},
@@ -205,19 +209,26 @@ var S={
  fOrg:{en:'Organisation completing the assessment',ar:'الجهة التي تُجري التقييم'},
  fDate:{en:'Assessment date',ar:'تاريخ التقييم'},
  opt:{en:'optional',ar:'اختياري'},
- ctxP:{en:'Two questions about the area help filter the NBS options. Income is optional context and does not change the ranking. None of these answers is scored.',ar:'سؤالان عن المنطقة يساعدان في تصفية خيارات الحلول. الدخل سياق اختياري ولا يغيّر الترتيب. لا تُحتسب أي من هذه الإجابات في النتيجة.'},
- riskP:{en:'Select every climate risk or environmental challenge that affects the area. The recommendations are matched to these.',ar:'اختر كل خطر مناخي أو تحدٍّ بيئي يؤثر في المنطقة. تُطابَق التوصيات مع هذه الاختيارات.'},
+ ctxP:{en:'Describe the current conditions of the selected area. These answers help assess which NBS options may be suitable.',ar:'صِف الأوضاع الحالية للمنطقة المحددة. تساعد هذه الإجابات في تقدير خيارات الحلول القائمة على الطبيعة التي قد تكون مناسبة.'},
+ riskP:{en:'Which climate risks affect the selected area? Select all that apply.',ar:'ما المخاطر المناخية التي تؤثر في المنطقة المحددة؟ اختر كل ما ينطبق.'},
+ unsureNote:{en:'Climate-risk identification is needed before NBS matching can be completed. You can continue with the general assessment.',ar:'يلزم تحديد المخاطر المناخية قبل استكمال مطابقة الحلول القائمة على الطبيعة. يمكنك متابعة التقييم العام.'},
+ unassNote:{en:function(n){return 'Matching rules for '+n+' are not yet defined. NBS matching will not be completed while this risk is selected.'},ar:function(n){return 'لم تُحدَّد بعد قواعد المطابقة الخاصة بـ '+n+'. لن تكتمل مطابقة الحلول ما دام هذا الخطر مختارًا.'}},
+ mNA:{en:'Matching not yet assessed',ar:'المطابقة لم تُقيَّم بعد'},
+ mUnsure:{en:'Climate risks have not been identified. Climate-risk identification is needed before NBS matching can be completed.',ar:'لم تُحدَّد المخاطر المناخية. يلزم تحديدها قبل استكمال مطابقة الحلول القائمة على الطبيعة.'},
+ mUnass:{en:function(n){return 'Matching rules for '+n+' have not been defined and require methodology review. No match score or ranking is shown.'},ar:function(n){return 'لم تُحدَّد قواعد المطابقة الخاصة بـ '+n+' وهي تحتاج إلى مراجعة منهجية. لا تُعرض درجة مطابقة ولا ترتيب.'}},
+ mLand:{en:'Public land availability is unknown. Matching needs this information, so no match score or ranking is shown.',ar:'توفر الأراضي العامة غير معروف. تحتاج المطابقة إلى هذه المعلومة، لذا لا تُعرض درجة مطابقة ولا ترتيب.'},
+ mNoCtx:{en:'Urban density and public land availability are required for matching.',ar:'الكثافة العمرانية وتوفر الأراضي العامة مطلوبان للمطابقة.'},
  chkNote:{en:'Screening only, not engineering approval. These checks do not change the assessment score or the match score. Answers about planting space, soil and water are shared by the planting-based options.',ar:'فرز أولي وليس اعتمادًا هندسيًا. لا تغيّر هذه الفحوص درجة التقييم ولا درجة المطابقة. تُشارَك الإجابات عن مساحة الزراعة والتربة والمياه بين الخيارات القائمة على الزراعة.'},
  evalP:{en:'Score each indicator for the assessed area as it is today, not as planned.',ar:'قيّم كل مؤشر للمنطقة المقيَّمة بحسب وضعها اليوم لا المخطط له.'},
  forArea:{en:function(n){return 'Answering for: '+n},ar:function(n){return 'الإجابة عن: '+n}},
  optionalHint:{en:'Select all that apply.',ar:'اختر كل ما ينطبق.'},
  critAns:{en:function(a,b){return a+' of '+b+' answered'},ar:function(a,b){return a+' من '+b+' مُجاب عنها'}},
  errTitle:{en:function(n){return n===1?'1 item still needs an answer:':n+' items still need an answer:'},ar:function(n){return 'ما زال '+n+' من البنود بلا إجابة:'}},
- pickOne:{en:'Choose at least one climate risk or environmental challenge.',ar:'اختر خطرًا مناخيًا أو تحديًا بيئيًا واحدًا على الأقل.'},
+ pickOne:{en:'Select at least one option.',ar:'اختر خيارًا واحدًا على الأقل.'},
  pickAns:{en:'Choose an answer.',ar:'اختر إجابة.'},fillIn:{en:'Fill in this field.',ar:'املأ هذا الحقل.'},
  eArea:{en:'Assessment area',ar:'منطقة التقييم'},eMName:{en:'Area name',ar:'اسم المنطقة'},eCountry:{en:'Country',ar:'الدولة'},eCity:{en:'City / municipality',ar:'المدينة / البلدية'},eType:{en:'Assessment scale',ar:'مقياس التقييم'},pickArea:{en:'Select an assessment area.',ar:'اختر منطقة التقييم.'},
  eCtx:{en:function(n){return 'Context: '+n},ar:function(n){return 'السياق: '+n}},
- eRisk:{en:'Climate risks and environmental challenges: choose at least one',ar:'المخاطر المناخية والتحديات البيئية: اختر واحدًا على الأقل'},
+ eRisk:{en:'Local Climate Risks: select at least one option',ar:'المخاطر المناخية المحلية: اختر خيارًا واحدًا على الأقل'},
  eJust:{en:function(n){return n+': justification for Not applicable'},ar:function(n){return n+': مبرر «لا ينطبق»'}},
  loading:{en:'Calculating results',ar:'جارٍ حساب النتائج'},
  resTitle:{en:'Your results',ar:'نتائجك'},
@@ -322,24 +333,28 @@ var S={
  otherP:{en:'These options have a rule-based match score of 0, so they are not recommended for the selected risks and context. A score of 0 is not a finding that an option is technically unsuitable.',ar:'درجة المطابقة القائمة على القواعد لهذه الخيارات 0، لذا لا يُوصى بها للمخاطر والسياق المختارين. الدرجة 0 ليست حكمًا بأن الخيار غير ملائم فنيًا.'},
  exNoWhy:{en:'None of the selected risks is a target of this option, so its match score is 0.',ar:'لا يستهدف هذا الخيار أيًّا من المخاطر المختارة، لذا درجة مطابقته 0.'},
  exZeroWhy:{en:'Its land need exceeds the public land available, which brings the match score to 0.',ar:'حاجته إلى الأرض تفوق الأراضي العامة المتاحة، مما يجعل درجة المطابقة 0.'},
- recEmpty:{en:'Recommendations need at least one climate risk or environmental challenge and the context answers.',ar:'تحتاج التوصيات إلى خطر مناخي أو تحدٍّ بيئي واحد على الأقل وإلى إجابات السياق.'},
+ recEmpty:{en:'Matching needs at least one identified climate risk, urban density and public land availability.',ar:'تحتاج المطابقة إلى خطر مناخي واحد محدد على الأقل، وإلى الكثافة العمرانية وتوفر الأراضي العامة.'},
  recNone:{en:'No option qualifies as a recommendation for the selected risks and context. See the other options below, or review your risk selection and applicability checks.',ar:'لا يوجد خيار مؤهل للتوصية للمخاطر والسياق المختارين. راجع الخيارات الأخرى أدناه، أو راجع اختيار المخاطر وفحوص قابلية التطبيق.'},
  methB:{en:'How the rule-based match score is calculated (provisional)',ar:'كيف تُحسب درجة المطابقة القائمة على القواعد (مؤقتًا)'},
  methBL:{en:[
-  'Each option has a weight from 0 (not a target) to 3 (strong) for each risk. The weights are the earlier demo weights, kept provisionally for partner review.',
+  'Each option has a weight from 0 (not a target) to 3 (strong) for heatwaves, flooding and drought. These are the earlier demo weights, kept as provisional rules pending methodology review. They have not been validated by PROMEA.',
+  'Matching rules for Coastal Storms and Land Degradation have not been defined. When either is selected, or when Not Sure is selected, no match score or ranking is produced.',
   'Score = sum of the weights for your selected risks, divided by 3 times the number of selected risks, times 100.',
   'Land context: 15 points are subtracted for each level by which the option\'s land need exceeds the public land available, and 10 more points when urban density is high and the land need is high. The score is limited to 0 to 100.',
-  'Income is optional context and is not used. Institutional gaps (funding, maintenance, technical know-how) are not used to change the score. They are shown as implementation conditions.',
+  'Urban density and public land availability are qualitative answers, not numerical thresholds. If public land availability is Unknown, no match score is produced. Institutional gaps (funding, maintenance, technical know-how) are not used to change the score. They are shown as implementation conditions.',
+  'Climate type is not yet used in matching. It will be considered once verified location-specific information and decision rules are available.',
   'Public land availability is not used as evidence that a roof is available. Roofs are checked separately in the applicability checks.',
   'Screening: an option is Not applicable only when a basic condition is answered No (for example no roof, no coast, no runoff source). Unknown, or a No on a condition that can be assessed or designed (for example structural suitability), gives Requires verification.'],
   ar:[
-  'لكل خيار وزن من 0 (ليس هدفًا) إلى 3 (قوي) لكل خطر. الأوزان هي أوزان النسخة التجريبية السابقة، محفوظة مؤقتًا لمراجعة الشركاء.',
+  'لكل خيار وزن من 0 (ليس هدفًا) إلى 3 (قوي) لموجات الحر والفيضانات والجفاف. هذه هي أوزان النسخة التجريبية السابقة، محفوظة كقواعد مؤقتة بانتظار المراجعة المنهجية، ولم يتحقق منها إطار PROMEA.',
+  'لم تُحدَّد قواعد المطابقة الخاصة بالعواصف الساحلية وتدهور الأراضي. وعند اختيار أحدهما، أو اختيار «غير متأكد»، لا تُنتج درجة مطابقة ولا ترتيب.',
   'الدرجة = مجموع أوزان المخاطر التي اخترتها مقسومًا على 3 في عدد المخاطر المختارة، مضروبًا في 100.',
   'سياق الأرض: تُخصم 15 نقطة عن كل مستوى تزيد فيه حاجة الخيار إلى الأرض على الأراضي العامة المتاحة، و10 نقاط إضافية عندما تكون الكثافة العمرانية مرتفعة وحاجة الأرض مرتفعة. وتُحصر الدرجة بين 0 و100.',
-  'الدخل سياق اختياري ولا يُستخدم. ولا تُستخدم الفجوات المؤسسية (التمويل والصيانة والخبرة الفنية) لتغيير الدرجة. تُعرض كشروط للتنفيذ.',
+  'الكثافة العمرانية وتوفر الأراضي العامة إجابتان نوعيتان وليستا عتبات رقمية. وإذا كان توفر الأراضي العامة «غير معروف» فلا تُنتج درجة مطابقة. ولا تُستخدم الفجوات المؤسسية (التمويل والصيانة والخبرة الفنية) لتغيير الدرجة. تُعرض كشروط للتنفيذ.',
+  'لم يُستخدم نوع المناخ بعد في المطابقة. سيُنظر فيه عند توفر معلومات موثقة خاصة بالموقع وقواعد قرار.',
   'لا يُستخدم توفر الأراضي العامة دليلًا على توفر سطح. تُفحص الأسطح بشكل منفصل في فحوص قابلية التطبيق.',
   'الفرز: لا ينطبق الخيار إلا عندما يُجاب بـ «لا» عن شرط أساسي (مثل عدم وجود سطح أو ساحل أو مصدر جريان). «غير معروف»، أو «لا» عن شرط يمكن تقييمه أو تصميمه (مثل الملاءمة الإنشائية)، يعني «يتطلب تحققًا».']},
- wTitle:{en:'Risk weights (0 to 3)',ar:'أوزان المخاطر (0 إلى 3)'},
+ wTitle:{en:'Provisional risk weights (0 to 3)',ar:'أوزان المخاطر المؤقتة (0 إلى 3)'},
  costP:{en:'Enter the area you could treat and a time horizon. Ranges are for early planning only.',ar:'أدخل المساحة التي يمكن معالجتها وأفقًا زمنيًا. النطاقات للتخطيط المبكر فقط.'},
  fbH:{en:'Feedback for project partners',ar:'ملاحظات لشركاء المشروع'},
  fbRole:{en:'Your role',ar:'دورك'},
@@ -397,6 +412,29 @@ function fmt(n){return Number(n).toLocaleString('en-US')}
 function lvlIdx(p){return p<30?0:p<55?1:p<80?2:3}
 function ico(n,cls){return '<svg class="ic '+(cls||'')+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>'}
 function riskList(){return RISK.filter(function(r){return st.risks[r.k]})}
+function riskOk(){return riskList().length>0||!!st.risks.unsure}
+function riskText(l){return st.risks.unsure?UNSURE[(l||lang)==='ar'?'ar':'en']:riskList().map(function(r){return (l||lang)==='ar'?r.ar:r.en}).join('; ')}
+/* NBS matching is produced only when the provisional rules cover every selected risk and the context is known */
+function matchStatus(){
+  var reasons=[],un=riskList().filter(function(r){return MATCHABLE.indexOf(r.k)<0});
+  if(st.risks.unsure)reasons.push('unsure');
+  else if(!riskList().length)reasons.push('norisk');
+  if(un.length)reasons.push('unass');
+  if(!st.ctx.density||!st.ctx.land)reasons.push('noctx');
+  else if(st.ctx.land==='unknown')reasons.push('land');
+  return {ok:!reasons.length,reasons:reasons,un:un};
+}
+function matchMessages(l){
+  var m=matchStatus(),L=l||lang,out=[];
+  m.reasons.forEach(function(k){
+    if(k==='unsure')out.push(S.mUnsure[L]);
+    else if(k==='norisk')out.push(S.recEmpty[L]);
+    else if(k==='unass')out.push(S.mUnass[L](m.un.map(function(r){return L==='ar'?r.ar:r.en}).join(L==='ar'?'، ':', ')));
+    else if(k==='noctx')out.push(S.mNoCtx[L]);
+    else if(k==='land')out.push(S.mLand[L]);
+  });
+  return {title:S.mNA[L],items:out,ok:m.ok};
+}
 function indById(id){return IND.filter(function(i){return i.id===id})[0]}
 function blank(s){return !s||!String(s).trim()}
 
@@ -419,7 +457,7 @@ function answered(){
   if(scaleOk())n++;
   if(st.ctx.density)n++;
   if(st.ctx.land)n++;
-  if(riskList().length)n++;
+  if(riskOk())n++;
   IND.forEach(function(i){if(indOk(i.id))n++});
   return n;
 }
@@ -555,6 +593,7 @@ function conds(o){
 }
 /* ranked: options with a final match score above 0 that are not Not applicable. The match formula is unchanged. */
 function recs(){
+  if(!matchStatus().ok)return {ranked:[],na:[],other:[],all:[],blocked:true};
   var all=OPT.map(function(o,ix){return {o:o,ix:ix,s:suitability(o),raw:rawMatch(o),scr:screenOpt(o),why:riskWhy(o)}});
   var na=all.filter(function(x){return x.scr.status==='na'});
   var rest=all.filter(function(x){return x.scr.status!=='na'});
@@ -585,9 +624,9 @@ function stepMissing(s){
     }
     if(!sc.type)m.push({t:T('eType'),href:'#f-type',key:'scope:type'});
   }else if(s.k==='ctx'){
-    CTX.forEach(function(c){if(!c.opt&&!st.ctx[c.k])m.push({t:T('eCtx')(nm(c)),href:'#f-'+c.k,key:'ctx:'+c.k})});
+    CTX.forEach(function(c){if(!st.ctx[c.k])m.push({t:T('eCtx')(nm(c)),href:'#f-'+c.k,key:'ctx:'+c.k})});
   }else if(s.k==='risk'){
-    if(!riskList().length)m.push({t:T('eRisk'),href:'#riskField',key:'risk'});
+    if(!riskOk())m.push({t:T('eRisk'),href:'#riskField',key:'risk'});
   }else{
     IND.forEach(function(i){
       if(i.c!==s.i)return;
@@ -685,6 +724,11 @@ function scaleHtml(){
   var sc=st.scope;
   return seg('scope-type',SCOPES.map(function(o){return [o[0],lang==='ar'?o[2]:o[1]]}),sc.type)+ierr('scope:type',T('pickAns'));
 }
+function riskNoteHtml(){
+  if(st.risks.unsure)return esc(T('unsureNote'));
+  var un=matchStatus().un;
+  return un.length?esc(T('unassNote')(un.map(function(r){return nm(r)}).join(lang==='ar'?'، ':', '))):'';
+}
 function renderPanel(){
   var s=STEPS[st.step],h='',desc='';
   if(s.k==='scope'){
@@ -698,15 +742,16 @@ function renderPanel(){
   }else if(s.k==='ctx'){
     desc=T('ctxP');
     h=CTX.map(function(c){
-      var opts=c.o.map(function(o){return [o[0],lang==='ar'?o[2]:o[1]]});
-      return '<fieldset class="field" id="f-'+c.k+'"><legend>'+esc(nm(c))+(c.opt?' <span class="tagq">'+T('opt')+'</span>':'')+'</legend>'+seg('ctx-'+c.k,opts,st.ctx[c.k])+ierr('ctx:'+c.k,T('pickAns'))+'</fieldset>';
+      var rich=c.o[0].length>3;
+      var body=rich?'<div class="risks">'+c.o.map(function(o){return '<label class="chk"><input type="radio" name="ctx-'+c.k+'" value="'+o[0]+'"'+(st.ctx[c.k]===o[0]?' checked':'')+'><span><b>'+esc(lang==='ar'?o[2]:o[1])+'</b><small>'+esc(lang==='ar'?o[4]:o[3])+'</small></span></label>'}).join('')+'</div>'
+        :seg('ctx-'+c.k,c.o.map(function(o){return [o[0],lang==='ar'?o[2]:o[1]]}),st.ctx[c.k]);
+      return '<fieldset class="field" id="f-'+c.k+'"><legend>'+esc(nm(c))+' *</legend><p class="hint">'+esc(c.hint[lang])+'</p>'+body+ierr('ctx:'+c.k,T('pickAns'))+'</fieldset>';
     }).join('');
   }else if(s.k==='risk'){
     desc=T('riskP');
-    h='<fieldset class="field" style="margin:0" id="riskField"><legend class="sr">'+esc(T('stRisk'))+'</legend><p class="hint">'+T('optionalHint')+'</p><div class="risks">'+
-      RISK.map(function(r){
-        return '<label class="chk"><input type="checkbox" name="risk" value="'+r.k+'"'+(st.risks[r.k]?' checked':'')+'><span><b>'+esc(nm(r))+'</b><small>'+esc(lang==='ar'?r.da:r.d)+'</small></span></label>';
-      }).join('')+'</div><div id="riskErr">'+ierr('risk',T('pickOne'))+'</div></fieldset>';
+    function rk(r,cls){return '<label class="chk'+(cls||'')+'"><input type="checkbox" name="risk" value="'+r.k+'"'+(st.risks[r.k]?' checked':'')+'><span><b>'+esc(nm(r))+'</b>'+(r.d?'<small>'+esc(lang==='ar'?r.da:r.d)+'</small>':'')+'</span></label>'}
+    h='<fieldset class="field" style="margin:0" id="riskField"><legend class="sr">'+esc(T('stRisk'))+'</legend><div class="risks">'+RISK.map(function(r){return rk(r)}).join('')+'</div>'+
+      '<div class="risks" style="margin-top:12px">'+rk(UNSURE)+'</div><p class="note-s" id="riskNote">'+riskNoteHtml()+'</p><div id="riskErr">'+ierr('risk',T('pickOne'))+'</div></fieldset>';
   }else{
     desc=T('evalP');
     h='<p class="areaTag">'+esc(T('forArea')(areaName()||'…'))+'</p>'+
@@ -772,7 +817,7 @@ function ctxLabel(k){
 function areaSummaryHtml(){
   var s=st.scope,L=T('scopeLabs');
   function v(x){return blank(x)?'<span class="soft">'+T('notStated')+'</span>':esc(x)}
-  var rows=[[L[1],v(areaCountry())],[L[2],v(areaCity())],[L[4],v(s.org)],[T('stRisk'),esc(riskList().map(function(r){return nm(r)}).join('; ')||'–')],[nm(CTX[0]),esc(ctxLabel('density'))],[nm(CTX[1]),esc(ctxLabel('land'))],[nm(CTX[2]),esc(st.ctx.income?ctxLabel('income'):T('notStated'))]];
+  var rows=[[L[1],v(areaCountry())],[L[2],v(areaCity())],[L[4],v(s.org)],[T('stRisk'),esc(riskText()||'–')],[nm(CTX[0]),esc(ctxLabel('density'))],[nm(CTX[1]),esc(ctxLabel('land'))]];
   return '<p class="arealine"><b>'+esc(areaName())+'</b>'+(areaCountry()?' · '+esc(areaCountry()):'')+' · '+esc(scopeTypeLabel())+' · '+esc(s.date||T('notStated'))+'</p>'+
     dtl('area',T('areaDet'),'<dl class="sdl">'+rows.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>',false);
 }
@@ -866,8 +911,8 @@ function methodologyHtml(r){
     '<h4 class="subh2">'+T('methB')+'</h4><ul class="meth">'+S.methBL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul><h4 class="subh2">'+T('wTitle')+'</h4>'+weightsTable(),false);
 }
 function weightsTable(){
-  return '<div class="tbl-wrap"><table class="tbl"><caption class="sr">'+T('wTitle')+'</caption><thead><tr><th>'+T('option')+'</th>'+RISK.map(function(r){return '<th class="num">'+esc(nm(r))+'</th>'}).join('')+'</tr></thead><tbody>'+
-    OPT.map(function(o){return '<tr><td>'+esc(nm(o))+'</td>'+RISK.map(function(r){return '<td class="num">'+o.w[r.k]+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>';
+  return '<div class="tbl-wrap"><table class="tbl"><caption class="sr">'+T('wTitle')+'</caption><thead><tr><th>'+T('option')+'</th>'+RISK.filter(function(r){return MATCHABLE.indexOf(r.k)>=0}).map(function(r){return '<th class="num">'+esc(nm(r))+'</th>'}).join('')+'</tr></thead><tbody>'+
+    OPT.map(function(o){return '<tr><td>'+esc(nm(o))+'</td>'+RISK.filter(function(r){return MATCHABLE.indexOf(r.k)>=0}).map(function(r){return '<td class="num">'+o.w[r.k]+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>';
 }
 function statusChip(s){return '<span class="chip st-'+s+'">'+stLabel(s)+'</span>'}
 function whyText(x){
@@ -959,7 +1004,8 @@ function otherHtml(R){
 }
 function sectionB(){
   var h='<section class="rs" aria-labelledby="rcH"><h2 id="rcH">'+T('optsH')+'</h2>';
-  if(!riskList().length||!st.ctx.density||!st.ctx.land)return h+'<div class="note">'+T('recEmpty')+'</div></section>';
+  var MM=matchMessages();
+  if(!MM.ok)return h+'<div class="note"><b>'+esc(MM.title)+'</b><ul class="meth">'+MM.items.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div></section>';
   var R=recs(),top=R.ranked.slice(0,3);
   h+='<p class="sub">'+(R.ranked.some(function(x){return x.scr.status==='unchecked'})?T('prelim'):T('recP'))+'</p>';
   if(!top.length)h+='<div class="note">'+T('recNone')+'</div>';
@@ -1111,7 +1157,12 @@ document.addEventListener('change',function(e){
     st.scope.type=t.value;st.scope.typeAuto=false;
   }
   else if(n.indexOf('ctx-')===0){st.ctx[n.slice(4)]=t.value}
-  else if(n==='risk'){st.risks[t.value]=t.checked;var re=$('#riskErr');if(re&&riskList().length)re.innerHTML=''}
+  else if(n==='risk'){
+    if(t.value==='unsure'){if(t.checked)RISK.forEach(function(r){st.risks[r.k]=false});st.risks.unsure=t.checked}
+    else{st.risks[t.value]=t.checked;if(t.checked)st.risks.unsure=false}
+    $$('input[name="risk"]').forEach(function(i){i.checked=!!st.risks[i.value]});
+    var rn=$('#riskNote');if(rn)rn.innerHTML=riskNoteHtml();
+    var re=$('#riskErr');if(re&&riskOk())re.innerHTML=''}
   else if(n.indexOf('chk|')===0){st.scr[n.split('|')[2]]=t.value;refreshResults('input[name="'+n+'"][value="'+t.value+'"]');return}
   else if(n.indexOf('tgt-')===0){
     st.tgt[n.slice(4)]=t.value;
@@ -1174,7 +1225,7 @@ document.addEventListener('submit',function(e){
 /* clearly labelled sample data, for testing only */
 function fillSample(){
   st.scope={area:'other',mName:'SAMPLE DATA: Example neighbourhood (not a real area)',mCountry:'Sample country',mCity:'Sample city',type:'neighbourhood',typeAuto:false,org:'Sample organisation (test)',date:today()};
-  st.ctx={density:'high',land:'low',income:'mid'};
+  st.ctx={density:'high',land:'low'};
   st.risks={heat:true,flood:true};
   st.scr={};st.chkOpen={};
   st.sc={'1.1':2,'1.2':1,'1.3':1,'2.1':1,'2.2':1,'2.3':0,'3.1':1,'3.2':1,'3.3':1,'4.1':2,'4.2':1,'5.1':1,'5.2':0,'5.3':0};
@@ -1206,7 +1257,7 @@ function setLang(l){
 
 /* shared with explore.js (impact and cost step, report) */
 window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,pick:pick,calc:calc,recs:recs,recFor:recFor,
-  riskList:riskList,indDone:indDone,allComplete:allComplete,CRIT:CRIT,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,LEVELS:LEVELS,OPT:OPT,CHK:CHK,
+  riskList:riskList,riskOk:riskOk,riskText:riskText,matchStatus:matchStatus,matchMessages:matchMessages,UNSURE:UNSURE,indDone:indDone,allComplete:allComplete,CRIT:CRIT,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,LEVELS:LEVELS,OPT:OPT,CHK:CHK,
   lvlIdx:lvlIdx,nav:nav,ansLabel:ansLabel,ansCsv:ansCsv,ansState:ansState,cfLabel:cfLabel,confCounts:confCounts,scopeTypeLabel:scopeTypeLabel,areaName:areaName,areaCountry:areaCountry,areaCity:areaCity,
   rubricText:rubricText,gapsData:gapsData,stLabel:stLabel,whyText:whyText,optByNbs:optByNbs,eqWeightText:eqWeightText,weightsTable:weightsTable,
   chkKeys:chkKeys,chkVal:chkVal,roofStruct:roofStruct,catText:catText,CATS:CATS,RULE:RULE,methA:function(){return S.methAL[lang]},methB:function(){return S.methBL[lang]},

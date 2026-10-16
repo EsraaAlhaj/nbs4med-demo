@@ -72,7 +72,7 @@ Statuses: *Not yet checked* (no relevant answer), *Requires verification* (incom
 
 **Solution categories (provisional, display only).** Green infrastructure, Blue-green water management, Ecosystem restoration, Hybrid/integrated solutions, with an optional secondary category. Several depend on design. Categories do not affect matching, scoring or calculator selection.
 
-**Other rules kept.** Unknown is missing information, never 0. Not applicable needs a justification and is left out of the denominator. The overall percentage is hidden while any indicator is Unknown. Income is optional and is not used. Funding, maintenance and technical-capacity gaps are shown as implementation conditions and do not change any score.
+**Other rules kept.** Unknown is missing information, never 0. Not applicable needs a justification and is left out of the denominator. The overall percentage is hidden while any indicator is Unknown. Funding, maintenance and technical-capacity gaps are shown as implementation conditions and do not change any score.
 
 ### Mapping to the draft framework
 
@@ -104,3 +104,5 @@ Unknown, unanswered and Not applicable are never plotted as zero: a criterion wi
 ## Flat layout
 
 This copy keeps every file in one folder (no js/, data/, docs/ subfolders) so it can be uploaded through the GitHub web page. Script paths in index.html were changed accordingly. CALCULATIONS.md describes the same calculations.
+
+**Site context and local climate risks.** Step 2 asks for urban density and public land available for NBS (Limited, Moderate, Abundant or Unknown). Step 3 lists five risks aligned with PROMEA (heatwaves, flooding, drought, coastal storms, land degradation) plus a mutually exclusive Not Sure option. The provisional demo weights exist only for heatwaves, flooding and drought and have not been validated by PROMEA. NBS matching is not produced, and no score or ranking is exported, when Coastal Storms, Land Degradation or Not Sure is selected, or when public land availability is Unknown. Climate type is not used yet; it is a methodology item for later integration.
