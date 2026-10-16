@@ -378,6 +378,95 @@ details.adv h3{margin-top:10px}
   .ex h1{font-size:30px}
   .exrow input{max-width:none}
 }
+/* ---- assessment v2: scope, rubric options, Unknown / Not applicable, criterion profile, screening ---- */
+.field .lab{font-weight:600;display:block;margin-bottom:6px}
+.field input[type=text],.field input[type=date],.field textarea,.field select{width:100%;max-width:640px;min-height:46px;border:1px solid #84908A;border-radius:4px;padding:8px 12px;font:inherit;background:#fff;color:var(--ink)}
+.field textarea{min-height:88px}
+.field .hint{margin:0 0 8px}
+.areaTag{font-weight:600;color:var(--g800);margin:0 0 12px}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid #84908A;border-radius:4px;background:#fff;cursor:pointer}
+.opt input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--g800);flex:none}
+.opt .ob{flex:none;min-width:26px;height:26px;border-radius:50%;border:1.5px solid currentColor;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--mid)}
+.opt .ot{line-height:1.45}
+.opt:hover{background:var(--g50)}
+.opt:has(input:focus-visible){outline:3px solid var(--g800);outline-offset:3px}
+.opt:has(input:checked){border-color:var(--g800);background:var(--g50);box-shadow:inset 4px 0 0 var(--g800)}
+[dir=rtl] .opt:has(input:checked){box-shadow:inset -4px 0 0 var(--g800)}
+.opt.o0:has(input:checked){border-color:var(--lv0);background:var(--lv0-bg);box-shadow:inset 4px 0 0 var(--lv0)}
+.opt.o1:has(input:checked){border-color:var(--lv1);background:var(--lv1-bg);box-shadow:inset 4px 0 0 var(--lv1)}
+.opt.o2:has(input:checked){border-color:var(--lv3);background:var(--lv3-bg);box-shadow:inset 4px 0 0 var(--lv3)}
+[dir=rtl] .opt.o0:has(input:checked){box-shadow:inset -4px 0 0 var(--lv0)}
+[dir=rtl] .opt.o1:has(input:checked){box-shadow:inset -4px 0 0 var(--lv1)}
+[dir=rtl] .opt.o2:has(input:checked){box-shadow:inset -4px 0 0 var(--lv3)}
+.opt.ou,.opt.on{border-style:dashed}
+.opt.o0 .ob{color:var(--lv0)}.opt.o1 .ob{color:var(--lv1)}.opt.o2 .ob{color:var(--lv3)}
+.na-box{margin-top:12px;padding:12px 14px;background:var(--wash);border:1px solid var(--line)}
+.na-box input{width:100%;max-width:640px;min-height:46px;border:1px solid #84908A;border-radius:4px;padding:8px 12px;font:inherit;background:#fff;color:var(--ink)}
+.more{margin-top:14px;border:1px solid var(--line);background:#fff;padding:0 14px}
+.more summary{cursor:pointer;font-weight:600;padding:12px 0;color:var(--g800)}
+.more[open] summary{border-bottom:1px solid var(--line);margin-bottom:12px}
+.morebody{padding-bottom:6px}
+.sub12{margin:10px 0 6px;padding:12px 14px;background:var(--wash);border:1px solid var(--line)}
+.sdl{display:grid;grid-template-columns:200px 1fr;gap:6px 16px;margin:12px 0}
+.sdl dt{color:var(--soft);font-weight:600}
+.sdl dd{margin:0;overflow-wrap:anywhere}
+.soft{color:var(--soft)}
+.compl{font-size:18px;font-weight:600}
+.pgroup{margin:22px 0 10px;padding:16px 18px;border:1px solid var(--line);background:#fff}
+.pgroup h3{font-size:19px;color:var(--g900);margin-bottom:2px}
+.prow{display:grid;grid-template-columns:minmax(200px,1.1fr) minmax(140px,1.3fr) minmax(200px,1.2fr);gap:4px 18px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.pbar{height:14px;background:var(--wash);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.pbar i{display:block;height:100%}
+.pbar i.l0{background:var(--lv0)}.pbar i.l1{background:#C98A12}.pbar i.l2{background:#7BA33A}.pbar i.l3{background:var(--lv3)}
+.pbar.none{border-style:dashed;background:repeating-linear-gradient(45deg,var(--wash),var(--wash) 6px,#fff 6px,#fff 12px)}
+.pcomp{grid-column:1/-1;font-size:14px;color:var(--soft)}
+.pval{font-size:15.5px}
+.cell.vu{background:#fff;color:var(--mid);border:1px dashed var(--mid);border-inline-start:5px dashed var(--mid)}
+.cell.vn{background:var(--wash);color:var(--soft);border-color:#B8C0B9}
+.cell.vx{background:#fff;color:var(--soft);border-color:var(--line)}
+.lights.glist > li{display:grid;grid-template-columns:230px 1fr;gap:16px}
+.lights.glist .gl li{display:list-item;padding:3px 0;border:0}
+.dot.u{color:var(--mid)}.dot.n{color:var(--soft)}
+.gl{margin:0;padding-inline-start:18px}
+.subh{font-size:19px;color:var(--g900);margin-top:32px}
+.subh2{font-size:16px;color:var(--g800);margin:16px 0 6px}
+.meth{padding-inline-start:20px;font-size:15.5px}.meth li{margin-bottom:6px}
+.chip.st-cand{color:var(--lv3);background:var(--lv3-bg);border-color:var(--lv3)}
+.chip.st-verify{color:#5A3500;background:var(--lv1-bg);border-color:var(--lv1)}
+.chip.st-na{color:var(--soft);background:var(--wash);border-color:#B8C0B9}
+.mscore{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 10px;padding:8px 10px;background:var(--g50);border:1px solid var(--g100)}
+.mlab{font-size:14px;color:var(--mid)}
+.mval{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--g900)}
+.rl{margin:4px 0 0;padding-inline-start:20px;font-size:14.5px}
+.rline{font-size:14.5px}
+.rtxt{font-size:14.5px;margin:2px 0 0}
+.btn-sm{min-height:40px;padding:0 14px;font-size:15px;margin-top:4px;gap:8px}
+.nomod{font-weight:600;margin:0}
+.note.fromA{margin:16px 0}
+.chip.st-unchecked{color:var(--mid);background:#fff;border-color:var(--mid);border-style:dashed}
+.chkact{margin-top:8px}
+.chkpanel{margin-top:12px;padding:12px 14px;border:1px solid var(--line);background:var(--wash)}
+.chkpanel h4{font-size:16px;color:var(--g900);margin:0 0 4px}
+.chkpanel .field{margin:0 0 16px}
+.chkpanel .field legend{font-weight:600;font-size:15.5px}
+.chkpanel .seg{display:flex;flex-wrap:wrap}
+.chkpanel .seg span{white-space:normal}
+.seg.stack{display:flex;flex-direction:column;width:100%;max-width:360px}
+.seg.stack label{flex:none}
+.seg.stack span{margin-inline-start:0;margin-top:-1px;border-radius:0;white-space:normal}
+.seg.stack label:first-child span{margin-top:0;border-radius:4px 4px 0 0}
+.seg.stack label:last-child span{border-radius:0 0 4px 4px}
+.chkres{padding-top:8px;border-top:1px solid var(--line)}
+.chkrow td{background:var(--wash);padding:0 10px 10px 0}
+.catline{font-size:14px;color:var(--mid);margin:0 0 10px}
+.sol .catline,.sol small + small{margin-top:4px}
+@media (max-width:700px){
+  .prow{grid-template-columns:1fr}
+  .lights.glist > li{grid-template-columns:1fr;gap:4px}
+  .sdl{grid-template-columns:1fr;gap:0}
+  .sdl dd{margin-bottom:8px}
+}
 @media print{
   @page{size:A4;margin:14mm 14mm 16mm}
   body > *:not(#printReport){display:none!important}
@@ -402,6 +491,11 @@ details.adv h3{margin-top:10px}
   #printReport code{font-size:8.5pt;font-family:Consolas,monospace}
   #printReport a{color:#000;text-decoration:none}
   #printReport .srcs{font-size:8.5pt}
+  #printReport .rp-ans td,#printReport .rp-ans th{font-size:8pt}
+  #printReport .note.warn{border:.5pt solid #9A5B00;padding:4pt 6pt;margin:4pt 0}
+  #printReport .note.warn svg{display:none}
+  #printReport .adv{border:0;padding:0}
+  #printReport .adv > summary{font-weight:700;border:0}
 }
 </style>
 </head>
@@ -533,8 +627,8 @@ details.adv h3{margin-top:10px}
       <h2 id="how-h" data-i18n="howH">How it works</h2>
       <ol class="steps4">
         <li><span class="n">1</span><h3 data-i18n="s1h">Start</h3><p data-i18n="s1p">Open the tool. No account or login is needed.</p></li>
-        <li><span class="n">2</span><h3 data-i18n="s2h">Answer</h3><p data-i18n="s2p">Describe your site, pick climate risks, then score 14 indicators from 0 to 2.</p></li>
-        <li><span class="n">3</span><h3 data-i18n="s3h">Get results</h3><p data-i18n="s3p">See your level, strengths and gaps, then NBS options that suit your risks.</p></li>
+        <li><span class="n">2</span><h3 data-i18n="s2h">Answer</h3><p data-i18n="s2p">Define the assessed area, pick climate risks and environmental challenges, then score 14 indicators from 0 to 2, or mark them Unknown or Not applicable.</p></li>
+        <li><span class="n">3</span><h3 data-i18n="s3h">Get results</h3><p data-i18n="s3p">See your criterion profile, strengths and gaps, then NBS options that suit your risks.</p></li>
         <li><span class="n">4</span><h3 data-i18n="s4h">Download &amp; improve</h3><p data-i18n="s4p">Save a PDF or CSV report, adjust answers and run it again.</p></li>
       </ol>
     </div>
@@ -560,7 +654,7 @@ details.adv h3{margin-top:10px}
         <p class="side-h" id="stepsH" data-i18n="stepsH">Assessment steps</p>
         <ol class="step-list" id="stepList"></ol>
         <div class="side-tools">
-          <button class="link" type="button" id="fillSample" data-i18n="sample">Fill with sample answers</button>
+          <button class="link" type="button" id="fillSample" data-i18n="sample">Fill with sample data</button>
           <button class="link" type="button" id="clearAll" data-i18n="clear">Clear all</button>
         </div>
       </aside>
