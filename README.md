@@ -90,6 +90,15 @@ This table covers only the elements named in the update request. It is not a cla
 | Monitoring forms | Missing |
 | Budget inputs and budget comparison | Missing |
 
+## Printable reports
+
+The results page and the cost and impact page offer two print options:
+
+- **Summary report — 2 pages** (default). A4 portrait. Page 1 is the assessment summary: area, scale and date, site context, a bar chart of C1 to C5 on a fixed 0 to 100% axis (C1 current integration shown apart from C2 to C5 enabling conditions), the overall score as secondary information, completeness, confidence (kept separate from completeness), and up to three selected improvement areas. Page 2 is the preliminary NBS options: a bar chart of up to three match indexes on a fixed 0 to 100 axis with the applicability status, shared implementation conditions shown once, and, only when a calculation is valid, the explored solution with its cost and impact outputs. Otherwise it says "Cost and impact exploration not completed."
+- **Detailed report.** The full report with all indicator answers, methodology, weights, screening and calculator tables.
+
+Unknown, unanswered and Not applicable are never plotted as zero: a criterion without a percentage shows its status instead of a bar. Improvement areas are chosen in a fixed order (scores of 0, then 1, then Unknown, in indicator order; capital and maintenance funding are combined). This is not a validated priority ranking. The charts are inline SVG and work offline. Printing does not change any answer or result. Browser print settings for headers, footers and background graphics do not affect the layout.
+
 ## Flat layout
 
 This copy keeps every file in one folder (no js/, data/, docs/ subfolders) so it can be uploaded through the GitHub web page. Script paths in index.html were changed accordingly. CALCULATIONS.md describes the same calculations.
