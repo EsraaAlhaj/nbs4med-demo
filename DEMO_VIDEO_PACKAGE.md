@@ -36,7 +36,7 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 
 Check values yourself: 800 × 30 / 1000 = 24; 800 × 0.08 = 64; 24 × 26.8 % = 6.43 and 24 × 61.8 % = 14.83; 800 × 29 = 23,200 and 800 × 73 = 58,400 (per-m² range of seven published extensive roofs, 29 to 73 EUR/m²).
 
-## B. Storyboard (about 2 minutes 40 seconds)
+## B. Storyboard (about 2 minutes 45 seconds)
 
 | Time | Screen and action | Emphasis |
 |---|---|---|
@@ -52,7 +52,7 @@ Check values yourself: 800 × 30 / 1000 = 24; 800 × 0.08 = 64; 24 × 26.8 % = 6
 | 2:15 | Back to results, then Summary report. | Two A4 pages. |
 | 2:35 | Close on results page. | Prototype for partner testing. |
 
-## C. English voice-over (about 2 minutes 40 seconds)
+## C. English voice-over (about 2 minutes 45 seconds)
 
 "This is the self-evaluation tool developed by the University of Jordan within the NBS4MED project, under Activity A3.3.2. It is a prototype for partner testing, and it works alongside the developing PROMEA framework. It has four functions: to describe existing nature-based solutions in an area, to identify options that may be relevant to local climate risks, to estimate climate-risk mitigation impacts where a supported method exists, and to give indicative costs.
 
