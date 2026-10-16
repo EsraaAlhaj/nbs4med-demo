@@ -72,7 +72,15 @@ var IND=[
      ['Co-benefits are mentioned in funding decisions, but are not measured or valued.','تُذكر الفوائد المشتركة في قرارات التمويل، لكنها لا تُقاس ولا تُقدَّر.'],
      ['Co-benefits are measured or valued and counted in funding decisions.','تُقاس الفوائد المشتركة أو تُقدَّر وتُحتسب في قرارات التمويل.']]}
 ];
-var SCOPES=[['site','Site','موقع'],['neighbourhood','Neighbourhood','حي'],['municipality','Municipality','بلدية'],['other','Other','أخرى']];
+var SCOPES=[['site','Site / Project Area','الموقع / منطقة المشروع'],['neighbourhood','Neighbourhood / District','الحي / المنطقة السكنية'],['municipality','Municipality / City','البلدية / المدينة']];
+/* pilot names as given by the project; a city or municipality is listed only where the project context names one */
+var PILOTS=[
+ {id:'es',name:['Cerdanyola Urban Forest Pilot','تجربة الغابة الحضرية في سيردانيولا'],country:['Spain','إسبانيا'],city:['Cerdanyola del Vallès','سيردانيولا ديل فاليس']},
+ {id:'tr',name:['İzmir Green Roof Pilot','تجربة السطح الأخضر في إزمير'],country:['Türkiye','تركيا'],city:['İzmir','إزمير']},
+ {id:'gr',name:['Sikionies Smart Eco-Park Pilot','تجربة المنتزه البيئي الذكي في سيكيونيس'],country:['Greece','اليونان']},
+ {id:'tn',name:['Rainwater Retention Basin Pilot','تجربة حوض احتجاز مياه الأمطار'],country:['Tunisia','تونس']},
+ {id:'eg',name:['Heliopolis University Green Corridor Pilot','تجربة الممر الأخضر في جامعة هليوبوليس'],country:['Egypt','مصر']}
+];
 var CTX=[
  {k:'density',en:'Urban density',ar:'الكثافة العمرانية',o:[['low','Low','منخفضة'],['mid','Medium','متوسطة'],['high','High','مرتفعة']]},
  {k:'land',en:'Public land available for NBS',ar:'توفر الأراضي العامة للحلول',o:[['low','Limited','محدود'],['mid','Moderate','متوسط'],['high','Abundant','وافر']]},
@@ -188,14 +196,12 @@ var S={
  stepOf:{en:function(a,b){return 'Step '+a+' of '+b},ar:function(a,b){return 'الخطوة '+a+' من '+b}},
  ansN:{en:function(a,b){return a+' of '+b+' answered'},ar:function(a,b){return a+' من '+b+' مُجاب عنها'}},
  back:{en:'Back',ar:'رجوع'},cont:{en:'Continue',ar:'متابعة'},seeRes:{en:'See results',ar:'عرض النتائج'},
- stScope:{en:'Assessment scope',ar:'نطاق التقييم'},stCtx:{en:'Site context',ar:'سياق الموقع'},
+ stScope:{en:'Assessment area',ar:'منطقة التقييم'},stCtx:{en:'Site context',ar:'سياق الموقع'},
  stRisk:{en:'Climate risks and environmental challenges',ar:'المخاطر المناخية والتحديات البيئية'},
- scopeP:{en:'Define the area you are assessing. All answers in this assessment must refer to this same area and to its current situation, as it is today and not as planned.',ar:'حدّد المنطقة التي تقيّمها. يجب أن تشير كل الإجابات في هذا التقييم إلى هذه المنطقة نفسها وإلى وضعها الحالي، كما هو اليوم لا كما هو مخطط.'},
- fName:{en:'Assessment area name',ar:'اسم منطقة التقييم'},
- fScope:{en:'Scope of the area',ar:'نطاق المنطقة'},
- fOther:{en:'Describe the other scope',ar:'صِف النطاق الآخر'},
- fBound:{en:'Short description of the assessed boundary',ar:'وصف موجز لحدود المنطقة المقيَّمة'},
- fBoundH:{en:'For example: the streets or landmarks that mark the edge, or the administrative limits.',ar:'مثلًا: الشوارع أو المعالم التي تحدد الأطراف، أو الحدود الإدارية.'},
+ scopeP:{en:'Select the area you want to assess. All answers should reflect its current conditions.',ar:'اختر المنطقة التي تريد تقييمها. يجب أن تعكس جميع الإجابات أوضاعها الحالية.'},
+ fArea:{en:'Assessment area',ar:'منطقة التقييم'},fAreaPh:{en:'Select an assessment area',ar:'اختر منطقة التقييم'},fOtherArea:{en:'Other Area — Specify Manually',ar:'منطقة أخرى — تحديد يدوي'},
+ fMName:{en:'Area name',ar:'اسم المنطقة'},fCountry:{en:'Country',ar:'الدولة'},fCity:{en:'City / municipality',ar:'المدينة / البلدية'},
+ fScope:{en:'Assessment scale',ar:'مقياس التقييم'},
  fOrg:{en:'Organisation completing the assessment',ar:'الجهة التي تُجري التقييم'},
  fDate:{en:'Assessment date',ar:'تاريخ التقييم'},
  opt:{en:'optional',ar:'اختياري'},
@@ -209,7 +215,7 @@ var S={
  errTitle:{en:function(n){return n===1?'1 item still needs an answer:':n+' items still need an answer:'},ar:function(n){return 'ما زال '+n+' من البنود بلا إجابة:'}},
  pickOne:{en:'Choose at least one climate risk or environmental challenge.',ar:'اختر خطرًا مناخيًا أو تحديًا بيئيًا واحدًا على الأقل.'},
  pickAns:{en:'Choose an answer.',ar:'اختر إجابة.'},fillIn:{en:'Fill in this field.',ar:'املأ هذا الحقل.'},
- eName:{en:'Assessment area name',ar:'اسم منطقة التقييم'},eType:{en:'Scope of the area',ar:'نطاق المنطقة'},eOther:{en:'Description of the other scope',ar:'وصف النطاق الآخر'},eBound:{en:'Description of the assessed boundary',ar:'وصف حدود المنطقة المقيَّمة'},
+ eArea:{en:'Assessment area',ar:'منطقة التقييم'},eMName:{en:'Area name',ar:'اسم المنطقة'},eCountry:{en:'Country',ar:'الدولة'},eCity:{en:'City / municipality',ar:'المدينة / البلدية'},eType:{en:'Assessment scale',ar:'مقياس التقييم'},pickArea:{en:'Select an assessment area.',ar:'اختر منطقة التقييم.'},
  eCtx:{en:function(n){return 'Context: '+n},ar:function(n){return 'السياق: '+n}},
  eRisk:{en:'Climate risks and environmental challenges: choose at least one',ar:'المخاطر المناخية والتحديات البيئية: اختر واحدًا على الأقل'},
  eJust:{en:function(n){return n+': justification for Not applicable'},ar:function(n){return n+': مبرر «لا ينطبق»'}},
@@ -218,7 +224,7 @@ var S={
  protoNote:{en:'Preliminary prototype results for the area as it is today. The methodology will be reviewed against the PROMEA framework and the NBS repository. The scores are NBS4MED prototype scores and are not an official score or certification of any external organisation or standard.',ar:'نتائج أولية لنموذج تجريبي للمنطقة بوضعها الحالي. ستُراجع المنهجية بالمقارنة مع إطار PROMEA ومستودع الحلول القائمة على الطبيعة. الدرجات هنا درجات نموذج NBS4MED التجريبي، وليست درجة رسمية أو شهادة صادرة عن أي جهة أو معيار خارجي.'},
  edit:{en:'Edit answers',ar:'تعديل الإجابات'},
  scopeH:{en:'Assessed area',ar:'المنطقة المقيَّمة'},
- scopeLabs:{en:['Area name','Scope','Boundary','Organisation','Assessment date'],ar:['اسم المنطقة','النطاق','الحدود','الجهة','تاريخ التقييم']},
+ scopeLabs:{en:['Assessment area','Country','City / municipality','Assessment scale','Organisation','Assessment date'],ar:['منطقة التقييم','الدولة','المدينة / البلدية','مقياس التقييم','الجهة','تاريخ التقييم']},
  notStated:{en:'Not stated',ar:'غير مذكور'},
  compH:{en:'Completeness',ar:'اكتمال التقييم'},
  compTxt:{en:function(n,u,na){return n+' of 14 indicators have a numeric score. '+u+' Unknown. '+na+' Not applicable.'},ar:function(n,u,na){return n+' من 14 مؤشرًا لها درجة رقمية. '+u+' غير معروفة. '+na+' لا تنطبق.'}},
@@ -372,11 +378,11 @@ function T(k){return S[k][lang]}
 
 /* ---------- state ---------- */
 var STEPS=[{k:'scope'},{k:'ctx'},{k:'risk'},{k:'crit',i:0},{k:'crit',i:1},{k:'crit',i:2},{k:'crit',i:3},{k:'crit',i:4}];
-/* scope (1) + density and land (2) + risks (1) + 14 indicators */
-var TOTAL_Q=1+2+1+14;
+/* area (1) + scale (1) + density and land (2) + risks (1) + 14 indicators */
+var TOTAL_Q=2+2+1+14;
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function freshState(){
-  return {scope:{name:'',type:'',other:'',boundary:'',org:'',date:today()},ctx:{},risks:{},scr:{},
+  return {scope:{area:'',mName:'',mCountry:'',mCity:'',type:'',typeAuto:false,org:'',date:today()},ctx:{},risks:{},scr:{},
     sc:{},just:{},rat:{},evd:{},cf:{},tgt:{},chkOpen:{},rOpen:{},
     area:2000,horizon:10,step:0,view:'intro',res:'ready',fb:'form',miss:{},open:{}};
 }
@@ -399,11 +405,18 @@ function isNum(v){return v===0||v===1||v===2}
 function ansState(id){var v=st.sc[id];return v===undefined?'unanswered':v==='U'?'unknown':v==='NA'?'na':'scored'}
 function indOk(id){var v=st.sc[id];if(v===undefined)return false;if(v==='NA')return !blank(st.just[id]);return true}
 function indDone(){return IND.every(function(i){return indOk(i.id)})}
-function scopeOk(){var s=st.scope;return !blank(s.name)&&!!s.type&&(s.type!=='other'||!blank(s.other))&&!blank(s.boundary)}
+function pilotOf(id){return PILOTS.filter(function(p){return p.id===id})[0]}
+function areaOk(){var s=st.scope;return !!pilotOf(s.area)||(s.area==='other'&&!blank(s.mName)&&!blank(s.mCountry)&&!blank(s.mCity))}
+function scaleOk(){return !!st.scope.type}
+function scopeOk(){return areaOk()&&scaleOk()}
+function areaName(l){var s=st.scope,p=pilotOf(s.area);return p?p.name[(l||lang)==='ar'?1:0]:(s.area==='other'?(s.mName||'').trim():'')}
+function areaCountry(l){var s=st.scope,p=pilotOf(s.area);return p?p.country[(l||lang)==='ar'?1:0]:(s.area==='other'?(s.mCountry||'').trim():'')}
+function areaCity(l){var s=st.scope,p=pilotOf(s.area);return p?(p.city?p.city[(l||lang)==='ar'?1:0]:''):(s.area==='other'?(s.mCity||'').trim():'')}
 function ctxOk(){return !!st.ctx.density&&!!st.ctx.land}
 function answered(){
   var n=0;
-  if(scopeOk())n++;
+  if(areaOk())n++;
+  if(scaleOk())n++;
   if(st.ctx.density)n++;
   if(st.ctx.land)n++;
   if(riskList().length)n++;
@@ -485,9 +498,7 @@ function cfLabel(id,l){
 }
 function scopeTypeLabel(l){
   var s=st.scope,o=SCOPES.filter(function(x){return x[0]===s.type})[0];
-  if(!o)return '';
-  var t=(l||lang)==='ar'?o[2]:o[1];
-  return s.type==='other'&&!blank(s.other)?t+': '+s.other.trim():t;
+  return o?((l||lang)==='ar'?o[2]:o[1]):'';
 }
 
 /* match score: the earlier demo risk weights, kept provisionally, plus the earlier land and density context rule */
@@ -566,10 +577,13 @@ function stepName(s){
 function stepMissing(s){
   var m=[],sc=st.scope;
   if(s.k==='scope'){
-    if(blank(sc.name))m.push({t:T('eName'),href:'#f-name',key:'scope:name'});
+    if(!pilotOf(sc.area)&&sc.area!=='other')m.push({t:T('eArea'),href:'#in-area',key:'scope:area'});
+    else if(sc.area==='other'){
+      if(blank(sc.mName))m.push({t:T('eMName'),href:'#in-mname',key:'scope:mName'});
+      if(blank(sc.mCountry))m.push({t:T('eCountry'),href:'#in-mcountry',key:'scope:mCountry'});
+      if(blank(sc.mCity))m.push({t:T('eCity'),href:'#in-mcity',key:'scope:mCity'});
+    }
     if(!sc.type)m.push({t:T('eType'),href:'#f-type',key:'scope:type'});
-    else if(sc.type==='other'&&blank(sc.other))m.push({t:T('eOther'),href:'#f-other',key:'scope:other'});
-    if(blank(sc.boundary))m.push({t:T('eBound'),href:'#f-boundary',key:'scope:boundary'});
   }else if(s.k==='ctx'){
     CTX.forEach(function(c){if(!c.opt&&!st.ctx[c.k])m.push({t:T('eCtx')(nm(c)),href:'#f-'+c.k,key:'ctx:'+c.k})});
   }else if(s.k==='risk'){
@@ -650,18 +664,37 @@ function indHtml(i){
       '<input type="text" id="jin-'+idc+'" data-bind="just|'+i.id+'" value="'+esc(st.just[i.id]||'')+'" autocomplete="off">'+ierr('just:'+i.id,T('justErr'))+'</div>'+
     more+'</div></div>';
 }
+function areaSelectHtml(){
+  var sc=st.scope,bad=mi('scope:area');
+  return '<select id="in-area" name="scope-area"'+(bad?' class="input-err" aria-invalid="true"':'')+'><option value=""'+(sc.area?'':' selected')+'>'+esc(T('fAreaPh'))+'</option>'+
+    PILOTS.map(function(p){return '<option value="'+p.id+'"'+(sc.area===p.id?' selected':'')+'>'+esc(p.country[lang==='ar'?1:0]+' — '+p.name[lang==='ar'?1:0])+'</option>'}).join('')+
+    '<option value="other"'+(sc.area==='other'?' selected':'')+'>'+esc(T('fOtherArea'))+'</option></select>';
+}
+function locHtml(){
+  var sc=st.scope,p=pilotOf(sc.area);
+  if(p){
+    var rows='<dt>'+esc(T('fCountry'))+'</dt><dd>'+esc(areaCountry())+'</dd>'+(p.city?'<dt>'+esc(T('fCity'))+'</dt><dd>'+esc(areaCity())+'</dd>':'');
+    return '<dl class="sdl locv">'+rows+'</dl>';
+  }
+  if(sc.area==='other'){
+    return textField('mname',T('fMName')+' *','scope|mName',sc.mName,{key:'scope:mName'})+textField('mcountry',T('fCountry')+' *','scope|mCountry',sc.mCountry,{key:'scope:mCountry'})+textField('mcity',T('fCity')+' *','scope|mCity',sc.mCity,{key:'scope:mCity'});
+  }
+  return '';
+}
+function scaleHtml(){
+  var sc=st.scope;
+  return seg('scope-type',SCOPES.map(function(o){return [o[0],lang==='ar'?o[2]:o[1]]}),sc.type)+ierr('scope:type',T('pickAns'));
+}
 function renderPanel(){
   var s=STEPS[st.step],h='',desc='';
   if(s.k==='scope'){
     desc=T('scopeP');
     var sc=st.scope;
-    var typeOpts=SCOPES.map(function(o){return [o[0],lang==='ar'?o[2]:o[1]]});
-    h=textField('name',T('fName'),'scope|name',sc.name,{key:'scope:name'})+
-      '<fieldset class="field" id="f-type"><legend>'+T('fScope')+'</legend>'+seg('scope-type',typeOpts,sc.type)+ierr('scope:type',T('pickAns'))+'</fieldset>'+
-      '<div id="otherBox"'+(sc.type==='other'?'':' hidden')+'>'+textField('other',T('fOther'),'scope|other',sc.other,{key:'scope:other'})+'</div>'+
-      textField('boundary',T('fBound'),'scope|boundary',sc.boundary,{area:true,hint:T('fBoundH'),key:'scope:boundary'})+
-      textField('org',T('fOrg'),'scope|org',sc.org,{opt:true})+
-      textField('date',T('fDate'),'scope|date',sc.date,{type:'date',opt:true});
+    h='<div class="field" id="f-area"><label class="lab" for="in-area">'+T('fArea')+' *</label>'+areaSelectHtml()+'<div id="areaErr">'+ierr('scope:area',T('pickArea'))+'</div></div>'+
+      '<div id="locBox">'+locHtml()+'</div>'+
+      '<fieldset class="field" id="f-type"><legend>'+T('fScope')+' *</legend>'+scaleHtml()+'</fieldset>'+
+      textField('org',T('fOrg'),'scope|org',st.scope.org,{opt:true})+
+      textField('date',T('fDate'),'scope|date',st.scope.date,{type:'date',opt:true});
   }else if(s.k==='ctx'){
     desc=T('ctxP');
     h=CTX.map(function(c){
@@ -676,7 +709,7 @@ function renderPanel(){
       }).join('')+'</div><div id="riskErr">'+ierr('risk',T('pickOne'))+'</div></fieldset>';
   }else{
     desc=T('evalP');
-    h='<p class="areaTag">'+esc(T('forArea')((st.scope.name||'').trim()||'…'))+'</p>'+
+    h='<p class="areaTag">'+esc(T('forArea')(areaName()||'…'))+'</p>'+
       '<div class="scale-key">'+ico('info')+'<span><b>'+T('rub')+'.</b> '+T('key')+'</span></div>'+
       IND.filter(function(i){return i.c===s.i}).map(indHtml).join('');
   }
@@ -739,8 +772,8 @@ function ctxLabel(k){
 function areaSummaryHtml(){
   var s=st.scope,L=T('scopeLabs');
   function v(x){return blank(x)?'<span class="soft">'+T('notStated')+'</span>':esc(x)}
-  var rows=[[L[2],v(s.boundary)],[L[3],v(s.org)],[T('stRisk'),esc(riskList().map(function(r){return nm(r)}).join('; ')||'–')],[nm(CTX[0]),esc(ctxLabel('density'))],[nm(CTX[1]),esc(ctxLabel('land'))],[nm(CTX[2]),esc(st.ctx.income?ctxLabel('income'):T('notStated'))]];
-  return '<p class="arealine"><b>'+esc(s.name)+'</b> · '+esc(scopeTypeLabel())+' · '+esc(s.date||T('notStated'))+'</p>'+
+  var rows=[[L[1],v(areaCountry())],[L[2],v(areaCity())],[L[4],v(s.org)],[T('stRisk'),esc(riskList().map(function(r){return nm(r)}).join('; ')||'–')],[nm(CTX[0]),esc(ctxLabel('density'))],[nm(CTX[1]),esc(ctxLabel('land'))],[nm(CTX[2]),esc(st.ctx.income?ctxLabel('income'):T('notStated'))]];
+  return '<p class="arealine"><b>'+esc(areaName())+'</b>'+(areaCountry()?' · '+esc(areaCountry()):'')+' · '+esc(scopeTypeLabel())+' · '+esc(s.date||T('notStated'))+'</p>'+
     dtl('area',T('areaDet'),'<dl class="sdl">'+rows.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>',false);
 }
 /* horizontal bars: five categories compared on one fixed 0 to 100% scale. Labels carry the numbers, so colour is not the only cue. */
@@ -1065,8 +1098,17 @@ document.addEventListener('input',function(e){
 document.addEventListener('change',function(e){
   var t=e.target,n=t.name||'';
   if(t.dataset&&t.dataset.bind){setBind(t);afterEdit(t);return}
-  if(n==='scope-type'){
-    st.scope.type=t.value;var ob=$('#otherBox');if(ob)ob.hidden=t.value!=='other';
+  if(n==='scope-area'){
+    var sc=st.scope,pv=pilotOf(t.value);
+    sc.area=t.value;
+    if(pv){if(!sc.type||sc.typeAuto){sc.type='site';sc.typeAuto=true}}
+    else if(sc.typeAuto){sc.type='';sc.typeAuto=false}
+    if(st.miss.keys)['scope:area','scope:mName','scope:mCountry','scope:mCity','scope:type'].forEach(function(k){delete st.miss.keys[k]});
+    $('#areaErr').innerHTML='';t.classList.remove('input-err');t.removeAttribute('aria-invalid');
+    $('#locBox').innerHTML=locHtml();$('#f-type').innerHTML='<legend>'+T('fScope')+' *</legend>'+scaleHtml();
+  }
+  else if(n==='scope-type'){
+    st.scope.type=t.value;st.scope.typeAuto=false;
   }
   else if(n.indexOf('ctx-')===0){st.ctx[n.slice(4)]=t.value}
   else if(n==='risk'){st.risks[t.value]=t.checked;var re=$('#riskErr');if(re&&riskList().length)re.innerHTML=''}
@@ -1131,7 +1173,7 @@ document.addEventListener('submit',function(e){
 });
 /* clearly labelled sample data, for testing only */
 function fillSample(){
-  st.scope={name:'SAMPLE DATA: Example neighbourhood (not a real area)',type:'neighbourhood',other:'',boundary:'SAMPLE DATA for testing only. This is not a real assessment and the boundary is invented.',org:'Sample organisation (test)',date:today()};
+  st.scope={area:'other',mName:'SAMPLE DATA: Example neighbourhood (not a real area)',mCountry:'Sample country',mCity:'Sample city',type:'neighbourhood',typeAuto:false,org:'Sample organisation (test)',date:today()};
   st.ctx={density:'high',land:'low',income:'mid'};
   st.risks={heat:true,flood:true};
   st.scr={};st.chkOpen={};
@@ -1165,7 +1207,7 @@ function setLang(l){
 /* shared with explore.js (impact and cost step, report) */
 window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,pick:pick,calc:calc,recs:recs,recFor:recFor,
   riskList:riskList,indDone:indDone,allComplete:allComplete,CRIT:CRIT,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,LEVELS:LEVELS,OPT:OPT,CHK:CHK,
-  lvlIdx:lvlIdx,nav:nav,ansLabel:ansLabel,ansCsv:ansCsv,ansState:ansState,cfLabel:cfLabel,confCounts:confCounts,scopeTypeLabel:scopeTypeLabel,
+  lvlIdx:lvlIdx,nav:nav,ansLabel:ansLabel,ansCsv:ansCsv,ansState:ansState,cfLabel:cfLabel,confCounts:confCounts,scopeTypeLabel:scopeTypeLabel,areaName:areaName,areaCountry:areaCountry,areaCity:areaCity,
   rubricText:rubricText,gapsData:gapsData,stLabel:stLabel,whyText:whyText,optByNbs:optByNbs,eqWeightText:eqWeightText,weightsTable:weightsTable,
   chkKeys:chkKeys,chkVal:chkVal,roofStruct:roofStruct,catText:catText,CATS:CATS,RULE:RULE,methA:function(){return S.methAL[lang]},methB:function(){return S.methBL[lang]},
   isNum:isNum,today:today,fillSample:fillSample,renderAssess:renderAssess,freshState:freshState,setState:function(n){st=n;window.NBS4MED_CORE.st=n}};

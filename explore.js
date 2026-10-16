@@ -207,7 +207,7 @@
     refEvH: { en: 'Published reference evidence (not a forecast)', ar: 'أدلة مرجعية منشورة (وليست توقعًا)' },
     fracNote: { en: function (a, b) { return 'Published range: ' + a + ' to ' + b + '% of the event rainfall.'; }, ar: function (a, b) { return 'نطاق منشور: ' + a + ' إلى ' + b + '% من أمطار الحدث.'; } },
     why2: { en: 'Why it matches the selected risks', ar: 'سبب مطابقته للمخاطر المختارة' },
-    repScope: { en: 'Assessment scope', ar: 'نطاق التقييم' },
+    repScope: { en: 'Assessment area', ar: 'منطقة التقييم' },
     repCompl: { en: 'Completeness and confidence', ar: 'الاكتمال والثقة' },
     repScreen: { en: 'Applicability screening', ar: 'فرز قابلية التطبيق' },
     repNotRanked: { en: 'Excluded and other options', ar: 'خيارات مستبعدة وخيارات أخرى' },
@@ -755,7 +755,7 @@
       '<div class="demo-box">' + esc(x('demoLabel')) + '</div><p class="note-s">' + esc(T('protoNote')) + '</p>';
     /* 1. scope */
     var SL = T('scopeLabs');
-    h += '<h2>1. ' + x('repScope') + '</h2>' + tbl(['', ''], [[esc(SL[0]), esc(st.scope.name || '–')], [esc(SL[1]), esc(c.scopeTypeLabel() || '–')], [esc(SL[2]), esc(st.scope.boundary || '–')], [esc(SL[3]), esc(st.scope.org || T('notStated'))], [esc(SL[4]), esc(st.scope.date || T('notStated'))]]);
+    h += '<h2>1. ' + x('repScope') + '</h2>' + tbl(['', ''], [[esc(SL[0]), esc(c.areaName() || '–')], [esc(SL[1]), esc(c.areaCountry() || '–')]].concat(c.areaCity() ? [[esc(SL[2]), esc(c.areaCity())]] : []).concat([[esc(SL[3]), esc(c.scopeTypeLabel() || '–')], [esc(SL[4]), esc(st.scope.org || T('notStated'))], [esc(SL[5]), esc(st.scope.date || T('notStated'))]]));
     /* 2. assessment */
     h += '<h2>2. ' + x('repAssess') + '</h2><p class="note-s">' + x('repSep') + '</p>';
     h += '<h3>' + T('compH') + '</h3><p>' + esc(T('compTxt')(o.scored, o.unk, o.na)) + '</p>';
@@ -859,7 +859,7 @@
     var c = C(), r = c.calc(), st = c.st, T = c.T, t = c.nm, o = r.ov;
     var scaleLab = c.scopeTypeLabel();
     var h = '<section class="pg"><div class="ps-brand">NBS4MED</div><h1 class="ps-title">' + esc(x('sumTitle')) + '</h1>' +
-      '<dl class="ps-meta"><div><dt>' + x('sumArea') + '</dt><dd>' + sTrunc(st.scope.name || '–', 110) + '</dd></div><div><dt>' + x('sumScale') + '</dt><dd>' + sTrunc(scaleLab || '–', 60) + '</dd></div><div><dt>' + x('sumDate') + '</dt><dd>' + esc(st.scope.date || T('notStated')) + '</dd></div></dl>' +
+      '<dl class="ps-meta"><div><dt>' + x('sumArea') + '</dt><dd>' + sTrunc([c.areaName(), c.areaCountry()].filter(Boolean).join(', ') || '–', 110) + '</dd></div><div><dt>' + x('sumScale') + '</dt><dd>' + sTrunc(scaleLab || '–', 60) + '</dd></div><div><dt>' + x('sumDate') + '</dt><dd>' + esc(st.scope.date || T('notStated')) + '</dd></div></dl>' +
       '<p class="ps-ctx"><b>' + x('sumCtx') + '.</b> ' + x('sumRisks') + ': ' + esc(c.riskList().map(function (z) { return t(z); }).join('; ') || '–') + '. ' + x('sumDens') + ': ' + sCtxLabel('density') + '. ' + x('sumLand') + ': ' + sCtxLabel('land') + '.</p>' +
       '<h2 class="ps-h">' + esc(T('profH')) + '</h2><p class="ps-sub">' + x('sumProfSub') + '</p><div class="ps-chart">';
     function row(i, shade) {
@@ -991,9 +991,10 @@
     function add(a) { while (a.length < 11) a.push(''); rows.push(a); }
     function optCols(q) { return ['', '', '', q.scr.status === 'unchecked' ? 'Not yet checked' : q.scr.status === 'cand' ? 'Preliminary candidate' : q.scr.status === 'verify' ? 'Requires verification' : 'Not applicable', c.catText(q.o) + ' (provisional)']; }
     add(['label', 'status', E_label(), '', '', 'Preliminary prototype. Scores are not official scores of any external standard.']);
-    add(['assessment scope', 'area name', st.scope.name, '', 'user input', '']);
-    add(['assessment scope', 'scope', c.scopeTypeLabel('en'), '', 'user input', '']);
-    add(['assessment scope', 'boundary description', st.scope.boundary, '', 'user input', 'All answers refer to this area and its current situation']);
+    add(['assessment scope', 'area name', c.areaName('en'), '', 'user input', '']);
+    add(['assessment scope', 'country', c.areaCountry('en'), '', 'user input', '']);
+    add(['assessment scope', 'city / municipality', c.areaCity('en'), '', 'user input', '']);
+    add(['assessment scope', 'assessment scale', c.scopeTypeLabel('en'), '', 'user input', '']);
     add(['assessment scope', 'organisation', st.scope.org, '', 'user input', '']);
     add(['assessment scope', 'assessment date', st.scope.date, '', 'user input', '']);
     c.CTX.forEach(function (cx) { var o = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0]; add(['assessment context', cx.en, o ? o[1] : 'Not specified', '', 'user input', cx.opt ? 'optional, not scored, not used in ranking' : 'not scored']); });
