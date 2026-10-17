@@ -116,8 +116,8 @@
       ev: ['Workshop or consultation records, and records of how input changed decisions.', 'سجلات ورش العمل أو المشاورات، وسجلات كيف غيّرت المساهمات القرارات.']
     },
     '4.2': {
-      q: ['Do departments, utilities, NGOs and private owners coordinate on nature-based solutions?', 'هل تنسق الإدارات والمرافق والمنظمات غير الحكومية والملاك الخواص بشأن الحلول القائمة على الطبيعة؟'],
-      what: ['Whether departments, utilities, NGOs and private owners coordinate NBS actions, and whether this happens through a regular mechanism.', 'ما إذا كانت الإدارات والمرافق والمنظمات غير الحكومية والملاك الخواص ينسقون إجراءات الحلول، وهل يتم ذلك عبر آلية منتظمة.'],
+      q: ['Do departments, utilities and private owners coordinate on nature-based solutions?', 'هل تنسق الإدارات والمرافق والملاك الخواص بشأن الحلول القائمة على الطبيعة؟'],
+      what: ['Whether departments, utilities and private owners coordinate NBS actions, and whether this happens through a regular mechanism.', 'ما إذا كانت الإدارات والمرافق والملاك الخواص ينسقون إجراءات الحلول، وهل يتم ذلك عبر آلية منتظمة.'],
       why: ['Many NBS depend on land, assets or budgets held by different actors.', 'تعتمد كثير من الحلول على أراضٍ أو أصول أو ميزانيات يملكها فاعلون مختلفون.'],
       consider: ['Which actors own land or assets relevant to NBS and how they currently coordinate.', 'من يملك الأراضي أو الأصول ذات الصلة بالحلول وكيف ينسقون حاليًا.'],
       act: {

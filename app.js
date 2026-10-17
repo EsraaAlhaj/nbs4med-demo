@@ -441,6 +441,9 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
  notRatedUn:{en:'Not rated: unanswered indicators',ar:'غير مُقيَّم: مؤشرات بلا إجابة'},
  ovNotShown:{en:'not shown (see the warning above)',ar:'غير معروضة (انظر التحذير أعلاه)'},
  warnNA:{en:function(n){return n+(n===1?' indicator is':' indicators are')+' Not applicable: left out of the score and reported separately.'},ar:function(n){return n+(n===1?' مؤشر':' مؤشرات')+' لا ينطبق: يُستبعد من النتيجة ويُعرض بشكل منفصل.'}},
+ elH:{en:'Evidence and limitations',ar:'الأدلة والقيود'},
+ elSub:{en:'What this result is based on, and what it does not show.',ar:'ما تستند إليه هذه النتيجة، وما لا تُظهره.'},
+ elBasis:{en:'Basis',ar:'الأساس'},
  methAll:{en:'Methodology (provisional)',ar:'المنهجية (مؤقتة)'},
  optsH:{en:'Preliminary NBS options',ar:'خيارات أولية للحلول القائمة على الطبيعة'},
  solDet:{en:'Solution details',ar:'تفاصيل الحل'},
@@ -1174,7 +1177,7 @@ function diagHtml(r){
   return '<h3 class="subh" id="dgH">'+T('dgH')+'</h3><p class="note-s">'+T('dgSub')+'</p>'+body;
 }
 function jumpNav(){
-  var items=[['asH',T('ovH')],['gpH',T('gpH')],['rcH',T('optsH')],['icH',T('icH')],['meth',T('methAll')]];
+  var items=[['asH',T('ovH')],['gpH',T('gpH')],['rcH',T('optsH')],['icH',T('icH')],['elH',T('elH')],['meth',T('methAll')]];
   return '<nav class="jump no-print" aria-label="'+esc(T('jumpL'))+'">'+items.map(function(x){return '<button type="button" class="jl" data-jump="'+x[0]+'">'+esc(x[1])+'</button>'}).join('')+'</nav>';
 }
 function sectionA(r){
@@ -1182,6 +1185,24 @@ function sectionA(r){
     '<h3 class="subh" id="ctH">'+T('ctH')+'</h3>'+critTableHtml(r)+
     '<h3 class="subh" id="cpH">'+T('chH')+'</h3><p class="note-s">'+T('profSubS')+'</p>'+critChartHtml(r)+
     diagHtml(r)+'</section>'+gapsSection();
+}
+S.elLim={en:[
+  'The assessment reflects the answers entered by the user. Unknown answers are missing information, not poor performance, and criteria containing them are not scored.',
+  'Level thresholds and the combined score are provisional and have not been validated.',
+  'Option matching covers heatwaves, flooding and drought only, uses provisional weights, and is not a validated ranking.',
+  'Costs are illustrative and need local verification. Climate-risk mitigation impact is not currently estimated.',
+  'Improvement actions follow directly from the answers given and are not a prioritised plan.'],
+ ar:[
+  'تعكس النتيجة الإجابات التي أدخلها المستخدم. الإجابة «غير معروف» معلومة ناقصة وليست أداءً ضعيفًا، ولا تُحتسب المعايير التي تحتويها.',
+  'عتبات المستويات والدرجة المجمعة مؤقتة ولم يجرِ التحقق منها.',
+  'تشمل مطابقة الخيارات الموجات الحارة والفيضانات والجفاف فقط، وتستخدم أوزانًا مؤقتة، وليست ترتيبًا مُتحققًا منه.',
+  'التكاليف استرشادية وتحتاج إلى تحقق محلي. ولا يُقدَّر حاليًا أثر التخفيف من المخاطر المناخية.',
+  'تنبثق إجراءات التحسين مباشرة من الإجابات المُدخلة، وليست خطة مرتبة الأولويات.']};
+function limitsSection(r){
+  var cf=confCounts(),o=r.ov;
+  return '<section class="rs" aria-labelledby="elH"><h2 id="elH">'+T('elH')+'</h2><p class="note-s">'+T('elSub')+'</p>'+
+    '<p class="rtxt"><b>'+T('elBasis')+':</b> <bdi>'+esc(T('ovComplV')(o.scored,o.unk,o.na,o.un))+'.</bdi> '+esc(T('confTxt')(cf.n,cf.high,cf.mid,cf.low,cf.none))+'</p>'+
+    '<ul class="meth">'+S.elLim[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></section>';
 }
 function fbHtml(){
   if(st.fb==='ok')return '<div class="ok-box" role="status">'+T('fbOk')+'</div>';
@@ -1209,7 +1230,7 @@ function renderResults(){
       '<button class="btn" type="button" id="dlPdfDetail">'+ico('print')+'<span>'+T('pdfDetail')+'</span></button>'+
       '<button class="btn" type="button" id="dlCsv">'+ico('down')+'<span>'+T('csv')+'</span></button>'+
       '<div class="toast" id="dlNote" role="status"></div></div>'+jumpNav()+
-    sectionA(r)+sectionB()+sectionC()+
+    sectionA(r)+sectionB()+sectionC()+limitsSection(r)+
     '<section class="rs" id="meth" aria-label="'+esc(T('methAll'))+'">'+methodologyHtml(r)+'</section>'+
     (SHOW_FEEDBACK?'<section class="rs no-print" aria-labelledby="fbH"><h2 id="fbH">'+T('fbH')+'</h2><div id="fbBody" style="margin-top:14px">'+fbHtml()+'</div></section>':'');
 }

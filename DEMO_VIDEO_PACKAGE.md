@@ -46,6 +46,7 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | Reference cost example | Hamburg, 2017, source S04: **23,200 to 58,400 EUR** (median 35,200) for 800 m². Another place and year, not a local price. Shown only because 800 m² lies inside the 196 to 1,944 m² study range. |
 | Funding and maintenance considerations beside the cost | From 5.1 (Score 1) and 5.2 (Score 0). |
 | Cost banner | "Illustrative Scenario Cost — Not a Local Price Estimate" above the cost ranges. |
+| Evidence and limitations (results page, below Impact & Cost) | Basis: 13 of 14 indicators scored, 1 Unknown, 0 Not applicable. Five short limitation statements (Unknown is missing information; provisional thresholds; matching for heat, flooding, drought only; illustrative costs; actions follow the answers). |
 | Summary report | Exactly two A4 pages. Page 1: area, scale, date, context, criterion chart, completeness, confidence, major gaps and improvement actions (first three), key limitations. Page 2: options, shared conditions, supporting calculations, reference evidence and cost. |
 
 Check values yourself: C1 = (1 + 1 + 0) / 6 = 33 %; C4 = (1 + 1) / 4 = 50 %; C5 = 1 / 6 = 17 %; 800 × 30 / 1000 = 24; 800 × 0.08 = 64; 24 × 26.8 % = 6.43 and 24 × 61.8 % = 14.83; 800 × 29 = 23,200 and 800 × 73 = 58,400 (per-m² range of seven published extensive roofs).
