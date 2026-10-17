@@ -26,7 +26,7 @@ for(const [lang,W] of [['en',1920],['ar',1920],['en',390],['ar',390]]){
  const H=await ev(()=>['asH','ctH','cpH','dgH','gpH','rcH','icH'].map(i=>{const e=document.getElementById(i);return e?Math.round(e.getBoundingClientRect().top+scrollY):null}));
  ok(T,'dashboard sections in order',H.every(x=>x!==null)&&H.every((x,i)=>i===0||x>H[i-1]),H);
  const ov=await txt('#asH + .ovtop');
- ok(T,'overview: provisional overall score tile, area, scale, date, risks, completeness',/(Provisional overall score|الدرجة الإجمالية المؤقتة)/.test(ov)&&/(Not validated|ليست مقياسًا معتمدًا)/i.test(ov)&&/İzmir/.test(ov)&&/2026|٢٠٢٦/.test(ov),ov.slice(0,300));
+ ok(T,'overview: provisional overall score tile, area, scale, date, risks, completeness',/(Provisional overall score|الدرجة الإجمالية المؤقتة)/.test(ov)&&/(Not a validated|ليست مقياسًا معتمدًا)/i.test(ov)&&/İzmir/.test(ov)&&/2026|٢٠٢٦/.test(ov),ov.slice(0,300));
  // unsupported options: no radios, explanatory note
  const radios=await ev(()=>[...document.querySelectorAll('#icSec input[name=exsol]')].map(i=>i.value));
  ok(T,'five supported calculators offered; others explained',JSON.stringify(radios.sort())===JSON.stringify(['NBS01','NBS02','NBS03','NBS04','NBS05'])&&(await txt('.nocalc-note')).length>20,radios);
@@ -38,7 +38,7 @@ for(const [lang,W] of [['en',1920],['ar',1920],['en',390],['ar',390]]){
  ok(T,'inline Green roof 800 m², 30 mm: 24 m³, 64 m³, 6.43–14.8, CAPEX 23,240/41,860/78,160, OPEX 800/2,000/4,000',['24','64','6.43','23,240','41,860','78,160','2,000','4,000'].every(k=>r.includes(k)),r.slice(0,200));
  await p.fill('#ex-area_m2','1000');await p.waitForTimeout(350);r=await txt('#exResults');
  ok(T,'changing an input updates the results at once (1000 × 30 mm = 30 m³; 80 m³ substrate)',r.includes('30')&&r.includes('80')&&!r.includes('23,240'),r.slice(0,160));
- ok(T,'impact, physical, cost blocks in that order and separate',await ev(()=>{const h=[...document.querySelectorAll('#exResults h4.icb')].map(x=>x.innerText);return h.length===3});
+ ok(T,'impact, physical, cost blocks in that order and separate',await ev(()=>{const h=[...document.querySelectorAll('#exResults h4.icb')].map(x=>x.innerText);return h.length===3&&/(Potential impact|الأثر المحتمل)/.test(h[0])&&/(Physical calculations|الحسابات المادية)/.test(h[1])&&/(Indicative cost|التكلفة الإرشادية)/.test(h[2])}));
  // switch and keep inputs
  await pick('NBS05');await p.fill('#ex-length_m','640');await p.waitForTimeout(300);
  const n5=await txt('#exResults');

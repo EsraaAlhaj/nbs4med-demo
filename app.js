@@ -1256,7 +1256,7 @@ function route(){
     if(allComplete())show('results');
     else{show('assess')}
   }else if(h==='#explore'){
-    if(allComplete()){pendingScroll='icSec';show('results');try{history.replaceState({v:'results'},'',location.pathname+location.search+'#results')}catch(err){}}
+    if(allComplete()){pendingScroll='icSec';show('results')}
     else{show('assess')}
   }else if(h==='#about'||h==='#how'||h==='#resources'){
     show('intro');
