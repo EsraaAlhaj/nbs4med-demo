@@ -57,6 +57,7 @@
     r_small_event: { en: 'The source reports typical retention above 80% for events below 10 mm, as a typical value and not as a guaranteed bound. No number is calculated.', ar: 'يذكر المصدر احتجازًا معتادًا يزيد على 80% للأحداث الأقل من 10 مم، كقيمة معتادة لا كحد مضمون. لا يُحسب رقم.' },
     r_no_catchment: { en: 'Enter the catchment area to calculate this.', ar: 'أدخل مساحة الحوض المائي لحساب هذا.' },
     basis_published_reference: { en: 'Published reference', ar: 'مرجع منشور' },
+    basis_mixed: { en: 'Mixed basis', ar: 'أساس مختلط' },
     basis_demo_assumption: { en: 'Demo assumption', ar: 'افتراض تجريبي' },
     basis_user_entered: { en: 'Your input', ar: 'مدخلك' },
     basis_arithmetic: { en: 'Arithmetic on your inputs', ar: 'حساب حسابي على مدخلاتك' },
@@ -219,10 +220,16 @@
     sumArea: { en: 'Area', ar: 'المنطقة' }, sumScale: { en: 'Assessment scale', ar: 'مقياس التقييم' }, sumDate: { en: 'Date', ar: 'التاريخ' },
     sumCtx: { en: 'Site context', ar: 'سياق الموقع' }, sumRisks: { en: 'Selected risks', ar: 'المخاطر المختارة' },
     sumDens: { en: 'Urban density', ar: 'الكثافة العمرانية' }, sumLand: { en: 'Public land available', ar: 'الأراضي العامة المتاحة' },
-    sumProfSub: { en: 'Fixed 0 to 100% axis. A criterion without a percentage shows its status instead of a bar. Levels use provisional project thresholds.', ar: 'محور ثابت من 0 إلى 100%. يعرض المعيار الذي لا نسبة له حالته بدلًا من الشريط. تستخدم المستويات عتبات مؤقتة للمشروع.' },
+    sumProfSub: { en: 'Fixed 0 to 100% axis. Provisional levels. Unknown is never shown as zero.', ar: 'محور ثابت من 0 إلى 100%. مستويات مؤقتة. ولا يُعرض «غير معروف» صفرًا.' },
     sumCompl: { en: function (n, u, un, na) { return 'Completeness (14 indicators): ' + n + ' scored · ' + u + ' Unknown · ' + un + ' unanswered · ' + na + ' Not applicable'; }, ar: function (n, u, un, na) { return 'الاكتمال (14 مؤشرًا): ' + n + ' مُقيَّمة · ' + u + ' غير معروفة · ' + un + ' بلا إجابة · ' + na + ' لا تنطبق'; } },
     sumConf: { en: function (n, a, b, c, d) { return 'Confidence in the ' + n + ' scored answers (self-reported): documented evidence ' + a + ' · staff estimate ' + b + ' · informal judgement ' + c + ' · not stated ' + d; }, ar: function (n, a, b, c, d) { return 'الثقة في ' + n + ' إجابة مُقيَّمة (بحسب ما أفاد المستخدم): أدلة موثقة ' + a + ' · تقدير الموظفين ' + b + ' · تقدير غير رسمي ' + c + ' · غير محددة ' + d; } },
     sumConfNote: { en: 'A complete answer is not necessarily documented evidence.', ar: 'الإجابة المكتملة ليست بالضرورة موثقة بدليل.' },
+    gapType: { en: 'Type', ar: 'النوع' },
+    sumActH: { en: 'Major gaps and improvement actions', ar: 'أبرز الفجوات وإجراءات التحسين' },
+    sumActN: { en: 'Provisional display order (score 0, then 1, then Unknown). Not a validated ranking.', ar: 'ترتيب عرض مؤقت (الدرجة 0 ثم 1 ثم «غير معروف»). وليس ترتيبًا معتمدًا.' },
+    sumActMore: { en: function (n) { return n + (n === 1 ? ' more finding is' : ' more findings are') + ' in the detailed report.'; }, ar: function (n) { return 'يرد ' + n + (n === 1 ? ' بند آخر' : ' بنود أخرى') + ' في التقرير المفصّل.'; } },
+    sumLimH: { en: 'Key limitations', ar: 'القيود الرئيسية' },
+    sumLim: { en: 'Matching covers heatwaves, flooding and drought only, with unvalidated weights. Costs are illustrative. Climate-risk mitigation impact is not currently estimated.', ar: 'تشمل المطابقة الموجات الحارة والفيضانات والجفاف فقط بأوزان غير معتمدة. والتكاليف توضيحية. ولا يُقدَّر حاليًا أثر التخفيف من المخاطر المناخية.' },
     sumImpH: { en: 'Selected improvement areas', ar: 'مجالات التحسين المختارة' },
     sumImpN: { en: 'Selection order: scores of 0, then 1, then Unknown, in indicator order. This is not a validated priority ranking.', ar: 'ترتيب الاختيار: الدرجة 0 ثم 1 ثم «غير معروف»، بحسب ترتيب المؤشرات. وهو ليس ترتيب أولوية مُتحقَّقًا منه.' },
     sumImpMore: { en: function (n) { return n + (n === 1 ? ' more area is' : ' more areas are') + ' listed in the detailed report.'; }, ar: function (n) { return 'يرد ' + n + (n === 1 ? ' مجال آخر' : ' مجالات أخرى') + ' في التقرير المفصّل.'; } },
@@ -251,8 +258,13 @@
     sumSeeDet: { en: '(full text in the detailed report)', ar: '(النص الكامل في التقرير المفصّل)' },
     sumOptH: { en: 'Preliminary NBS options', ar: 'خيارات أولية للحلول القائمة على الطبيعة' },
     sumMatch: { en: 'Relevant to the selected risks', ar: 'ذو صلة بالمخاطر المختارة' },
-    sumMatchNote: { en: 'Options come from a provisional rule-based match to the selected risks. This is not a validated ranking, a feasibility check or a predicted impact.', ar: 'تأتي الخيارات من مطابقة مؤقتة قائمة على قواعد مع المخاطر المختارة. وهذا ليس ترتيبًا معتمدًا ولا فحصًا للجدوى ولا أثرًا متوقعًا.' },
+    sumMatchNote: { en: 'Provisional rule-based match to the selected risks. Not a validated ranking, feasibility check or predicted impact.', ar: 'مطابقة مؤقتة قائمة على قواعد مع المخاطر المختارة. وليست ترتيبًا معتمدًا ولا فحصًا للجدوى ولا أثرًا متوقعًا.' },
     sumApp: { en: 'Applicability', ar: 'قابلية التطبيق' }, sumShared: { en: 'Shared implementation conditions', ar: 'شروط تنفيذ مشتركة' },
+    illusCost: { en: 'Illustrative Scenario Cost — Not a Local Price Estimate', ar: 'تكلفة سيناريو توضيحي — وليست تقديرًا لأسعار محلية' },
+    userCost: { en: 'Based on prices you entered. Still an indicative scenario, not a validated project cost.', ar: 'مبنية على أسعار أدخلتها. وهي مع ذلك سيناريو إرشادي وليست كلفة مشروع معتمدة.' },
+    mixedCost: { en: 'Mixed basis: some prices are demo assumptions, some are entered by you. Indicative scenario, not a local price estimate.', ar: 'أساس مختلط: بعض الأسعار افتراضات تجريبية وبعضها أدخلته أنت. سيناريو إرشادي وليس تقديرًا لأسعار محلية.' },
+    evClasses: { en: 'Evidence classes used in this tool: Published Reference (published study, with place and year), Partner-Validated Data (none entered yet), User-Entered Value, Demo Assumption (illustrative, not validated).', ar: 'فئات الأدلة المستخدمة في الأداة: مرجع منشور (دراسة منشورة مع المكان والسنة)، بيانات تحقق منها الشركاء (لم تُدخل بعد)، قيمة أدخلها المستخدم، افتراض تجريبي (توضيحي وغير معتمد).' },
+    compH: { en: 'Components of construction cost (base value, EUR)', ar: 'مكونات كلفة الإنشاء (القيمة الأساسية، يورو)' },
     sumCalcH: { en: 'Supporting calculations and indicative cost', ar: 'الحسابات الداعمة والتكلفة الإرشادية' },
     prov: { en: 'provisional', ar: 'مؤقتة' },
     sumNoRec: { en: 'No recommendation: no option qualifies for the selected risks and context.', ar: 'لا توصية: لا يوجد خيار مؤهل للمخاطر والسياق المختارين.' },
@@ -629,11 +641,31 @@
   /* a range is drawn only when the calculator gives valid, different lower and upper values; otherwise the number is shown */
   function validRange(t) { return t && isFinite(t.low) && isFinite(t.high) && t.high > t.low; }
   function lbh(t) { return x('low') + ' <bdi dir="ltr">' + eur(t.low) + '</bdi> · ' + x('base') + ' <bdi dir="ltr">' + eur(t.base) + '</bdi> · ' + x('high') + ' <bdi dir="ltr">' + eur(t.high) + '</bdi>'; }
+  function costKind(res) {
+    var rows = [].concat(res.costs.capex.components, res.costs.annual.components).filter(function (r) { return r.included && r.subtotal; });
+    var d = rows.some(function (r) { return r.source_class === 'demo_assumption'; }), u = rows.some(function (r) { return r.source_class === 'user_entered'; });
+    return d && u ? 'mixed' : u ? 'user' : 'demo';
+  }
+  function costBanner(res) {
+    var k = costKind(res);
+    return '<p class="costflag"><b>' + esc(k === 'demo' ? x('illusCost') : x('illusCost')) + '</b>' + (k === 'demo' ? '' : '<br><span>' + esc(x(k === 'user' ? 'userCost' : 'mixedCost')) + '</span>') + '</p>';
+  }
+  function compBars(res) {
+    var def = E.solutionDef(res.solution_id), rows = res.costs.capex.components.filter(function (r) { return r.included && r.subtotal; });
+    if (rows.length < 2) return '';
+    var max = Math.max.apply(null, rows.map(function (r) { return r.subtotal.base; })) || 1;
+    function lab(id) { var cm = def.components.filter(function (z) { return z.id === id; })[0]; return L() === 'ar' ? cm.label_ar : cm.label_en; }
+    return '<h4>' + x('compH') + '</h4><div class="cbars">' + rows.map(function (r) {
+      return '<div class="cbr"><span>' + esc(lab(r.id)) + '</span><span class="cbt" aria-hidden="true"><i style="width:' + Math.max(1, Math.round(r.subtotal.base / max * 100)) + '%"></i></span><span class="cbv"><bdi dir="ltr">' + eur(r.subtotal.base) + '</bdi> EUR</span></div>';
+    }).join('') + '</div>';
+  }
+  var curKind = 'demo';
+  function basisKey() { return curKind === 'user' ? 'basis_user_entered' : curKind === 'mixed' ? 'basis_mixed' : 'basis_demo_assumption'; }
   function costRow(label, t) {
     if (!t) return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span><i>' + esc(x('unavailable')) + '</i></span></div></div>';
-    if (!validRange(t)) return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span><b><bdi dir="ltr">' + eur(t.base) + '</bdi></b> EUR <em>' + esc(x('basis_demo_assumption')) + '</em></span></div></div>';
+    if (!validRange(t)) return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span><b><bdi dir="ltr">' + eur(t.base) + '</bdi></b> EUR <em>' + esc(x(basisKey())) + '</em></span></div></div>';
     var max = niceMax(t.high);
-    return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span>' + lbh(t) + ' EUR <em>' + esc(x('basis_demo_assumption')) + '</em></span></div>' + rangeSvg(t.low, t.base, t.high, max) + axisHtml(max, 'EUR') + '</div>';
+    return '<div class="cst"><div class="cst-h"><b>' + esc(label) + '</b><span>' + lbh(t) + ' EUR <em>' + esc(x(basisKey())) + '</em></span></div>' + rangeSvg(t.low, t.base, t.high, max) + axisHtml(max, 'EUR') + '</div>';
   }
   function inputsLine(res) {
     var def = E.solutionDef(res.solution_id);
@@ -663,11 +695,12 @@
     h += assessBox(sol) + warningsHtml(res) + inputsLine(res);
     /* cost: capital and recurring costs stay separate; a range chart only for a valid lower and upper estimate */
     var cs = res.costs;
-    h += '<h3>' + x('costScreenH') + '</h3><p class="note-s">' + x('costBasis') + ' ' + x('scenarioNote') + '</p>' +
+    curKind = costKind(res);
+    h += '<h3>' + x('costScreenH') + '</h3>' + costBanner(res) + '<p class="note-s">' + x('costBasis') + ' ' + x('scenarioNote') + '</p>' +
       costRow(x('capex'), cs.capex.total) + costRow(x('annual'), cs.annual.total) + costConditions(sol);
     if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<p class="note-s"><b>' + x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median)) + '</b></p>'; }
     if (sol === 'NBS02') h += '<div class="note warn">' + C().ico('alert') + '<span>' + roofText() + '</span></div>';
-    h += det2('costdet', x('costBreak'), costTables(res) + roofReferenceBlock(res));
+    h += det2('costdet', x('costBreak'), compBars(res) + costTables(res) + roofReferenceBlock(res) + '<p class="note-s">' + x('evClasses') + '</p>');
     var Q = res.outputs.filter(function (o) { return PHYS.indexOf(o.group) >= 0; }), O = res.outputs.filter(function (o) { return OPS.indexOf(o.group) >= 0; }), P = res.outputs.filter(function (o) { return PERF.indexOf(o.group) >= 0; });
     h += '<h3>' + C().T('mitH') + '</h3><p class="note-s">' + esc(C().T('mitNone')) + '</p>';
     if (Q.length) h += '<h3>' + x('qtyH') + '</h3>' + Q.map(kvs).join('') + volumeChart(res);
@@ -774,7 +807,8 @@
     var res = E.calculate(ex.sol, b.vals, b.touched, b.prices);
     if (res.status !== 'ok') return '<p class="note-s">' + esc(x('sumExNA')) + '</p>';
     var cs = res.costs;
-    var h = '<p class="ps-exh"><b>' + esc(solName(ex.sol)) + '</b></p><p class="note-s">' + x('costBasis') + ' ' + x('scenarioNote') + '</p>' +
+    curKind = costKind(res);
+    var h = '<p class="ps-exh"><b>' + esc(solName(ex.sol)) + '</b></p>' + costBanner(res) + '<p class="note-s">' + x('costBasis') + ' ' + x('scenarioNote') + '</p>' +
       costRow(x('capex'), cs.capex.total) + costRow(x('annual'), cs.annual.total) + costConditions(ex.sol);
     if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<p class="note-s"><b>' + x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median)) + '</b></p>'; }
     if (ex.sol === 'NBS02') h += '<div class="note warn">' + C().ico('alert') + '<span>' + roofText() + '</span></div>';
@@ -814,6 +848,10 @@
     var g = c.gapsData();
     function names(arr, withText) { return arr.length ? arr.map(function (i) { return esc(i.id + ' ' + t(i)) + (withText ? ': ' + esc(c.rubricText(i, st.sc[i.id])) : ''); }).join('<br>') : '–'; }
     h += '<h3>' + T('sgH') + '</h3>' + tbl(['', ''], [[T('gap0'), names(g.z, true)], [T('gap1'), names(g.o, true)], [T('strong'), names(g.t)], [T('gapU'), names(g.u)], [T('gapNA'), g.n.length ? g.n.map(function (i) { return esc(i.id + ' ' + t(i) + ': ' + (st.just[i.id] || '')); }).join('<br>') : '–']]);
+    var gaps = c.gapItems();
+    h += '<h3>' + esc(T('gpH')) + '</h3><p class="note-s">' + esc(T('gpOrder')) + '</p>' + (gaps.length ? tbl(['#', T('colInd'), x('gapType'), T('gpFind'), T('gpWhy'), T('gpAct'), T('gpEv')], gaps.map(function (g, k) {
+      return [k + 1, esc(c.indTitle(g.i)), esc(g.type), esc(g.finding), esc(g.why), esc(g.action), esc(g.evidence)];
+    }), 'rp-ans') : '<p>' + esc(T('gpNone')) + '</p>');
     var cf = c.confCounts();
     h += '<h3>' + T('confH') + '</h3><p>' + esc(T('confTxt')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + ' ' + esc(T('confNote')) + '</p>';
     h += '<h3>' + T('detH') + '</h3>' + tbl(['ID', T('colInd'), T('colAns'), T('colRat'), T('colEvd'), T('colCf')], c.IND.map(function (i) {
@@ -925,13 +963,16 @@
     var cf = c.confCounts(), un = o.un;
     h += '<div class="ps-two"><div class="ps-box"><b>' + esc(x('sumCompl')(o.scored, o.unk, un, o.na)) + '</b></div>' +
       '<div class="ps-box">' + esc(x('sumConf')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + '. ' + esc(x('sumConfNote')) + '</div></div>';
-    var areas = improvementAreas(), shown = areas.slice(0, 3);
-    h += '<h2 class="ps-h">' + esc(x('sumImpH')) + '</h2><p class="ps-sub">' + x('sumImpN') + '</p>';
-    if (!areas.length) h += '<p>' + x('sumImpNone') + '</p>';
+    var gs = c.gapItems(), shown = gs.slice(0, 3);
+    h += '<h2 class="ps-h">' + esc(x('sumActH')) + '</h2><p class="ps-sub">' + esc(x('sumActN')) + '</p>';
+    if (!gs.length) h += '<p>' + esc(T('gpNone')) + '</p>';
     else {
-      h += '<ol class="ps-areas">' + shown.map(function (it) { return '<li>' + areaText(it) + '</li>'; }).join('') + '</ol>';
-      if (areas.length > 3) h += '<p class="ps-more">' + x('sumImpMore')(areas.length - 3) + '</p>';
+      h += '<ol class="ps-areas">' + shown.map(function (g) {
+        return '<li><b>' + esc(c.indTitle(g.i)) + '</b> (' + esc(g.type) + (c.isNum(g.v) ? ', ' + esc(T('scoreL')) + ' ' + g.v : '') + '): ' + esc(g.action) + '</li>';
+      }).join('') + '</ol>';
+      if (gs.length > 3) h += '<p class="ps-more">' + esc(x('sumActMore')(gs.length - 3)) + '</p>';
     }
+    h += '<p class="ps-sub"><b>' + esc(x('sumLimH')) + '.</b> ' + esc(x('sumLim')) + '</p>';
     return h + '<div class="ps-foot"><span>' + x('sumFoot1') + '</span><b>' + x('sumPage')(1) + '</b></div></section>';
   }
   function evRef(sol, id) {
@@ -973,9 +1014,10 @@
     } else h += '<div class="ps-lim">' + esc(x('sumNoImp')(res.not_calculated.map(function (k) { return x('nc_' + k); }).join('; '))) + '</div>';
     h += '</div>';
     var cs = res.costs, tc = cs.capex.total, ta = cs.annual.total;
-    h += '<div class="ps-sec"><b>' + x('sumCostH') + '</b>' +
-      '<div class="ps-kv"><span>' + esc(x('capex')) + '</span><span>' + (tc ? '<b>' + ltr(eur(tc.low) + ' – ' + eur(tc.high)) + '</b> EUR (' + esc(x('base')) + ' ' + ltr(eur(tc.base)) + ')' : '<i>' + esc(x('unavailable')) + '</i>') + ' <em>' + esc(x('basis_demo_assumption')) + '</em></span></div>' +
-      '<div class="ps-kv"><span>' + esc(x('annual')) + '</span><span>' + (ta ? '<b>' + ltr(eur(ta.low) + ' – ' + eur(ta.high)) + '</b> EUR (' + esc(x('base')) + ' ' + ltr(eur(ta.base)) + ')' : '<i>' + esc(x('unavailable')) + '</i>') + ' <em>' + esc(x('basis_demo_assumption')) + '</em></span></div>';
+    curKind = costKind(res);
+    h += '<div class="ps-sec"><b>' + x('sumCostH') + '</b><div class="ps-lim ps-warn"><b>' + esc(x('illusCost')) + '</b></div>' +
+      '<div class="ps-kv"><span>' + esc(x('capex')) + '</span><span>' + (tc ? '<b>' + ltr(eur(tc.low) + ' – ' + eur(tc.high)) + '</b> EUR (' + esc(x('base')) + ' ' + ltr(eur(tc.base)) + ')' : '<i>' + esc(x('unavailable')) + '</i>') + ' <em>' + esc(x(basisKey())) + '</em></span></div>' +
+      '<div class="ps-kv"><span>' + esc(x('annual')) + '</span><span>' + (ta ? '<b>' + ltr(eur(ta.low) + ' – ' + eur(ta.high)) + '</b> EUR (' + esc(x('base')) + ' ' + ltr(eur(ta.base)) + ')' : '<i>' + esc(x('unavailable')) + '</i>') + ' <em>' + esc(x(basisKey())) + '</em></span></div>';
     if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<div class="ps-lim">' + esc(x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median))) + '</div>'; }
     h += '<div class="ps-lim">' + esc(x('sumNoYear')) + '</div></div>';
     return h;
@@ -1065,6 +1107,9 @@
     add(['assessment completeness', 'indicators with numeric score', o.scored + ' of 14', '', 'calculated', o.unk + ' Unknown; ' + o.na + ' Not applicable']);
     add(['assessment overall', 'provisional combined assessment score', o.status === 'complete' ? o.sum + '/' + o.max : o.status === 'na' ? 'Not applicable' : 'Not shown (Unknown answers)', 'points', 'calculated', o.status === 'complete' ? o.pct + '%; equal weight per indicator; provisional thresholds' : 'overall percentage suppressed because an indicator is Unknown']);
     if (o.status === 'complete') add(['assessment overall', 'level', c.LEVELS[r.lvl].en, '', 'calculated', 'provisional project thresholds']);
+    c.gapItems('en').forEach(function (g) {
+      add(['improvement action', g.i.id + ' ' + g.i.en, g.type, '', 'deterministic mapping from the answer (provisional display order, not a validated ranking)', 'Finding: ' + g.finding + ' | Suggested action: ' + g.action, 'Why it matters: ' + g.why, 'Evidence needed: ' + g.evidence, '', '', '']);
+    });
     var cf = c.confCounts();
     add(['assessment confidence summary', 'scored indicators by confidence', 'documented evidence ' + cf.high + '; staff estimate ' + cf.mid + '; informal judgement ' + cf.low + '; not stated ' + cf.none, '', 'user input', 'confidence does not change scores']);
     Object.keys(c.CHK).forEach(function (k) {
