@@ -32,7 +32,8 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | C5 Funding & Sustainability | 17 % (1 of 6), Insufficient |
 | Provisional combined assessment score | **Not shown**, because indicator 3.3 is Unknown. The page says so. It is labelled secondary and not a validated measure of NBS integration. |
 | Completeness and confidence | 13 of 14 indicators have a numeric score, 1 Unknown. Confidence: 1 staff estimate, 12 not stated. |
-| Improvement areas (not a validated ranking) | 1.3 Link to grey infrastructure, 2.3 Targets and monitoring, 5.3 Co-benefits valued in decisions (all Score 0). |
+| Criteria results table | C1 2 of 6, 33 %, Partial, "Lowest score (0): 1.3 Link to grey infrastructure". C2 2 of 6, 33 %, Partial. C3 "Not rated: Unknown answers", "Information missing for 3.3". C4 2 of 4, 50 %, Partial. C5 1 of 6, 17 %, Insufficient. |
+| Priority gaps and improvement actions (display order, not a validated ranking) | Gaps (score 0): 1.3, 2.3, 5.2, 5.3. Partial (score 1): 1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2, 5.1. To verify (Unknown): 3.3. The first five are shown: 1.3, 2.3, 5.2, 5.3, 1.1. Example: 5.2 shows the finding "No budget covers maintenance, watering or replacement of NBS.", the action "Prepare an operation and maintenance budget and clarify who is responsible for funding it." and the evidence "Maintenance plans, annual budget lines and financial documentation." |
 | Preliminary options (cards) | Green roof, Green corridor, Urban forest (Miyawaki method). Each shows "Relevant to: Heatwaves; Flooding". |
 | Order of the cards | Green roof and Green corridor have the same provisional match (67 / 100, kept in the CSV). Their order follows the fixed option order. It is **not** a validated ranking and Green roof is **not** given priority by the pilot choice. |
 | Shared implementation conditions | 5.1 Capital funding: Score 1. 5.2 Long-term maintenance budget: Score 0. 3.2 Technical know-how: Score 1. |
@@ -44,42 +45,42 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | Indicative annual maintenance | Low **800**, base **2,000**, high **4,000 EUR** per year. Demo assumption. |
 | Reference cost example | Hamburg, 2017, source S04: **23,200 to 58,400 EUR** (median 35,200) for 800 m². Another place and year, not a local price. Shown only because 800 m² lies inside the 196 to 1,944 m² study range. |
 | Funding and maintenance considerations beside the cost | From 5.1 (Score 1) and 5.2 (Score 0). |
-| Summary report | Exactly two A4 pages. Page 1: area, scale, date, context, criterion chart, completeness, confidence, improvement areas. Page 2: options, shared conditions, supporting calculations, reference evidence and cost. |
+| Cost banner | "Illustrative Scenario Cost — Not a Local Price Estimate" above the cost ranges. |
+| Summary report | Exactly two A4 pages. Page 1: area, scale, date, context, criterion chart, completeness, confidence, major gaps and improvement actions (first three), key limitations. Page 2: options, shared conditions, supporting calculations, reference evidence and cost. |
 
 Check values yourself: C1 = (1 + 1 + 0) / 6 = 33 %; C4 = (1 + 1) / 4 = 50 %; C5 = 1 / 6 = 17 %; 800 × 30 / 1000 = 24; 800 × 0.08 = 64; 24 × 26.8 % = 6.43 and 24 × 61.8 % = 14.83; 800 × 29 = 23,200 and 800 × 73 = 58,400 (per-m² range of seven published extensive roofs).
 
-## B. Storyboard (about 2 minutes 45 seconds)
+## B. Storyboard (about 2 minutes 55 seconds)
 
 | Time | Screen and action | Emphasis |
 |---|---|---|
 | 0:00 | Landing page. | The four functions. |
-| 0:15 | Start. Stage 1: choose the İzmir pilot. | The pilot choice assigns nothing else. |
-| 0:28 | Stage 2: High density, Limited public land. Stage 3: Heatwaves and Flooding. | Five risks plus Not Sure. |
-| 0:45 | Stages 4 to 8: show C1 (1.2 target question) and C3 with Unknown, then move quickly through C2, C4, C5. | Five criteria, fourteen indicators. Unknown is not zero. |
-| 1:15 | Results: criterion chart. | C1 apart from C2 to C5. C3 not rated. Combined score withheld and provisional. |
-| 1:35 | Preliminary NBS options. | Relevance and conditions, not a feasibility check. |
-| 1:50 | Check this solution on Green roof: Requires verification. | Screening, not engineering approval. |
-| 2:05 | Explore impact and cost: 800 m², 30 mm. | Quantities, literature evidence and cost are separate. |
-| 2:30 | Summary report. | Two A4 pages. |
-| 2:45 | Close. | Prototype for partner testing. |
+| 0:12 | Start. Stage 1: choose the İzmir pilot. Stages 2 and 3: High density, Limited land, Heatwaves and Flooding. | The pilot choice assigns nothing else. |
+| 0:35 | Stages 4 to 8: show one indicator card page (Read more, descriptive cards, Unknown), then move through C2 to C5. | Five criteria, fourteen indicators. Unknown is not zero. |
+| 1:05 | Results: overview and criteria table. | C1 apart from C2 to C5. C3 not rated. Combined score withheld and provisional. |
+| 1:25 | Comparison chart, then open C3 in the diagnosis. | One chart on a fixed scale. |
+| 1:40 | Priority gaps and improvement actions. | Finding, why it matters, action, evidence needed. Not a validated ranking. |
+| 1:58 | Preliminary NBS options. | Category, relevant risk, site conditions. Separate from the assessment scores. |
+| 2:10 | Check this solution on Green roof: Requires verification. | Screening, not engineering approval. |
+| 2:22 | Explore: 800 m², 30 mm. Show quantities, literature evidence, cost banner. | Mitigation impact not estimated. Illustrative scenario cost. |
+| 2:45 | Summary report. | Two A4 pages. |
+| 2:55 | Close. | Prototype for partner testing. |
 
-## C. English voice-over (about 2 minutes 45 seconds)
+## C. English voice-over (about 2 minutes 55 seconds)
 
-"This is the self-evaluation tool developed by the University of Jordan within the NBS4MED project, under Activity A3.3.2. It is a prototype for partner testing, and it works alongside the developing PROMEA framework. It has four functions: to assess how far nature-based solutions are already integrated in an area, to identify options that may be relevant to local climate risks, to estimate climate-risk mitigation impacts where a supported method exists, and to give indicative costs.
+"This is the self-evaluation tool developed by the University of Jordan within the NBS4MED project, under Activity A3.3.2. It is a prototype for partner testing, and it works alongside the developing PROMEA framework. It has four functions: to assess how far nature-based solutions are integrated in an area, to identify options that may be relevant to local climate risks, to estimate climate-risk mitigation impacts where a supported method exists, and to give indicative costs.
 
-The assessment has eight stages. First, the assessment area. Here I choose the İzmir Green Roof pilot. This only fills in its country and city. It does not assign risks, site conditions or recommendations.
+The assessment has eight stages. First, the assessment area. I choose the İzmir Green Roof pilot. This only fills in its country and city. Second, site context: for this illustrative example, high urban density and limited public land. Third, local climate risks. There are five. I select heatwaves and flooding.
 
-Second, site context. For this illustrative example I enter high urban density and limited public land. Third, local climate risks. There are five: heatwaves, flooding, drought, coastal storms and land degradation. I select heatwaves and flooding.
+Stages four to eight cover five criteria with fourteen indicators. Each indicator has an explanation, a direct question and descriptive answer cards. If the information is missing, the answer is Unknown. Unknown is never recorded as zero. A user can add evidence and a confidence level.
 
-Stages four to eight cover five criteria with fourteen indicators: existing integration of nature-based solutions, policy and planning, institutional and technical capacity, stakeholder engagement, and funding and sustainability. Each indicator uses a provisional zero-to-two rubric, and a user can enter evidence and confidence. If the information is missing, the answer is Unknown. Unknown is never recorded as zero.
+On the results page, the table shows each criterion with its score and provisional level. Existing integration is shown apart from the enabling conditions. Here one indicator is unknown, so that criterion is not rated, and the combined score is withheld. The chart compares the criteria on one fixed scale.
 
-On the results page, the criteria are shown separately, with existing integration apart from the enabling conditions. Here one indicator is unknown, so that criterion is not rated, and the combined score is withheld. This score is provisional and is not a validated measure of integration.
+The tool then turns the answers into improvement actions. For each gap it shows the finding, why it matters, a suggested action and the evidence needed. For an Unknown answer, the action is to verify the information. The order is a provisional display order, not a ranking of urgency.
 
-Next, preliminary options. They are matched to the selected risks with provisional rules for heat, flooding and drought. This is not a feasibility check and not a prediction of impact. For other risks, the tool says that matching is not yet assessed.
+Next, preliminary options. They are matched to the selected risks with provisional rules for heat, flooding and drought, and they do not depend on the assessment scores. For Green roof, I open the applicability check. A roof is available, but its structural suitability is pending, so the result is Requires verification. This is screening, not engineering approval.
 
-For Green roof, I open the applicability check. A roof is available, but its structural suitability is pending, so the result is Requires verification. This is screening, not engineering approval.
-
-Now I explore the Green roof, with 800 square metres and a 30 millimetre storm. The tool shows physical quantities, and states that quantitative climate-risk mitigation impact is not currently estimated. A published literature range is shown separately as reference evidence. The cost range uses demonstration assumptions in euros, with a published reference example because the area is within the study range.
+Now the impact and cost section. I enter 800 square metres and a 30 millimetre storm. The tool shows physical quantities, and states that quantitative climate-risk mitigation impact is not currently estimated. A published literature range appears separately as reference evidence. The cost is labelled an illustrative scenario, not a local price estimate.
 
 Finally, the two-page summary report. We now invite partners to test the tool and help refine the methodology and data."
 
