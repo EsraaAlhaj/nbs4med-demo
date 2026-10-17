@@ -3,7 +3,7 @@
 Demo version: illustrative estimates, to be reviewed when project data become available.
 
 A local, no-backend demo of the NBS4MED self-evaluation tool with an optional
-"Explore impact and cost" step. English and Arabic (RTL).
+inline impact and cost calculators on the results page. English and Arabic (RTL).
 
 ## Run on Windows
 
@@ -21,7 +21,7 @@ the page uses system fonts.
 |---|---|
 | `index.html` | Markup and styles. Same design as the frontend version. |
 | `app.js` | Assessment (14 questions, 5 criteria), scoring, recommendations, routing, language. Logic unchanged. |
-| `explore.js` | Explore step, results blocks, printable report, CSV. Presentation only. |
+| `explore.js` | Inline impact and cost calculators on the results page, printable reports, CSV. Presentation only. |
 | `engine.js` | Calculation methods. No DOM. |
 | `evidence.json` | Evidence database exported from `NBS4MED_Starter_Database (2).xlsx`. Source of truth. |
 | `demo_parameters.json` | Demo assumptions with class, unit, purpose, validity range. |
@@ -54,7 +54,7 @@ The interface does not need to change when records or parameter values change.
 
 **Eight stages.** 1 Assessment Area, 2 Site Context, 3 Local Climate Risks, then 4 to 8 the five criteria C1 to C5 (14 indicators, 0 to 2 scale). Results can be viewed as soon as these eight stages are complete.
 
-**Results page (dashboard).** Assessment overview (area, scale, date, selected risks, completeness, evidence and confidence, a short deterministic interpretation, and the provisional combined score as secondary information), a criteria results table (score, maximum, percentage, provisional level, key finding) with C1 apart from C2 to C5, one horizontal comparison chart on a fixed 0 to 100% scale, a collapsed indicator-level diagnosis, priority gaps and improvement actions (see `GAP_ACTION_LOGIC.md`), preliminary NBS options (category, relevant risk, why, site conditions, applicability, explore action), and a dedicated Potential Impact & Indicative Cost section with evidence labels. Collapsed sections on screen are always included in the downloadable reports. Calculator formulas, defaults and units are unchanged.
+**Results page (dashboard).** Assessment overview (area, scale, date, selected risks, completeness, evidence and confidence, a short deterministic interpretation, and the provisional combined score as secondary information), a criteria results table (score, maximum, percentage, provisional level, key finding) with C1 apart from C2 to C5, one horizontal comparison chart on a fixed 0 to 100% scale, a collapsed indicator-level diagnosis, priority gaps and improvement actions (see `GAP_ACTION_LOGIC.md`), preliminary NBS options (category, relevant risk, why, site conditions, applicability, impact and cost action), and a Potential Impact & Indicative Cost section on the same page: pick one of the five supported options, enter its parameters and see potential impact, physical calculations and indicative cost (CAPEX and annual OPEX) update immediately, with evidence labels. Inputs are kept per option when you switch. There is no separate Explore page; old `#explore` links open this section. Contextual notes sit beside scores, recommendations, impact, cost and applicability; the full methodology stays in the detailed report and the collapsed Methodology panel. Collapsed sections on screen are always included in the downloadable reports. Calculator formulas, defaults and units are unchanged.
 
 **Three separate things.** They never feed into each other:
 
