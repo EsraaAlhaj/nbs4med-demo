@@ -515,6 +515,22 @@ details.adv h3{margin-top:10px}
 .sdl.impl dt{font-weight:400;color:var(--ink)}
 .sdl.impl dd{margin:0;font-weight:600}
 .chkpanel h4{margin-top:20px}
+/* ---- results dashboard redesign ---- */
+.ovtop{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px 28px;align-items:stretch;margin:14px 0 12px}
+.ovscore{border:1px solid var(--line);border-top:5px solid var(--g800);background:var(--g50);padding:14px 18px 12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.ovs-l{font-size:13.5px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.04em}
+[dir=rtl] .ovs-l{text-transform:none;letter-spacing:0}
+.ovs-v{font-family:var(--serif);font-size:56px;line-height:1;font-weight:700;color:var(--g900);font-variant-numeric:tabular-nums}
+.ovs-v.none{color:var(--soft)}
+.ovs-s{font-size:14.5px;color:var(--mid)}
+.ovs-n{margin:auto 0 0;font-size:13.5px;color:var(--soft);border-top:1px solid var(--line);padding-top:8px}
+.ovtop .ovgrid{margin:0;align-content:start}
+@media(max-width:820px){.ovtop{grid-template-columns:1fr}}
+.icblk{margin:18px 0 6px;padding:14px 18px;border:1px solid var(--line);background:#fff}
+.icblk h4.icb{margin:0 0 4px;font-family:var(--serif);font-size:19px;color:var(--g900)}
+.icblk h5{margin:12px 0 2px;font-size:15.5px;color:var(--g800)}
+#icHost .sols{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+#icHost h3{font-size:19px;color:var(--g900);margin:22px 0 6px}
 /* ---- enhancement: assessment cards, dashboard ---- */
 .ind{display:block;padding:24px 0 26px}
 .ihd{margin:0 0 8px;font-family:var(--serif);font-size:22px;line-height:1.25;color:var(--g800)}
@@ -890,8 +906,6 @@ details.adv h3{margin-top:10px}
   <section class="res"><div class="wrap" id="resRoot"></div></section>
 </div>
 
-<!-- ===== EXPLORE IMPACT AND COST (optional, demo) ===== -->
-<div id="view-explore" hidden></div>
 
 </main>
 
