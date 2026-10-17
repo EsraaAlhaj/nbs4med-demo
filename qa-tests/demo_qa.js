@@ -66,7 +66,7 @@ rec.explore=await txt('#exResults');
 rec.res=await ev(()=>{const r=NBS4MED_EXPLORE.state.res;return {inputs:r.inputs,outputs:r.outputs.map(o=>({id:o.id,unit:o.unit,value:o.value,low:o.low,base:o.base,high:o.high,basis:o.basis})),capex:r.costs.capex.total,annual:r.costs.annual.total,ref:r.reference_cost&&r.reference_cost.scaled,refRange:r.reference_cost&&r.reference_cost.area_range,currency:r.costs.currency,price_year:r.costs.price_year}});
 await ev(()=>window.scrollTo(0,document.body.scrollHeight/2));await shot('20_explore_results_lower');await full('20_explore_full');
 // back to results with sections 3 and 4
-await p.click('#exBack');await p.waitForTimeout(250);
+await p.waitForTimeout(250);
 await at('icH','21_impact_and_cost_on_results');
 rec.sec34=await ev(()=>document.querySelector('#icSec').innerText);
 // summary report

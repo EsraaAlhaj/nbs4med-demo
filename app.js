@@ -202,6 +202,7 @@ var S={
  stScope:{en:'Assessment area',ar:'منطقة التقييم'},stCtx:{en:'Site Context',ar:'سياق الموقع'},
  stRisk:{en:'Local Climate Risks',ar:'المخاطر المناخية المحلية'},
  scoreL:{en:'Score',ar:'الدرجة'},rmH:{en:'Read more',ar:'اقرأ المزيد'},rmWhat:{en:'What it assesses',ar:'ما الذي يقيّمه'},rmWhy:{en:'Why it matters',ar:'لماذا يهم'},rmCons:{en:'What to consider',ar:'ما الذي ينبغي النظر فيه'},
+ ovsL:{en:'Provisional overall score',ar:'الدرجة الإجمالية المؤقتة'},ovsNote:{en:'Provisional and secondary. Not a validated measure of NBS coverage or climate performance.',ar:'مؤقتة وثانوية. وليست مقياسًا معتمدًا لتغطية الحلول القائمة على الطبيعة أو للأداء المناخي.'},ovsNone:{en:'Not shown',ar:'غير معروضة'},intSep2:{en:'These results are separate from option matching, applicability, impact and cost.',ar:'هذه النتائج منفصلة عن مطابقة الخيارات والملاءمة والأثر والتكلفة.'},
  ovH:{en:'Assessment overview',ar:'نظرة عامة على التقييم'},ovRisks:{en:'Selected climate risks',ar:'المخاطر المناخية المختارة'},ovCompl:{en:'Completeness',ar:'اكتمال التقييم'},ovEv:{en:'Evidence and confidence',ar:'الأدلة والثقة'},
  ovScale:{en:'Assessment scale',ar:'مقياس التقييم'},ovDate:{en:'Assessment date',ar:'تاريخ التقييم'},ovArea:{en:'Assessment area',ar:'منطقة التقييم'},
  ovComplV:{en:function(s,u,na,un){return s+' of 14 indicators scored · '+u+' Unknown · '+na+' Not applicable'+(un?' · '+un+' unanswered':'')},ar:function(s,u,na,un){return s+' من 14 مؤشرًا لها درجة · '+u+' غير معروفة · '+na+' لا تنطبق'+(un?' · '+un+' بلا إجابة':'')}},
@@ -357,7 +358,7 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
  rsConf:{en:'Confirmed suitable',ar:'مؤكدة الملاءمة'},rsPend:{en:'Assessment pending or Unknown',ar:'التقييم قيد الإجراء أو غير معروف'},rsNo:{en:'Assessed and unsuitable',ar:'جرى تقييمه وهو غير ملائم'},
  prelim:{en:'Preliminary and unchecked: these recommendations use only your selected risks and site context. Use Check this solution to screen each option for applicability.',ar:'أولية وغير مفحوصة: تستخدم هذه التوصيات المخاطر المختارة وسياق الموقع فقط. استخدم «افحص هذا الحل» لفرز كل خيار من حيث قابلية التطبيق.'},
  catL:{en:'Category',ar:'الفئة'},
- catProv:{en:'Provisional category. It can depend on design and does not affect matching or scoring.',ar:'فئة مؤقتة. قد تعتمد على التصميم ولا تؤثر في المطابقة أو التقييم.'},
+ catProv:{en:'provisional category',ar:'فئة مؤقتة'},
  verL:{en:'To verify:',ar:'للتحقق:'},
  candDone:{en:'All screening checks are answered Yes.',ar:'كل فحوص الفرز أُجيب عنها بنعم.'},
  condL:{en:'Implementation conditions',ar:'شروط التنفيذ'},
@@ -365,7 +366,7 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
  condU:{en:'Unknown: confirm before committing resources.',ar:'غير معروف: تأكد قبل الالتزام بالموارد.'},
  condScore:{en:function(v){return 'Score '+v},ar:function(v){return 'الدرجة '+v}},
  condCx:{en:function(c){return 'This option has '+c+' technical complexity.'},ar:function(c){return 'درجة التعقيد الفني لهذا الخيار: '+c+'.'}},
- exBtn:{en:'Explore impact and cost for this option',ar:'استكشف الأثر والتكلفة لهذا الخيار'},
+ exBtn:{en:'Impact and cost',ar:'الأثر والتكلفة'},
  noMod:{en:'Impact/cost module not yet available',ar:'وحدة الأثر والتكلفة غير متاحة بعد'},
  allOpt:{en:'All ranked options',ar:'كل الخيارات المرتبة'},
  option:{en:'Option',ar:'الخيار'},status:{en:'Screening status',ar:'حالة الفرز'},
@@ -443,9 +444,6 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
  notRatedUn:{en:'Not rated: unanswered indicators',ar:'غير مُقيَّم: مؤشرات بلا إجابة'},
  ovNotShown:{en:'not shown (see the warning above)',ar:'غير معروضة (انظر التحذير أعلاه)'},
  warnNA:{en:function(n){return n+(n===1?' indicator is':' indicators are')+' Not applicable: left out of the score and reported separately.'},ar:function(n){return n+(n===1?' مؤشر':' مؤشرات')+' لا ينطبق: يُستبعد من النتيجة ويُعرض بشكل منفصل.'}},
- elH:{en:'Evidence and limitations',ar:'الأدلة والقيود'},
- elSub:{en:'What this result is based on, and what it does not show.',ar:'ما تستند إليه هذه النتيجة، وما لا تُظهره.'},
- elBasis:{en:'Basis',ar:'الأساس'},
  methAll:{en:'Methodology (provisional)',ar:'المنهجية (مؤقتة)'},
  optsH:{en:'Preliminary NBS options',ar:'خيارات أولية للحلول القائمة على الطبيعة'},
  solDet:{en:'Solution details',ar:'تفاصيل الحل'},
@@ -910,14 +908,9 @@ function overallLine(r){
   return h+'</p>';
 }
 function warnHtml(r){
-  var o=r.ov,h='';
-  if(o.open>0){
-    var ul=IND.filter(function(i){return st.sc[i.id]==='U'}).map(function(i){return i.id}).join(', ');
-    h+='<div class="note warn">'+ico('alert')+'<span>'+T('ovSupp')(o.open,ul)+'</span></div>';
-  }
-  if(o.status==='na')h+='<div class="note warn">'+ico('alert')+'<span>'+T('ovNA')+'</span></div>';
-  if(o.na>0&&o.status!=='na')h+='<div class="note">'+ico('info')+' '+T('warnNA')(o.na)+(o.status==='complete'?' '+T('naDen')(o.max):'')+'</div>';
-  return h;
+  var o=r.ov;
+  if(o.na>0&&o.status!=='na')return '<div class="note">'+ico('info')+' '+T('warnNA')(o.na)+(o.status==='complete'?' '+T('naDen')(o.max):'')+'</div>';
+  return '';
 }
 function eqWeightText(r){
   return T('equalW')(r.per.map(function(p,i){return CRIT[i].id+' '+p.scored}).join(', '));
@@ -1008,7 +1001,7 @@ function chkPanel(o){
   return h+'<div class="chkres">'+screenHtml({scr:s})+'</div></div>';
 }
 function exploreAction(o){
-  if(o.nbs)return '<button class="btn btn-sm no-print" type="button" data-explore="'+o.nbs+'">'+T('exBtn')+ico('arrow','flip')+'</button>';
+  if(o.nbs)return '<button class="btn btn-sm no-print" type="button" data-explore="'+o.nbs+'">'+T('exBtn')+'</button>';
   return '<span class="nocalc">'+T('noCalc')+'</span>';
 }
 function reasonList(x){return x.scr.reasons.map(function(q){return pick(q.t)})}
@@ -1069,13 +1062,7 @@ function sectionB(){
 }
 /* sections 3 and 4: supporting calculations and cost. Direct access to the calculators; an explored solution stays available. */
 function sectionC(){
-  var X=window.NBS4MED_EXPLORE,last=X.lastSolution();
-  var sup=OPT.filter(function(o){return o.nbs}),uns=OPT.filter(function(o){return !o.nbs});
-  var btns=sup.map(function(o){return '<button class="btn btn-sm" type="button" data-explore="'+o.nbs+'">'+esc(nm(o))+ico('arrow','flip')+'</button>'}).join('');
-  return '<section class="rs" id="icSec" aria-labelledby="icH"><h2 id="icH">'+T('icH')+'</h2><p class="sub">'+T('icP')+'</p>'+
-    '<div class="icpick no-print">'+btns+'</div><p class="note-s">'+T('icNoCalc')+': '+esc(uns.map(function(o){return nm(o)}).join('; '))+'.</p>'+
-    X.section3Html()+X.section4Html()+
-    '<div class="no-print"><button class="btn btn-primary" type="button" id="openExplore"><span>'+X.ctaLabel()+'</span>'+ico('arrow','flip')+'</button>'+(last?'<p class="note-s">'+esc(T('lastEx')(last))+'</p>':'')+'</div></section>';
+  return '<section class="rs" id="icSec" aria-labelledby="icH"><h2 id="icH">'+T('icH')+'</h2><div id="icHost"></div></section>';
 }
 /* ---------- results dashboard ---------- */
 function levelOf(p){return LEVELS[lvlIdx(p.pct)]}
@@ -1108,16 +1095,27 @@ function interpretation(r){
     var ids=IND.filter(function(i){var v=st.sc[i.id];return v==='U'||v===undefined}).map(function(i){return i.id}).join(', ');
     out.push(T('intUnk')(nr.length,ids));
   }
-  out.push(T('intSep'));
+  out.push(T('intSep2'));
   return '<p class="intp"><b>'+T('intHdr')+'.</b> '+out.map(esc).join(' ')+'</p>';
 }
 function overviewHtml(r){
   var s0=st.scope,o=r.ov,cf=confCounts();
   var loc=[areaName(),areaCountry(),areaCity()].filter(function(x){return x}).join(', ');
   function row(k,v){return '<div><dt>'+k+'</dt><dd>'+v+'</dd></div>'}
-  return '<dl class="ovgrid">'+row(T('ovArea'),esc(loc||'–'))+row(T('ovScale'),esc(scopeTypeLabel()||'–'))+row(T('ovDate'),esc(s0.date||T('notStated')))+
+  var tile;
+  if(o.status==='complete'){
+    var L=LEVELS[r.lvl];
+    tile='<div class="ovs-v"><bdi dir="ltr">'+o.pct+'%</bdi></div><span class="chip lg '+L.c+'">'+esc(nm(L))+'</span><div class="ovs-s"><bdi dir="ltr">'+o.sum+' / '+o.max+'</bdi></div>';
+  }else{
+    var why;
+    if(o.status==='na')why=T('ovNA');
+    else{var ul=IND.filter(function(i){return st.sc[i.id]==='U'}).map(function(i){return i.id}).join(', ');why=o.open>0?T('ovSupp')(o.open,ul):T('ovNotShown')}
+    tile='<span class="chip lg">'+T('ovsNone')+'</span><div class="ovs-s">'+esc(why)+'</div>';
+  }
+  return '<div class="ovtop"><div class="ovscore" role="group" aria-label="'+esc(T('ovsL'))+'"><div class="ovs-l">'+T('ovsL')+'</div>'+tile+'<p class="ovs-n">'+T('ovsNote')+'</p></div>'+
+    '<dl class="ovgrid">'+row(T('ovArea'),esc(loc||'–'))+row(T('ovScale'),esc(scopeTypeLabel()||'–'))+row(T('ovDate'),esc(s0.date||T('notStated')))+
     row(T('ovRisks'),esc(riskText()||'–'))+row(T('ovCompl'),'<bdi>'+esc(T('ovComplV')(o.scored,o.unk,o.na,o.un))+'</bdi>')+
-    row(T('ovEv'),esc(T('confTxt')(cf.n,cf.high,cf.mid,cf.low,cf.none)))+'</dl>'+interpretation(r)+overallLine(r);
+    row(T('ovEv'),esc(T('confTxt')(cf.n,cf.high,cf.mid,cf.low,cf.none)))+'</dl></div>'+warnHtml(r)+interpretation(r);
 }
 function critTableHtml(r){
   var C=T('ctCols');
@@ -1179,32 +1177,14 @@ function diagHtml(r){
   return '<h3 class="subh" id="dgH">'+T('dgH')+'</h3><p class="note-s">'+T('dgSub')+'</p>'+body;
 }
 function jumpNav(){
-  var items=[['asH',T('ovH')],['gpH',T('gpH')],['rcH',T('optsH')],['icH',T('icH')],['elH',T('elH')],['meth',T('methAll')]];
+  var items=[['asH',T('ovH')],['gpH',T('gpH')],['rcH',T('optsH')],['icH',T('icH')]];
   return '<nav class="jump no-print" aria-label="'+esc(T('jumpL'))+'">'+items.map(function(x){return '<button type="button" class="jl" data-jump="'+x[0]+'">'+esc(x[1])+'</button>'}).join('')+'</nav>';
 }
 function sectionA(r){
-  return '<section class="rs first" aria-labelledby="asH"><h2 id="asH">'+T('ovH')+'</h2>'+areaSummaryHtml()+warnHtml(r)+overviewHtml(r)+
+  return '<section class="rs first" aria-labelledby="asH"><h2 id="asH">'+T('ovH')+'</h2>'+overviewHtml(r)+areaSummaryHtml()+
     '<h3 class="subh" id="ctH">'+T('ctH')+'</h3>'+critTableHtml(r)+
     '<h3 class="subh" id="cpH">'+T('chH')+'</h3><p class="note-s">'+T('profSubS')+'</p>'+critChartHtml(r)+
     diagHtml(r)+'</section>'+gapsSection();
-}
-S.elLim={en:[
-  'The assessment reflects the answers entered by the user. Unknown answers are missing information, not poor performance, and criteria containing them are not scored.',
-  'Level thresholds and the combined score are provisional and have not been validated.',
-  'Option matching covers heatwaves, flooding and drought only, uses provisional weights, and is not a validated ranking.',
-  'Costs are illustrative and need local verification. Climate-risk mitigation impact is not currently estimated.',
-  'Improvement actions follow directly from the answers given and are not a prioritised plan.'],
- ar:[
-  'تعكس النتيجة الإجابات التي أدخلها المستخدم. الإجابة «غير معروف» معلومة ناقصة وليست أداءً ضعيفًا، ولا تُحتسب المعايير التي تحتويها.',
-  'عتبات المستويات والدرجة المجمعة مؤقتة ولم يجرِ التحقق منها.',
-  'تشمل مطابقة الخيارات الموجات الحارة والفيضانات والجفاف فقط، وتستخدم أوزانًا مؤقتة، وليست ترتيبًا مُتحققًا منه.',
-  'التكاليف استرشادية وتحتاج إلى تحقق محلي. ولا يُقدَّر حاليًا أثر التخفيف من المخاطر المناخية.',
-  'تنبثق إجراءات التحسين مباشرة من الإجابات المُدخلة، وليست خطة مرتبة الأولويات.']};
-function limitsSection(r){
-  var cf=confCounts(),o=r.ov;
-  return '<section class="rs" aria-labelledby="elH"><h2 id="elH">'+T('elH')+'</h2><p class="note-s">'+T('elSub')+'</p>'+
-    '<p class="rtxt"><b>'+T('elBasis')+':</b> <bdi>'+esc(T('ovComplV')(o.scored,o.unk,o.na,o.un))+'.</bdi> '+esc(T('confTxt')(cf.n,cf.high,cf.mid,cf.low,cf.none))+'</p>'+
-    '<ul class="meth">'+S.elLim[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></section>';
 }
 function fbHtml(){
   if(st.fb==='ok')return '<div class="ok-box" role="status">'+T('fbOk')+'</div>';
@@ -1232,16 +1212,20 @@ function renderResults(){
       '<button class="btn" type="button" id="dlPdfDetail">'+ico('print')+'<span>'+T('pdfDetail')+'</span></button>'+
       '<button class="btn" type="button" id="dlCsv">'+ico('down')+'<span>'+T('csv')+'</span></button>'+
       '<div class="toast" id="dlNote" role="status"></div></div>'+jumpNav()+
-    sectionA(r)+sectionB()+sectionC()+limitsSection(r)+
+    sectionA(r)+sectionB()+sectionC()+
     '<section class="rs" id="meth" aria-label="'+esc(T('methAll'))+'">'+methodologyHtml(r)+'</section>'+
     (SHOW_FEEDBACK?'<section class="rs no-print" aria-labelledby="fbH"><h2 id="fbH">'+T('fbH')+'</h2><div id="fbBody" style="margin-top:14px">'+fbHtml()+'</div></section>':'');
+  window.NBS4MED_EXPLORE.render();
 }
 
 /* ---------- routing ---------- */
 /* navigation works from state; the URL hash is only a convenience (it can be blocked in embedded previews) */
+var pendingScroll=null;
 function nav(v){
-  var h={intro:'',assess:'#assessment',results:'#results',explore:'#explore'}[v];
-  if((v==='results'||v==='explore')&&!allComplete())v='assess';
+  /* the former standalone explore view now lives inside the results dashboard; old links open the inline section */
+  if(v==='explore'){v='results';pendingScroll='icSec'}
+  var h={intro:'',assess:'#assessment',results:'#results'}[v];
+  if(v==='results'&&!allComplete())v='assess';
   try{history.pushState({v:v},'',h||(location.pathname+location.search))}catch(err){}
   if(v==='results'&&!allComplete())v='assess';
   show(v);
@@ -1259,12 +1243,10 @@ function show(v){
   $('#view-intro').hidden=v!=='intro';
   $('#view-assess').hidden=v!=='assess';
   $('#view-results').hidden=v!=='results';
-  $('#view-explore').hidden=v!=='explore';
   $('#introNav').hidden=v!=='intro';
   $('#exitLink').hidden=v==='intro';
   if(v==='assess'){st.step=Math.min(st.step,reachable());renderAssess(true);document.title='NBS4MED · '+T('stepsH0')}
-  else if(v==='results'){document.title='NBS4MED · '+T('resTitle');renderResults();window.scrollTo(0,0);var h=$('#resTitle');if(h)h.focus({preventScroll:true})}
-  else if(v==='explore'){document.title='NBS4MED · '+window.NBS4MED_EXPLORE.exploreTitle();window.NBS4MED_EXPLORE.render();window.scrollTo(0,0);var h2=$('#exTitle');if(h2)h2.focus({preventScroll:true})}
+  else if(v==='results'){document.title='NBS4MED · '+T('resTitle');renderResults();window.scrollTo(0,0);var h=$('#resTitle');if(h)h.focus({preventScroll:true});if(pendingScroll){var ps=document.getElementById(pendingScroll);pendingScroll=null;if(ps)ps.scrollIntoView({block:'start'})}}
 }
 S.stepsH0={en:'Assessment',ar:'التقييم'};
 function route(){
@@ -1274,7 +1256,7 @@ function route(){
     if(allComplete())show('results');
     else{show('assess')}
   }else if(h==='#explore'){
-    if(allComplete())show('explore');
+    if(allComplete()){pendingScroll='icSec';show('results')}
     else{show('assess')}
   }else if(h==='#about'||h==='#how'||h==='#resources'){
     show('intro');
@@ -1419,7 +1401,6 @@ function setLang(l){
   applyStatic();
   if(st.view==='assess'){var errs=stepMissing(STEPS[st.step]);var had=!!$('#errSummary').innerHTML;renderAssess(false);if(had&&errs.length)showErrors(errs,STEPS[st.step])}
   if(st.view==='results')renderResults();
-  if(st.view==='explore')window.NBS4MED_EXPLORE.render();
 }
 
 

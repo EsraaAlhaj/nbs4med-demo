@@ -18,7 +18,7 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | 8 | C5 Funding & Sustainability | 5.1 **1**; 5.2 **0**; 5.3 **0**. |
 | Results | Preliminary NBS options | Review the three cards. Open **Check this solution** on **Green roof**. |
 | Check | Green roof applicability | Roof available: **Yes**. Structural suitability: **Assessment pending or Unknown**. |
-| Explore | Green roof calculator | Roof area to green: **800** m² (inside the published reference range of 196 to 1,944 m²). Design rainfall event depth: **30** mm. Substrate depth and waterproofing stay at the demo defaults (0.08 m, included). |
+| Results page, Impact & Cost section | Green roof calculator (inline) | Roof area to green: **800** m² (inside the published reference range of 196 to 1,944 m²). Design rainfall event depth: **30** mm. Substrate depth and waterproofing stay at the demo defaults (0.08 m, included). |
 | Report | Summary report, 2 pages | Open from the results page. |
 
 ### Expected outputs
@@ -30,7 +30,7 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | C3 Institutional & Technical Capacity | **Not rated: Unknown answers** (2 of 3 indicators scored, 1 Unknown). Unknown is not counted as zero. |
 | C4 Stakeholder Engagement | 50 % (2 of 4), Partial |
 | C5 Funding & Sustainability | 17 % (1 of 6), Insufficient |
-| Provisional combined assessment score | **Not shown**, because indicator 3.3 is Unknown. The page says so. It is labelled secondary and not a validated measure of NBS integration. |
+| Provisional overall score (dashboard tile; "provisional combined assessment score" in the reports) | **Not shown**, because indicator 3.3 is Unknown. The page says so. It is labelled secondary and not a validated measure of NBS integration. |
 | Completeness and confidence | 13 of 14 indicators have a numeric score, 1 Unknown. Confidence: 1 staff estimate, 12 not stated. |
 | Criteria results table | C1 2 of 6, 33 %, Partial, "Lowest score (0): 1.3 Link to grey infrastructure". C2 2 of 6, 33 %, Partial. C3 "Not rated: Unknown answers", "Information missing for 3.3". C4 2 of 4, 50 %, Partial. C5 1 of 6, 17 %, Insufficient. |
 | Priority gaps and improvement actions (display order, not a validated ranking) | Gaps (score 0): 1.3, 2.3, 5.2, 5.3. Partial (score 1): 1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2, 5.1. To verify (Unknown): 3.3. The first five are shown: 1.3, 2.3, 5.2, 5.3, 1.1. Example: 5.2 shows the finding "No budget covers maintenance, watering or replacement of NBS.", the action "Prepare an operation and maintenance budget and clarify who is responsible for funding it." and the evidence "Maintenance plans, annual budget lines and financial documentation." |
@@ -46,7 +46,6 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | Reference cost example | Hamburg, 2017, source S04: **23,200 to 58,400 EUR** (median 35,200) for 800 m². Another place and year, not a local price. Shown only because 800 m² lies inside the 196 to 1,944 m² study range. |
 | Funding and maintenance considerations beside the cost | From 5.1 (Score 1) and 5.2 (Score 0). |
 | Cost banner | "Illustrative Scenario Cost — Not a Local Price Estimate" above the cost ranges. |
-| Evidence and limitations (results page, below Impact & Cost) | Basis: 13 of 14 indicators scored, 1 Unknown, 0 Not applicable. Five short limitation statements (Unknown is missing information; provisional thresholds; matching for heat, flooding, drought only; illustrative costs; actions follow the answers). |
 | Summary report | Exactly two A4 pages. Page 1: area, scale, date, context, criterion chart, completeness, confidence, major gaps and improvement actions (first three), key limitations. Page 2: options, shared conditions, supporting calculations, reference evidence and cost. |
 
 Check values yourself: C1 = (1 + 1 + 0) / 6 = 33 %; C4 = (1 + 1) / 4 = 50 %; C5 = 1 / 6 = 17 %; 800 × 30 / 1000 = 24; 800 × 0.08 = 64; 24 × 26.8 % = 6.43 and 24 × 61.8 % = 14.83; 800 × 29 = 23,200 and 800 × 73 = 58,400 (per-m² range of seven published extensive roofs).
@@ -63,7 +62,7 @@ Check values yourself: C1 = (1 + 1 + 0) / 6 = 33 %; C4 = (1 + 1) / 4 = 50 %; C5 
 | 1:40 | Priority gaps and improvement actions. | Finding, why it matters, action, evidence needed. Not a validated ranking. |
 | 1:58 | Preliminary NBS options. | Category, relevant risk, site conditions. Separate from the assessment scores. |
 | 2:10 | Check this solution on Green roof: Requires verification. | Screening, not engineering approval. |
-| 2:22 | Explore: 800 m², 30 mm. Show quantities, literature evidence, cost banner. | Mitigation impact not estimated. Illustrative scenario cost. |
+| 2:22 | Impact & Cost section on the same page: select Green roof, enter 800 m² and 30 mm. Show potential impact, physical calculations, cost banner. | Mitigation impact not estimated. Illustrative scenario cost. |
 | 2:45 | Summary report. | Two A4 pages. |
 | 2:55 | Close. | Prototype for partner testing. |
 

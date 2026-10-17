@@ -17,6 +17,16 @@
 
   /* ---------- strings ---------- */
   var X = {
+    inlineP: { en: 'Select an option, enter its parameters, and the results update on this page. Potential impact, physical calculations and indicative cost are shown separately.', ar: 'اختر خيارًا وأدخل معاملاته لتتحدّث النتائج في هذه الصفحة. يُعرض الأثر المحتمل والحسابات المادية والتكلفة الإرشادية بشكل منفصل.' },
+    pickPrompt: { en: 'Select an option above to enter its parameters and see the calculations here.', ar: 'اختر خيارًا أعلاه لإدخال معاملاته ورؤية الحسابات هنا.' },
+    methInH: { en: 'Formulas, evidence and sources', ar: 'الصيغ والأدلة والمصادر' },
+    impH: { en: 'Potential impact', ar: 'الأثر المحتمل' },
+    impNote: { en: 'Evidence-based estimates, or outcomes that cannot currently be estimated.', ar: 'تقديرات مبنية على الأدلة، أو نتائج لا يمكن تقديرها حاليًا.' },
+    physH: { en: 'Physical calculations', ar: 'الحسابات المادية' },
+    costSecH: { en: 'Indicative cost', ar: 'التكلفة الإرشادية' },
+    costSecNote: { en: 'Illustrative estimates, not verified local prices. Construction (CAPEX) and annual maintenance (OPEX) are shown separately.', ar: 'تقديرات توضيحية وليست أسعارًا محلية مُتحقَّقًا منها. تُعرض كلفة الإنشاء وكلفة الصيانة السنوية بشكل منفصل.' },
+    resFor: { en: 'Results for', ar: 'النتائج لـ' },
+    inFor: { en: 'Parameters for', ar: 'معاملات' },
     exploreH: { en: 'Explore impact and cost', ar: 'استكشف الأثر والتكلفة' },
     ctaP: { en: 'Optional. Choose one of five solution types and see illustrative quantities, impact evidence and costs. This step does not change your assessment result.', ar: 'اختياري. اختر أحد خمسة أنواع من الحلول لترى كميات وأدلة أثر وتكاليف توضيحية. لا تغيّر هذه الخطوة نتيجة تقييمك.' },
     ctaB: { en: 'Explore impact and cost', ar: 'استكشف الأثر والتكلفة' },
@@ -316,12 +326,14 @@
   }
 
   /* ---------- results-page pieces used by app.js ---------- */
-  function ctaHtml() {
-    return '<p class="sub">' + x('ctaP') + '</p><div class="demo-box">' + C().ico('alert') + '<span>' + esc(x('demoLabel')) + '</span></div>' +
-      '<button class="btn btn-primary" type="button" id="openExplore"><span>' + x('ctaB') + '</span>' + C().ico('arrow', 'flip') + '</button>';
-  }
   /* opens the impact and cost view for the option picked in the recommendations */
-  function openSol(nbs) { ex.sol = nbs; C().nav('explore'); }
+  function openSol(nbs) {
+    ex.sol = nbs;
+    if (C().st.view !== 'results') { C().nav('explore'); return; }
+    render();
+    var sec = document.getElementById('icSec'); if (sec) sec.scrollIntoView({ block: 'start' });
+    var h = $('#exInputs h3'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+  }
 
   /* ---------- explore view ---------- */
   function recOf(nbs) { var o = C().optByNbs(nbs); return o ? C().recFor(o.id) : null; }
@@ -335,24 +347,17 @@
     return ' <span class="chip st-' + r.scr.status + '">' + esc(C().stLabel(r.scr.status)) + '</span>';
   }
   function render() {
-    var root = $('#view-explore'); if (!root) return;
+    var root = $('#icHost'); if (!root) return;
     var c = C();
     var solRadios = SOL_ORDER.map(function (id) {
       var checked = ex.sol === id;
       return '<label class="sol' + (checked ? ' on' : '') + '"><input type="radio" name="exsol" value="' + id + '"' + (checked ? ' checked' : '') + '>' +
-        '<span><b>' + esc(solName(id)) + '</b>' + picker(id) +
-        '<small>' + x('solDesc_' + id) + '</small></span></label>';
+        '<span><b>' + esc(solName(id)) + '</b>' + picker(id) + '</span></label>';
     }).join('');
-    root.innerHTML = '<section class="as ex"><div class="wrap ex-wrap">' +
-      '<button class="link no-print" type="button" id="exBack">' + c.ico('back', 'flip') + ' ' + x('back') + '</button>' +
-      '<h1 id="exTitle" tabindex="-1">' + x('exploreH') + '</h1>' +
-      '<p class="lead-s">' + x('intro') + '</p>' +
-      '<div class="demo-box">' + c.ico('alert') + '<span>' + esc(x('demoLabel')) + '</span></div>' +
-      '<section class="ex-sec"><h2>' + x('s1') + '</h2><fieldset class="field"><legend class="sr">' + x('s1') + '</legend><div class="sols">' + solRadios + '</div></fieldset>' +
-      '<p class="note-s nocalc-note">' + esc(x('noCalcNote')(c.OPT.filter(function (o) { return !o.nbs; }).map(function (o) { return c.nm(o); }).join('; '))) + '</p></section>' +
-      '<section class="ex-sec" id="exInputs"></section>' +
-      '<section class="ex-sec" id="exResults" aria-live="polite"></section>' +
-      '</div></section>';
+    root.innerHTML = '<p class="sub">' + x('inlineP') + '</p><p class="note-s">' + esc(x('demoLabel')) + '</p>' +
+      '<fieldset class="field"><legend class="sr">' + x('s1') + '</legend><div class="sols no-print">' + solRadios + '</div></fieldset>' +
+      '<p class="note-s nocalc-note">' + esc(x('noCalcNote')(c.OPT.filter(function (o) { return !o.nbs; }).map(function (o) { return c.nm(o); }).join('; '))) + '</p>' +
+      '<div id="exInputs"></div><div id="exResults" aria-live="polite"></div>';
     renderInputs(); renderResults();
   }
   function inputHtml(d, st) {
@@ -385,7 +390,7 @@
         priceRows += '<div class="exf"><label for="pr-' + pid + '">' + esc(pname(p)) + '</label><div class="exrow"><input type="number" inputmode="decimal" step="any" min="0" id="pr-' + pid + '" data-price="' + pid + '" placeholder="' + x('pricePh') + ' ' + (p.value.base) + '" value="' + (v === undefined ? '' : esc(v)) + '"><span class="unit">' + esc(p.unit) + '</span></div></div>';
       });
     });
-    box.innerHTML = '<h2>' + x('s2') + ' <span class="solname">' + esc(solName(ex.sol)) + '</span></h2>' +
+    box.innerHTML = '<h3>' + x('inFor') + ' <span class="solname">' + esc(solName(ex.sol)) + '</span></h3>' +
       '<div class="exgrid">' + prim + '</div>' +
       '<details class="adv"' + (ex.openAdv ? ' open' : '') + ' id="advBox"><summary>' + x('adv') + '</summary><p class="mean">' + x('advIntro') + '</p><div class="exgrid">' + advDefs + '</div>' +
       '<h3>' + x('prices') + '</h3><p class="mean">' + x('pricesIntro') + '</p><div class="exgrid">' + priceRows + '</div></details>';
@@ -690,22 +695,15 @@
   }
   function screenResultsHtml(res) {
     var sol = res.solution_id;
-    var h = '<h2>' + x('s3') + ' <span class="solname">' + esc(solName(sol)) + '</span></h2>';
+    var h = '<h3>' + x('resFor') + ' <span class="solname">' + esc(solName(sol)) + '</span></h3>';
     if (res.status === 'invalid') return h + '<div class="note">' + x('invalidBox') + '</div>';
     h += assessBox(sol) + warningsHtml(res) + inputsLine(res);
-    /* cost: capital and recurring costs stay separate; a range chart only for a valid lower and upper estimate */
-    var cs = res.costs;
     curKind = costKind(res);
-    h += '<h3>' + x('costScreenH') + '</h3>' + costBanner(res) + '<p class="note-s">' + x('costBasis') + ' ' + x('scenarioNote') + '</p>' +
-      costRow(x('capex'), cs.capex.total) + costRow(x('annual'), cs.annual.total) + costConditions(sol);
-    if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<p class="note-s"><b>' + x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median)) + '</b></p>'; }
-    if (sol === 'NBS02') h += '<div class="note warn">' + C().ico('alert') + '<span>' + roofText() + '</span></div>';
-    h += det2('costdet', x('costBreak'), compBars(res) + costTables(res) + roofReferenceBlock(res) + '<p class="note-s">' + x('evClasses') + '</p>');
     var Q = res.outputs.filter(function (o) { return PHYS.indexOf(o.group) >= 0; }), O = res.outputs.filter(function (o) { return OPS.indexOf(o.group) >= 0; }), P = res.outputs.filter(function (o) { return PERF.indexOf(o.group) >= 0; });
-    h += '<h3>' + C().T('mitH') + '</h3><p class="note-s">' + esc(C().T('mitNone')) + '</p>';
-    if (Q.length) h += '<h3>' + x('qtyH') + '</h3>' + Q.map(kvs).join('') + volumeChart(res);
-    if (O.length) h += '<h3>' + x('opsH') + '</h3>' + O.map(kvs).join('');
-    h += '<h3>' + x('perfH') + '</h3>';
+    /* 1. potential impact: only what the evidence supports, and what cannot be estimated */
+    h += '<div class="icblk"><h4 class="icb">' + x('impH') + '</h4><p class="note-s">' + x('impNote') + '</p>';
+    h += '<h5>' + C().T('mitH') + '</h5><p class="note-s">' + esc(C().T('mitNone')) + '</p>';
+    h += '<h5>' + x('perfH') + '</h5>';
     if (P.length) {
       h += P.map(function (o) {
         var src = (o.evidence || []).map(function (id) { return evRef(sol, id); }).join('; ');
@@ -713,11 +711,23 @@
         return kvs(o) + lim;
       }).join('');
     } else h += '<p class="note-s">' + esc(x('sumNoImp')(res.not_calculated.map(function (k) { return x('nc_' + k); }).join('; '))) + '</p>';
-    h += '<p class="note-s">' + x('perfNote') + '</p>';
+    h += '<p class="note-s">' + x('perfNote') + '</p></div>';
+    /* 2. physical calculations */
+    h += '<div class="icblk"><h4 class="icb">' + x('physH') + '</h4>';
+    if (Q.length) h += Q.map(kvs).join('') + volumeChart(res);
+    if (O.length) h += '<h5>' + x('opsH') + '</h5>' + O.map(kvs).join('');
+    h += '</div>';
+    /* 3. indicative cost: capital and recurring costs stay separate */
+    var cs = res.costs;
+    h += '<div class="icblk"><h4 class="icb">' + x('costSecH') + '</h4>' + costBanner(res) + '<p class="note-s">' + x('costSecNote') + ' ' + x('costBasis') + ' ' + x('scenarioNote') + '</p>' +
+      costRow(x('capex'), cs.capex.total) + costRow(x('annual'), cs.annual.total) + costConditions(sol);
+    if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<p class="note-s"><b>' + x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median)) + '</b></p>'; }
+    if (sol === 'NBS02') h += '<div class="note warn">' + C().ico('alert') + '<span>' + roofText() + '</span></div>';
+    h += det2('costdet', x('costBreak'), compBars(res) + costTables(res) + roofReferenceBlock(res) + '<p class="note-s">' + x('evClasses') + '</p>') + '</div>';
     h += det2('assump', x('assumpH'), limitsHtml(res) + '<h4>' + x('needH') + '</h4>' + needBlock(sol));
     var meth = '<h4>' + x('fxH') + '</h4>' + formulasTable(res) + '<h4>' + x('refEvH') + '</h4><p class="sub">' + x('refP') + '</p>' + evidenceBlock(sol, res) +
       '<h4>' + x('inH') + '</h4>' + inputsBlock(res) + '<h4>' + x('rulesH') + '</h4>' + rulesBlock(sol, res) + '<h4>' + x('srcH') + '</h4>' + sourcesBlock(sol);
-    return h + det(x('methH'), '<p class="note-s">' + x('methP') + '</p>' + meth, false);
+    return h + det(x('methInH'), '<p class="note-s">' + x('methP') + '</p>' + meth, false);
   }
   function compute() {
     if (!ex.sol) return null;
@@ -728,19 +738,16 @@
   }
   function renderResults() {
     var box = $('#exResults'); if (!box) return;
-    if (!ex.sol) { box.innerHTML = ''; return; }
+    if (!ex.sol) { box.innerHTML = '<p class="note-s">' + x('pickPrompt') + '</p>'; return; }
     var res = compute();
     showFieldErrors(res);
-    box.innerHTML = screenResultsHtml(res) + '<div class="report no-print">' +
-      '<button class="btn btn-primary" type="button" id="exPrint">' + C().ico('print') + '<span>' + x('printB') + '</span></button>' +
-      '<button class="btn" type="button" id="exPrintDetail">' + C().ico('print') + '<span>' + x('detBtn') + '</span></button>' +
-      '<button class="btn" type="button" id="exCsv">' + C().ico('down') + '<span>' + x('csvB') + '</span></button></div>';
+    box.innerHTML = screenResultsHtml(res);
   }
 
   /* ---------- events (explore view only) ---------- */
   var timer = null;
   document.addEventListener('input', function (e) {
-    var t = e.target; if (!t.closest || !t.closest('#view-explore')) return;
+    var t = e.target; if (!t.closest || !t.closest('#icHost')) return;
     var st = cur(); if (!st) return;
     if (t.dataset.in) {
       var id = t.dataset.in;
@@ -754,10 +761,10 @@
     timer = setTimeout(renderResults, 120);
   });
   document.addEventListener('change', function (e) {
-    var t = e.target; if (!t.closest || !t.closest('#view-explore')) return;
+    var t = e.target; if (!t.closest || !t.closest('#icHost')) return;
     if (t.name === 'exsol') {
       ex.sol = t.value; render();
-      var h = $('#exInputs h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: false }); }
+      var h = $('#exInputs h3'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
     } else if (t.dataset.in && t.type === 'checkbox') {
       var st = cur(); st.vals[t.dataset.in] = t.checked; st.touched[t.dataset.in] = true; renderResults();
     }
@@ -769,11 +776,6 @@
   }, true);
   document.addEventListener('click', function (e) {
     var t = e.target.closest('button'); if (!t) return;
-    if (t.id === 'openExplore') { C().nav('explore'); return; }
-    if (t.id === 'exBack') { C().nav('results'); return; }
-    if (t.id === 'exCsv') { csv(); return; }
-    if (t.id === 'exPrint') { printSummary(); return; }
-    if (t.id === 'exPrintDetail') { print(); return; }
   });
 
   /* ---------- report ---------- */
@@ -1164,7 +1166,7 @@
   }
 
   window.NBS4MED_EXPLORE = {
-    render: render, ctaHtml: ctaHtml, csv: csv, print: print, printSummary: printSummary, summaryHtml: summaryHtml, improvementAreas: improvementAreas, improvementHtml: improvementHtml, section3Html: section3Html, section4Html: section4Html, lastSolution: function () { return ex.sol ? solName(ex.sol) : null; }, ctaLabel: function () { return x('ctaB'); }, open: openSol,
+    render: render, csv: csv, print: print, printSummary: printSummary, summaryHtml: summaryHtml, improvementAreas: improvementAreas, improvementHtml: improvementHtml, section3Html: section3Html, section4Html: section4Html, lastSolution: function () { return ex.sol ? solName(ex.sol) : null; }, ctaLabel: function () { return x('ctaB'); }, open: openSol,
     reportHtml: reportHtml, csvRows: csvRows, state: ex, label: function () { return x('demoLabel'); },
     exploreTitle: function () { return x('exploreH'); }
   };
