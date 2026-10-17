@@ -145,10 +145,10 @@
     printB: { en: 'Summary report — 2 pages', ar: 'تقرير ملخص — صفحتان' }, csvB: { en: 'Download CSV', ar: 'تحميل CSV' },
     notExplored: { en: 'The impact and cost step was not completed. Only the assessment is reported.', ar: 'لم تُستكمل خطوة الأثر والتكلفة. يُعرض التقييم فقط.' },
     repTitle: { en: 'NBS4MED self-evaluation report', ar: 'تقرير التقييم الذاتي NBS4MED' },
-    repAssess: { en: 'Existing NBS integration', ar: 'دمج الحلول القائمة على الطبيعة الحالية' },
+    repAssess: { en: 'Assessment of the five criteria (provisional)', ar: 'تقييم المعايير الخمسة (مؤقت)' },
     repCand: { en: 'Candidate solutions and reasons', ar: 'الحلول المرشحة وأسباب الترشيح' },
     repExplore: { en: 'Impact and cost exploration (illustrative)', ar: 'استكشاف الأثر والتكلفة (توضيحي)' },
-    repSep: { en: 'This section describes the NBS already present in the assessment area. It is separate from the suitability, impact and cost of any proposed solution.', ar: 'يصف هذا القسم الحلول القائمة على الطبيعة الموجودة في منطقة التقييم. وهو منفصل عن ملاءمة أي حل مقترح وأثره وتكلفته.' },
+    repSep: { en: 'The assessment describes existing NBS integration (C1) and the enabling and implementation conditions (C2 to C5). It is provisional and separate from the suitability, impact and cost of a solution.', ar: 'يصف التقييم دمج الحلول القائمة على الطبيعة (C1) والظروف الممكّنة وشروط التنفيذ (C2 إلى C5). وهو مؤقت ومنفصل عن ملاءمة الحل وأثره وتكلفته.' },
     repDate: { en: 'Generated', ar: 'تاريخ الإعداد' },
     ctxT: { en: 'Site context (not scored)', ar: 'سياق الموقع (غير مُحتسب)' },
     sources: { en: 'Sources of the assessment: your answers.', ar: 'مصدر التقييم: إجاباتك.' },
@@ -195,7 +195,7 @@
     roofStructOk: { en: 'You reported the structural suitability as confirmed in the applicability checks. This tool does not verify it, so check it before any design or cost decision.', ar: 'أفدتَ في فحوص قابلية التطبيق بأن الملاءمة الإنشائية مؤكدة. لا تتحقق هذه الأداة منها، فتأكد قبل أي قرار تصميم أو كلفة.' },
     costGrp: { en: 'Demo cost assumptions', ar: 'افتراضات كلفة تجريبية' },
     refCostWarn: { en: 'Reference costs from another place and year are not current local prices.', ar: 'الكلف المرجعية من مكان آخر وسنة أخرى ليست أسعارًا محلية حالية.' },
-    condCostH: { en: 'Funding and maintenance considerations', ar: 'اعتبارات التمويل والصيانة' },
+    condCostH: { en: 'Funding and maintenance conditions from your assessment', ar: 'شروط التمويل والصيانة من تقييمك' },
     limitsH: { en: 'Main assumptions and limitations', ar: 'أهم الافتراضات والقيود' },
     lim1: { en: 'All figures are illustrative and for early planning only. They are not a quote, a design or a forecast for your site.', ar: 'كل الأرقام توضيحية وللتخطيط المبكر فقط. وليست عرض سعر ولا تصميمًا ولا توقعًا لموقعك.' },
     lim2: { en: 'Demo values are placeholders until project partners review them.', ar: 'القيم التجريبية بديلة مؤقتة إلى أن يراجعها شركاء المشروع.' },
@@ -219,10 +219,10 @@
     sumArea: { en: 'Area', ar: 'المنطقة' }, sumScale: { en: 'Assessment scale', ar: 'مقياس التقييم' }, sumDate: { en: 'Date', ar: 'التاريخ' },
     sumCtx: { en: 'Site context', ar: 'سياق الموقع' }, sumRisks: { en: 'Selected risks', ar: 'المخاطر المختارة' },
     sumDens: { en: 'Urban density', ar: 'الكثافة العمرانية' }, sumLand: { en: 'Public land available', ar: 'الأراضي العامة المتاحة' },
-    sumProfSub: { en: 'Indicators are described one by one on a provisional 0 to 2 rubric. They are not combined into a score.', ar: 'تُوصف المؤشرات كل على حدة وفق قاعدة مؤقتة من 0 إلى 2، ولا تُجمع في درجة.' },
-    sumCompl: { en: function (n, u, un) { return 'Completeness (3 indicators): ' + n + ' described · ' + u + ' Unknown · ' + un + ' unanswered'; }, ar: function (n, u, un) { return 'الاكتمال (3 مؤشرات): ' + n + ' موصوفة · ' + u + ' غير معروفة · ' + un + ' بلا إجابة'; } },
-    sumConf: { en: function (n, a, b, c, d) { return 'Evidence strength for the ' + n + ' described answers (self-reported): documented evidence ' + a + ' · staff estimate ' + b + ' · informal judgement ' + c + ' · not stated ' + d; }, ar: function (n, a, b, c, d) { return 'قوة الأدلة لـ ' + n + ' إجابة موصوفة (ذاتية الإبلاغ): أدلة موثقة ' + a + ' · تقدير الموظفين ' + b + ' · تقدير غير رسمي ' + c + ' · غير محددة ' + d; } },
-    sumConfNote: { en: 'Evidence strength is separate from how well the existing NBS function.', ar: 'قوة الأدلة منفصلة عن مدى جودة عمل الحلول القائمة.' },
+    sumProfSub: { en: 'Fixed 0 to 100% axis. A criterion without a percentage shows its status instead of a bar. Levels use provisional project thresholds.', ar: 'محور ثابت من 0 إلى 100%. يعرض المعيار الذي لا نسبة له حالته بدلًا من الشريط. تستخدم المستويات عتبات مؤقتة للمشروع.' },
+    sumCompl: { en: function (n, u, un, na) { return 'Completeness (14 indicators): ' + n + ' scored · ' + u + ' Unknown · ' + un + ' unanswered · ' + na + ' Not applicable'; }, ar: function (n, u, un, na) { return 'الاكتمال (14 مؤشرًا): ' + n + ' مُقيَّمة · ' + u + ' غير معروفة · ' + un + ' بلا إجابة · ' + na + ' لا تنطبق'; } },
+    sumConf: { en: function (n, a, b, c, d) { return 'Confidence in the ' + n + ' scored answers (self-reported): documented evidence ' + a + ' · staff estimate ' + b + ' · informal judgement ' + c + ' · not stated ' + d; }, ar: function (n, a, b, c, d) { return 'الثقة في ' + n + ' إجابة مُقيَّمة (بحسب ما أفاد المستخدم): أدلة موثقة ' + a + ' · تقدير الموظفين ' + b + ' · تقدير غير رسمي ' + c + ' · غير محددة ' + d; } },
+    sumConfNote: { en: 'A complete answer is not necessarily documented evidence.', ar: 'الإجابة المكتملة ليست بالضرورة موثقة بدليل.' },
     sumImpH: { en: 'Selected improvement areas', ar: 'مجالات التحسين المختارة' },
     sumImpN: { en: 'Selection order: scores of 0, then 1, then Unknown, in indicator order. This is not a validated priority ranking.', ar: 'ترتيب الاختيار: الدرجة 0 ثم 1 ثم «غير معروف»، بحسب ترتيب المؤشرات. وهو ليس ترتيب أولوية مُتحقَّقًا منه.' },
     sumImpMore: { en: function (n) { return n + (n === 1 ? ' more area is' : ' more areas are') + ' listed in the detailed report.'; }, ar: function (n) { return 'يرد ' + n + (n === 1 ? ' مجال آخر' : ' مجالات أخرى') + ' في التقرير المفصّل.'; } },
@@ -252,18 +252,9 @@
     sumOptH: { en: 'Preliminary NBS options', ar: 'خيارات أولية للحلول القائمة على الطبيعة' },
     sumMatch: { en: 'Relevant to the selected risks', ar: 'ذو صلة بالمخاطر المختارة' },
     sumMatchNote: { en: 'Options come from a provisional rule-based match to the selected risks. This is not a validated ranking, a feasibility check or a predicted impact.', ar: 'تأتي الخيارات من مطابقة مؤقتة قائمة على قواعد مع المخاطر المختارة. وهذا ليس ترتيبًا معتمدًا ولا فحصًا للجدوى ولا أثرًا متوقعًا.' },
-    sumApp: { en: 'Applicability', ar: 'قابلية التطبيق' }, sumShared: { en: 'Shared applicability checks', ar: 'فحوص قابلية تطبيق مشتركة' },
-    impl_reg: { en: 'Regulation', ar: 'الأنظمة' }, impl_stake: { en: 'Stakeholders', ar: 'أصحاب المصلحة' }, impl_tech: { en: 'Expertise', ar: 'الخبرة' }, impl_maint: { en: 'Maintenance', ar: 'الصيانة' }, impl_fund: { en: 'Funding', ar: 'التمويل' },
-    sumLimH: { en: 'Scientific limitations', ar: 'القيود العلمية' },
-    sumLim: { en: ['The existing NBS indicators use a provisional rubric prepared by the project team. It is not an official PROMEA scoring method, and the indicators are not combined into a score.', 'Preliminary matching exists only for heatwaves, flooding and drought, using provisional demo rules. It is not a feasibility check or an estimate of impact.', 'Costs are illustrative demo ranges, not local prices. Quantitative climate-risk mitigation impact is not currently estimated. Physical quantities and published reference evidence are shown separately.'],
-      ar: ['تستخدم مؤشرات الحلول القائمة قاعدة مؤقتة أعدّها فريق المشروع. وهي ليست طريقة تقييم رسمية لإطار PROMEA، ولا تُجمع المؤشرات في درجة.', 'توجد مطابقة أولية فقط للموجات الحارة والفيضانات والجفاف، وفق قواعد تجريبية مؤقتة. وهي ليست فحصًا للجدوى ولا تقديرًا للأثر.', 'التكاليف نطاقات تجريبية توضيحية وليست أسعارًا محلية. ولا يُقدَّر حاليًا الأثر الكمي للتخفيف من المخاطر المناخية. وتُعرض الكميات المادية والأدلة المرجعية المنشورة كلًّا على حدة.'] },
+    sumApp: { en: 'Applicability', ar: 'قابلية التطبيق' }, sumShared: { en: 'Shared implementation conditions', ar: 'شروط تنفيذ مشتركة' },
     sumCalcH: { en: 'Supporting calculations and indicative cost', ar: 'الحسابات الداعمة والتكلفة الإرشادية' },
-    repLevel: { en: 'Level', ar: 'المستوى' },
     prov: { en: 'provisional', ar: 'مؤقتة' },
-    repNbsInd: { en: 'Existing NBS indicators', ar: 'مؤشرات الحلول القائمة' },
-    repImplH: { en: 'Implementation considerations (optional)', ar: 'اعتبارات التنفيذ (اختيارية)' },
-    mitNote: { en: 'Climate-risk mitigation impact is estimated only where a supported method exists.', ar: 'يُقدَّر أثر التخفيف من المخاطر المناخية فقط حيث توجد طريقة مدعومة.' },
-    s3NoneEx: { en: 'No solution has been explored yet. Select a recommended solution, or open the calculators directly.', ar: 'لم يُستكشف أي حل بعد. اختر حلًّا موصى به، أو افتح الحاسبات مباشرة.' },
     sumNoRec: { en: 'No recommendation: no option qualifies for the selected risks and context.', ar: 'لا توصية: لا يوجد خيار مؤهل للمخاطر والسياق المختارين.' },
     sumNoRecN: { en: function (a, b) { return a + ' option(s) are excluded after applicability checks and ' + b + ' have a match index of 0. See the detailed report.'; }, ar: function (a, b) { return 'استُبعد ' + a + ' خيار(ات) بعد فحوص قابلية التطبيق، ولدى ' + b + ' مؤشر مطابقة 0. راجع التقرير المفصّل.'; } },
     sumExNone: { en: 'Cost and impact exploration not completed.', ar: 'لم تكتمل استكشافات الكلفة والأثر.' },
@@ -275,7 +266,7 @@
     sumCostH: { en: 'Cost (demo assumptions, EUR, not local prices)', ar: 'الكلفة (افتراضات تجريبية، يورو، وليست أسعارًا محلية)' },
     sumRefCost: { en: function (a, b, m) { return 'Reference example (Hamburg, 2017; source S04): EUR ' + a + ' – ' + b + ' (median ' + m + '). Another place and year: not a current local price.'; }, ar: function (a, b, m) { return 'مثال مرجعي (هامبورغ، 2017؛ المصدر S04): ' + a + ' – ' + b + ' يورو (الوسيط ' + m + '). مكان وسنة مختلفان: ليس سعرًا محليًا حاليًا.'; } },
     sumSrc: { en: 'Source', ar: 'المصدر' },
-    sumFoot1: { en: 'Prototype with provisional methodology (rubric, matching rules), to be reviewed against the PROMEA framework and the NBS repository.', ar: 'نموذج تجريبي بمنهجية مؤقتة (القاعدة وقواعد المطابقة) ستُراجع مقابل إطار PROMEA ومستودع الحلول القائمة على الطبيعة.' },
+    sumFoot1: { en: 'Prototype with provisional methodology (rubric, thresholds, weights), to be reviewed against the PROMEA framework and the NBS repository. Scores are not official scores.', ar: 'نموذج تجريبي بمنهجية مؤقتة (المعيار والعتبات والأوزان) ستُراجع مقابل إطار PROMEA ومستودع الحلول القائمة على الطبيعة. الدرجات ليست درجات رسمية.' },
     sumFoot2: { en: 'Demo values are illustrative. The detailed report and the CSV hold the full answers, methodology and sources.', ar: 'القيم التجريبية توضيحية. يحتوي التقرير المفصّل وملف CSV على الإجابات والمنهجية والمصادر كاملة.' },
     sumPage: { en: function (n) { return 'Page ' + n + ' of 2'; }, ar: function (n) { return 'صفحة ' + n + ' من 2'; } },
     colCat: { en: 'Category (provisional)', ar: 'الفئة (مؤقتة)' }
@@ -585,8 +576,10 @@
   }
   function costConditions(sol) {
     var c = C(), o = c.optByNbs(sol); if (!o) return '';
-    var items = ['maint', 'fund'].filter(function (k) { var v = c.implVal(o, k); return v === 'no' || v === 'unknown'; }).map(function (k) {
-      return '<li><b>' + esc(x('impl_' + k)) + '</b>: ' + esc(c.implLabel(c.implVal(o, k))) + '. ' + esc(c.implQ(o, k)) + '</li>';
+    var r = c.recFor(o.id); if (!r) return '';
+    var items = r.conds.filter(function (k) { return k.id === '5.1' || k.id === '5.2'; }).map(function (k) {
+      var t = k.u ? c.T('condU') : (c.T('condScore')(k.v) + ': ' + c.rubricText(k.i, k.v));
+      return '<li><b>' + k.id + ' ' + esc(c.nm(k.i)) + '</b>: ' + esc(t) + '</li>';
     });
     return items.length ? '<div class="note warn">' + c.ico('alert') + '<div><b>' + x('condCostH') + '</b><ul class="rl">' + items.join('') + '</ul></div></div>' : '';
   }
@@ -751,18 +744,6 @@
   });
 
   /* ---------- report ---------- */
-  /* optional, solution-specific implementation considerations of the explored solution */
-  function implRows(sol) {
-    var c = C(), o = c.optByNbs(sol); if (!o) return [];
-    return c.IMPL.map(function (k) { return { q: c.implQ(o, k), v: c.implVal(o, k) }; });
-  }
-  function implHtml(sol) {
-    var c = C(), rows = implRows(sol);
-    if (!rows.length) return '';
-    var h = '<h3>' + esc(x('repImplH')) + '</h3><dl class="sdl impl">' + rows.map(function (r) { return '<dt>' + esc(r.q) + '</dt><dd>' + esc(c.implLabel(r.v)) + '</dd>'; }).join('') + '</dl>';
-    if (!rows.some(function (r) { return r.v; })) h += '<p class="note-s">' + esc(c.T('implSumN')) + '</p>';
-    return h;
-  }
   /* results page, section 3: climate-risk mitigation, physical calculations and literature evidence, shown separately */
   function section3Html() {
     var c = C(), b = ex.sol && ex.by[ex.sol];
@@ -782,6 +763,10 @@
     else h += '<p class="note-s">' + esc(x('sumNoImp')(res.not_calculated.map(function (k) { return x('nc_' + k); }).join('; '))) + '</p>';
     return h;
   }
+  function condBlock(sol) {
+    var c = C(), o = c.optByNbs(sol), r = o && c.recFor(o.id);
+    return r ? '<div class="note-s">' + c.condsHtml(r) + '</div>' : '';
+  }
   /* results page, section 4: indicative cost and implementation considerations */
   function section4Html() {
     var c = C(), b = ex.sol && ex.by[ex.sol];
@@ -793,14 +778,21 @@
       costRow(x('capex'), cs.capex.total) + costRow(x('annual'), cs.annual.total) + costConditions(ex.sol);
     if (res.reference_cost && res.reference_cost.scaled) { var sc = res.reference_cost.scaled; h += '<p class="note-s"><b>' + x('sumRefCost')(eur(sc.low), eur(sc.high), eur(sc.median)) + '</b></p>'; }
     if (ex.sol === 'NBS02') h += '<div class="note warn">' + C().ico('alert') + '<span>' + roofText() + '</span></div>';
-    return h + implHtml(ex.sol);
+    return h + condBlock(ex.sol);
   }
   function tbl(head, rows, cls) {
     return '<table class="tbl' + (cls ? ' ' + cls : '') + '"><thead><tr>' + head.map(function (t) { return '<th>' + t + '</th>'; }).join('') + '</tr></thead><tbody>' +
       rows.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
   }
+  function critCells(p) {
+    var c = C(), lv = p.status === 'complete' ? c.LEVELS[c.lvlIdx(p.pct)] : null;
+    var cmp = c.T('cmpl')(p.scored, p.n, p.unk, p.na);
+    if (p.status === 'complete') return [p.sum + ' / ' + p.max + ' (' + p.pct + '%)', esc(c.nm(lv)), esc(cmp)];
+    if (p.status === 'na') return [esc(c.T('naCrit')), esc(c.T('naCrit')), esc(cmp)];
+    return [esc(c.T('notRated')), '–', esc(cmp + (p.scored ? '. ' + c.T('partial')(p.sum, p.max, p.scored, p.n) : ''))];
+  }
   function reportHtml() {
-    var c = C(), st = c.st, t = c.nm, T = c.T, R = c.recs();
+    var c = C(), r = c.calc(), st = c.st, t = c.nm, T = c.T, o = r.ov, R = c.recs();
     var d = new Date(); var date = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
     var h = '<div class="rp-head"><h1>' + x('repTitle') + '</h1><p>' + x('repDate') + ': ' + date + '</p></div>' +
       '<div class="demo-box">' + esc(x('demoLabel')) + '</div><p class="note-s">' + esc(T('protoNote')) + '</p>';
@@ -809,24 +801,31 @@
     h += '<h2>1. ' + x('repScope') + '</h2>' + tbl(['', ''], [[esc(SL[0]), esc(c.areaName() || '–')], [esc(SL[1]), esc(c.areaCountry() || '–')]].concat(c.areaCity() ? [[esc(SL[2]), esc(c.areaCity())]] : []).concat([[esc(SL[3]), esc(c.scopeTypeLabel() || '–')], [esc(SL[4]), esc(st.scope.org || T('notStated'))], [esc(SL[5]), esc(st.scope.date || T('notStated'))]]));
     /* 2. assessment */
     h += '<h2>2. ' + x('repAssess') + '</h2><p class="note-s">' + x('repSep') + '</p>';
-    var g = c.integ();
-    h += '<p><b>' + esc(T('nbsStat')) + ':</b> ' + esc(g.status === 'assessed' ? T('nbsSY') : g.status === 'absent' ? T('nbsSN') : T('nbsSU')) + '</p>';
-    if (g.status === 'assessed') {
-      var ty = c.nbsTypes();
-      if (ty.length) h += '<p><b>' + esc(T('nbsTypes')) + ':</b> ' + esc(ty.join('; ')) + '</p>';
-      h += '<h3>' + x('repNbsInd') + '</h3><p class="note-s">' + esc(T('nbsNote')) + '</p>' + tbl(['ID', T('colInd'), x('repLevel'), T('colAns'), T('colRat'), T('colEvd'), T('colCf')], g.items.map(function (it) {
-        var i = it.i;
-        return [i.id, esc(t(i)), esc(it.state === 'scored' ? c.lvLabel(it.v) : T('nbsNA')), esc(c.ansLabel(i.id)), esc(st.rat[i.id] || '–'), esc(st.evd[i.id] || '–'), esc(c.cfLabel(i.id))];
-      }), 'rp-ans');
-      var cf = c.confCounts();
-      h += '<p class="note-s">' + esc(T('confTxt')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + ' ' + esc(T('confNote')) + '</p>';
-    } else h += '<p class="note-s">' + esc(g.status === 'absent' ? T('nbsNo') : T('nbsUn')) + '</p>';
+    h += '<h3>' + T('compH') + '</h3><p>' + esc(T('compTxt')(o.scored, o.unk, o.na)) + '</p>';
+    h += '<h3>' + T('profH') + '</h3><p class="note-s">' + esc(T('g1H')) + '. ' + esc(T('g1P')) + '</p>' +
+      tbl([T('crit'), T('score'), T('level'), x('repCompl')], [0].map(function (i) { var cc = critCells(r.per[i]); return [c.CRIT[i].id + ' ' + esc(t(c.CRIT[i])), cc[0], cc[1], cc[2]]; })) +
+      '<p class="note-s">' + esc(T('g2H')) + '. ' + esc(T('g2P')) + '</p>' +
+      tbl([T('crit'), T('score'), T('level'), x('repCompl')], [1, 2, 3, 4].map(function (i) { var cc = critCells(r.per[i]); return [c.CRIT[i].id + ' ' + esc(t(c.CRIT[i])), cc[0], cc[1], cc[2]]; }));
+    h += '<h3>' + T('overallH') + '</h3>';
+    if (o.status === 'complete') h += '<p class="rp-score"><b>' + o.sum + ' / ' + o.max + '</b> (' + o.pct + '%) &nbsp; <span class="chip ' + c.LEVELS[r.lvl].c + '">' + esc(t(c.LEVELS[r.lvl])) + '</span></p>';
+    else if (o.status === 'na') h += '<p>' + esc(T('ovNA')) + '</p>';
+    else h += '<p>' + esc(T('ovSupp')(o.open, c.IND.filter(function (i) { return st.sc[i.id] === 'U'; }).map(function (i) { return i.id; }).join(', '))) + '</p>';
+    h += '<p class="note-s">' + esc(c.eqWeightText(r)) + ' ' + esc(T('thresholds')) + '</p>';
+    var g = c.gapsData();
+    function names(arr, withText) { return arr.length ? arr.map(function (i) { return esc(i.id + ' ' + t(i)) + (withText ? ': ' + esc(c.rubricText(i, st.sc[i.id])) : ''); }).join('<br>') : '–'; }
+    h += '<h3>' + T('sgH') + '</h3>' + tbl(['', ''], [[T('gap0'), names(g.z, true)], [T('gap1'), names(g.o, true)], [T('strong'), names(g.t)], [T('gapU'), names(g.u)], [T('gapNA'), g.n.length ? g.n.map(function (i) { return esc(i.id + ' ' + t(i) + ': ' + (st.just[i.id] || '')); }).join('<br>') : '–']]);
+    var cf = c.confCounts();
+    h += '<h3>' + T('confH') + '</h3><p>' + esc(T('confTxt')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + ' ' + esc(T('confNote')) + '</p>';
+    h += '<h3>' + T('detH') + '</h3>' + tbl(['ID', T('colInd'), T('colAns'), T('colRat'), T('colEvd'), T('colCf')], c.IND.map(function (i) {
+      return [i.id, esc(t(i)), esc(c.ansLabel(i.id)), esc(st.rat[i.id] || (st.sc[i.id] === 'NA' ? st.just[i.id] || '' : '') || '–'), esc(st.evd[i.id] || '–'), esc(c.cfLabel(i.id))];
+    }), 'rp-ans');
+    var yn = function (v) { return v === 'yes' ? T('yes') : v === 'no' ? T('no') : v === 'unknown' ? T('unk') : '–'; };
+    h += '<p class="note-s">' + esc(T('tgtQ')) + ' ' + esc(yn(st.tgt.target)) + '. ' + esc(T('covQ')) + ' ' + esc(yn(st.tgt.cov)) + '.</p>';
     h += '<h3>' + x('ctxT') + '</h3>' + tbl(['', ''], c.CTX.map(function (cx) {
       var oo = cx.o.filter(function (z) { return z[0] === st.ctx[cx.k]; })[0];
       return [esc(t(cx)), esc(oo ? (L() === 'ar' ? oo[2] : oo[1]) : T('notStated'))];
     }).concat([[esc(T('stRisk')), esc(c.riskText())]]));
     h += '<h4>' + esc(T('methA')) + '</h4><ul>' + c.methA().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
-    var yn = function (v) { return v === 'yes' ? T('yes') : v === 'no' ? T('no') : v === 'unknown' ? T('unk') : '–'; };
     /* 3. applicability checks (optional, answered after the results) */
     h += '<h2>3. ' + x('repScreen') + '</h2><p class="note-s">' + esc(T('chkNote')) + '</p>';
     var checked = R.all.filter(function (q) { return q.scr.status !== 'unchecked'; });
@@ -839,9 +838,10 @@
     h += '<h2>4. ' + x('repCand') + '</h2><p class="note-s">' + esc(T('recP')) + ' ' + esc(T('matchNote')) + '</p>';
     var MM = c.matchMessages();
     if (!MM.ok) h += '<p><b>' + esc(MM.title) + '</b></p><ul>' + MM.items.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
-    else h += R.ranked.length ? tbl(['#', T('option'), x('colCat'), T('matchL') + ' (' + x('prov') + ')', T('status'), x('why2'), T('verL').replace(':', '')], R.ranked.map(function (q) {
+    else h += R.ranked.length ? tbl(['#', T('option'), x('colCat'), T('matchL'), T('status'), x('why2'), T('verL').replace(':', ''), T('condL')], R.ranked.map(function (q) {
       return [q.rank, esc(t(q.o)), esc(c.catText(q.o)), q.s + ' / 100', esc(c.stLabel(q.scr.status)), esc(c.whyText(q)),
-        esc(q.scr.status === 'unchecked' ? T('unchkTxt') : q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' ') || T('candDone'))];
+        esc(q.scr.status === 'unchecked' ? T('unchkTxt') : q.scr.reasons.map(function (z) { return c.pick(z.t); }).join(' ') || T('candDone')),
+        esc(q.conds.map(function (k) { return k.id + ' ' + t(k.i) + ': ' + (k.u ? T('stU') : c.rubricText(k.i, k.v)); }).join(' | ') || T('condNone'))];
     })) : '<p>' + esc(T('recNone')) + '</p>';
     if (MM.ok && (R.na.length || R.other.length)) {
       h += '<h3>' + x('repNotRanked') + '</h3><p class="note-s">' + esc(T('otherP')) + '</p>' + tbl([T('option'), x('colCat'), T('status'), x('why2')],
@@ -849,9 +849,6 @@
           .concat(R.other.map(function (q) { return [esc(t(q.o)), esc(c.catText(q.o)), esc(T('otherH')), esc(q.raw === 0 ? T('exNoWhy') : T('exZeroWhy'))]; })));
     }
     h += '<h4>' + esc(T('methB')) + '</h4><ul>' + c.methB().map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' + c.weightsTable() + '<h4>' + esc(T('promH')) + '</h4><p class="note-s">' + esc(T('promNote')) + '</p>' + c.promTable();
-    /* implementation considerations */
-    var implAll = c.OPT.filter(function (o) { return c.IMPL.some(function (k) { return c.implVal(o, k); }); });
-    if (implAll.length) h += '<h3>' + esc(x('repImplH')) + '</h3>' + tbl([T('option')].concat(c.IMPL.map(function (k) { return esc(x('impl_' + k)); })), implAll.map(function (o) { return [esc(t(o))].concat(c.IMPL.map(function (k) { return esc(c.implLabel(c.implVal(o, k))); })); }));
     /* 5. impact and cost */
     h += '<h2>5. ' + x('repExplore') + '</h2>';
     if (ex.sol && ex.res) h += resultsHtml(ex.res, true).replace(/<h2>.*?<\/h2>/, '<h3 class="rp-sol">' + esc(solName(ex.sol)) + '</h3>');
@@ -875,28 +872,66 @@
     var c = C(), cx = c.CTX.filter(function (z) { return z.k === k; })[0], o = cx.o.filter(function (z) { return z[0] === c.st.ctx[k]; })[0];
     return o ? esc(L() === 'ar' ? o[2] : o[1]) : esc(c.T('notStated'));
   }
+  function improvementAreas() {
+    var c = C(), st = c.st, cand = [];
+    c.IND.forEach(function (i, ix) { var v = st.sc[i.id]; if (v === 0 || v === 1 || v === 'U') cand.push({ i: i, ix: ix, tier: v === 0 ? 0 : v === 1 ? 1 : 2 }); });
+    var fund = cand.filter(function (k) { return k.i.id === '5.1' || k.i.id === '5.2'; }), items = [];
+    cand.forEach(function (k) {
+      if (fund.length > 1 && (k.i.id === '5.1' || k.i.id === '5.2')) { if (k.i.id === '5.1' || fund[0] === k) { if (!items.some(function (z) { return z.group; })) items.push({ group: fund, ix: fund[0].ix, tier: Math.min(fund[0].tier, fund[1].tier) }); } return; }
+      items.push({ group: [k], ix: k.ix, tier: k.tier });
+    });
+    items.sort(function (a, b) { return a.tier - b.tier || a.ix - b.ix; });
+    return items;
+  }
+  function areaText(it) {
+    var c = C(), st = c.st, t = c.nm;
+    var parts = it.group.map(function (k) {
+      var v = st.sc[k.i.id];
+      return '<b>' + esc(k.i.id + ' ' + t(k.i)) + '</b>' + (v === 'U' ? ': ' + esc(x('sumImpUnk')) : ' (' + esc(c.T('condScore')(v)) + '): ' + esc(c.rubricText(k.i, v)));
+    });
+    return parts.join('<br>');
+  }
+  function improvementHtml() {
+    var areas = improvementAreas(), shown = areas.slice(0, 3), h = '<h3 class="subh">' + esc(x('sumImpH')) + '</h3>';
+    if (!areas.length) return h + '<p>' + x('sumImpNone') + '</p>';
+    h += '<ol class="impl">' + shown.map(function (it) { return '<li>' + areaText(it) + '</li>'; }).join('') + '</ol>';
+    h += '<p class="note-s">' + x('sumImpN') + (areas.length > 3 ? ' ' + x('sumImpMoreScreen')(areas.length - 3) : '') + '</p>';
+    return h;
+  }
   function sumPage1() {
-    var c = C(), st = c.st, T = c.T, t = c.nm, g = c.integ();
+    var c = C(), r = c.calc(), st = c.st, T = c.T, t = c.nm, o = r.ov;
     var scaleLab = c.scopeTypeLabel();
     var h = '<section class="pg"><div class="ps-brand">NBS4MED</div><h1 class="ps-title">' + esc(x('sumTitle')) + '</h1>' +
       '<dl class="ps-meta"><div><dt>' + x('sumArea') + '</dt><dd>' + sTrunc([c.areaName(), c.areaCountry()].filter(Boolean).join(', ') || '–', 110) + '</dd></div><div><dt>' + x('sumScale') + '</dt><dd>' + sTrunc(scaleLab || '–', 60) + '</dd></div><div><dt>' + x('sumDate') + '</dt><dd>' + esc(st.scope.date || T('notStated')) + '</dd></div></dl>' +
       '<p class="ps-ctx"><b>' + x('sumCtx') + '.</b> ' + x('sumRisks') + ': ' + esc(c.riskText() || '–') + '. ' + x('sumDens') + ': ' + sCtxLabel('density') + '. ' + x('sumLand') + ': ' + sCtxLabel('land') + '.</p>' +
-      '<h2 class="ps-h">' + esc(T('s1H')) + '</h2><p class="ps-sub">' + x('sumProfSub') + '</p>';
-    h += '<p class="ps-overall"><b>' + esc(T('nbsStat')) + ':</b> ' + esc(g.status === 'assessed' ? T('nbsSY') : g.status === 'absent' ? T('nbsSN') : T('nbsSU')) + '</p>';
-    if (g.status === 'assessed') {
-      var ty = c.nbsTypes();
-      if (ty.length) h += '<p class="ps-ctx"><b>' + esc(T('nbsTypes')) + ':</b> ' + esc(ty.join('; ')) + '</p>';
-      h += '<div class="ps-chart">' + g.items.map(function (it) {
-        var i = it.i, name = '<div class="ps-name"><b>' + i.id + '</b> ' + esc(t(i)) + '</div>';
-        var val = it.state === 'scored' ? '<b>' + esc(c.lvLabel(it.v)) + '</b> ' + ltr('(' + it.v + ' / 2)') + '<span class="ps-pts">' + esc(c.rubricText(i, it.v)) + '</span>'
-          : '<b>' + esc(T('nbsNA')) + '</b>' + (it.state === 'unknown' ? ' · ' + esc(T('aU')) : '') + '<span class="ps-pts">' + esc(T('aNone') && it.state === 'unknown' ? T('optUd') : '') + '</span>';
-        return '<div class="ps-row">' + name + '<div class="ps-nobar" style="grid-column:2 / span 2">' + val + '</div></div>';
-      }).join('') + '</div>';
-      var cf = c.confCounts();
-      h += '<div class="ps-two"><div class="ps-box"><b>' + esc(x('sumCompl')(g.scored, g.unk, g.un, 0)) + '</b></div>' +
-        '<div class="ps-box">' + esc(x('sumConf')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + '. ' + esc(x('sumConfNote')) + '</div></div>';
-    } else h += '<p class="ps-sub">' + esc(g.status === 'absent' ? T('nbsNo') : T('nbsUn')) + '</p>';
-    h += '<h2 class="ps-h">' + esc(x('sumLimH')) + '</h2><ul class="ps-areas">' + x('sumLim').map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>';
+      '<h2 class="ps-h">' + esc(T('profH')) + '</h2><p class="ps-sub">' + x('sumProfSub') + '</p><div class="ps-chart">';
+    function row(i, shade) {
+      var p = r.per[i], cr = c.CRIT[i], name = '<div class="ps-name"><b>' + cr.id + '</b> ' + esc(t(cr)) + '</div>';
+      if (p.status === 'complete') {
+        var lv = c.LEVELS[c.lvlIdx(p.pct)];
+        return '<div class="ps-row">' + name + sbar(p.pct, shade) + '<div class="ps-val"><b>' + ltr(p.pct + '%') + '</b> · ' + esc(t(lv)) + '<span class="ps-pts">' + ltr(p.sum + ' / ' + p.max) + ' ' + (L() === 'ar' ? 'نقطة' : 'points') + '</span></div></div>';
+      }
+      var msg = p.status === 'na' ? T('naCrit') : (p.unk ? T('notRated') : x('sumNotRatedUn'));
+      return '<div class="ps-row">' + name + '<div class="ps-nobar" style="grid-column:2 / span 2"><b>' + esc(msg) + '</b><span class="ps-pts">' + esc(x('sumCrit')(p.scored, p.n, p.unk, p.un, p.na)) + '</span></div></div>';
+    }
+    h += '<div class="ps-grp">' + esc(T('g1H')) + '</div>' + row(0, SH_C1) +
+      '<div class="ps-grp en">' + esc(T('g2H')) + '</div>' + [1, 2, 3, 4].map(function (i) { return row(i, SH_EN); }).join('') + saxis() + '</div>';
+    /* overall: secondary */
+    h += '<p class="ps-overall"><b>' + esc(T('overallH')) + ':</b> ';
+    if (o.status === 'complete') h += '<b>' + ltr(o.sum + ' / ' + o.max) + ' · ' + ltr(o.pct + '%') + '</b> · ' + esc(t(c.LEVELS[r.lvl])) + '. ' + esc(T('naDen') && o.na ? T('naDen')(o.max) : '');
+    else if (o.status === 'na') h += esc(T('ovNA'));
+    else h += esc(T('ovSupp')(o.open, c.IND.filter(function (i) { return st.sc[i.id] === 'U'; }).map(function (i) { return i.id; }).join(', ')));
+    h += '</p>';
+    var cf = c.confCounts(), un = o.un;
+    h += '<div class="ps-two"><div class="ps-box"><b>' + esc(x('sumCompl')(o.scored, o.unk, un, o.na)) + '</b></div>' +
+      '<div class="ps-box">' + esc(x('sumConf')(cf.n, cf.high, cf.mid, cf.low, cf.none)) + '. ' + esc(x('sumConfNote')) + '</div></div>';
+    var areas = improvementAreas(), shown = areas.slice(0, 3);
+    h += '<h2 class="ps-h">' + esc(x('sumImpH')) + '</h2><p class="ps-sub">' + x('sumImpN') + '</p>';
+    if (!areas.length) h += '<p>' + x('sumImpNone') + '</p>';
+    else {
+      h += '<ol class="ps-areas">' + shown.map(function (it) { return '<li>' + areaText(it) + '</li>'; }).join('') + '</ol>';
+      if (areas.length > 3) h += '<p class="ps-more">' + x('sumImpMore')(areas.length - 3) + '</p>';
+    }
     return h + '<div class="ps-foot"><span>' + x('sumFoot1') + '</span><b>' + x('sumPage')(1) + '</b></div></section>';
   }
   function evRef(sol, id) {
@@ -958,16 +993,18 @@
         var hits = q.why.hit.map(function (z) { return t(z.r); }).join('; ');
         return '<div class="ps-row"><div class="ps-name"><b>' + esc(t(q.o)) + '</b><span class="ps-st">' + esc(c.T('screenL')) + ': <b>' + esc(c.stLabel(q.scr.status)) + '</b></span></div><div class="ps-nobar" style="grid-column:2 / span 2">' + esc(hits) + '</div></div>';
       }).join('') + '</div>';
-      if (top.some(function (q) { return q.scr.status === 'unchecked'; })) h += '<p class="ps-sub">' + esc(c.T('stUn')) + ': ' + esc(c.T('unchkTxt')) + '</p>';
       var cnt = {};
       top.forEach(function (q) { q.scr.reasons.forEach(function (z) { var k = c.pick(z.t); cnt[k] = (cnt[k] || 0) + 1; }); });
       var sharedChk = Object.keys(cnt).filter(function (k) { return cnt[k] > 1; });
       h += top.map(function (q) {
         var specific = q.scr.reasons.map(function (z) { return c.pick(z.t); }).filter(function (k) { return sharedChk.indexOf(k) < 0; });
+        if (q.conds.some(function (k) { return k.id === '3.2'; }) && q.o.cx >= 1) specific.push(c.T('condCx')(CLAB_CX(q.o)));
         return '<div class="ps-opt"><b>' + esc(t(q.o)) + '</b> (' + esc(c.catText(q.o)) + ', ' + (L() === 'ar' ? 'مؤقتة' : 'provisional') + '): ' + esc(c.whyText(q)) +
-          ' <span class="ps-spec">' + esc(specific.length ? specific.join(' ') : c.T('limDefault')) + '</span></div>';
+          (specific.length ? ' <span class="ps-spec">' + esc(specific.join(' ')) + '</span>' : '') + '</div>';
       }).join('');
-      if (sharedChk.length) h += '<div class="ps-shared"><b>' + x('sumShared') + '</b><div class="ps-sharedchk"><b>' + x('sumSharedChk') + ':</b> ' + esc(sharedChk.join(' ')) + '</div></div>';
+      var conds = top[0].conds;
+      h += '<div class="ps-shared"><b>' + x('sumShared') + '</b>' + (conds.length ? '<ul>' + conds.map(function (k) { return '<li><b>' + esc(k.id + ' ' + t(k.i)) + '</b>: ' + esc(k.u ? c.T('condU') : c.T('condScore')(k.v) + ': ' + c.rubricText(k.i, k.v)) + '</li>'; }).join('') + '</ul>' : '<div>' + esc(c.T('condNone')) + '</div>') +
+        (sharedChk.length ? '<div class="ps-sharedchk"><b>' + x('sumSharedChk') + ':</b> ' + esc(sharedChk.join(' ')) + '</div>' : '') + '</div>';
     }
     h += sumExplore();
     return h + '<div class="ps-foot"><span>' + x('sumFoot2') + '</span><b>' + x('sumPage')(2) + '</b></div></section>';
@@ -996,7 +1033,7 @@
   /* ---------- CSV ---------- */
   /* columns: section, item, value, unit, basis, notes, rationale, evidence, confidence */
   function csvRows() {
-    var c = C(), st = c.st, R = c.recs();
+    var c = C(), r = c.calc(), st = c.st, R = c.recs();
     var rows = [['section', 'item', 'value', 'unit', 'basis', 'notes', 'rationale', 'evidence or source', 'confidence', 'applicability status', 'solution category']];
     function add(a) { while (a.length < 11) a.push(''); rows.push(a); }
     function optCols(q) { return ['', '', '', q.scr.status === 'unchecked' ? 'Not yet checked' : q.scr.status === 'cand' ? 'Preliminary candidate' : q.scr.status === 'verify' ? 'Requires verification' : 'Not applicable', c.catText(q.o) + ' (provisional)']; }
@@ -1011,32 +1048,35 @@
     add(['assessment context', 'local climate risks', c.riskText('en'), '', 'user input', c.st.risks.unsure ? 'climate-risk identification needed before NBS matching' : '']);
     var MMc = c.matchMessages('en');
     if (!MMc.ok) add(['recommendation', 'NBS matching not yet assessed', '', '', 'not assessed', MMc.items.join(' ')]);
-    var g = c.integ();
-    add(['existing nbs', 'existing NBS in the assessment area', g.status === 'assessed' ? 'Yes' : g.status === 'absent' ? 'No' : 'Not sure', '', 'user input', g.status === 'absent' ? 'reported absence; indicators skipped; not a score' : g.status === 'unsure' ? 'insufficient information; indicators skipped; not recorded as zero' : '']);
-    if (g.status === 'assessed') {
-      add(['existing nbs', 'existing NBS types', c.nbsTypes('en').join('; '), '', 'user input', 'optional']);
-      g.items.forEach(function (it) {
-        var i = it.i;
-        add(['existing nbs indicator', i.id + ' ' + i.en, c.ansCsv(i.id), '0-2 scale (provisional project rubric)', 'user input',
-          it.state === 'scored' ? c.lvLabel(it.v, 'en') + ': ' + c.rubricText(i, it.v) + ' (not combined into an overall score)' : it.state === 'unknown' ? 'Unknown: missing information, not recorded as 0' : 'Unanswered',
-          st.rat[i.id] || '', st.evd[i.id] || '', st.cf[i.id] ? c.cfLabel(i.id, 'en') : '']);
-      });
-      var cf = c.confCounts();
-      add(['existing nbs evidence strength', 'indicators by evidence strength', 'documented evidence ' + cf.high + '; staff estimate ' + cf.mid + '; informal judgement ' + cf.low + '; not stated ' + cf.none, '', 'user input', 'evidence strength is separate from the indicator answer']);
-    }
+    add(['assessment local target', 'local NBS or green-blue coverage target exists', st.tgt.target || 'not answered', 'yes/no/unknown', 'user input', 'Indicator 1.2']);
+    add(['assessment local target', 'current coverage known', st.tgt.cov || 'not answered', 'yes/no/unknown', 'user input', 'Indicator 1.2']);
+    c.IND.forEach(function (i) {
+      add(['assessment indicator', i.id + ' ' + i.en, c.ansCsv(i.id), '0-2 scale (provisional project rubric)', 'user input',
+        c.ansState(i.id) === 'scored' ? 'scored: ' + c.rubricText(i, st.sc[i.id]).replace(/^/, '') : c.ansState(i.id) === 'na' ? 'Not applicable, excluded from score. Justification: ' + (st.just[i.id] || '') : c.ansState(i.id) === 'unknown' ? 'Unknown: missing information, excluded from score, not 0' : 'Unanswered',
+        st.rat[i.id] || '', st.evd[i.id] || '', st.cf[i.id] ? c.cfLabel(i.id, 'en') : '']);
+    });
+    c.CRIT.forEach(function (cr, i) {
+      var p = r.per[i];
+      var v = p.status === 'complete' ? p.sum + '/' + p.max : p.status === 'na' ? 'Not applicable' : 'Not rated (Unknown answers)';
+      add(['assessment criterion', cr.id + ' ' + cr.en, v, 'points', 'calculated',
+        (p.status === 'complete' ? p.pct + '%; level ' + c.LEVELS[c.lvlIdx(p.pct)].en + ' (provisional threshold); ' : '') + p.scored + ' of ' + p.n + ' indicators scored, ' + p.unk + ' Unknown, ' + p.na + ' Not applicable' + (p.status === 'incomplete' && p.scored ? '; available points ' + p.sum + '/' + p.max + ' (not a criterion score)' : '')]);
+    });
+    var o = r.ov;
+    add(['assessment completeness', 'indicators with numeric score', o.scored + ' of 14', '', 'calculated', o.unk + ' Unknown; ' + o.na + ' Not applicable']);
+    add(['assessment overall', 'provisional combined assessment score', o.status === 'complete' ? o.sum + '/' + o.max : o.status === 'na' ? 'Not applicable' : 'Not shown (Unknown answers)', 'points', 'calculated', o.status === 'complete' ? o.pct + '%; equal weight per indicator; provisional thresholds' : 'overall percentage suppressed because an indicator is Unknown']);
+    if (o.status === 'complete') add(['assessment overall', 'level', c.LEVELS[r.lvl].en, '', 'calculated', 'provisional project thresholds']);
+    var cf = c.confCounts();
+    add(['assessment confidence summary', 'scored indicators by confidence', 'documented evidence ' + cf.high + '; staff estimate ' + cf.mid + '; informal judgement ' + cf.low + '; not stated ' + cf.none, '', 'user input', 'confidence does not change scores']);
     Object.keys(c.CHK).forEach(function (k) {
       var raw = st.scr[k]; if (raw === undefined) return;
       var val = k === 'roof.struct' ? ({ confirmed: 'confirmed suitable', pending: 'assessment pending or unknown', unsuitable: 'assessed and unsuitable' })[c.roofStruct()] : raw;
       var apply = c.OPT.filter(function (o) { return c.RULE[o.id].chk.indexOf(k) >= 0; }).map(function (o) { return o.en; }).join('; ');
       add(['applicability check', c.CHK[k].q[0], val, k === 'roof.struct' ? 'confirmed/pending/unsuitable' : 'yes/no/unknown', 'user input', 'screening only, not engineering approval; applies to: ' + apply + (k === 'roof.struct' && raw === 'no' ? '; earlier answer No read as assessment pending' : '')]);
     });
-    c.OPT.forEach(function (o) {
-      c.IMPL.forEach(function (k) { var v = c.implVal(o, k); if (v) add(['implementation consideration', o.en, v, 'yes/no/unknown', 'user input', c.implQ(o, k) + ' (optional; does not change the applicability status)']); });
-    });
     R.ranked.forEach(function (q) {
       add(['recommendation', '#' + q.rank + ' ' + q.o.en, q.s + ' / 100', 'provisional rule-based match score', c.stLabel(q.scr.status),
         'why: ' + c.whyText(q) + (q.scr.reasons.length ? ' | to verify: ' + q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ') : '') +
-        (q.o.nbs ? '' : ' | Impact/cost module not yet available')].concat(optCols(q)));
+        (q.conds.length ? ' | conditions: ' + q.conds.map(function (k) { return k.id + ' ' + k.i.en + ': ' + (k.u ? 'Unknown' : 'score ' + k.v); }).join('; ') : '') + (q.o.nbs ? '' : ' | Impact/cost module not yet available')].concat(optCols(q)));
     });
     R.na.forEach(function (q) { add(['option excluded', q.o.en, 'Not applicable', '', 'applicability check', q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ')].concat(optCols(q).slice(0))); });
     R.other.forEach(function (q) { add(['other option', q.o.en, q.s + ' / 100', 'provisional rule-based match score', 'rule-based match', (q.raw === 0 ? 'None of the selected risks is a target of this option' : 'Land need exceeds the public land available') + '; not recommended; not a finding of technical unsuitability'].concat(optCols(q))); });
@@ -1079,7 +1119,7 @@
   }
 
   window.NBS4MED_EXPLORE = {
-    render: render, ctaHtml: ctaHtml, csv: csv, print: print, printSummary: printSummary, summaryHtml: summaryHtml, section3Html: section3Html, section4Html: section4Html, lastSolution: function () { return ex.sol ? solName(ex.sol) : null; }, ctaLabel: function () { return x('ctaB'); }, open: openSol,
+    render: render, ctaHtml: ctaHtml, csv: csv, print: print, printSummary: printSummary, summaryHtml: summaryHtml, improvementAreas: improvementAreas, improvementHtml: improvementHtml, section3Html: section3Html, section4Html: section4Html, lastSolution: function () { return ex.sol ? solName(ex.sol) : null; }, ctaLabel: function () { return x('ctaB'); }, open: openSol,
     reportHtml: reportHtml, csvRows: csvRows, state: ex, label: function () { return x('demoLabel'); },
     exploreTitle: function () { return x('exploreH'); }
   };

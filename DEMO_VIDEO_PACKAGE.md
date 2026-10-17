@@ -6,14 +6,18 @@ Prototype for partner testing. All site inputs below are **hypothetical** and ch
 
 Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-filled by the pilot choice.
 
-| Step | Screen | Input |
+| Stage | Screen | Input |
 |---|---|---|
 | 1 | Assessment Area | Assessment Area: **Türkiye — İzmir Green Roof Pilot**. Assessment Scale stays at the default **Site / Project Area**. Country (Türkiye) and city (İzmir) appear automatically. |
 | 2 | Site Context | Urban Density: **High**. Public Land Available for NBS: **Limited**. |
 | 3 | Local Climate Risks | **Heatwaves** and **Flooding**. |
-| 4 | Existing NBS Integration | Existing NBS: **Yes**. Type: **Pocket park**. A Spatial distribution and coverage: **1**. B Ecological and climate functionality: **1**. C Integration with the site: **Unknown**. Under A, optional evidence: "Illustrative demo input", strength of evidence **Medium: staff estimate**. |
+| 4 | C1 NBS Integration Status | 1.1 NBS inventory **1**; 1.2 Coverage of public space **1** (local target: **No**, coverage known: **No**); 1.3 Link to grey infrastructure **0**. Under 1.1, optional evidence "Illustrative demo input", confidence **Medium: staff estimate**. |
+| 5 | C2 Policy & Planning | 2.1 **1**; 2.2 **1**; 2.3 **0**. |
+| 6 | C3 Institutional & Technical Capacity | 3.1 **1**; 3.2 **1**; 3.3 **Unknown**. |
+| 7 | C4 Stakeholder Engagement | 4.1 **1**; 4.2 **1**. |
+| 8 | C5 Funding & Sustainability | 5.1 **1**; 5.2 **0**; 5.3 **0**. |
 | Results | Preliminary NBS options | Review the three cards. Open **Check this solution** on **Green roof**. |
-| Check | Green roof applicability | Roof available: **Yes**. Structural suitability: **Assessment pending or Unknown**. Optional: permits **Unknown**; building owner agreement **Yes**. |
+| Check | Green roof applicability | Roof available: **Yes**. Structural suitability: **Assessment pending or Unknown**. |
 | Explore | Green roof calculator | Roof area to green: **800** m² (inside the published reference range of 196 to 1,944 m²). Design rainfall event depth: **30** mm. Substrate depth and waterproofing stay at the demo defaults (0.08 m, included). |
 | Report | Summary report, 2 pages | Open from the results page. |
 
@@ -21,9 +25,17 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 
 | Item | Expected result |
 |---|---|
-| Existing NBS | Reported present. Pocket park. A: Partial (1 / 2). B: Partial (1 / 2). C: Not assessed (Unknown, not recorded as zero). No overall score. |
-| Preliminary options shown as cards | Green roof, Green corridor, Urban forest (Miyawaki method). Each shows "Relevant to: Heatwaves; Flooding" and a limitation. No numeric score is shown on the page. |
+| C1 NBS Integration Status | 33 % (2 of 6 points), Partial |
+| C2 Policy & Planning | 33 % (2 of 6), Partial |
+| C3 Institutional & Technical Capacity | **Not rated: Unknown answers** (2 of 3 indicators scored, 1 Unknown). Unknown is not counted as zero. |
+| C4 Stakeholder Engagement | 50 % (2 of 4), Partial |
+| C5 Funding & Sustainability | 17 % (1 of 6), Insufficient |
+| Provisional combined assessment score | **Not shown**, because indicator 3.3 is Unknown. The page says so. It is labelled secondary and not a validated measure of NBS integration. |
+| Completeness and confidence | 13 of 14 indicators have a numeric score, 1 Unknown. Confidence: 1 staff estimate, 12 not stated. |
+| Improvement areas (not a validated ranking) | 1.3 Link to grey infrastructure, 2.3 Targets and monitoring, 5.3 Co-benefits valued in decisions (all Score 0). |
+| Preliminary options (cards) | Green roof, Green corridor, Urban forest (Miyawaki method). Each shows "Relevant to: Heatwaves; Flooding". |
 | Order of the cards | Green roof and Green corridor have the same provisional match (67 / 100, kept in the CSV). Their order follows the fixed option order. It is **not** a validated ranking and Green roof is **not** given priority by the pilot choice. |
+| Shared implementation conditions | 5.1 Capital funding: Score 1. 5.2 Long-term maintenance budget: Score 0. 3.2 Technical know-how: Score 1. |
 | Green roof applicability | **Requires verification**. Reason: structural suitability of the roof requires assessment. |
 | Physical quantities | Rain falling on the roof in this event: **24 m³** (800 m² × 30 mm). Substrate volume to buy: **64 m³** (800 m² × 0.08 m). |
 | Climate-risk mitigation impact | "Quantitative climate-risk mitigation impact is not currently estimated." |
@@ -31,48 +43,45 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | Indicative construction cost | Low **23,240**, base **41,860**, high **78,160 EUR**. Demo assumption. No price year. |
 | Indicative annual maintenance | Low **800**, base **2,000**, high **4,000 EUR** per year. Demo assumption. |
 | Reference cost example | Hamburg, 2017, source S04: **23,200 to 58,400 EUR** (median 35,200) for 800 m². Another place and year, not a local price. Shown only because 800 m² lies inside the 196 to 1,944 m² study range. |
-| Warning beside the cost | Roof structural suitability requires verification. |
-| Summary report | Exactly two A4 pages. Page 1: area, scale, date, site context and selected risks, existing NBS indicators, completeness, evidence strength, scientific limitations. Page 2: the three options with applicability, supporting calculations, reference evidence and cost. |
+| Funding and maintenance considerations beside the cost | From 5.1 (Score 1) and 5.2 (Score 0). |
+| Summary report | Exactly two A4 pages. Page 1: area, scale, date, context, criterion chart, completeness, confidence, improvement areas. Page 2: options, shared conditions, supporting calculations, reference evidence and cost. |
 
-Check values yourself: 800 × 30 / 1000 = 24; 800 × 0.08 = 64; 24 × 26.8 % = 6.43 and 24 × 61.8 % = 14.83; 800 × 29 = 23,200 and 800 × 73 = 58,400 (per-m² range of seven published extensive roofs, 29 to 73 EUR/m²).
+Check values yourself: C1 = (1 + 1 + 0) / 6 = 33 %; C4 = (1 + 1) / 4 = 50 %; C5 = 1 / 6 = 17 %; 800 × 30 / 1000 = 24; 800 × 0.08 = 64; 24 × 26.8 % = 6.43 and 24 × 61.8 % = 14.83; 800 × 29 = 23,200 and 800 × 73 = 58,400 (per-m² range of seven published extensive roofs).
 
 ## B. Storyboard (about 2 minutes 45 seconds)
 
 | Time | Screen and action | Emphasis |
 |---|---|---|
-| 0:00 | Landing page. | Four functions in "What is the tool". |
-| 0:15 | Start assessment. Step 1: choose the İzmir pilot. | Nothing else is assigned by the pilot choice. |
-| 0:30 | Step 2: High density, Limited public land. | Short qualitative descriptions. |
-| 0:40 | Step 3: Heatwaves and Flooding. | Five risks plus Not Sure. |
-| 0:50 | Step 4: Yes, Pocket park, A and B Partial, C Unknown. | Unknown is not zero. |
-| 1:10 | Results: Existing NBS Integration. | Described, not scored. |
-| 1:20 | Preliminary NBS options. | Relevance and limitation, not a feasibility check. |
-| 1:35 | Check this solution on Green roof. Requires verification. | Three possible outcomes. Not engineering approval. |
-| 1:55 | Explore impact and cost. Enter 800 m² and 30 mm. | Physical quantities, literature evidence and cost are separate. |
-| 2:15 | Back to results, then Summary report. | Two A4 pages. |
-| 2:35 | Close on results page. | Prototype for partner testing. |
+| 0:00 | Landing page. | The four functions. |
+| 0:15 | Start. Stage 1: choose the İzmir pilot. | The pilot choice assigns nothing else. |
+| 0:28 | Stage 2: High density, Limited public land. Stage 3: Heatwaves and Flooding. | Five risks plus Not Sure. |
+| 0:45 | Stages 4 to 8: show C1 (1.2 target question) and C3 with Unknown, then move quickly through C2, C4, C5. | Five criteria, fourteen indicators. Unknown is not zero. |
+| 1:15 | Results: criterion chart. | C1 apart from C2 to C5. C3 not rated. Combined score withheld and provisional. |
+| 1:35 | Preliminary NBS options. | Relevance and conditions, not a feasibility check. |
+| 1:50 | Check this solution on Green roof: Requires verification. | Screening, not engineering approval. |
+| 2:05 | Explore impact and cost: 800 m², 30 mm. | Quantities, literature evidence and cost are separate. |
+| 2:30 | Summary report. | Two A4 pages. |
+| 2:45 | Close. | Prototype for partner testing. |
 
 ## C. English voice-over (about 2 minutes 45 seconds)
 
-"This is the self-evaluation tool developed by the University of Jordan within the NBS4MED project, under Activity A3.3.2. It is a prototype for partner testing, and it works alongside the developing PROMEA framework. It has four functions: to describe existing nature-based solutions in an area, to identify options that may be relevant to local climate risks, to estimate climate-risk mitigation impacts where a supported method exists, and to give indicative costs.
+"This is the self-evaluation tool developed by the University of Jordan within the NBS4MED project, under Activity A3.3.2. It is a prototype for partner testing, and it works alongside the developing PROMEA framework. It has four functions: to assess how far nature-based solutions are already integrated in an area, to identify options that may be relevant to local climate risks, to estimate climate-risk mitigation impacts where a supported method exists, and to give indicative costs.
 
-The assessment has four steps. First, we select the assessment area. Here I choose the İzmir Green Roof pilot. Selecting a pilot only fills in its country and city. It does not assign risks, site conditions or recommendations.
+The assessment has eight stages. First, the assessment area. Here I choose the İzmir Green Roof pilot. This only fills in its country and city. It does not assign risks, site conditions or recommendations.
 
-Second, site context. For this illustrative example I enter high urban density and limited public land. These are qualitative answers.
+Second, site context. For this illustrative example I enter high urban density and limited public land. Third, local climate risks. There are five: heatwaves, flooding, drought, coastal storms and land degradation. I select heatwaves and flooding.
 
-Third, local climate risks. We use five risks: heatwaves, flooding, drought, coastal storms and land degradation. I select heatwaves and flooding. If the risks are not yet known, the user can choose Not Sure.
+Stages four to eight cover five criteria with fourteen indicators: existing integration of nature-based solutions, policy and planning, institutional and technical capacity, stakeholder engagement, and funding and sustainability. Each indicator uses a provisional zero-to-two rubric, and a user can enter evidence and confidence. If the information is missing, the answer is Unknown. Unknown is never recorded as zero.
 
-Fourth, existing nature-based solutions. I answer yes, and describe three aspects: spatial coverage, ecological and climate functionality, and integration with the site. Where information is missing, I choose Unknown. Unknown is never recorded as zero, and the indicators are not combined into a single score.
+On the results page, the criteria are shown separately, with existing integration apart from the enabling conditions. Here one indicator is unknown, so that criterion is not rated, and the combined score is withheld. This score is provisional and is not a validated measure of integration.
 
-On the results page, the first section describes the existing solutions. The second section lists preliminary options that match the selected risks. This match uses provisional rules for heat, flooding and drought. It is not a feasibility check and not a prediction of impact. For other risks, the tool says that matching is not yet assessed.
+Next, preliminary options. They are matched to the selected risks with provisional rules for heat, flooding and drought. This is not a feasibility check and not a prediction of impact. For other risks, the tool says that matching is not yet assessed.
 
-For Green roof, I open the applicability check. A roof is available, but its structural suitability is still pending, so the result is Requires verification. This is a screening step, not engineering approval.
+For Green roof, I open the applicability check. A roof is available, but its structural suitability is pending, so the result is Requires verification. This is screening, not engineering approval.
 
-Now I explore the Green roof. I enter a roof area of 800 square metres and a design storm of 30 millimetres. The tool shows physical quantities, such as the rainfall on the roof and the substrate volume. It states that quantitative climate-risk mitigation impact is not currently estimated. A published literature range for event retention is shown separately, as reference evidence only. The indicative cost range uses demonstration assumptions in euros, and a published reference example is shown because the area lies within the study range.
+Now I explore the Green roof, with 800 square metres and a 30 millimetre storm. The tool shows physical quantities, and states that quantitative climate-risk mitigation impact is not currently estimated. A published literature range is shown separately as reference evidence. The cost range uses demonstration assumptions in euros, with a published reference example because the area is within the study range.
 
-Finally, the summary report presents these results on two pages, with the main limitations.
-
-We now invite partners to test the tool, check the assumptions, and help refine the methodology and data."
+Finally, the two-page summary report. We now invite partners to test the tool and help refine the methodology and data."
 
 ## D. Recording instructions
 
@@ -85,12 +94,12 @@ We now invite partners to test the tool, check the assumptions, and help refine 
 - **Audio:** record the voice-over separately, then align it to the screen recording.
 - No video file has been produced by the development team. This document is the package for recording.
 
-## E. PowerPoint wording to change
+## E. PowerPoint wording
 
-- Replace "eight stages", "five criteria", "14 indicators", "overall score", "improvement areas" with: four steps; existing NBS status and three descriptive indicators; no overall score.
-- Replace "match score out of 100" with: provisional rule-based match to the selected risks, not a validated ranking.
-- Replace "institutional readiness (policy, capacity, stakeholders, funding)" with: optional implementation considerations for each solution (regulation, stakeholders, technical expertise, maintenance, funding). They are not scored.
-- Risks: five (heatwaves, flooding, drought, coastal storms, land degradation) plus Not Sure. Matching rules exist only for the first three.
+- The tool has eight stages: Assessment Area, Site Context, Local Climate Risks, then the five criteria C1 to C5 with fourteen indicators.
+- The 0 to 2 rubric and the criterion levels are provisional project design, not an official PROMEA scoring method. Call the combined score "provisional combined assessment score", secondary, and not a validated measure of NBS integration.
+- Preliminary matching: "provisional rule-based match to the selected risks", not a validated ranking. Rules exist only for heatwaves, flooding and drought. No numeric match score is shown on the results page.
+- Risks: five (heatwaves, flooding, drought, coastal storms, land degradation) plus Not Sure.
 - Impact: say "climate-risk mitigation impact is not currently estimated". What is calculated: physical quantities, literature reference evidence and indicative cost ranges for five of the nine solutions.
-- Remove income level. State that climate type is pending.
-- Do not describe the tool or its weights as validated by PROMEA. The four-step workflow and the three indicators are a UJ prototype design.
+- Income level is removed. Climate type and evaluation are pending in the PROMEA alignment table.
+- Do not describe the tool or its weights as validated by PROMEA.

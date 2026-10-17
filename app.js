@@ -5,23 +5,73 @@ var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelect
 var lang='en';
 
 /* ---------- data ---------- */
-/* Existing NBS integration: three descriptive indicators on a 0 to 2 scale. The descriptions are a PROVISIONAL UJ prototype
-   rubric for partner review against the PROMEA framework. They are not an official scoring method and are not combined. */
-var IND=[
- {id:'A',c:0,en:'Spatial distribution and coverage',ar:'التوزع المكاني والتغطية',h:'How extensively existing NBS are present across the relevant parts of the area.',ha:'مدى انتشار الحلول القائمة على الطبيعة في الأجزاء ذات الصلة من المنطقة.',
-  r:[['Existing NBS are limited to isolated or very small locations.','الحلول القائمة على الطبيعة محصورة في مواقع معزولة أو صغيرة جدًا.'],
-     ['Existing NBS cover some parts of the area, but large relevant parts have none.','تغطي الحلول القائمة بعض أجزاء المنطقة، لكن أجزاء كبيرة ذات صلة تخلو منها.'],
-     ['Existing NBS are present across most of the relevant parts of the area.','الحلول القائمة موجودة في معظم الأجزاء ذات الصلة من المنطقة.']]},
- {id:'B',c:0,en:'Ecological and climate functionality',ar:'الوظائف البيئية والمناخية',h:'Which relevant environmental or climate-related functions existing NBS currently provide.',ha:'الوظائف البيئية أو المرتبطة بالمناخ التي تؤديها الحلول القائمة حاليًا.',
-  r:[['Existing NBS provide no clearly identifiable ecological or climate-related function.','لا تؤدي الحلول القائمة وظيفة بيئية أو مناخية يمكن تحديدها بوضوح.'],
-     ['Existing NBS provide some relevant functions, but these are limited or only partly working.','تؤدي الحلول القائمة بعض الوظائف ذات الصلة، لكنها محدودة أو تعمل جزئيًا.'],
-     ['Existing NBS clearly provide relevant functions, such as shade, rainwater infiltration or water storage, and are working as intended.','تؤدي الحلول القائمة وظائف ذات صلة بوضوح، مثل الظل أو تسرب مياه الأمطار أو تخزين المياه، وتعمل كما هو مقصود.']]},
- {id:'C',c:0,en:'Integration with the site',ar:'التكامل مع الموقع',h:'How existing NBS interact with the site layout, land use and relevant infrastructure.',ha:'كيف تتفاعل الحلول القائمة مع تخطيط الموقع واستخدامات الأرض والبنية التحتية ذات الصلة.',
-  r:[['Existing NBS are separate from the site layout, land use and infrastructure.','الحلول القائمة منفصلة عن تخطيط الموقع واستخدامات الأرض والبنية التحتية.'],
-     ['Existing NBS are partly connected to the site layout, land use or infrastructure.','الحلول القائمة مرتبطة جزئيًا بتخطيط الموقع أو استخدامات الأرض أو البنية التحتية.'],
-     ['Existing NBS are planned into the site layout and connected to land use and relevant infrastructure.','الحلول القائمة مخططة ضمن تخطيط الموقع ومرتبطة باستخدامات الأرض والبنية التحتية ذات الصلة.']]}
+/* Indicators, criteria and the 0 to 2 scale are unchanged. The scoring descriptions (r) are a PROVISIONAL project
+   rubric: they are for partner review against the PROMEA framework and the NBS repository. */
+var CRIT=[
+ {id:'C1',en:'NBS Integration Status',ar:'حالة دمج الحلول القائمة على الطبيعة',sh:'Integration',shAr:'الدمج'},
+ {id:'C2',en:'Policy & Planning',ar:'السياسات والتخطيط',sh:'Policy',shAr:'السياسات'},
+ {id:'C3',en:'Institutional & Technical Capacity',ar:'القدرات المؤسسية والفنية',sh:'Capacity',shAr:'القدرات'},
+ {id:'C4',en:'Stakeholder Engagement',ar:'إشراك أصحاب المصلحة',sh:'Engagement',shAr:'الإشراك'},
+ {id:'C5',en:'Funding & Sustainability',ar:'التمويل والاستدامة',sh:'Funding',shAr:'التمويل'}
 ];
-var LV=[['Limited','Partial','Substantial'],['محدود','جزئي','كبير']];
+var IND=[
+ {id:'1.1',c:0,en:'NBS inventory',ar:'جرد الحلول القائمة على الطبيعة',h:'A mapped list of existing NBS, such as parks, green roofs, wetlands and tree corridors.',ha:'قائمة مرسومة على خريطة بالحلول القائمة، مثل الحدائق والأسطح الخضراء والأراضي الرطبة وممرات الأشجار.',
+  r:[['No inventory of existing NBS exists.','لا يوجد جرد للحلول القائمة على الطبيعة.'],
+     ['An inventory exists but is incomplete or needs updating.','يوجد جرد لكنه غير مكتمل أو يحتاج إلى تحديث.'],
+     ['An inventory covers the assessment area and records NBS type, location and condition.','يغطي الجرد منطقة التقييم ويسجل نوع كل حل وموقعه وحالته.']]},
+ {id:'1.2',c:0,en:'Coverage of public space',ar:'تغطية الحلول في الفضاء العام',h:'Share of public space with green or blue features. A local target and a measurement are helpful but not required.',ha:'نسبة الفضاء العام ذي العناصر الخضراء أو الزرقاء. الهدف المحلي والقياس مفيدان لكنهما غير مطلوبين.',
+  r:[['Public space with green or blue features is known to be minimal, or no such features are present in the area.','الفضاء العام ذو العناصر الخضراء أو الزرقاء محدود جدًا بحسب المعلومات المتاحة، أو لا توجد عناصر كهذه في المنطقة.'],
+     ['Some public space has green or blue features, but coverage is partial or uneven, or falls short of a local target where one exists.','بعض الفضاء العام فيه عناصر خضراء أو زرقاء، لكن التغطية جزئية أو غير متوازنة، أو دون الهدف المحلي إن وُجد.'],
+     ['Green or blue features are widespread across the public space of the area, and meet a local target where one exists.','العناصر الخضراء أو الزرقاء منتشرة في الفضاء العام بالمنطقة، وتحقق الهدف المحلي إن وُجد.']]},
+ {id:'1.3',c:0,en:'Link to grey infrastructure',ar:'التكامل مع البنية التحتية الرمادية',h:'NBS are planned together with drainage, roads and buildings, not added afterwards.',ha:'تُخطَّط الحلول مع الصرف والطرق والمباني، لا بعدها.',
+  r:[['NBS are planned separately from drainage, roads and buildings, or not linked to them at all.','تُخطَّط الحلول بمعزل عن الصرف والطرق والمباني، أو دون أي ربط بها.'],
+     ['Some projects are coordinated with grey infrastructure, but this is not routine practice.','تُنسَّق بعض المشاريع مع البنية التحتية الرمادية، لكن ذلك ليس ممارسة معتادة.'],
+     ['NBS are routinely planned together with drainage, roads and buildings in the area.','تُخطَّط الحلول بانتظام مع الصرف والطرق والمباني في المنطقة.']]},
+ {id:'2.1',c:1,en:'NBS in strategic plans',ar:'إدراج الحلول في الخطط الاستراتيجية',h:'NBS appear in the climate adaptation plan, master plan or sector plans.',ha:'تظهر الحلول في خطة التكيف المناخي أو المخطط العام أو الخطط القطاعية.',
+  r:[['NBS are not mentioned in the climate adaptation, master or sector plans that apply to the area.','لا تُذكر الحلول في خطط التكيف المناخي أو المخطط العام أو الخطط القطاعية السارية على المنطقة.'],
+     ['NBS are mentioned in some plans, but without specific measures, locations or responsibilities.','تُذكر الحلول في بعض الخطط، لكن دون إجراءات أو مواقع أو مسؤوليات محددة.'],
+     ['NBS appear in the applicable plans with specific measures, locations or responsibilities.','تظهر الحلول في الخطط السارية مع إجراءات أو مواقع أو مسؤوليات محددة.']]},
+ {id:'2.2',c:1,en:'Regulation and standards',ar:'المتطلبات التنظيمية',h:'Zoning, building codes or green-area standards require or reward NBS.',ha:'تشترط أنظمة التقسيم أو البناء أو معايير المساحات الخضراء الحلول أو تكافئها.',
+  r:[['No zoning rule, building code or green-area standard requires or rewards NBS.','لا يوجد نظام تقسيم أو كود بناء أو معيار مساحات خضراء يشترط الحلول أو يكافئها.'],
+     ['Some rules or standards encourage NBS, but they are voluntary, partial or rarely applied.','تشجع بعض الأنظمة أو المعايير الحلول، لكنها طوعية أو جزئية أو نادرًا ما تُطبَّق.'],
+     ['Rules or standards require or reward NBS and are applied to projects in the area.','تشترط الأنظمة أو المعايير الحلول أو تكافئها وتُطبَّق على المشاريع في المنطقة.']]},
+ {id:'2.3',c:1,en:'Targets and monitoring',ar:'الأهداف والرصد',h:'Measurable NBS targets exist and are reported on a regular schedule.',ha:'توجد أهداف قابلة للقياس تُرفع عنها تقارير دورية.',
+  r:[['No measurable NBS targets exist.','لا توجد أهداف قابلة للقياس للحلول.'],
+     ['Targets exist but are not measurable, or progress is not reported regularly.','توجد أهداف لكنها غير قابلة للقياس، أو لا يُرفع تقرير دوري عن التقدم.'],
+     ['Measurable NBS targets exist and progress is reported on a regular schedule.','توجد أهداف قابلة للقياس ويُرفع تقرير دوري عن التقدم.']]},
+ {id:'3.1',c:2,en:'Dedicated staff or unit',ar:'كوادر أو وحدة مختصة',h:'A unit or named staff are responsible for NBS across departments.',ha:'وحدة أو موظفون محددون مسؤولون عن الحلول عبر الإدارات.',
+  r:[['No unit or named staff are responsible for NBS.','لا توجد وحدة أو موظفون محددون مسؤولون عن الحلول.'],
+     ['Staff handle NBS alongside other duties, or responsibility is limited to one department.','يتولى موظفون الحلول إلى جانب مهام أخرى، أو تقتصر المسؤولية على إدارة واحدة.'],
+     ['A unit or named staff are responsible for NBS and work across departments.','وحدة أو موظفون محددون مسؤولون عن الحلول ويعملون عبر الإدارات.']]},
+ {id:'3.2',c:2,en:'Technical know-how',ar:'الخبرة الفنية والأدلة الإرشادية',h:'Staff or contractors can design, build and manage NBS; guidance documents exist.',ha:'يستطيع الموظفون أو المقاولون تصميم الحلول وتنفيذها وإدارتها، وتوجد أدلة إرشادية.',
+  r:[['Staff and contractors have little or no experience in designing, building or managing NBS, and no guidance exists.','لدى الموظفين والمقاولين خبرة قليلة أو معدومة في تصميم الحلول وتنفيذها وإدارتها، ولا توجد أدلة إرشادية.'],
+     ['Some experience or guidance exists, but it is limited to certain NBS types or relies on outside support.','توجد بعض الخبرة أو الأدلة الإرشادية، لكنها تقتصر على أنواع معينة من الحلول أو تعتمد على دعم خارجي.'],
+     ['Staff or contractors can design, build and manage NBS, and guidance documents are available.','يستطيع الموظفون أو المقاولون تصميم الحلول وتنفيذها وإدارتها، وتتوفر أدلة إرشادية.']]},
+ {id:'3.3',c:2,en:'Data and monitoring tools',ar:'البيانات وأدوات الرصد',h:'Climate, land-use and NBS data are available and used in decisions.',ha:'بيانات المناخ واستخدام الأراضي والحلول متاحة وتُستخدم في القرار.',
+  r:[['Climate, land-use and NBS data are not available, or are not used in decisions.','بيانات المناخ واستخدام الأراضي والحلول غير متاحة، أو لا تُستخدم في القرار.'],
+     ['Some data exist, but they are incomplete, out of date or only occasionally used in decisions.','توجد بعض البيانات، لكنها غير مكتملة أو قديمة أو لا تُستخدم في القرار إلا أحيانًا.'],
+     ['Climate, land-use and NBS data are available and used in decisions.','بيانات المناخ واستخدام الأراضي والحلول متاحة وتُستخدم في القرار.']]},
+ {id:'4.1',c:3,en:'Community participation',ar:'مشاركة المجتمع في التصميم',h:'Residents help set priorities or design NBS, not only comment at the end.',ha:'يشارك السكان في تحديد الأولويات أو التصميم، لا في إبداء الرأي بعد الانتهاء فقط.',
+  r:[['Residents are not involved in planning or designing NBS.','لا يشارك السكان في تخطيط الحلول أو تصميمها.'],
+     ['Residents are consulted, but mostly after the main decisions have been made.','يُستشار السكان، لكن غالبًا بعد اتخاذ القرارات الرئيسية.'],
+     ['Residents help set priorities or design NBS from an early stage.','يساعد السكان في تحديد الأولويات أو تصميم الحلول منذ مرحلة مبكرة.']]},
+ {id:'4.2',c:3,en:'Coordination across departments and owners',ar:'التنسيق بين الإدارات والقطاع الخاص',h:'Departments, utilities, NGOs and private owners coordinate on NBS actions.',ha:'تنسق الإدارات والمرافق والمنظمات غير الحكومية والملاك الخواص إجراءات الحلول.',
+  r:[['Departments, utilities and private owners do not coordinate on NBS actions.','لا تنسق الإدارات والمرافق والملاك الخواص إجراءات الحلول.'],
+     ['Coordination happens case by case, or only between some of the actors.','يحدث التنسيق حالة بحالة، أو بين بعض الأطراف فقط.'],
+     ['Departments, utilities and private owners coordinate on NBS actions through a regular mechanism.','تنسق الإدارات والمرافق والملاك الخواص إجراءات الحلول عبر آلية منتظمة.']]},
+ {id:'5.1',c:4,en:'Capital funding',ar:'تمويل رأس المال',h:'Funding for building NBS is secured or realistically available.',ha:'تمويل الإنشاء مضمون أو متاح بصورة واقعية.',
+  r:[['No funding for building NBS is secured or realistically available.','لا يوجد تمويل مضمون أو متاح بصورة واقعية لإنشاء الحلول.'],
+     ['Some funding is secured or likely, but it does not cover the planned NBS.','يوجد بعض التمويل المضمون أو المرجح، لكنه لا يغطي الحلول المخطط لها.'],
+     ['Funding for building the planned NBS is secured or realistically available.','تمويل إنشاء الحلول المخطط لها مضمون أو متاح بصورة واقعية.']]},
+ {id:'5.2',c:4,en:'Long-term maintenance budget',ar:'ميزانية الصيانة طويلة الأجل',h:'A long-term budget covers upkeep, watering and replacement.',ha:'ميزانية طويلة الأجل تغطي الصيانة والري والاستبدال.',
+  r:[['No budget covers maintenance, watering or replacement of NBS.','لا توجد ميزانية تغطي صيانة الحلول أو ريّها أو استبدالها.'],
+     ['A maintenance budget exists, but it is short-term, partial or not guaranteed.','توجد ميزانية للصيانة، لكنها قصيرة الأجل أو جزئية أو غير مضمونة.'],
+     ['A long-term budget covers upkeep, watering and replacement.','ميزانية طويلة الأجل تغطي الصيانة والري والاستبدال.']]},
+ {id:'5.3',c:4,en:'Co-benefits valued in decisions',ar:'تقدير الفوائد المشتركة في القرار',h:'Benefits such as cooling, health and flood protection are counted in funding decisions.',ha:'تُحتسب فوائد مثل التبريد والصحة والحماية من الفيضان في قرارات التمويل.',
+  r:[['Co-benefits such as cooling, health and flood protection are not counted in funding decisions.','لا تُحتسب الفوائد المشتركة مثل التبريد والصحة والحماية من الفيضان في قرارات التمويل.'],
+     ['Co-benefits are mentioned in funding decisions, but are not measured or valued.','تُذكر الفوائد المشتركة في قرارات التمويل، لكنها لا تُقاس ولا تُقدَّر.'],
+     ['Co-benefits are measured or valued and counted in funding decisions.','تُقاس الفوائد المشتركة أو تُقدَّر وتُحتسب في قرارات التمويل.']]}
+];
 var SCOPES=[['site','Site / Project Area','الموقع / منطقة المشروع'],['neighbourhood','Neighbourhood / District','الحي / المنطقة السكنية'],['municipality','Municipality / City','البلدية / المدينة']];
 /* pilot names as given by the project; a city or municipality is listed only where the project context names one */
 var PILOTS=[
@@ -49,6 +99,10 @@ var UNSURE={k:'unsure',en:'Not Sure / Further Assessment Needed',ar:'غير مت
 /* the provisional demo weights exist for these three risks only */
 var MATCHABLE=['heat','flood','drought'];
 var CONF=[['high','High: documented evidence','عالية: أدلة موثقة'],['mid','Medium: staff estimate','متوسطة: تقدير الموظفين'],['low','Low: informal judgement','منخفضة: تقدير غير رسمي']];
+/* provisional project thresholds, unchanged from the earlier demo */
+var LEVELS=[
+ {en:'Insufficient',ar:'غير كافٍ',c:'l0'},{en:'Partial',ar:'جزئي',c:'l1'},{en:'Adequate',ar:'كافٍ',c:'l2'},{en:'Strong',ar:'قوي',c:'l3'}
+];
 var OPT=[
  {id:'tiny',en:'Urban forest (Miyawaki method)',ar:'غابة حضرية (طريقة ميازاكي)',eg:'NBS4MED pilot: Cerdanyola del Vallès, Spain',w:{heat:3,flood:1,drought:1,coast:0,fire:0,air:2},land:1,cx:1,nbs:'NBS01',cat:'green',cat2:'restoration'},
  {id:'roof',en:'Green roof',ar:'سطح أخضر',eg:'NBS4MED pilot: Izmir, Türkiye',w:{heat:2,flood:2,drought:1,coast:0,fire:0,air:1},land:0,cx:2,nbs:'NBS02',cat:'green'},
@@ -136,7 +190,7 @@ var S={
  ratL:{en:'Rationale: why did you choose this answer?',ar:'التعليل: لماذا اخترت هذه الإجابة؟'},
  evdL:{en:'Evidence or source (document title, URL or description)',ar:'الدليل أو المصدر (عنوان وثيقة أو رابط أو وصف)'},
  evdH:{en:'Nothing is uploaded: type a title, link or description only.',ar:'لا يُرفع أي ملف: اكتب عنوانًا أو رابطًا أو وصفًا فقط.'},
-cfL:{en:'Strength of evidence for this answer',ar:'قوة الأدلة المؤيدة لهذه الإجابة'},cfNone:{en:'Not stated',ar:'غير محددة'},
+ cfL:{en:'Confidence in this answer',ar:'الثقة في هذه الإجابة'},cfNone:{en:'Not stated',ar:'غير محددة'},
  tgtQ:{en:'Is there a local target for NBS or for green and blue space coverage?',ar:'هل يوجد هدف محلي للحلول أو لتغطية المساحات الخضراء والزرقاء؟'},
  covQ:{en:'Is the current coverage known (mapped or measured)?',ar:'هل التغطية الحالية معروفة (مرسومة أو مقيسة)؟'},
  tgtBoth:{en:'A target exists and coverage is known: compare them when you choose the score.',ar:'يوجد هدف والتغطية معروفة: قارن بينهما عند اختيار الدرجة.'},
@@ -146,34 +200,11 @@ cfL:{en:'Strength of evidence for this answer',ar:'قوة الأدلة المؤ�
  ansN:{en:function(a,b){return a+' of '+b+' answered'},ar:function(a,b){return a+' من '+b+' مُجاب عنها'}},
  back:{en:'Back',ar:'رجوع'},cont:{en:'Continue',ar:'متابعة'},seeRes:{en:'See results',ar:'عرض النتائج'},
  stScope:{en:'Assessment area',ar:'منطقة التقييم'},stCtx:{en:'Site Context',ar:'سياق الموقع'},
- stRisk:{en:'Local Climate Risks',ar:'المخاطر المناخية المحلية'},stNbs:{en:'Existing NBS Integration',ar:'دمج الحلول القائمة على الطبيعة الحالية'},
- nbsP:{en:'Describe the nature-based solutions that already exist in the assessment area, as they are today.',ar:'صِف الحلول القائمة على الطبيعة الموجودة فعلًا في منطقة التقييم، كما هي اليوم.'},
- nbsQ:{en:'Are there any existing Nature-based Solutions in the assessment area?',ar:'هل توجد حلول قائمة على الطبيعة في منطقة التقييم؟'},
- nbsH:{en:'Existing NBS are planned or managed to provide environmental or climate-related benefits, for example green roofs, rain gardens, constructed wetlands or tree corridors. Ordinary green space, such as lawns or planted verges, is not counted unless it serves such a purpose.',ar:'الحلول القائمة على الطبيعة مخططة أو مُدارة لتحقيق منافع بيئية أو مناخية، مثل الأسطح الخضراء والحدائق المطرية والأراضي الرطبة المنشأة وممرات الأشجار. ولا تُعدّ المساحات الخضراء العادية، كالمروج والأشرطة المزروعة، حلولًا قائمة على الطبيعة ما لم تؤدِّ هذا الغرض.'},
- nbsNS:{en:'Not sure',ar:'غير متأكد'},
- nbsTypes:{en:'Types of existing NBS',ar:'أنواع الحلول القائمة'},nbsTypesH:{en:'Select all that apply. Optional.',ar:'اختر كل ما ينطبق. اختياري.'},nbsOther:{en:'Other type',ar:'نوع آخر'},nbsOtherF:{en:'Other type (describe)',ar:'نوع آخر (صِفه)'},
- nbsNo:{en:'No existing NBS are reported. The indicators below are skipped, and this is recorded as reported absence, not as a score.',ar:'لم يُبلَّغ عن حلول قائمة. تُتخطى المؤشرات أدناه، ويُسجَّل ذلك غيابًا مُبلَّغًا عنه وليس درجة.'},
- nbsUn:{en:'Insufficient information to describe existing NBS. The indicators below are skipped, and this is recorded as missing information, not as zero.',ar:'المعلومات غير كافية لوصف الحلول القائمة. تُتخطى المؤشرات أدناه، ويُسجَّل ذلك معلومة ناقصة وليس صفرًا.'},
- nbsIndH:{en:'Existing NBS indicators',ar:'مؤشرات الحلول القائمة'},
- nbsKey:{en:'Choose the description that best matches the existing NBS as they are today. The 0 to 2 descriptions are a provisional project rubric for partner review. They describe the NBS present in the area, not the quality of the evidence or the capacity of the organisation, and they are not combined into a score. Unknown means the information is missing and is never recorded as 0.',ar:'اختر الوصف الأقرب إلى الحلول القائمة كما هي اليوم. أوصاف 0 إلى 2 قاعدة مؤقتة للمشروع لمراجعة الشركاء. وهي تصف الحلول الموجودة في المنطقة، لا جودة الأدلة ولا قدرة الجهة، ولا تُجمع في درجة واحدة. «غير معروف» تعني أن المعلومة ناقصة ولا تُسجَّل صفرًا.'},
- s1H:{en:'Existing NBS Integration',ar:'دمج الحلول القائمة على الطبيعة الحالية'},
- nbsStat:{en:'Existing NBS',ar:'الحلول القائمة'},
- nbsSY:{en:'Reported present in the assessment area.',ar:'مُبلَّغ عنها في منطقة التقييم.'},nbsSN:{en:'Reported absent from the assessment area.',ar:'مُبلَّغ عن غيابها من منطقة التقييم.'},nbsSU:{en:'Not determined: insufficient information.',ar:'غير محدد: المعلومات غير كافية.'},
- nbsNA:{en:'Not assessed',ar:'غير مقيَّم'},nbsLvl:{en:'Level',ar:'المستوى'},
- nbsWarn:{en:function(l){return 'Not assessed because the information is missing: '+l+'. Missing information is not recorded as zero.'},ar:function(l){return 'غير مقيَّم لأن المعلومة ناقصة: '+l+'. لا تُسجَّل المعلومة الناقصة صفرًا.'}},
- nbsNote:{en:'Provisional descriptions for partner review. They are shown one by one and are not combined into an overall score.',ar:'أوصاف مؤقتة لمراجعة الشركاء. تُعرض كل على حدة ولا تُجمع في درجة إجمالية.'},
+ stRisk:{en:'Local Climate Risks',ar:'المخاطر المناخية المحلية'},
  s3H:{en:'Potential Climate Impact and Supporting Calculations',ar:'الأثر المناخي المحتمل والحسابات الداعمة'},s4H:{en:'Indicative Cost and Implementation Considerations',ar:'التكلفة الإرشادية واعتبارات التنفيذ'},
  s3P:{en:'Select a solution to see supporting calculations. Climate-risk mitigation estimates, physical calculations and literature reference evidence are shown separately.',ar:'اختر حلًّا لعرض الحسابات الداعمة. تُعرض تقديرات التخفيف من المخاطر المناخية والحسابات الفيزيائية والأدلة المرجعية من الأدبيات كلًّا على حدة.'},
  s4P:{en:'Cost ranges and implementation conditions for the selected solution appear here.',ar:'تظهر هنا نطاقات التكلفة وشروط التنفيذ للحل المختار.'},
  mitH:{en:'Climate-risk mitigation impact',ar:'أثر التخفيف من المخاطر المناخية'},mitNone:{en:'Quantitative climate-risk mitigation impact is not currently estimated.',ar:'لا يُقدَّر حاليًا الأثر الكمي للتخفيف من المخاطر المناخية.'},
- implH:{en:'Implementation considerations (optional)',ar:'اعتبارات التنفيذ (اختيارية)'},implNote:{en:'These questions do not change the applicability result.',ar:'لا تغيّر هذه الأسئلة نتيجة قابلية التطبيق.'},implNot:{en:'Not yet checked',ar:'لم يُفحص بعد'},
- implQ:{reg:['Have the permits or regulatory requirements for this solution been identified?','هل جرى تحديد التراخيص أو المتطلبات التنظيمية لهذا الحل؟'],
-  stake:['Have the landowner and other relevant stakeholders been consulted?','هل جرت استشارة مالك الأرض وأصحاب المصلحة المعنيين؟'],
-  stakeRoof:['Has the building owner agreed in principle to a green roof?','هل وافق مالك المبنى مبدئيًا على سطح أخضر؟'],
-  tech:['Is the technical expertise needed to design and build it available?','هل تتوفر الخبرة الفنية اللازمة لتصميمه وإنشائه؟'],
-  maint:['Is there an arrangement for maintaining it, including watering where needed?','هل يوجد ترتيب لصيانته، بما في ذلك الري عند الحاجة؟'],
-  fund:['Is funding for building and maintaining it identified?','هل جرى تحديد تمويل لإنشائه وصيانته؟']},
- implSumN:{en:'Implementation considerations are optional and are answered per solution. No answers have been entered for this solution.',ar:'اعتبارات التنفيذ اختيارية وتُجاب لكل حل على حدة. لم تُدخل إجابات لهذا الحل.'},
  limDefault:{en:'Preliminary climate-risk match only. It is not a feasibility check or a prediction of impact.',ar:'مطابقة أولية للمخاطر المناخية فقط. وهي ليست فحصًا للجدوى ولا تنبؤًا بالأثر.'},
  relRisk:{en:'Relevant to',ar:'ذو صلة بـ'},limL:{en:'Limitation',ar:'قيد'},
  scopeP:{en:'Select the area you want to assess. All answers should reflect its current conditions.',ar:'اختر المنطقة التي تريد تقييمها. يجب أن تعكس جميع الإجابات أوضاعها الحالية.'},
@@ -192,7 +223,7 @@ cfL:{en:'Strength of evidence for this answer',ar:'قوة الأدلة المؤ�
  mUnass:{en:function(n){return 'Matching rules for '+n+' have not been defined and require methodology review. No match score or ranking is shown.'},ar:function(n){return 'لم تُحدَّد قواعد المطابقة الخاصة بـ '+n+' وهي تحتاج إلى مراجعة منهجية. لا تُعرض درجة مطابقة ولا ترتيب.'}},
  mLand:{en:'Public land availability is unknown. Matching needs this information, so no match score or ranking is shown.',ar:'توفر الأراضي العامة غير معروف. تحتاج المطابقة إلى هذه المعلومة، لذا لا تُعرض درجة مطابقة ولا ترتيب.'},
  mNoCtx:{en:'Urban density and public land availability are required for matching.',ar:'الكثافة العمرانية وتوفر الأراضي العامة مطلوبان للمطابقة.'},
- chkNote:{en:'Screening only, not engineering approval. These checks do not change the existing NBS description or the preliminary match. Answers about planting space, soil and water are shared by the planting-based options.',ar:'فرز أولي وليس اعتمادًا هندسيًا. لا تغيّر هذه الفحوص وصف الحلول القائمة ولا المطابقة الأولية. تُشارَك الإجابات عن مساحة الزراعة والتربة والمياه بين الخيارات القائمة على الزراعة.'},
+ chkNote:{en:'Screening only, not engineering approval. These checks do not change the assessment score or the match score. Answers about planting space, soil and water are shared by the planting-based options.',ar:'فرز أولي وليس اعتمادًا هندسيًا. لا تغيّر هذه الفحوص درجة التقييم ولا درجة المطابقة. تُشارَك الإجابات عن مساحة الزراعة والتربة والمياه بين الخيارات القائمة على الزراعة.'},
  evalP:{en:'Score each indicator for the assessed area as it is today, not as planned.',ar:'قيّم كل مؤشر للمنطقة المقيَّمة بحسب وضعها اليوم لا المخطط له.'},
  forArea:{en:function(n){return 'Answering for: '+n},ar:function(n){return 'الإجابة عن: '+n}},
  optionalHint:{en:'Select all that apply.',ar:'اختر كل ما ينطبق.'},
@@ -217,7 +248,7 @@ cfL:{en:'Strength of evidence for this answer',ar:'قوة الأدلة المؤ�
  profSub:{en:'Each criterion is shown on its own. Read the profile before the overall score.',ar:'يُعرض كل معيار على حدة. اقرأ الملف قبل النتيجة الإجمالية.'},
  g1H:{en:'Current NBS integration (C1)',ar:'الدمج الحالي للحلول القائمة على الطبيعة (C1)'},
  g1P:{en:'How far NBS are already integrated in the area today. This criterion does not measure environmental effectiveness, such as cooling or flood reduction.',ar:'مدى دمج الحلول فعلًا في المنطقة اليوم. لا يقيس هذا المعيار الفعالية البيئية، مثل التبريد أو خفض الفيضانات.'},
- g2H:{en:'Enabling conditions for implementation and sustainability (C2 to C5)',ar:'الظروف الممكّنة للتنفيذ والاستدامة (C2 إلى C5)'},
+ g2H:{en:'Enabling and implementation conditions (C2 to C5)',ar:'الظروف الممكّنة وشروط التنفيذ (C2 إلى C5)'},
  g2P:{en:'Policy, capacity, engagement and funding that support planning, delivery and long-term upkeep of NBS.',ar:'السياسات والقدرات والإشراك والتمويل التي تدعم تخطيط الحلول وتنفيذها وصيانتها على المدى الطويل.'},
  pts:{en:function(s,m,p){return s+' of '+m+' points · '+p+'%'},ar:function(s,m,p){return s+' من '+m+' نقطة · '+p+'%'}},
  cmpl:{en:function(a,b,u,na){return a+' of '+b+' indicators scored'+(u?' · '+u+' Unknown':'')+(na?' · '+na+' Not applicable':'')},ar:function(a,b,u,na){return a+' من '+b+' مؤشرات مُقيَّمة'+(u?' · '+u+' غير معروف':'')+(na?' · '+na+' لا ينطبق':'')}},
@@ -225,7 +256,7 @@ cfL:{en:'Strength of evidence for this answer',ar:'قوة الأدلة المؤ�
  partial:{en:function(s,m,k,t){return 'Available points only (not a criterion score): '+s+' of '+m+' on '+k+' of '+t+' indicators'},ar:function(s,m,k,t){return 'النقاط المتاحة فقط (ليست درجة المعيار): '+s+' من '+m+' في '+k+' من '+t+' مؤشرات'}},
  naCrit:{en:'Not applicable',ar:'لا ينطبق'},
  crit:{en:'Criterion',ar:'المعيار'},score:{en:'Score',ar:'النتيجة'},level:{en:'Level',ar:'المستوى'},
- overallH:{en:'Overall score (secondary)',ar:'النتيجة الإجمالية (ثانوية)'},
+ overallH:{en:'Provisional combined assessment score (secondary; not a validated measure of NBS integration)',ar:'درجة التقييم المجمّعة المؤقتة (ثانوية؛ وليست مقياسًا معتمدًا لدمج الحلول القائمة على الطبيعة)'},
  levelIs:{en:'Level',ar:'المستوى'},
  ovSupp:{en:function(n,l){return 'The overall percentage is not shown because '+n+(n===1?' indicator is':' indicators are')+' Unknown ('+l+'). Resolve '+(n===1?'it':'them')+' to see the overall score.'},ar:function(n,l){return 'لا تُعرض النسبة الإجمالية لأن '+n+' من المؤشرات غير معروفة ('+l+'). عالجها لعرض النتيجة الإجمالية.'}},
  ovNA:{en:'The overall score is not available because every indicator is Not applicable.',ar:'النتيجة الإجمالية غير متاحة لأن كل المؤشرات «لا تنطبق».'},
@@ -249,25 +280,27 @@ cfL:{en:'Strength of evidence for this answer',ar:'قوة الأدلة المؤ�
  readTxt:{en:function(n,p,z){return n+' has the lowest rating among the rated criteria ('+p+'%).'+(z?' Indicators scored 0 in it: '+z+'.':' It has no indicator scored 0.')},ar:function(n,p,z){return n+' هو الأدنى تقييمًا بين المعايير المُقيَّمة ('+p+'%).'+(z?' المؤشرات التي نالت 0 فيه: '+z+'.':' لا يوجد فيه مؤشر نال 0.')}},
  readNone:{en:'No criterion can be rated yet, because each one contains Unknown answers or is Not applicable.',ar:'لا يمكن تقييم أي معيار بعد، لأن كل معيار يحتوي على إجابات غير معروفة أو لا ينطبق.'},
  confH:{en:'Confidence in the answers',ar:'الثقة في الإجابات'},
- confTxt:{en:function(n,a,b,c,d){return 'Of the '+n+' described indicators: '+a+' documented evidence, '+b+' staff estimate, '+c+' informal judgement, '+d+' evidence strength not stated.'},ar:function(n,a,b,c,d){return 'من بين '+n+' مؤشرًا موصوفًا: '+a+' بأدلة موثقة، '+b+' بتقدير الموظفين، '+c+' بتقدير غير رسمي، '+d+' دون تحديد قوة الأدلة.'}},
- confNote:{en:'Evidence strength is reported next to the answers. It does not change any answer.',ar:'تُعرض قوة الأدلة بجانب الإجابات. ولا تغيّر أي إجابة.'},
+ confTxt:{en:function(n,a,b,c,d){return 'Of the '+n+' scored indicators: '+a+' documented evidence, '+b+' staff estimate, '+c+' informal judgement, '+d+' confidence not stated.'},ar:function(n,a,b,c,d){return 'من بين '+n+' مؤشرًا مُقيَّمًا: '+a+' بأدلة موثقة، '+b+' بتقدير الموظفين، '+c+' بتقدير غير رسمي، '+d+' بلا ثقة محددة.'}},
+ confNote:{en:'Confidence is reported next to the answers. It does not change any score.',ar:'تُعرض الثقة بجانب الإجابات. ولا تغيّر أي درجة.'},
  detH:{en:'Answers in detail',ar:'الإجابات بالتفصيل'},
- colInd:{en:'Indicator',ar:'المؤشر'},colAns:{en:'Answer',ar:'الإجابة'},colRat:{en:'Rationale',ar:'التعليل'},colEvd:{en:'Evidence or source',ar:'الدليل أو المصدر'},colCf:{en:'Evidence strength',ar:'قوة الأدلة'},
- methA:{en:'How existing NBS integration is described (provisional)',ar:'كيف يوصف دمج الحلول القائمة (مؤقتًا)'},
+ colInd:{en:'Indicator',ar:'المؤشر'},colAns:{en:'Answer',ar:'الإجابة'},colRat:{en:'Rationale',ar:'التعليل'},colEvd:{en:'Evidence or source',ar:'الدليل أو المصدر'},colCf:{en:'Confidence',ar:'الثقة'},
+ methA:{en:'How the assessment scores are calculated (provisional)',ar:'كيف تُحسب درجات التقييم (مؤقتًا)'},
  methAL:{en:[
-  'Existing NBS integration is described by one status question (Yes, No or Not sure) and, when NBS are reported, three indicators: spatial distribution and coverage, ecological and climate functionality, and integration with the site.',
-  'Each indicator is described on a provisional 0 to 2 rubric prepared by the project team for partner review. The rubric is not an official PROMEA scoring method.',
-  'The indicators are shown one by one. They are not combined into a percentage, a level or an overall score.',
-  'No is recorded as reported absence of existing NBS, and Not sure as insufficient information. Unknown indicator answers are missing information. None of these is recorded as 0.',
-  'Evidence strength (documented evidence, staff estimate or informal judgement) is recorded separately for each indicator. It describes the evidence for the answer, not how well the existing NBS function.',
-  'Policy, regulation, stakeholder, technical-expertise, maintenance and funding considerations are not part of this assessment. They appear as optional implementation considerations for each solution.'],
+  'Each indicator is scored 0, 1 or 2 using the provisional project rubric shown in the assessment.',
+  'Unknown is missing information and is never counted as 0. Not applicable (with a justification) is also left out. Both are reported separately.',
+  'A criterion percentage is the sum of its scored indicators divided by 2 times the number of scored indicators. It is shown only when the criterion has no Unknown answer. A criterion whose indicators are all Not applicable is shown as Not applicable.',
+  'The overall percentage uses the same rule across all indicators and is shown only when no indicator is Unknown. With every indicator scored, it is the total divided by 28. Every indicator has equal weight, so criteria with more indicators weigh more.',
+  'Levels use provisional project thresholds: Insufficient below 30%, Partial 30 to 54%, Adequate 55 to 79%, Strong 80% and above.',
+  'The scores are not multiplied by confidence. Confidence is reported separately, indicator by indicator.',
+  'C1 describes current NBS integration only. It is not a measure of environmental effectiveness.'],
   ar:[
-  'يوصف دمج الحلول القائمة على الطبيعة بسؤال واحد عن الحالة (نعم أو لا أو غير متأكد)، وعند الإبلاغ عن وجودها بثلاثة مؤشرات: التوزع المكاني والتغطية، والوظائف البيئية والمناخية، والتكامل مع الموقع.',
-  'يوصف كل مؤشر وفق قاعدة مؤقتة من 0 إلى 2 أعدّها فريق المشروع لمراجعة الشركاء. وهذه القاعدة ليست طريقة تقييم رسمية لإطار PROMEA.',
-  'تُعرض المؤشرات كل على حدة، ولا تُجمع في نسبة مئوية أو مستوى أو درجة إجمالية.',
-  'يُسجَّل «لا» غيابًا مُبلَّغًا عنه للحلول القائمة، و«غير متأكد» معلومات غير كافية. وإجابات المؤشرات «غير معروف» معلومات ناقصة. ولا يُسجَّل أي منها صفرًا.',
-  'تُسجَّل قوة الأدلة (أدلة موثقة أو تقدير الموظفين أو تقدير غير رسمي) بشكل منفصل لكل مؤشر. وهي تصف الأدلة المؤيدة للإجابة، لا مدى جودة عمل الحلول القائمة.',
-  'لا تدخل اعتبارات السياسات والأنظمة وأصحاب المصلحة والخبرة الفنية والصيانة والتمويل في هذا التقييم. وتظهر كاعتبارات تنفيذ اختيارية لكل حل.']},
+  'يُقيَّم كل مؤشر بـ 0 أو 1 أو 2 وفق المعيار المؤقت للمشروع المعروض في التقييم.',
+  '«غير معروف» معلومة ناقصة ولا تُحتسب صفرًا أبدًا. كذلك تُستبعد «لا ينطبق» (مع مبرر). وتُعرض الحالتان بشكل منفصل.',
+  'نسبة المعيار هي مجموع درجات مؤشراته المُقيَّمة مقسومًا على ضعف عدد المؤشرات المُقيَّمة. تُعرض فقط إذا لم يحتوِ المعيار على إجابة غير معروفة. ويُعرض المعيار الذي تكون كل مؤشراته «لا تنطبق» بعبارة «لا ينطبق».',
+  'تستخدم النسبة الإجمالية القاعدة نفسها على كل المؤشرات، ولا تُعرض إلا إذا لم يكن أي مؤشر غير معروف. وعند تقييم كل المؤشرات تساوي المجموع مقسومًا على 28. لكل مؤشر وزن متساوٍ، لذا يزن المعيار ذو المؤشرات الأكثر أكثر.',
+  'تستخدم المستويات عتبات مؤقتة للمشروع: غير كافٍ دون 30%، جزئي 30 إلى 54%، كافٍ 55 إلى 79%، قوي 80% فأكثر.',
+  'لا تُضرب الدرجات في الثقة. تُعرض الثقة بشكل منفصل لكل مؤشر.',
+  'يصف C1 الدمج الحالي للحلول فقط، وليس مقياسًا للفعالية البيئية.']},
  recH:{en:'NBS recommendations',ar:'توصيات الحلول القائمة على الطبيعة'},
 recP:{en:'Options are listed in the order of a provisional rule-based match to your selected risks and site context. This is not a validated ranking. Applicability statuses come from optional checks and are not engineering approval.',ar:'تُعرض الخيارات بحسب مطابقة مؤقتة قائمة على قواعد مع المخاطر المختارة وسياق الموقع. وهذا ليس ترتيبًا معتمدًا. وتأتي حالات قابلية التطبيق من فحوص اختيارية وليست موافقة هندسية.'},
  matchL:{en:'Rule-based match score',ar:'درجة المطابقة القائمة على القواعد'},
@@ -313,7 +346,7 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
   'Matching rules for Coastal Storms and Land Degradation have not been defined. When either is selected, or when Not Sure is selected, no match score or ranking is produced.',
   'Score = sum of the weights for your selected risks, divided by 3 times the number of selected risks, times 100.',
   'Land context: 15 points are subtracted for each level by which the option\'s land need exceeds the public land available, and 10 more points when urban density is high and the land need is high. The score is limited to 0 to 100.',
-  'Urban density and public land availability are qualitative answers, not numerical thresholds. If public land availability is Unknown, no match score is produced. Implementation considerations (regulation, stakeholders, expertise, maintenance, funding) are optional for each solution and do not change the score or the applicability status.',
+  'Urban density and public land availability are qualitative answers, not numerical thresholds. If public land availability is Unknown, no match score is produced. Institutional gaps (funding, maintenance, technical know-how) are not used to change the score. They are shown as implementation conditions.',
   'Climate type is not yet used in matching. It will be considered once verified location-specific information and decision rules are available.',
   'Public land availability is not used as evidence that a roof is available. Roofs are checked separately in the applicability checks.',
   'Screening: an option is Not applicable only when a basic condition is answered No (for example no roof, no coast, no runoff source). Unknown, or a No on a condition that can be assessed or designed (for example structural suitability), gives Requires verification.'],
@@ -322,7 +355,7 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
   'لم تُحدَّد قواعد المطابقة الخاصة بالعواصف الساحلية وتدهور الأراضي. وعند اختيار أحدهما، أو اختيار «غير متأكد»، لا تُنتج درجة مطابقة ولا ترتيب.',
   'الدرجة = مجموع أوزان المخاطر التي اخترتها مقسومًا على 3 في عدد المخاطر المختارة، مضروبًا في 100.',
   'سياق الأرض: تُخصم 15 نقطة عن كل مستوى تزيد فيه حاجة الخيار إلى الأرض على الأراضي العامة المتاحة، و10 نقاط إضافية عندما تكون الكثافة العمرانية مرتفعة وحاجة الأرض مرتفعة. وتُحصر الدرجة بين 0 و100.',
-  'الكثافة العمرانية وتوفر الأراضي العامة إجابتان نوعيتان وليستا عتبات رقمية. وإذا كان توفر الأراضي العامة «غير معروف» فلا تُنتج درجة مطابقة. واعتبارات التنفيذ (الأنظمة وأصحاب المصلحة والخبرة والصيانة والتمويل) اختيارية لكل حل ولا تغيّر الدرجة ولا حالة قابلية التطبيق.',
+  'الكثافة العمرانية وتوفر الأراضي العامة إجابتان نوعيتان وليستا عتبات رقمية. وإذا كان توفر الأراضي العامة «غير معروف» فلا تُنتج درجة مطابقة. ولا تُستخدم الفجوات المؤسسية (التمويل والصيانة والخبرة الفنية) لتغيير الدرجة. تُعرض كشروط للتنفيذ.',
   'لم يُستخدم نوع المناخ بعد في المطابقة. سيُنظر فيه عند توفر معلومات موثقة خاصة بالموقع وقواعد قرار.',
   'لا يُستخدم توفر الأراضي العامة دليلًا على توفر سطح. تُفحص الأسطح بشكل منفصل في فحوص قابلية التطبيق.',
   'الفرز: لا ينطبق الخيار إلا عندما يُجاب بـ «لا» عن شرط أساسي (مثل عدم وجود سطح أو ساحل أو مصدر جريان). «غير معروف»، أو «لا» عن شرط يمكن تقييمه أو تصميمه (مثل الملاءمة الإنشائية)، يعني «يتطلب تحققًا».']},
@@ -335,22 +368,22 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
   ['Urban Context','Step 2: urban density and public land availability, as qualitative answers.'],
   ['NBS Categories','Provisional labels on each option. They do not affect matching.'],
   ['Cost','Indicative demo cost ranges for five of the nine options. Not local prices.'],
-  ['Stakeholders','Optional question for each solution. Not scored.'],
-  ['Regulations','Optional question for each solution. Not scored.'],
-  ['Technical Expertise','Optional question for each solution. Not scored.'],
-  ['Maintenance','Optional question for each solution, and an annual maintenance cost range for supported options.'],
-  ['Evaluation','Pending. No monitoring or evaluation module. Step 4 describes existing NBS and is a prototype design of the project team.']],
+  ['Stakeholders','C4 Stakeholder Engagement (indicators 4.1 and 4.2), described on the provisional 0 to 2 rubric. Not used in matching.'],
+  ['Regulations','C2 Policy & Planning (indicators 2.1 to 2.3), described on the provisional 0 to 2 rubric. Not used in matching.'],
+  ['Technical Expertise','C3 Institutional & Technical Capacity (indicators 3.1 to 3.3). Technical know-how (3.2) is also shown as an implementation condition. Not used in matching.'],
+  ['Maintenance','Indicator 5.2 (long-term maintenance budget), shown as an implementation condition, and an annual maintenance cost range for supported options.'],
+  ['Evaluation','Pending. Indicators 2.3 (targets and monitoring) and 3.3 (data and monitoring tools) are assessed, but there is no monitoring or evaluation module for NBS performance.']],
  ar:[
   ['المخاطر المناخية','تتيح الخطوة 3 خمسة مخاطر. وقواعد المطابقة المؤقتة موجودة فقط للموجات الحارة والفيضانات والجفاف.'],
   ['نوع المناخ','قيد الانتظار. لا يُسأل عنه ولا يُستنتج. يحتاج إلى معلومات موثقة خاصة بالموقع وقواعد قرار.'],
   ['السياق الحضري','الخطوة 2: الكثافة العمرانية وتوفر الأراضي العامة، كإجابتين نوعيتين.'],
   ['فئات الحلول','تسميات مؤقتة لكل خيار. ولا تؤثر في المطابقة.'],
   ['التكلفة','نطاقات تكلفة تجريبية إرشادية لخمسة من الخيارات التسعة. وهي ليست أسعارًا محلية.'],
-  ['أصحاب المصلحة','سؤال اختياري لكل حل. ولا يُحتسب.'],
-  ['الأنظمة والتشريعات','سؤال اختياري لكل حل. ولا يُحتسب.'],
-  ['الخبرة الفنية','سؤال اختياري لكل حل. ولا يُحتسب.'],
-  ['الصيانة','سؤال اختياري لكل حل، ونطاق تكلفة صيانة سنوية للخيارات المدعومة.'],
-  ['التقييم','قيد الانتظار. لا توجد وحدة رصد أو تقييم. وتصف الخطوة 4 الحلول القائمة وهي تصميم أولي من فريق المشروع.']]},
+  ['أصحاب المصلحة','المعيار C4 إشراك أصحاب المصلحة (المؤشران 4.1 و4.2)، وفق القاعدة المؤقتة من 0 إلى 2. ولا يُستخدم في المطابقة.'],
+  ['الأنظمة والتشريعات','المعيار C2 السياسات والتخطيط (المؤشرات 2.1 إلى 2.3)، وفق القاعدة المؤقتة من 0 إلى 2. ولا يُستخدم في المطابقة.'],
+  ['الخبرة الفنية','المعيار C3 القدرات المؤسسية والفنية (المؤشرات 3.1 إلى 3.3). وتُعرض الخبرة الفنية (3.2) أيضًا كشرط للتنفيذ. ولا تُستخدم في المطابقة.'],
+  ['الصيانة','المؤشر 5.2 (ميزانية الصيانة طويلة الأجل)، ويُعرض كشرط للتنفيذ، ونطاق تكلفة صيانة سنوية للخيارات المدعومة.'],
+  ['التقييم','قيد الانتظار. يُقيَّم المؤشران 2.3 (الأهداف والرصد) و3.3 (البيانات وأدوات الرصد)، لكن لا توجد وحدة رصد أو تقييم لأداء الحلول.']]},
  wTitle:{en:'Provisional risk weights (0 to 3)',ar:'أوزان المخاطر المؤقتة (0 إلى 3)'},
  costP:{en:'Enter the area you could treat and a time horizon. Ranges are for early planning only.',ar:'أدخل المساحة التي يمكن معالجتها وأفقًا زمنيًا. النطاقات للتخطيط المبكر فقط.'},
  fbH:{en:'Feedback for project partners',ar:'ملاحظات لشركاء المشروع'},
@@ -363,7 +396,7 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
  fbSend:{en:'Send feedback',ar:'إرسال الملاحظات'},
  fbErr:{en:'Rate usefulness and tick the consent box to send.',ar:'قيّم الفائدة وضع علامة الموافقة للإرسال.'},
  fbOk:{en:'Thank you. In this prototype the feedback is not transmitted.',ar:'شكرًا لك. لا تُرسل الملاحظات في هذا النموذج التجريبي.'},
-asH:{en:'Existing NBS Integration',ar:'دمج الحلول القائمة على الطبيعة الحالية'},
+ asH:{en:'Assessment summary',ar:'ملخص التقييم'},
  areaDet:{en:'Area details',ar:'تفاصيل المنطقة'},
  protoShort:{en:'Preliminary prototype with provisional methodology, to be reviewed against the PROMEA framework and the NBS repository. Scores are not official scores.',ar:'نموذج تجريبي أولي بمنهجية مؤقتة ستُراجع مقابل إطار PROMEA ومستودع الحلول القائمة على الطبيعة. الدرجات ليست درجات رسمية.'},
  profSubS:{en:'Every bar uses the same 0 to 100% scale. A criterion without a percentage shows its status instead of a bar.',ar:'يستخدم كل شريط المقياس نفسه من 0 إلى 100%. يعرض المعيار الذي لا نسبة له حالته بدلًا من الشريط.'},
@@ -389,13 +422,13 @@ asH:{en:'Existing NBS Integration',ar:'دمج الحلول القائمة على
 function T(k){return S[k][lang]}
 
 /* ---------- state ---------- */
-var STEPS=[{k:'scope'},{k:'ctx'},{k:'risk'},{k:'nbs'}];
-/* area (1) + scale (1) + density and land (2) + risks (1) + existing NBS (1), plus 3 indicators when existing NBS are reported */
-function totalQ(){return 6+(st.nbs.exist==='yes'?3:0)}
+var STEPS=[{k:'scope'},{k:'ctx'},{k:'risk'},{k:'crit',i:0},{k:'crit',i:1},{k:'crit',i:2},{k:'crit',i:3},{k:'crit',i:4}];
+/* area (1) + scale (1) + density and land (2) + risks (1) + 14 indicators */
+var TOTAL_Q=2+2+1+14;
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function freshState(){
-  return {scope:{area:'',mName:'',mCountry:'',mCity:'',type:'',typeAuto:false,org:'',date:today()},ctx:{},risks:{},nbs:{exist:'',types:{},other:''},scr:{},impl:{},
-    sc:{},rat:{},evd:{},cf:{},chkOpen:{},rOpen:{},
+  return {scope:{area:'',mName:'',mCountry:'',mCity:'',type:'',typeAuto:false,org:'',date:today()},ctx:{},risks:{},scr:{},
+    sc:{},just:{},rat:{},evd:{},cf:{},tgt:{},chkOpen:{},rOpen:{},
     area:2000,horizon:10,step:0,view:'intro',res:'ready',fb:'form',miss:{},open:{}};
 }
 var st=freshState();
@@ -410,6 +443,7 @@ function ico(n,cls){return '<svg class="ic '+(cls||'')+'" aria-hidden="true"><us
 function riskList(){return RISK.filter(function(r){return st.risks[r.k]})}
 function riskOk(){return riskList().length>0||!!st.risks.unsure}
 function riskText(l){return st.risks.unsure?UNSURE[(l||lang)==='ar'?'ar':'en']:riskList().map(function(r){return (l||lang)==='ar'?r.ar:r.en}).join('; ')}
+function lvlIdx(p){return p<30?0:p<55?1:p<80?2:3}
 /* NBS matching is produced only when the provisional rules cover every selected risk and the context is known */
 function matchStatus(){
   var reasons=[],un=riskList().filter(function(r){return MATCHABLE.indexOf(r.k)<0});
@@ -431,14 +465,14 @@ function matchMessages(l){
   });
   return {title:S.mNA[L],items:out,ok:m.ok};
 }
+function indById(id){return IND.filter(function(i){return i.id===id})[0]}
 function blank(s){return !s||!String(s).trim()}
 
 /* answer states: scored (0, 1, 2), unknown ('U'), na ('NA'), unanswered (undefined) */
 function isNum(v){return v===0||v===1||v===2}
-function ansState(id){var v=st.sc[id];return v===undefined?'unanswered':v==='U'?'unknown':'scored'}
-function indOk(id){return st.sc[id]!==undefined}
-function nbsOk(){var e=st.nbs.exist;return e==='no'||e==='unsure'||(e==='yes'&&IND.every(function(i){return indOk(i.id)}))}
-function indDone(){return nbsOk()}
+function ansState(id){var v=st.sc[id];return v===undefined?'unanswered':v==='U'?'unknown':v==='NA'?'na':'scored'}
+function indOk(id){var v=st.sc[id];if(v===undefined)return false;if(v==='NA')return !blank(st.just[id]);return true}
+function indDone(){return IND.every(function(i){return indOk(i.id)})}
 function pilotOf(id){return PILOTS.filter(function(p){return p.id===id})[0]}
 function areaOk(){var s=st.scope;return !!pilotOf(s.area)||(s.area==='other'&&!blank(s.mName)&&!blank(s.mCountry)&&!blank(s.mCity))}
 function scaleOk(){return !!st.scope.type}
@@ -453,11 +487,10 @@ function answered(){
   if(st.ctx.density)n++;
   if(st.ctx.land)n++;
   if(riskOk())n++;
-  if(st.nbs.exist)n++;
-  if(st.nbs.exist==='yes')IND.forEach(function(i){if(indOk(i.id))n++});
+  IND.forEach(function(i){if(indOk(i.id))n++});
   return n;
 }
-function allComplete(){return areaOk()&&scaleOk()&&ctxOk()&&riskOk()&&nbsOk()}
+function allComplete(){return answered()===TOTAL_Q}
 
 /* ---------- static translations ---------- */
 var AR={
@@ -465,13 +498,13 @@ var AR={
  eyebrow:'مشروع إنتربرغ نكست ميد · الجامعة الأردنية',
  h1:'أداة التقييم الذاتي للحلول القائمة على الطبيعة في المدن المتوسطية',
  lead:'قيّموا مدى دمج الحلول القائمة على الطبيعة في مدينتكم، واطّلعوا على الخيارات الأنسب لمخاطركم المناخية، مع نطاقات إرشادية للأثر والتكلفة.',
- f1:'فحوص وحاسبات اختيارية',f2:'أربع خطوات',f3:'دون حاجة إلى تسجيل',
+ f1:'نحو 10 دقائق',f2:'14 مؤشرًا في 5 معايير',f3:'دون حاجة إلى تسجيل',
  start:'ابدأ التقييم',startNote:'لا تُحفظ النتائج. حمّل التقرير قبل إغلاق الصفحة.',
  whatH:'ما هذه الأداة',whatP:'أداة مجانية على الإنترنت لها أربع مهام: تبيّن مدى دمج الحلول القائمة على الطبيعة في منطقة محددة، وتقترح حلولًا تناسب المخاطر المناخية المحلية، وتقيّم أثرها المحتمل في التخفيف من هذه المخاطر حيث تتوفر طرق وأدلة داعمة، وتعطي تقديرات إرشادية للتكلفة. موجّهة إلى الشركاء والسلطات العامة والمنظمات التي تخطط للحلول القائمة على الطبيعة أو تنفذها.',
- whyH:'لماذا تهم',whyP:'تخفف الحلول القائمة على الطبيعة الحرارة والفيضانات والجفاف في المدن المتوسطية، لكن اعتمادها الأوسع تعيقه فجوات المعرفة وضعف إشراك أصحاب المصلحة المحليين وقلة الخبرة في تخطيطها وتنسيقها. تصف الأداة الحلول القائمة في المنطقة، وتقترح خيارات تناسب المخاطر المناخية المحلية، وتبيّن الكميات والتكاليف التي يمكن تقديرها حاليًا، ليتمكن الشركاء من التخطيط قبل الالتزام بالموارد.',
+ whyH:'لماذا تهم',whyP:'تخفف الحلول القائمة على الطبيعة الحرارة والفيضانات والجفاف في المدن المتوسطية، لكن اعتمادها الأوسع تعيقه فجوات المعرفة وضعف إشراك أصحاب المصلحة المحليين وقلة الخبرة في تخطيطها وتنسيقها. يبيّن التقييم مواضع القوة والفجوات لتخطيط حلول مناسبة قبل الالتزام بالموارد.',
  devBy:'طورتها الجامعة الأردنية ضمن مشروع NBS4MED (حلول قائمة على الطبيعة لمدن متوسطية قادرة على التكيف مع المناخ)، بتمويل مشترك من الاتحاد الأوروبي عبر برنامج إنتربرغ نكست ميد. يختبر شركاء المشروع هذه النسخة وتشكّل ملاحظاتهم النسخة المحسّنة.',
- howH:'كيف تعمل',s1h:'ابدأ',s1p:'افتح الأداة. لا حاجة إلى حساب أو تسجيل دخول.',s2h:'أجب',s2p:'حدّد منطقة التقييم، وصِف الموقع، واختر المخاطر المناخية المحلية، ثم صِف الحلول القائمة على الطبيعة.',
- s3h:'احصل على النتائج',s3p:'اطّلع على حالة الحلول القائمة والخيارات الأولية والحسابات الداعمة، ثم افحص الخيارات واستكشفها.',s4h:'حمّل وحسّن',s4p:'احفظ تقريرًا بصيغة PDF أو CSV، وعدّل إجاباتك وأعد التشغيل.',
+ howH:'كيف تعمل',s1h:'ابدأ',s1p:'افتح الأداة. لا حاجة إلى حساب أو تسجيل دخول.',s2h:'أجب',s2p:'حدّد المنطقة المقيَّمة، واختر المخاطر المناخية، ثم قيّم 14 مؤشرًا من 0 إلى 2، أو اختر «غير معروف» أو «لا ينطبق».',
+ s3h:'احصل على النتائج',s3p:'اطّلع على ملف المعايير ونقاط القوة والفجوات، ثم على الخيارات المناسبة لمخاطرك.',s4h:'حمّل وحسّن',s4p:'احفظ تقريرًا بصيغة PDF أو CSV، وعدّل إجاباتك وأعد التشغيل.',
  resourcesH:'المصادر',stepsH:'خطوات التقييم',sample:'املأ ببيانات نموذجية',clear:'مسح الكل',
  fDisc:'إخلاء مسؤولية التمويل',fPart:'شركاء المشروع',fContact:'التواصل والخصوصية'
 };
@@ -487,24 +520,31 @@ function applyStatic(){
 /* Counts per criterion. A criterion percentage exists only when no indicator in it is Unknown or unanswered.
    Not applicable indicators are left out of the numerator and the denominator. */
 /* existing NBS status and indicator states. There is no overall score: an absent or unknown status is never recorded as 0. */
-function integ(){
-  var e=st.nbs.exist,o={exist:e,items:[],scored:0,unk:0,un:0};
-  o.status=e==='yes'?'assessed':e==='no'?'absent':e==='unsure'?'unsure':'unanswered';
-  if(e==='yes')IND.forEach(function(i){
-    var v=st.sc[i.id],state=isNum(v)?'scored':v==='U'?'unknown':'unanswered';
-    o.items.push({i:i,v:v,state:state});
-    if(state==='scored')o.scored++;else if(state==='unknown')o.unk++;else o.un++;
+function calc(){
+  var tot={sum:0,scored:0,unk:0,na:0,un:0};
+  var per=CRIT.map(function(cr,ci){
+    var items=IND.filter(function(i){return i.c===ci});
+    var p={sum:0,scored:0,unk:0,na:0,un:0,n:items.length};
+    items.forEach(function(i){
+      var v=st.sc[i.id];
+      if(isNum(v)){p.sum+=v;p.scored++}else if(v==='U')p.unk++;else if(v==='NA')p.na++;else p.un++;
+    });
+    p.max=p.scored*2;
+    p.open=p.unk+p.un;
+    p.status=p.open>0?'incomplete':(p.scored===0?'na':'complete');
+    p.pct=p.status==='complete'?Math.round(p.sum/p.max*100):null;
+    tot.sum+=p.sum;tot.scored+=p.scored;tot.unk+=p.unk;tot.na+=p.na;tot.un+=p.un;
+    return p;
   });
-  return o;
-}
-function nbsTypes(l){
-  var L=l||lang,out=OPT.filter(function(o){return st.nbs.types[o.id]}).map(function(o){return L==='ar'?o.ar:o.en});
-  if(st.nbs.types.other)out.push(blank(st.nbs.other)?(L==='ar'?'أخرى':'Other'):(L==='ar'?'أخرى: ':'Other: ')+st.nbs.other.trim());
-  return out;
+  var open=tot.unk+tot.un;
+  var ov={sum:tot.sum,max:tot.scored*2,scored:tot.scored,unk:tot.unk,na:tot.na,un:tot.un,open:open};
+  ov.status=open>0?'incomplete':(tot.scored===0?'na':'complete');
+  ov.pct=ov.status==='complete'?Math.round(ov.sum/ov.max*100):null;
+  var weak=null;per.forEach(function(p,i){if(p.pct!==null&&(weak===null||p.pct<per[weak].pct))weak=i});
+  return {per:per,ov:ov,sum:ov.sum,pct:ov.pct,lvl:ov.pct===null?null:lvlIdx(ov.pct),weak:weak};
 }
 function confCounts(){
   var c={high:0,mid:0,low:0,none:0,n:0};
-  if(st.nbs.exist!=='yes')return c;
   IND.forEach(function(i){
     if(!isNum(st.sc[i.id]))return;
     c.n++;
@@ -516,10 +556,9 @@ function confCounts(){
 function rubricText(i,v){return pick(i.r[v])}
 function ansLabel(id){
   var v=st.sc[id];
-  return v===undefined?T('aNone'):v==='U'?T('aU'):T('aNum')(v);
+  return v===undefined?T('aNone'):v==='U'?T('aU'):v==='NA'?T('aNA'):T('aNum')(v);
 }
-function lvLabel(v,l){return isNum(v)?LV[(l||lang)==='ar'?1:0][v]:''}
-function ansCsv(id){var v=st.sc[id];return v===undefined?'Unanswered':v==='U'?'Unknown':String(v)}
+function ansCsv(id){var v=st.sc[id];return v===undefined?'Unanswered':v==='U'?'Unknown':v==='NA'?'Not applicable':String(v)}
 function cfLabel(id,l){
   var k=st.cf[id];var c=CONF.filter(function(x){return x[0]===k})[0];
   if(!c)return (l||lang)==='ar'?S.cfNone.ar:S.cfNone.en;
@@ -573,8 +612,15 @@ function riskWhy(o){
   });
   return {hit:hit,miss:miss};
 }
-/* implementation considerations are optional, solution-specific and never change an applicability status */
-function conds(o){return []}
+function conds(o){
+  var out=[];
+  ['5.1','5.2','3.2'].forEach(function(id){
+    var v=st.sc[id],i=indById(id);
+    if(v===0||v===1)out.push({id:id,i:i,t:rubricText(i,v),v:v});
+    else if(v==='U')out.push({id:id,i:i,u:true});
+  });
+  return out;
+}
 /* ranked: options with a final match score above 0 that are not Not applicable. The match formula is unchanged. */
 function recs(){
   if(!matchStatus().ok)return {ranked:[],na:[],other:[],all:[],blocked:true};
@@ -594,7 +640,7 @@ function stepName(s){
   if(s.k==='scope')return T('stScope');
   if(s.k==='ctx')return T('stCtx');
   if(s.k==='risk')return T('stRisk');
-  return T('stNbs');
+  return CRIT[s.i].id+' '+nm(CRIT[s.i]);
 }
 function stepMissing(s){
   var m=[],sc=st.scope;
@@ -611,9 +657,11 @@ function stepMissing(s){
   }else if(s.k==='risk'){
     if(!riskOk())m.push({t:T('eRisk'),href:'#riskField',key:'risk'});
   }else{
-    if(!st.nbs.exist)m.push({t:T('nbsQ'),href:'#f-nbsx',key:'nbs:exist'});
-    else if(st.nbs.exist==='yes')IND.forEach(function(i){
-      if(st.sc[i.id]===undefined)m.push({t:i.id+' '+nm(i),href:'#ind-'+i.id,key:'ind:'+i.id});
+    IND.forEach(function(i){
+      if(i.c!==s.i)return;
+      var h='#ind-'+i.id.replace('.','-');
+      if(st.sc[i.id]===undefined)m.push({t:i.id+' '+nm(i),href:h,key:'ind:'+i.id});
+      else if(st.sc[i.id]==='NA'&&blank(st.just[i.id]))m.push({t:T('eJust')(i.id+' '+nm(i)),href:'#just-'+i.id.replace('.','-'),key:'just:'+i.id});
     });
   }
   return m;
@@ -653,13 +701,20 @@ function textField(id,label,bind,val,o){
 }
 function indHtml(i){
   var v=st.sc[i.id],idc=i.id.replace('.','-');
-  var bad=mi('ind:'+i.id);
+  var bad=mi('ind:'+i.id)||mi('just:'+i.id);
   var opts='';
   for(var s=0;s<3;s++){
     opts+='<label class="opt o'+s+'"><input type="radio" name="ind-'+i.id+'" value="'+s+'"'+(v===s?' checked':'')+'><span class="ob">'+s+'</span><span class="ot">'+esc(pick(i.r[s]))+'</span></label>';
   }
   opts+='<label class="opt ou"><input type="radio" name="ind-'+i.id+'" value="U"'+(v==='U'?' checked':'')+'><span class="ob">?</span><span class="ot"><b>'+T('optU')+'.</b> '+T('optUd')+'</span></label>';
+  opts+='<label class="opt on"><input type="radio" name="ind-'+i.id+'" value="NA"'+(v==='NA'?' checked':'')+'><span class="ob">–</span><span class="ot"><b>'+T('optNA')+'.</b> '+T('optNAd')+'</span></label>';
   var sub='';
+  if(i.id==='1.2'){
+    var t=st.tgt.target,c=st.tgt.cov;
+    sub='<div class="sub12"><fieldset class="field" style="margin:0 0 14px"><legend>'+T('tgtQ')+'</legend>'+yn('tgt-target',t)+'</fieldset>'+
+      '<fieldset class="field" style="margin:0 0 10px"><legend>'+T('covQ')+'</legend>'+yn('tgt-cov',c)+'</fieldset>'+
+      '<p class="note-s" id="tgtHint">'+(t==='yes'&&c==='yes'?T('tgtBoth'):T('tgtNone'))+'</p></div>';
+  }
   var hasMore=!blank(st.rat[i.id])||!blank(st.evd[i.id])||!!st.cf[i.id];
   var openMore=st.open[i.id]!==undefined?st.open[i.id]:hasMore;
   var cfo='<option value="">'+T('cfNone')+'</option>'+CONF.map(function(c){return '<option value="'+c[0]+'"'+(st.cf[i.id]===c[0]?' selected':'')+'>'+esc(lang==='ar'?c[2]:c[1])+'</option>'}).join('');
@@ -669,11 +724,13 @@ function indHtml(i){
     '<div class="field"><label class="lab" for="cf-'+idc+'">'+T('cfL')+'</label><select id="cf-'+idc+'" data-bind="cf|'+i.id+'">'+cfo+'</select></div></div></details>';
   return '<div class="ind'+(bad?' missing':'')+'" id="ind-'+idc+'">'+
     '<div class="code">'+i.id+'</div>'+
-    '<div><div class="t">'+esc(nm(i))+'</div><div class="h">'+esc(lang==='ar'?i.ha:i.h)+'</div>'+
+    '<div><div class="t">'+esc(nm(i))+'</div><div class="h">'+esc(lang==='ar'?i.ha:i.h)+'</div>'+sub+
     '<fieldset class="rub" style="border:0;padding:0;margin:0;min-width:0"><legend class="sr">'+i.id+' '+esc(nm(i))+'</legend>'+
       '<div class="opts">'+opts+'</div>'+(mi('ind:'+i.id)?'<div class="inline-err">'+T('pickAns')+'</div>':'')+
     '</fieldset>'+
-        more+'</div></div>';
+    '<div class="na-box" id="just-'+idc+'"'+(v==='NA'?'':' hidden')+'><label class="lab" for="jin-'+idc+'">'+T('justL')+'</label>'+
+      '<input type="text" id="jin-'+idc+'" data-bind="just|'+i.id+'" value="'+esc(st.just[i.id]||'')+'" autocomplete="off">'+ierr('just:'+i.id,T('justErr'))+'</div>'+
+    more+'</div></div>';
 }
 function areaSelectHtml(){
   var sc=st.scope,bad=mi('scope:area');
@@ -701,21 +758,6 @@ function riskNoteHtml(){
   var un=matchStatus().un;
   return un.length?esc(T('unassNote')(un.map(function(r){return nm(r)}).join(lang==='ar'?'، ':', '))):'';
 }
-function nbsIndHtml(){
-  var e=st.nbs.exist;
-  if(e==='no')return '<p class="note">'+T('nbsNo')+'</p>';
-  if(e==='unsure')return '<p class="note">'+T('nbsUn')+'</p>';
-  if(e!=='yes')return '';
-  var types='<fieldset class="field"><legend>'+T('nbsTypes')+' <span class="tagq">'+T('opt')+'</span></legend><p class="hint">'+T('nbsTypesH')+'</p><div class="risks">'+
-    OPT.map(function(o){return '<label class="chk"><input type="checkbox" name="nbs-type" value="'+o.id+'"'+(st.nbs.types[o.id]?' checked':'')+'><span><b>'+esc(nm(o))+'</b></span></label>'}).join('')+
-    '<label class="chk"><input type="checkbox" name="nbs-type" value="other"'+(st.nbs.types.other?' checked':'')+'><span><b>'+T('nbsOther')+'</b></span></label></div>'+
-    '<div id="nbsOtherBox"'+(st.nbs.types.other?'':' hidden')+'>'+textField('nbsother',T('nbsOtherF'),'nbs|other',st.nbs.other,{opt:true})+'</div></fieldset>';
-  return types+'<h3 class="subh">'+T('nbsIndH')+'</h3><div class="scale-key">'+ico('info')+'<span>'+T('nbsKey')+'</span></div>'+IND.map(indHtml).join('');
-}
-function nbsHtml(){
-  return '<fieldset class="field" id="f-nbsx"><legend>'+T('nbsQ')+' *</legend><p class="hint">'+T('nbsH')+'</p>'+
-    seg('nbs-exist',[['yes',T('yes')],['no',T('no')],['unsure',T('nbsNS')]],st.nbs.exist)+ierr('nbs:exist',T('pickAns'))+'</fieldset><div id="nbsDyn">'+nbsIndHtml()+'</div>';
-}
 function renderPanel(){
   var s=STEPS[st.step],h='',desc='';
   if(s.k==='scope'){
@@ -740,15 +782,17 @@ function renderPanel(){
     h='<fieldset class="field" style="margin:0" id="riskField"><legend class="sr">'+esc(T('stRisk'))+'</legend><div class="risks">'+RISK.map(function(r){return rk(r)}).join('')+'</div>'+
       '<div class="risks" style="margin-top:12px">'+rk(UNSURE)+'</div><p class="note-s" id="riskNote">'+riskNoteHtml()+'</p><div id="riskErr">'+ierr('risk',T('pickOne'))+'</div></fieldset>';
   }else{
-    desc=T('nbsP');
-    h=nbsHtml();
+    desc=T('evalP');
+    h='<p class="areaTag">'+esc(T('forArea')(areaName()||'…'))+'</p>'+
+      '<div class="scale-key">'+ico('info')+'<span><b>'+T('rub')+'.</b> '+T('key')+'</span></div>'+
+      IND.filter(function(i){return i.c===s.i}).map(indHtml).join('');
   }
   $('#stepPanel').innerHTML='<div class="panel-h"><span class="k">'+T('stepOf')(st.step+1,STEPS.length)+'</span><h2 id="stepTitle" tabindex="-1">'+esc(stepName(s))+'</h2><p>'+desc+'</p></div><div class="panel-b">'+h+'</div>';
 }
 function updateChrome(){
   var n=answered();
   $('#progText').textContent=T('stepOf')(st.step+1,STEPS.length)+' · '+stepName(STEPS[st.step]);
-  $('#ansText').textContent=T('ansN')(n,totalQ());
+  $('#ansText').textContent=T('ansN')(n,TOTAL_Q);
   var p=Math.round((st.step+1)/STEPS.length*100);
   $('#barFill').style.width=p+'%';
   $('#bar').setAttribute('aria-valuenow',p);
@@ -784,6 +828,12 @@ function next(){
 }
 
 /* ---------- render: results ---------- */
+function stateCell(i){
+  var s=ansState(i.id),v=st.sc[i.id];
+  var cls=s==='scored'?'v'+v:s==='unknown'?'vu':s==='na'?'vn':'vx';
+  var txt=s==='scored'?String(v):s==='unknown'?T('stU'):s==='na'?T('stNA'):'–';
+  return '<div class="cell '+cls+'" title="'+esc(nm(i)+': '+ansLabel(i.id))+'"><span>'+i.id+'</span><span>'+esc(txt)+'<span class="sr"> ('+esc(ansLabel(i.id))+')</span></span></div>';
+}
 function dtl(key,sum,body,force){
   var o=force||st.rOpen[key];
   return '<details class="adv" data-rk="'+key+'"'+(o?' open':'')+'><summary>'+sum+'</summary>'+body+'</details>';
@@ -800,43 +850,92 @@ function areaSummaryHtml(){
   return '<p class="arealine"><b>'+esc(areaName())+'</b>'+(areaCountry()?' · '+esc(areaCountry()):'')+' · '+esc(scopeTypeLabel())+' · '+esc(s.date||T('notStated'))+'</p>'+
     dtl('area',T('areaDet'),'<dl class="sdl">'+rows.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>',false);
 }
+function confBody(){
+  var c=confCounts();
+  return '<p>'+T('confTxt')(c.n,c.high,c.mid,c.low,c.none)+'</p><p class="note-s">'+T('confNote')+'</p>';
+}
+function gapsBody(r){
+  var g=gapsData();
+  function li(i,withText){
+    var v=st.sc[i.id];
+    return '<li><b>'+i.id+' '+esc(nm(i))+'</b>'+(withText?': '+esc(rubricText(i,v)):'')+(v==='NA'?': '+esc(st.just[i.id]||''):'')+'</li>';
+  }
+  function row(cls,lab,arr,withText){
+    return '<li class="grow"><span class="dot '+cls+'">'+lab+'</span>'+(arr.length?'<ul class="gl">'+arr.map(function(i){return li(i,withText)}).join('')+'</ul>':'<span class="soft">'+T('gapNone')+'</span>')+'</li>';
+  }
+  var read='';
+  if(r.weak===null)read=T('readNone');
+  else{
+    var z=IND.filter(function(i){return i.c===r.weak&&st.sc[i.id]===0}).map(function(i){return i.id+' '+nm(i)}).join('; ');
+    read=T('readTxt')(CRIT[r.weak].id+' '+nm(CRIT[r.weak]),r.per[r.weak].pct,z);
+  }
+  return '<p class="note-s">'+T('sgSub')+'</p>'+
+    '<ul class="lights glist">'+row('r',T('gap0'),g.z,true)+row('a',T('gap1'),g.o,true)+row('g',T('strong'),g.t,false)+row('u',T('gapU'),g.u,false)+row('n',T('gapNA'),g.n,false)+'</ul>'+
+    '<div class="read"><h3>'+T('readH')+'</h3><p>'+esc(read)+'</p></div>';
+}
+function gapsData(){
+  var g={z:[],o:[],t:[],u:[],n:[]};
+  IND.forEach(function(i){
+    var v=st.sc[i.id];
+    if(v===0)g.z.push(i);else if(v===1)g.o.push(i);else if(v===2)g.t.push(i);else if(v==='U')g.u.push(i);else if(v==='NA')g.n.push(i);
+  });
+  return g;
+}
+function heatBody(){
+  return '<div class="heat">'+CRIT.map(function(cr,ci){return '<div><h4>'+cr.id+' '+esc(lang==='ar'?cr.shAr:cr.sh)+'</h4>'+IND.filter(function(i){return i.c===ci}).map(stateCell).join('')+'</div>'}).join('')+'</div>'+
+    '<p class="note-s">'+T('heatKey')+'</p>';
+}
+function overallLine(r){
+  var o=r.ov,h='<p class="ovline"><b>'+T('overallH')+':</b> ';
+  if(o.status==='complete'){var L=LEVELS[r.lvl];h+='<b><bdi dir="ltr">'+o.sum+' / '+o.max+'</bdi> · <bdi dir="ltr">'+o.pct+'%</bdi></b> <span class="chip '+L.c+'">'+esc(nm(L))+'</span>'}
+  else if(o.status==='na')h+=esc(T('ovNA'));
+  else h+=esc(T('ovNotShown'));
+  return h+'</p>';
+}
+function warnHtml(r){
+  var o=r.ov,h='';
+  if(o.open>0){
+    var ul=IND.filter(function(i){return st.sc[i.id]==='U'}).map(function(i){return i.id}).join(', ');
+    h+='<div class="note warn">'+ico('alert')+'<span>'+T('ovSupp')(o.open,ul)+'</span></div>';
+  }
+  if(o.status==='na')h+='<div class="note warn">'+ico('alert')+'<span>'+T('ovNA')+'</span></div>';
+  if(o.na>0&&o.status!=='na')h+='<div class="note">'+ico('info')+' '+T('warnNA')(o.na)+(o.status==='complete'?' '+T('naDen')(o.max):'')+'</div>';
+  return h;
+}
+function eqWeightText(r){
+  return T('equalW')(r.per.map(function(p,i){return CRIT[i].id+' '+p.scored}).join(', '));
+}
+function critChartHtml(r){
+  return '<div class="cchart" role="group" aria-label="'+esc(T('profH'))+'">'+
+    '<div class="cgrp">'+esc(T('g1H'))+'</div>'+critChartRow(0,r,'#17402F')+
+    '<div class="cgrp en">'+esc(T('g2H'))+'</div>'+[1,2,3,4].map(function(i){return critChartRow(i,r,'#7DB07F')}).join('')+
+    '<div class="crow caxis" aria-hidden="true"><div></div><div class="cax">'+[0,25,50,75,100].map(function(v){return '<span style="inset-inline-start:'+v+'%">'+v+'%</span>'}).join('')+'</div><div></div></div></div>';
+}
+function critChartRow(ci,r,shade){
+  var p=r.per[ci],cr=CRIT[ci],name='<div class="cname"><b>'+cr.id+'</b> '+esc(nm(cr))+'</div>';
+  if(p.status==='complete'){
+    var lv=LEVELS[lvlIdx(p.pct)];
+    return '<div class="crow">'+name+barSvg(p.pct,shade)+'<div class="cval"><b><bdi dir="ltr">'+p.pct+'%</bdi></b> <span class="chip '+lv.c+'">'+esc(nm(lv))+'</span><small><bdi dir="ltr">'+esc(T('ptsOnly')(p.sum,p.max))+'</bdi></small></div></div>';
+  }
+  var msg=p.status==='na'?T('naCrit'):(p.unk?T('notRated'):T('notRatedUn'));
+  return '<div class="crow">'+name+'<div class="cnobar"><b>'+esc(msg)+'</b><small>'+esc(T('critCounts')(p.scored,p.n,p.unk,p.un,p.na))+'</small></div></div>';
+}
+function barSvg(pct,shade){
+  var g=[25,50,75].map(function(v){return '<line x1="'+v+'" y1="0" x2="'+v+'" y2="14" stroke="#C4CCC6" stroke-width="1" vector-effect="non-scaling-stroke"/>'}).join('');
+  var fill=pct>0?'<rect x="0" y="2.5" width="'+pct+'" height="9" fill="'+shade+'"/>':'<line x1="0.8" y1="1" x2="0.8" y2="13" stroke="'+shade+'" stroke-width="3" vector-effect="non-scaling-stroke"/>';
+  return '<svg class="cbar" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100" height="14" fill="#FFFFFF" stroke="#6F7B74" stroke-width="1" vector-effect="non-scaling-stroke"/>'+g+fill+'</svg>';
+}
 /* horizontal bars: five categories compared on one fixed 0 to 100% scale. Labels carry the numbers, so colour is not the only cue. */
-function levelMarks(v){
-  var h='<span class="lvm" aria-hidden="true">';
-  for(var k=0;k<3;k++)h+='<i class="'+(isNum(v)&&k<=v?'on':'')+'"></i>';
-  return h+'</span>';
-}
-function indRowHtml(it){
-  var i=it.i,known=it.state==='scored';
-  var lab=known?lvLabel(it.v)+' <span class="soft">(<bdi dir="ltr">'+it.v+' / 2</bdi>)</span>':'<span class="soft">'+(it.state==='unknown'?T('nbsNA')+' · '+T('aU'):T('nbsNA'))+'</span>';
-  return '<li class="irow"><div class="iname"><b>'+i.id+'</b> '+esc(nm(i))+'</div><div class="ilv">'+levelMarks(known?it.v:null)+' '+lab+'</div>'+
-    (known?'<p class="note-s">'+esc(rubricText(i,it.v))+'</p>':'')+'</li>';
-}
-function sectionA(){
-  var g=integ();
-  var stTxt=g.status==='assessed'?T('nbsSY'):g.status==='absent'?T('nbsSN'):T('nbsSU');
-  var h='<section class="rs first" aria-labelledby="asH"><h2 id="asH">'+T('s1H')+'</h2>'+areaSummaryHtml()+
-    '<p class="stline"><b>'+T('nbsStat')+':</b> '+esc(stTxt)+'</p>';
-  if(g.status==='assessed'){
-    var ty=nbsTypes();
-    if(ty.length)h+='<p class="note-s"><b>'+T('nbsTypes')+':</b> '+esc(ty.join('; '))+'</p>';
-    var miss=g.items.filter(function(x){return x.state!=='scored'}).map(function(x){return x.i.id+' '+nm(x.i)});
-    if(miss.length)h+='<div class="note warn">'+ico('alert')+'<span>'+esc(T('nbsWarn')(miss.join('; ')))+'</span></div>';
-    h+='<ul class="irows">'+g.items.map(indRowHtml).join('')+'</ul><p class="note-s">'+T('nbsNote')+'</p>'+
-      dtl('ans',T('detH'),detailsTable(),false);
-  }else if(g.status==='unsure')h+='<p class="note-s">'+T('nbsUn')+'</p>';
-  else h+='<p class="note-s">'+T('nbsNo')+'</p>';
-  return h+'</section>';
-}
 function detailsTable(){
   var rows=IND.map(function(i){
-    return '<tr><td><b>'+i.id+'</b> '+esc(nm(i))+'</td><td>'+esc(ansLabel(i.id))+'</td><td>'+esc(st.rat[i.id]||'–')+'</td><td>'+esc(st.evd[i.id]||'–')+'</td><td>'+esc(cfLabel(i.id))+'</td></tr>';
+    return '<tr><td><b>'+i.id+'</b> '+esc(nm(i))+'</td><td>'+esc(ansLabel(i.id))+'</td><td>'+esc(st.rat[i.id]||(st.sc[i.id]==='NA'?st.just[i.id]||'':'')||'–')+'</td><td>'+esc(st.evd[i.id]||'–')+'</td><td>'+esc(cfLabel(i.id))+'</td></tr>';
   }).join('');
   return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>'+T('colInd')+'</th><th>'+T('colAns')+'</th><th>'+T('colRat')+'</th><th>'+T('colEvd')+'</th><th>'+T('colCf')+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 /* one methodology section: existing NBS indicators and the provisional match method */
-function methodologyHtml(){
+function methodologyHtml(r){
   return dtl('meth',T('methAll'),'<h4 class="subh2">'+T('methA')+'</h4><ul class="meth">'+S.methAL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>'+
+    '<p class="note-s">'+eqWeightText(r)+'</p><p class="note-s">'+T('thresholds')+'</p>'+
     '<h4 class="subh2">'+T('methB')+'</h4><ul class="meth">'+S.methBL[lang].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul><h4 class="subh2">'+T('wTitle')+'</h4>'+weightsTable()+'<h4 class="subh2">'+T('promH')+'</h4><p class="note-s">'+T('promNote')+'</p>'+promTable(),false);
 }
 function promTable(){
@@ -864,6 +963,15 @@ function screenHtml(x){
   return h;
 }
 /* provisional category (display only) */
+function condsHtml(x){
+  var cx=CLAB.cx[x.o.cx][lang==='ar'?1:0];
+  var items=x.conds.map(function(c){
+    var t=c.u?T('condU'):(T('condScore')(c.v)+': '+rubricText(c.i,c.v));
+    return '<li><b>'+c.id+' '+esc(nm(c.i))+'</b>: '+esc(t)+'</li>';
+  });
+  var tc=x.conds.some(function(c){return c.id==='3.2'})&&x.o.cx>=1?'<li>'+esc(T('condCx')(cx))+'</li>':'';
+  return '<div class="rline"><b>'+T('condL')+':</b></div>'+(items.length?'<ul class="rl">'+items.join('')+tc+'</ul>':'<p class="rtxt">'+T('condNone')+'</p>');
+}
 function catText(o){var t=pick(CATS[o.cat]);if(o.cat2)t+=' · '+pick(CATS[o.cat2]);return t}
 /* applicability checks: one small panel per solution, opened from the results page. Answers live in st.scr and are shared
    by key, so opening, closing or switching panels never loses them. */
@@ -871,11 +979,6 @@ function chkBtn(o,reopen){
   var open=!!st.chkOpen[o.id];
   return '<button class="btn btn-sm no-print" type="button" data-check="'+o.id+'" aria-expanded="'+open+'" aria-controls="chk-'+o.id+'" aria-label="'+(open?T('chkHide'):(reopen?T('chkReopen'):T('chkBtn')))+': '+esc(nm(o))+'">'+(open?T('chkHide'):(reopen?T('chkReopen'):T('chkBtn')))+'</button>';
 }
-/* optional, solution-specific implementation considerations: regulation, stakeholders, expertise, maintenance, funding */
-var IMPL=['reg','stake','tech','maint','fund'];
-function implQ(o,k){return pick(S.implQ[k==='stake'&&o.id==='roof'?'stakeRoof':k])}
-function implVal(o,k){return st.impl[o.id+'|'+k]}
-function implLabel(v){return v==='yes'?T('yes'):v==='no'?T('no'):v==='unknown'?T('unk'):T('implNot')}
 function chkPanel(o){
   if(!st.chkOpen[o.id])return '';
   var s=screenOpt(o),name=esc(nm(o));
@@ -884,12 +987,7 @@ function chkPanel(o){
     var c=CHK[k],opts=k==='roof.struct'?[['yes',T('rsConf')],['unknown',T('rsPend')],['unsuitable',T('rsNo')]]:[['yes',T('yes')],['no',T('no')],['unknown',T('unk')]];
     h+='<fieldset class="field"><legend>'+esc(pick(c.q))+'</legend>'+(c.h?'<p class="hint">'+esc(pick(c.h))+'</p>':'')+seg('chk|'+o.id+'|'+k,opts,chkVal(k),k==='roof.struct'?'stack':'')+'</fieldset>';
   });
-  h+='<div class="chkres">'+screenHtml({scr:s})+'</div>';
-  h+='<h4>'+T('implH')+'</h4><p class="note-s">'+T('implNote')+'</p>';
-  IMPL.forEach(function(k){
-    h+='<fieldset class="field"><legend>'+esc(implQ(o,k))+'</legend>'+seg('imp|'+o.id+'|'+k,[['yes',T('yes')],['no',T('no')],['unknown',T('unk')]],implVal(o,k))+'</fieldset>';
-  });
-  return h+'</div>';
+  return h+'<div class="chkres">'+screenHtml({scr:s})+'</div></div>';
 }
 function exploreAction(o){
   if(o.nbs)return '<button class="btn btn-sm no-print" type="button" data-explore="'+o.nbs+'">'+T('exBtn')+ico('arrow','flip')+'</button>';
@@ -901,6 +999,7 @@ function anyPanel(ids){return ids.some(function(id){return st.chkOpen[id]})}
 function optCard(x,shared){
   var o=x.o,i=lang==='ar'?1:0;
   var specific=reasonList(x).filter(function(t){return shared.indexOf(t)<0});
+  if(x.conds.some(function(c){return c.id==='3.2'})&&o.cx>=1)specific.push(T('condCx')(CLAB.cx[o.cx][i]));
   var hits=x.why.hit.map(function(h){return nm(h.r)}).join('; ');
   var det='<dl class="odl"><dt>'+T('catL')+'</dt><dd>'+esc(catText(o))+' <span class="soft">('+T('catProv')+')</span></dd>'+
     '<dt>'+T('cplx')+'</dt><dd>'+meter(o.cx+1,3)+CLAB.cx[o.cx][i]+'</dd><dt>'+T('landN')+'</dt><dd>'+meter(o.land+1,3)+CLAB.land[o.land][i]+'</dd></dl>'+
@@ -911,8 +1010,11 @@ function optCard(x,shared){
     '<div class="oact">'+chkBtn(o)+exploreAction(o)+'</div>'+chkPanel(o)+dtl('sd-'+o.id,T('solDet'),det,false)+'</article>';
 }
 function sharedBox(top,sharedChk){
-  if(!sharedChk.length)return '';
-  return '<div class="shared"><b>'+T('sharedH')+'</b><p class="sch"><b>'+T('sharedChkH')+':</b> '+esc(sharedChk.join(' '))+'</p></div>';
+  var conds=top[0].conds;
+  if(!conds.length&&!sharedChk.length)return '';
+  return '<div class="shared"><b>'+T('sharedH')+'</b>'+(conds.length?'<ul>'+conds.map(function(k){
+    return '<li><b>'+esc(k.id+' '+nm(k.i))+'</b>: '+esc(k.u?T('condU'):T('condScore')(k.v)+': '+rubricText(k.i,k.v))+'</li>';
+  }).join('')+'</ul>':'')+(sharedChk.length?'<p class="sch"><b>'+T('sharedChkH')+':</b> '+esc(sharedChk.join(' '))+'</p>':'')+'</div>';
 }
 /* remaining qualifying options, options excluded by checks, and options with a match score of 0 */
 function otherHtml(R){
@@ -952,6 +1054,13 @@ function sectionC(){
     '<section class="rs" aria-labelledby="s4H"><h2 id="s4H">'+T('s4H')+'</h2>'+X.section4Html()+'</section>'+
     '<div class="no-print"><button class="btn btn-primary" type="button" id="openExplore"><span>'+X.ctaLabel()+'</span>'+ico('arrow','flip')+'</button>'+(last?'<p class="note-s">'+esc(T('lastEx')(last))+'</p>':'')+'</div>';
 }
+function sectionA(r){
+  return '<section class="rs first" aria-labelledby="asH"><h2 id="asH">'+T('asH')+'</h2>'+areaSummaryHtml()+warnHtml(r)+
+    '<h3 class="subh" id="cpH">'+T('profH')+'</h3><p class="note-s">'+T('profSubS')+'</p>'+critChartHtml(r)+overallLine(r)+
+    '<div class="sboxes"><div class="sbox"><b>'+T('compH')+'</b><p>'+T('compTxt')(r.ov.scored,r.ov.unk,r.ov.na)+(r.ov.un?' '+r.ov.un+' '+(lang==='ar'?'بلا إجابة.':'unanswered.'):'')+'</p></div><div class="sbox"><b>'+T('confH')+'</b>'+confBody()+'</div></div>'+
+    window.NBS4MED_EXPLORE.improvementHtml()+
+    dtl('ind',T('heatH'),heatBody(),false)+dtl('ans',T('detH'),detailsTable(),false)+dtl('gaps',T('sgH'),gapsBody(r),false)+'</section>';
+}
 function fbHtml(){
   if(st.fb==='ok')return '<div class="ok-box" role="status">'+T('fbOk')+'</div>';
   return '<form class="fb" id="fbForm" novalidate><div id="fbErr"></div>'+
@@ -968,6 +1077,7 @@ function renderResults(){
     box.innerHTML='<div class="res-head"><h1 id="resTitle" tabindex="-1">'+T('resTitle')+'</h1></div><div class="skel" role="status" aria-label="'+T('loading')+'" style="margin-top:32px"><div style="width:40%"></div><div style="width:90%"></div><div style="width:75%"></div><div style="width:85%"></div></div>';
     return;
   }
+  var r=calc();
   box.innerHTML=
     '<div class="res-head"><h1 id="resTitle" tabindex="-1">'+T('resTitle')+'</h1>'+
       '<button class="btn no-print" type="button" id="editAns">'+ico('back','flip')+'<span>'+T('edit')+'</span></button></div>'+
@@ -977,8 +1087,8 @@ function renderResults(){
       '<button class="btn" type="button" id="dlPdfDetail">'+ico('print')+'<span>'+T('pdfDetail')+'</span></button>'+
       '<button class="btn" type="button" id="dlCsv">'+ico('down')+'<span>'+T('csv')+'</span></button>'+
       '<div class="toast" id="dlNote" role="status"></div></div>'+
-    sectionA()+sectionB()+sectionC()+
-    '<section class="rs" aria-label="'+esc(T('methAll'))+'">'+methodologyHtml()+'</section>'+
+    sectionA(r)+sectionB()+sectionC()+
+    '<section class="rs" aria-label="'+esc(T('methAll'))+'">'+methodologyHtml(r)+'</section>'+
     (SHOW_FEEDBACK?'<section class="rs no-print" aria-labelledby="fbH"><h2 id="fbH">'+T('fbH')+'</h2><div id="fbBody" style="margin-top:14px">'+fbHtml()+'</div></section>':'');
 }
 
@@ -1065,20 +1175,7 @@ document.addEventListener('input',function(e){
 document.addEventListener('change',function(e){
   var t=e.target,n=t.name||'';
   if(t.dataset&&t.dataset.bind){setBind(t);afterEdit(t);return}
-  if(n==='nbs-exist'){
-    st.nbs.exist=t.value;
-    if(st.miss.keys)delete st.miss.keys['nbs:exist'];
-    var fe=$('#f-nbsx .inline-err');if(fe)fe.remove();
-    $('#nbsDyn').innerHTML=nbsIndHtml();
-  }
-  else if(n==='nbs-type'){
-    st.nbs.types[t.value]=t.checked;
-    var ob=$('#nbsOtherBox');if(ob)ob.hidden=!st.nbs.types.other;
-  }
-  else if(n.indexOf('imp|')===0){
-    var ip=n.split('|');st.impl[ip[1]+'|'+ip[2]]=t.value;refreshResults('input[name="'+n+'"][value="'+t.value+'"]');return;
-  }
-  else if(n==='scope-area'){
+  if(n==='scope-area'){
     var sc=st.scope,pv=pilotOf(t.value);
     sc.area=t.value;
     if(pv){if(!sc.type||sc.typeAuto){sc.type='site';sc.typeAuto=true}}
@@ -1098,9 +1195,13 @@ document.addEventListener('change',function(e){
     var rn=$('#riskNote');if(rn)rn.innerHTML=riskNoteHtml();
     var re=$('#riskErr');if(re&&riskOk())re.innerHTML=''}
   else if(n.indexOf('chk|')===0){st.scr[n.split('|')[2]]=t.value;refreshResults('input[name="'+n+'"][value="'+t.value+'"]');return}
+  else if(n.indexOf('tgt-')===0){
+    st.tgt[n.slice(4)]=t.value;
+    var hn=$('#tgtHint');if(hn)hn.textContent=st.tgt.target==='yes'&&st.tgt.cov==='yes'?T('tgtBoth'):T('tgtNone');
+  }
   else if(n.indexOf('ind-')===0){
     var id=n.slice(4);
-    st.sc[id]=t.value==='U'?t.value:+t.value;
+    st.sc[id]=t.value==='U'||t.value==='NA'?t.value:+t.value;
     var row=t.closest('.ind');row.classList.remove('missing');
     var nb=$('.na-box',row);if(nb)nb.hidden=t.value!=='NA';
     $$('.inline-err',$('.rub',row)).forEach(function(x){x.remove()});
@@ -1158,11 +1259,11 @@ function fillSample(){
   st.ctx={density:'high',land:'low'};
   st.risks={heat:true,flood:true};
   st.scr={};st.chkOpen={};
-  st.nbs={exist:'yes',types:{street:true},other:''};st.impl={};
-  st.sc={A:1,B:2,C:1};
-  st.rat={A:'SAMPLE: street trees in two of five districts.'};
-  st.evd={A:'SAMPLE: Parks department survey 2024 (example title)'};
-  st.cf={A:'high',B:'mid'};
+  st.sc={'1.1':2,'1.2':1,'1.3':1,'2.1':1,'2.2':1,'2.3':0,'3.1':1,'3.2':1,'3.3':1,'4.1':2,'4.2':1,'5.1':1,'5.2':0,'5.3':0};
+  st.just={};st.tgt={target:'no',cov:'no'};
+  st.rat={'1.1':'SAMPLE: inventory is a spreadsheet kept by the parks department.','5.2':'SAMPLE: no budget line for upkeep.'};
+  st.evd={'1.1':'SAMPLE: Parks inventory 2024 (example title)'};
+  st.cf={'1.1':'high','5.2':'mid','2.3':'low'};
   clearErrors();renderAssess(false);
 }
 function setLang(l){
@@ -1186,10 +1287,10 @@ function setLang(l){
 })();
 
 /* shared with explore.js (impact and cost step, report) */
-window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,pick:pick,integ:integ,nbsTypes:nbsTypes,lvLabel:lvLabel,implQ:implQ,implVal:implVal,implLabel:implLabel,IMPL:IMPL,recs:recs,recFor:recFor,
-  riskList:riskList,riskOk:riskOk,riskText:riskText,matchStatus:matchStatus,matchMessages:matchMessages,UNSURE:UNSURE,indDone:indDone,allComplete:allComplete,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,OPT:OPT,CHK:CHK,
-  nav:nav,ansLabel:ansLabel,ansCsv:ansCsv,ansState:ansState,cfLabel:cfLabel,confCounts:confCounts,scopeTypeLabel:scopeTypeLabel,areaName:areaName,areaCountry:areaCountry,areaCity:areaCity,
-  rubricText:rubricText,stLabel:stLabel,whyText:whyText,optByNbs:optByNbs,weightsTable:weightsTable,promTable:promTable,
+window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,pick:pick,calc:calc,recs:recs,recFor:recFor,
+  riskList:riskList,riskOk:riskOk,riskText:riskText,matchStatus:matchStatus,matchMessages:matchMessages,UNSURE:UNSURE,indDone:indDone,allComplete:allComplete,CRIT:CRIT,IND:IND,CTX:CTX,RISK:RISK,CONF:CONF,LEVELS:LEVELS,OPT:OPT,CHK:CHK,
+  lvlIdx:lvlIdx,nav:nav,ansLabel:ansLabel,ansCsv:ansCsv,ansState:ansState,cfLabel:cfLabel,confCounts:confCounts,scopeTypeLabel:scopeTypeLabel,areaName:areaName,areaCountry:areaCountry,areaCity:areaCity,
+  condsHtml:condsHtml,rubricText:rubricText,gapsData:gapsData,stLabel:stLabel,whyText:whyText,optByNbs:optByNbs,eqWeightText:eqWeightText,weightsTable:weightsTable,promTable:promTable,
   chkKeys:chkKeys,chkVal:chkVal,roofStruct:roofStruct,catText:catText,CATS:CATS,RULE:RULE,methA:function(){return S.methAL[lang]},methB:function(){return S.methBL[lang]},
   isNum:isNum,today:today,fillSample:fillSample,renderAssess:renderAssess,freshState:freshState,setState:function(n){st=n;window.NBS4MED_CORE.st=n}};
 
