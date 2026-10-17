@@ -1124,7 +1124,7 @@
         (q.conds.length ? ' | conditions: ' + q.conds.map(function (k) { return k.id + ' ' + k.i.en + ': ' + (k.u ? 'Unknown' : 'score ' + k.v); }).join('; ') : '') + (q.o.nbs ? '' : ' | Impact/cost module not yet available')].concat(optCols(q)));
     });
     R.na.forEach(function (q) { add(['option excluded', q.o.en, 'Not applicable', '', 'applicability check', q.scr.reasons.map(function (z) { return z.t[0]; }).join(' ')].concat(optCols(q).slice(0))); });
-    R.other.forEach(function (q) { add(['other option', q.o.en, q.s + ' / 100', 'provisional rule-based match score', 'rule-based match', (q.raw === 0 ? 'None of the selected risks is a target of this option' : 'Land need exceeds the public land available') + '; not recommended; not a finding of technical unsuitability'].concat(optCols(q))); });
+    R.other.forEach(function (q) { add(['other option', q.o.en, q.s + ' / 100', 'provisional rule-based match score', 'rule-based match', (q.raw === 0 ? 'None of the selected risks is a target of this option' : q.o.roofSite ? 'Low provisional match to the selected risks' : 'Land need exceeds the public land available') + '; not recommended; not a finding of technical unsuitability'].concat(optCols(q))); });
     if (ex.sol && ex.res && ex.res.status === 'ok') {
       var res = ex.res;
       add(['explore', 'solution', solName(ex.sol), '', '', '']);

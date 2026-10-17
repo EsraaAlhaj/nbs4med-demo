@@ -105,7 +105,7 @@ var LEVELS=[
 ];
 var OPT=[
  {id:'tiny',en:'Urban forest (Miyawaki method)',ar:'غابة حضرية (طريقة ميازاكي)',eg:'NBS4MED pilot: Cerdanyola del Vallès, Spain',w:{heat:3,flood:1,drought:1,coast:0,fire:0,air:2},land:1,cx:1,nbs:'NBS01',cat:'green',cat2:'restoration'},
- {id:'roof',en:'Green roof',ar:'سطح أخضر',eg:'NBS4MED pilot: Izmir, Türkiye',w:{heat:2,flood:2,drought:1,coast:0,fire:0,air:1},land:0,cx:2,nbs:'NBS02',cat:'green'},
+ {id:'roof',en:'Green roof',ar:'سطح أخضر',eg:'NBS4MED pilot: Izmir, Türkiye',w:{heat:2,flood:2,drought:1,coast:0,fire:0,air:1},land:0,cx:2,nbs:'NBS02',cat:'green',roofSite:1},
  {id:'street',en:'Green corridor',ar:'ممر أخضر',eg:'NBS4MED pilot: Heliopolis, Egypt',w:{heat:3,flood:1,drought:0,coast:0,fire:0,air:2},land:0,cx:0,nbs:'NBS05',cat:'green'},
  {id:'swale',en:'Rain garden and bioswale',ar:'حديقة مطرية وخندق نباتي',eg:'',w:{heat:1,flood:3,drought:1,coast:0,fire:0,air:0},land:1,cx:1,nbs:null,cat:'bluegreen'},
  {id:'perm',en:'Permeable paving',ar:'رصف نفّاذ',eg:'',w:{heat:0,flood:3,drought:1,coast:0,fire:0,air:0},land:0,cx:0,nbs:null,cat:'bluegreen',cat2:'hybrid'},
@@ -345,6 +345,8 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
  whyL:{en:'Why it matches the selected risks',ar:'سبب مطابقته للمخاطر المختارة'},
  w3:{en:'strongly',ar:'بقوة'},w2:{en:'moderately',ar:'بدرجة متوسطة'},w1:{en:'weakly',ar:'بدرجة ضعيفة'},
  noTarget:{en:'Not a target of this option: ',ar:'ليست من أهداف هذا الخيار: '},
+ roofLand:{en:'Uses existing roof space, not public land, so public land availability does not affect this option. Roof availability and structural suitability still need to be checked.',ar:'يستخدم مساحة سطح قائمة وليس أرضًا عامة، لذا لا تؤثر إتاحة الأراضي العامة في هذا الخيار. ويلزم التحقق من توفر السطح وملاءمته الإنشائية.'},
+ roofGround:{en:'Ground space',ar:'المساحة الأرضية'},roofGroundV:{en:'Not required (existing roof)',ar:'غير مطلوبة (سطح قائم)'},
  landOk:{en:'Land need fits the available public land.',ar:'حاجة الأرض تناسب الأراضي العامة المتاحة.'},
  landFit:{en:'Land need exceeds the available public land, which lowers the provisional match.',ar:'حاجة الأرض تفوق الأراضي العامة المتاحة، مما يخفض المطابقة المؤقتة.'},
  screenL:{en:'Applicability',ar:'قابلية التطبيق'},
@@ -545,7 +547,7 @@ var AR={
  howH:'كيف تعمل',s1h:'ابدأ',s1p:'افتح الأداة. لا حاجة إلى حساب أو تسجيل دخول.',s2h:'أجب',s2p:'حدّد المنطقة المقيَّمة، واختر المخاطر المناخية، ثم قيّم 14 مؤشرًا من 0 إلى 2، أو اختر «غير معروف» أو «لا ينطبق».',
  s3h:'احصل على النتائج',s3p:'اطّلع على ملف المعايير ونقاط القوة والفجوات، ثم على الخيارات المناسبة لمخاطرك.',s4h:'حمّل وحسّن',s4p:'احفظ تقريرًا بصيغة PDF أو CSV، وعدّل إجاباتك وأعد التشغيل.',
  resourcesH:'المصادر',stepsH:'خطوات التقييم',sample:'املأ ببيانات نموذجية',clear:'مسح الكل',
- fDisc:'إخلاء مسؤولية التمويل',fPart:'شركاء المشروع',fContact:'التواصل والخصوصية'
+ fDisc:'إخلاء مسؤولية التمويل',ack:'برنامج إنترريج نكست ميد. مشروع NBS4MED ممول بشكل مشترك من الاتحاد الأوروبي.',logoNote:'إقرار نصي فقط. لم تُضَف بعد الشعارات الرسمية لمشروع NBS4MED وإنترريج نكست ميد والاتحاد الأوروبي، وستُضاف عند توفر المواد المعتمدة.',fPart:'شركاء المشروع',fContact:'التواصل والخصوصية'
 };
 function applyStatic(){
   $$('[data-i18n]').forEach(function(el){
@@ -967,7 +969,7 @@ function whyText(x){
   var t=parts.join('; ')+'.';
   if(x.why.miss.length)t+=' '+T('noTarget')+x.why.miss.map(function(r){return nm(r)}).join('; ')+'.';
   var landAvail=st.ctx.land==='low'?0:st.ctx.land==='mid'?1:2;
-  t+=' '+(x.o.land<=landAvail?T('landOk'):T('landFit'));
+  t+=' '+(x.o.roofSite?T('roofLand'):x.o.land<=landAvail?T('landOk'):T('landFit'));
   return t;
 }
 function screenHtml(x){
@@ -1019,8 +1021,8 @@ function optCard(x,shared){
   var hits=x.why.hit.map(function(h){return nm(h.r)}).join('; ');
   var strength=x.why.hit.map(function(h){return nm(h.r)+' ('+T('w'+h.w)+')'}).join('; ');
   var landAvail=st.ctx.land==='low'?0:st.ctx.land==='mid'?1:2;
-  var site=[o.land<=landAvail?T('landOk'):T('landFit')].concat(specific);
-  var det='<dl class="odl"><dt>'+T('cplx')+'</dt><dd>'+meter(o.cx+1,3)+CLAB.cx[o.cx][i]+'</dd><dt>'+T('landN')+'</dt><dd>'+meter(o.land+1,3)+CLAB.land[o.land][i]+'</dd></dl>'+
+  var site=[o.roofSite?T('roofLand'):o.land<=landAvail?T('landOk'):T('landFit')].concat(specific);
+  var det='<dl class="odl"><dt>'+T('cplx')+'</dt><dd>'+meter(o.cx+1,3)+CLAB.cx[o.cx][i]+'</dd>'+(o.roofSite?'<dt>'+T('roofGround')+'</dt><dd>'+T('roofGroundV')+'</dd>':'<dt>'+T('landN')+'</dt><dd>'+meter(o.land+1,3)+CLAB.land[o.land][i]+'</dd>')+'</dl>'+
     (x.why.miss.length?'<p class="note-s">'+esc(T('noTarget')+x.why.miss.map(function(r){return nm(r)}).join('; ')+'.')+'</p>':'')+(o.eg?'<p class="note-s">'+esc(o.eg)+'</p>':'')+'<div class="why">'+screenHtml(x)+'</div>';
   return '<article class="oc" id="opt-'+o.id+'"><header class="och"><h3>'+esc(nm(o))+'</h3>'+statusChip(x.scr.status)+'</header>'+
     '<p class="ocat">'+esc(catText(o))+' <span class="soft">('+T('catProv')+')</span></p>'+
@@ -1420,15 +1422,7 @@ function setLang(l){
   if(st.view==='explore')window.NBS4MED_EXPLORE.render();
 }
 
-/* EU flag stars */
-(function(){
-  var g=$('#stars'),h='';
-  for(var i=0;i<12;i++){
-    var a=i*Math.PI/6,x=42+17*Math.sin(a),y=28-17*Math.cos(a);
-    h+='<path transform="translate('+x.toFixed(1)+' '+y.toFixed(1)+')" d="M0-3.2L.9-1 3.1-.9 1.4.6 2 3 0 1.6-2 3-1.4.6-3.1-.9-.9-1z"/>';
-  }
-  g.innerHTML=h;
-})();
+
 
 /* shared with explore.js (impact and cost step, report) */
 window.NBS4MED_CORE={st:st,lang:function(){return lang},T:T,S:S,esc:esc,fmt:fmt,ico:ico,nm:nm,pick:pick,calc:calc,recs:recs,recFor:recFor,

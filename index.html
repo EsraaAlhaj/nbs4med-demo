@@ -264,6 +264,7 @@ footer a{color:#fff}
 .il{display:flex;align-items:center;gap:14px}
 .il .wm{font-weight:800;font-size:34px;color:var(--g800);line-height:.9;letter-spacing:-.01em;font-family:'Source Sans 3',sans-serif}
 .il .wm small{display:block;font-size:22px;letter-spacing:0}
+.ack{margin:0;font-weight:600;color:var(--g800);font-size:17px}
 .euf{display:flex;align-items:center;gap:14px;font-weight:700;color:var(--g800);line-height:1.2;font-size:19px}
 .foot{display:grid;grid-template-columns:1fr;gap:48px;padding:44px 0}
 .foot > div:first-child{max-width:62em}
@@ -741,19 +742,6 @@ details.adv h3{margin-top:10px}
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#" id="brandLink" aria-label="NBS4MED">
-      <svg class="logo" viewBox="0 0 64 64" role="img" aria-label="NBS4MED logo">
-        <circle cx="32" cy="32" r="30" fill="#8DC63F"/>
-        <g fill="#123628">
-          <path d="M23.2 28h1.6l.7 19h-3z"/>
-          <g transform="translate(24 27)"><g class="rotor"><path d="M-1.5 0L0-13l1.5 13z"/><path transform="rotate(120)" d="M-1.5 0L0-13l1.5 13z"/><path transform="rotate(240)" d="M-1.5 0L0-13l1.5 13z"/></g><circle r="1.9"/></g>
-          <path d="M41.3 24h1.4l.6 20h-2.6z"/>
-          <g transform="translate(42 23)"><g class="rotor r2"><path d="M-1.3 0L0-10.5l1.3 10.5z"/><path transform="rotate(120)" d="M-1.3 0L0-10.5l1.3 10.5z"/><path transform="rotate(240)" d="M-1.3 0L0-10.5l1.3 10.5z"/></g><circle r="1.6"/></g>
-        </g>
-        <g fill="none" stroke="#123628" stroke-width="2.2" stroke-linecap="round">
-          <path class="w1" d="M17 51q3.75-3 7.5 0t7.5 0 7.5 0 7.5 0"/>
-          <path class="w2" d="M19 57q3.5-2.6 7 0t7 0 7 0 6 0"/>
-        </g>
-      </svg>
       <span><b>NBS4MED<span class="demo-tag" data-i18n="demoTag">DEMO</span></b><small data-i18n="brandSub">Self-Evaluation Tool</small></span>
     </a>
     <nav class="nav" id="introNav" aria-label="Main">
@@ -910,14 +898,7 @@ details.adv h3{margin-top:10px}
 <footer>
   <div class="eu">
     <div class="wrap">
-      <div class="il" aria-label="Interreg NEXT MED">
-        <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="17" fill="none" stroke="#17402F" stroke-width="3" stroke-dasharray="3 3.2"/><path d="M6 38q8-6 17-2t17-2" fill="none" stroke="#8DC63F" stroke-width="3"/></svg>
-        <div class="wm">Interreg<small>NEXT MED</small></div>
-      </div>
-      <div class="euf">
-        <svg width="84" height="56" viewBox="0 0 84 56" role="img" aria-label="European Union flag"><rect width="84" height="56" fill="#0B3C9D"/><g fill="#FFD400" id="stars"></g></svg>
-        <span>Co-funded by<br>the European Union</span>
-      </div>
+      <p class="ack" data-i18n="ack">Interreg NEXT MED Programme. NBS4MED is co-funded by the European Union.</p>
     </div>
   </div>
   <div class="wrap">
@@ -936,7 +917,7 @@ details.adv h3{margin-top:10px}
         <ul><li>Contact: address to be added</li><li><a href="#resources">Privacy notice</a></li></ul>
       </div>
     </div>
-    <div class="legal">Interreg and EU logos shown here are drawn placeholders. Replace them with the official artwork files before publication.</div>
+    <div class="legal" data-i18n="logoNote">Text acknowledgement only. Official NBS4MED, Interreg NEXT MED and European Union logos are not yet included and will be added when the approved artwork is supplied.</div>
   </div>
 </footer>
 
