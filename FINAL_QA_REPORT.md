@@ -146,3 +146,9 @@ Preparation: Chrome or Edge, a clean profile, zoom 100%, 1920×1080, open the st
 ## 10. Verdict
 
 **READY WITH LIMITATIONS.** Functionality, scoring, calculators, reports and the İzmir demo were verified in the browser and in generated files. The remaining limits are the missing official artwork (blocks public release and any external recording that shows the footer), unreviewed visuals of the detailed PDFs, and no video yet.
+
+## 11. Addendum: pre-merge changes (commits after `e9bc52e`)
+
+- **Green roof wording.** Public land availability never entered the Green roof score (its land need is 0, and the match formula only deducts points when land need exceeds availability). Only the explanation was misleading ("Land need fits the available public land"). The card, the summary PDF and the CSV now say that the option uses existing roof space, not public land, and that roof availability and structure still need checking; the "Land need" row shows "Ground space: not required (existing roof)". The matching formula and weights are unchanged. Verified by `qa-tests/qa6.js` (19 checks, English and Arabic): the roof score is identical for low, medium and high public land.
+- **Branding.** The drawn Interreg and EU marks and the drawn NBS4MED header mark were removed and replaced with text-only acknowledgements (see `BRANDING_ASSETS.md`).
+- Regression after these changes: t16 66, t15 84, t9b 44, t10 57, t11 64, t13 23, pdf2 114 (one summary page overflowed by 5 px with the first wording; the text was shortened and rerun), qa1 190, qa2 864, qa3 284, qa4 18, qa6 19. All pass.
