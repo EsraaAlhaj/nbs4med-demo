@@ -345,7 +345,7 @@ matchNote:{en:'The match is a provisional rule-based description of how well an 
  whyL:{en:'Why it matches the selected risks',ar:'سبب مطابقته للمخاطر المختارة'},
  w3:{en:'strongly',ar:'بقوة'},w2:{en:'moderately',ar:'بدرجة متوسطة'},w1:{en:'weakly',ar:'بدرجة ضعيفة'},
  noTarget:{en:'Not a target of this option: ',ar:'ليست من أهداف هذا الخيار: '},
- roofLand:{en:'Uses existing roof space, not public land, so public land availability does not affect this option. Roof availability and structural suitability still need to be checked.',ar:'يستخدم مساحة سطح قائمة وليس أرضًا عامة، لذا لا تؤثر إتاحة الأراضي العامة في هذا الخيار. ويلزم التحقق من توفر السطح وملاءمته الإنشائية.'},
+ roofLand:{en:'Uses existing roof space, not public land. Roof availability and structure still need checking.',ar:'يستخدم مساحة سطح قائمة وليس أرضًا عامة. ويلزم التحقق من توفر السطح وبنيته.'},
  roofGround:{en:'Ground space',ar:'المساحة الأرضية'},roofGroundV:{en:'Not required (existing roof)',ar:'غير مطلوبة (سطح قائم)'},
  landOk:{en:'Land need fits the available public land.',ar:'حاجة الأرض تناسب الأراضي العامة المتاحة.'},
  landFit:{en:'Land need exceeds the available public land, which lowers the provisional match.',ar:'حاجة الأرض تفوق الأراضي العامة المتاحة، مما يخفض المطابقة المؤقتة.'},
