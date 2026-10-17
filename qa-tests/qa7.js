@@ -26,7 +26,7 @@ for(const [lang,W] of [['en',1920],['ar',1920],['en',390],['ar',390]]){
  const H=await ev(()=>['asH','ctH','cpH','dgH','gpH','rcH','icH'].map(i=>{const e=document.getElementById(i);return e?Math.round(e.getBoundingClientRect().top+scrollY):null}));
  ok(T,'dashboard sections in order',H.every(x=>x!==null)&&H.every((x,i)=>i===0||x>H[i-1]),H);
  const ov=await txt('#asH + .ovtop');
- ok(T,'overview: provisional overall score tile, area, scale, date, risks, completeness',/(Provisional overall score|الدرجة الإجمالية المؤقتة)/.test(ov)&&/(Not a validated|ليست مقياسًا معتمدًا)/i.test(ov)&&/İzmir/.test(ov)&&/2026|٢٠٢٦/.test(ov),ov.slice(0,300));
+ ok(T,'overview: provisional overall score tile, area, scale, date, risks, completeness',/(provisional overall score|الدرجة الإجمالية المؤقتة)/i.test(ov)&&/(Not a validated|ليست مقياسًا معتمدًا)/i.test(ov)&&/(İzmir|إزمير)/.test(ov)&&/2026|٢٠٢٦/.test(ov),ov.slice(0,300));
  // unsupported options: no radios, explanatory note
  const radios=await ev(()=>[...document.querySelectorAll('#icSec input[name=exsol]')].map(i=>i.value));
  ok(T,'five supported calculators offered; others explained',JSON.stringify(radios.sort())===JSON.stringify(['NBS01','NBS02','NBS03','NBS04','NBS05'])&&(await txt('.nocalc-note')).length>20,radios);
