@@ -39,5 +39,5 @@ Older tests that targeted the removed Explore page or the removed section (t16, 
 - The IUCN results dashboard itself could not be opened from this environment (network policy). The benchmark was limited to public descriptions (percentage match per criterion, traffic-light levels, report); layout decisions follow those and the brief, not the live IUCN pages.
 - Official NBS4MED, Interreg NEXT MED and EU logos are still missing (text acknowledgement only); see `BRANDING_ASSETS.md`.
 - Only the currently selected option's impact and cost go into the reports (as before).
-- The detailed PDFs were verified for page count and content, not page-by-page visually.
+- The detailed PDFs (12 pages each, English and Arabic) were checked as full contact sheets (`redesign-evidence/after/*_detailed_contact_sheet.png`): no clipped or overlapping tables or text were visible at that scale, and Arabic tables stay right-to-left. Fine print was not proofread page by page.
 - The live GitHub Pages site still serves the previous version until this branch is merged.
