@@ -50,9 +50,11 @@ The interface does not need to change when records or parameter values change.
 
 ## Assessment logic (provisional, for partner review)
 
+**Assessment questions.** Each of the fourteen indicators is shown as: heading (for example 1.1 — NBS inventory), a Read more explanation (what it assesses, why it matters, what to consider), a concise question, descriptive answer cards for the original 0 to 2 rubric with the score as secondary information, separate Unknown and Not applicable cards, and optional rationale, evidence and confidence. The wording is in `guidance.js`. One primary scored response per indicator.
+
 **Eight stages.** 1 Assessment Area, 2 Site Context, 3 Local Climate Risks, then 4 to 8 the five criteria C1 to C5 (14 indicators, 0 to 2 scale). Results can be viewed as soon as these eight stages are complete.
 
-**Results page.** Assessment summary (criterion chart with C1 apart from C2 to C5, a provisional combined score as secondary information, completeness, confidence and up to three improvement areas), preliminary NBS options (up to three compact cards, with shared implementation conditions from C3 and C5), potential climate impact and supporting calculations, and indicative cost and implementation considerations. Collapsed sections on screen are always included in the downloadable reports. The calculators' formulas, defaults and units are unchanged. Climate-risk mitigation impact is stated as not currently estimated; physical quantities and literature reference evidence are shown separately.
+**Results page (dashboard).** Assessment overview (area, scale, date, selected risks, completeness, evidence and confidence, a short deterministic interpretation, and the provisional combined score as secondary information), a criteria results table (score, maximum, percentage, provisional level, key finding) with C1 apart from C2 to C5, one horizontal comparison chart on a fixed 0 to 100% scale, a collapsed indicator-level diagnosis, priority gaps and improvement actions (see `GAP_ACTION_LOGIC.md`), preliminary NBS options (category, relevant risk, why, site conditions, applicability, explore action), and a dedicated Potential Impact & Indicative Cost section with evidence labels. Collapsed sections on screen are always included in the downloadable reports. Calculator formulas, defaults and units are unchanged.
 
 **Three separate things.** They never feed into each other:
 

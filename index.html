@@ -550,7 +550,8 @@ details.adv h3{margin-top:10px}
 .ovgrid dd{margin:2px 0 0;font-size:16px;overflow-wrap:anywhere}
 @media(max-width:820px){.ovgrid{grid-template-columns:1fr}}
 .intp{margin:8px 0 12px;padding:12px 16px;background:var(--g50);border-inline-start:4px solid var(--g600);font-size:16px}
-.crit-tbl th[scope=row]{text-align:start;font-weight:400;min-width:180px}
+.crit-tbl th[scope=row],.dg-tbl th[scope=row]{text-align:start;font-weight:400;min-width:170px;border-bottom:1px solid var(--line);padding:10px 10px 10px 0;font-size:inherit;color:var(--ink)}
+[dir=rtl] .crit-tbl th[scope=row],[dir=rtl] .dg-tbl th[scope=row]{padding:10px 0 10px 10px}
 .crit-tbl tr.grp th{background:var(--g100);color:var(--g800);font-size:14px;text-transform:uppercase;letter-spacing:.04em;padding:6px 10px}
 .crit-tbl tr.grp.en th{background:var(--wash)}
 .crit-tbl td{font-size:15px}
