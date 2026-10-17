@@ -556,6 +556,18 @@ details.adv h3{margin-top:10px}
 .crit-tbl tr.grp.en th{background:var(--wash)}
 .crit-tbl td{font-size:15px}
 .dg-tbl td,.dg-tbl th{font-size:14.5px}
+@media(max-width:640px){
+.crit-tbl,.dg-tbl,.crit-tbl tbody,.dg-tbl tbody{display:block}
+.crit-tbl thead,.dg-tbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.crit-tbl tr,.dg-tbl tr{display:block;border:1px solid var(--line);border-radius:8px;margin:0 0 10px;padding:8px 12px;background:#fff}
+.crit-tbl tr.grp{border:0;padding:0;background:none;margin:14px 0 6px}
+.crit-tbl tr.grp th{display:block;border-radius:6px}
+.crit-tbl th[scope=row],.dg-tbl th[scope=row]{display:block;min-width:0;border:0;padding:0 0 6px;font-weight:600}
+.crit-tbl td,.dg-tbl td{display:flex;justify-content:space-between;gap:14px;border:0;padding:4px 0;text-align:start}
+.crit-tbl td::before,.dg-tbl td::before{content:attr(data-l);color:var(--soft);font-size:13px;flex:0 0 40%}
+.crit-tbl td.num,.dg-tbl td.num{text-align:start}
+.crit-tbl td>*,.dg-tbl td>*{text-align:end}
+}
 .gaps{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:12px}
 .gap{border:1px solid var(--line);border-inline-start:5px solid var(--g500);padding:12px 16px;background:#fff}
 .gap.g0{border-inline-start-color:var(--lv0)}

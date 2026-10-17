@@ -1124,7 +1124,7 @@ function critTableHtml(r){
     var score=p.status==='complete'?'<bdi dir="ltr">'+p.sum+'</bdi>':'–',mx=p.status==='complete'?'<bdi dir="ltr">'+p.max+'</bdi>':'–';
     var pct=p.status==='complete'?'<b><bdi dir="ltr">'+p.pct+'%</bdi></b>':'<span class="soft">–</span>';
     var stat=p.status==='complete'?'<span class="chip '+lv.c+'">'+esc(nm(lv))+'</span>':'<span class="soft">'+esc(p.status==='na'?T('naCrit'):T('notRated'))+'</span>';
-    return '<tr><th scope="row"><b>'+cr.id+'</b> '+esc(nm(cr))+'</th><td class="num">'+score+'</td><td class="num">'+mx+'</td><td class="num">'+pct+'</td><td>'+stat+'</td><td>'+esc(keyFinding(ci,r))+'</td></tr>';
+    return '<tr><th scope="row"><b>'+cr.id+'</b> '+esc(nm(cr))+'</th><td class="num" data-l="'+esc(C[1])+'">'+score+'</td><td class="num" data-l="'+esc(C[2])+'">'+mx+'</td><td class="num" data-l="'+esc(C[3])+'">'+pct+'</td><td data-l="'+esc(C[4])+'">'+stat+'</td><td data-l="'+esc(C[5])+'">'+esc(keyFinding(ci,r))+'</td></tr>';
   }
   return '<div class="tbl-wrap"><table class="tbl crit-tbl"><caption class="sr">'+esc(T('ctH'))+'</caption><thead><tr>'+C.map(function(c,i){return '<th'+(i>0&&i<4?' class="num"':'')+'>'+esc(c)+'</th>'}).join('')+'</tr></thead><tbody>'+
     '<tr class="grp"><th colspan="6">'+esc(T('g1H'))+'</th></tr>'+row(0)+'<tr class="grp en"><th colspan="6">'+esc(T('g2H'))+'</th></tr>'+[1,2,3,4].map(row).join('')+'</tbody></table></div><p class="note-s">'+esc(T('ctNote'))+'</p>';
@@ -1170,7 +1170,7 @@ function diagHtml(r){
       var v=st.sc[i.id],hasEv=!blank(st.evd[i.id])||!blank(st.rat[i.id]),cf=st.cf[i.id]?cfLabel(i.id):'';
       var interp=isNum(v)?rubricText(i,v):v==='U'?T('gpUnkF'):v==='NA'?(st.just[i.id]||''):'–';
       var gap=v===0?T('gpT0'):v===1?T('gpT1'):v==='U'?T('gpTU'):v==='NA'?T('naCrit'):v===2?'–':'–';
-      return '<tr><th scope="row"><b>'+i.id+'</b> '+esc(nm(i))+'</th><td>'+esc(ansLabel(i.id))+'</td><td class="num">'+(isNum(v)?'<bdi dir="ltr">'+v+' / 2</bdi>':'–')+'</td><td>'+esc(interp)+'</td><td>'+esc(hasEv?T('evSome'):T('evNone'))+(cf?'<br><small>'+esc(T('evCf'))+': '+esc(cf)+'</small>':'')+'</td><td>'+esc(gap)+'</td></tr>';
+      return '<tr><th scope="row"><b>'+i.id+'</b> '+esc(nm(i))+'</th><td data-l="'+esc(D[1])+'">'+esc(ansLabel(i.id))+'</td><td class="num" data-l="'+esc(D[2])+'">'+(isNum(v)?'<bdi dir="ltr">'+v+' / 2</bdi>':'–')+'</td><td data-l="'+esc(D[3])+'">'+esc(interp)+'</td><td data-l="'+esc(D[4])+'">'+esc(hasEv?T('evSome'):T('evNone'))+(cf?'<br><small>'+esc(T('evCf'))+': '+esc(cf)+'</small>':'')+'</td><td data-l="'+esc(D[5])+'">'+esc(gap)+'</td></tr>';
     }).join('');
     return dtl('dg-'+cr.id,esc(sum),'<div class="tbl-wrap"><table class="tbl dg-tbl"><thead><tr>'+D.map(function(c){return '<th>'+esc(c)+'</th>'}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>',false);
   }).join('');
