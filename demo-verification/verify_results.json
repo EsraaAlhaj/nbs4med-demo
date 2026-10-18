@@ -1,0 +1,738 @@
+[
+ {
+  "id": "en_live1",
+  "n": "header logo is the animated green circle",
+  "exp": true,
+  "act": true,
+  "pass": true
+ },
+ {
+  "id": "en_live2",
+  "n": "no hero composite logo; footer composite logo present",
+  "exp": true,
+  "act": true,
+  "pass": true
+ },
+ {
+  "id": "en_A1",
+  "n": "assessment area Türkiye — İzmir Green Roof Pilot; default scale Site / Project Area",
+  "exp": true,
+  "act": {
+   "sel": "Türkiye — İzmir Green Roof Pilot",
+   "st": {
+    "area": "tr",
+    "mName": "",
+    "mCountry": "",
+    "mCity": "",
+    "type": "site",
+    "typeAuto": true,
+    "org": "",
+    "date": "2026-10-18"
+   }
+  },
+  "pass": true
+ },
+ {
+  "id": "en_A2",
+  "n": "urban density High, public land Limited (stored high / low)",
+  "exp": [
+   "high",
+   "low"
+  ],
+  "act": [
+   "high",
+   "low"
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_A3",
+  "n": "climate risks Heatwaves and Flooding",
+  "exp": [
+   "flood",
+   "heat"
+  ],
+  "act": [
+   "flood",
+   "heat"
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_A4",
+  "n": "five criteria, fourteen indicators in order",
+  "exp": [
+   "1.1",
+   "1.2",
+   "1.3",
+   "2.1",
+   "2.2",
+   "2.3",
+   "3.1",
+   "3.2",
+   "3.3",
+   "4.1",
+   "4.2",
+   "5.1",
+   "5.2",
+   "5.3"
+  ],
+  "act": [
+   "1.1",
+   "1.2",
+   "1.3",
+   "2.1",
+   "2.2",
+   "2.3",
+   "3.1",
+   "3.2",
+   "3.3",
+   "4.1",
+   "4.2",
+   "5.1",
+   "5.2",
+   "5.3"
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_A5",
+  "n": "indicator 3.3 stored as Unknown",
+  "exp": true,
+  "act": true,
+  "pass": true
+ },
+ {
+  "id": "en_B1",
+  "n": "C1 33% (2/6)",
+  "exp": [
+   33,
+   2,
+   6
+  ],
+  "act": [
+   33,
+   2,
+   6
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_B2",
+  "n": "C2 33% (2/6)",
+  "exp": [
+   33,
+   2,
+   6
+  ],
+  "act": [
+   33,
+   2,
+   6
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_B3",
+  "n": "C3 not rated (Unknown)",
+  "exp": [
+   null,
+   "incomplete"
+  ],
+  "act": [
+   null,
+   "incomplete"
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_B4",
+  "n": "C4 50% (2/4)",
+  "exp": [
+   50,
+   2,
+   4
+  ],
+  "act": [
+   50,
+   2,
+   4
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_B5",
+  "n": "C5 17% (1/6)",
+  "exp": [
+   17,
+   1,
+   6
+  ],
+  "act": [
+   17,
+   1,
+   6
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_B6",
+  "n": "overall score not displayed (tile shows Not shown, no percentage)",
+  "exp": true,
+  "act": "PROVISIONAL OVERALL SCORE Not shown The overall percentage is not shown because 1 indicator is Unknown (3.3). Resolve it to see the overall score. Provisional a",
+  "pass": true
+ },
+ {
+  "id": "en_B7",
+  "n": "criteria table rows (C3 shows – and Not rated)",
+  "exp": true,
+  "act": [
+   [
+    "2",
+    "6",
+    "33%",
+    "Partial"
+   ],
+   [
+    "2",
+    "6",
+    "33%",
+    "Partial"
+   ],
+   [
+    "–",
+    "–",
+    "–",
+    "Not rated: Unknown answers"
+   ],
+   [
+    "2",
+    "4",
+    "50%",
+    "Partial"
+   ],
+   [
+    "1",
+    "6",
+    "17%",
+    "Insufficient"
+   ]
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_C1",
+  "n": "first five gaps shown: 1.3, 2.3, 5.2, 5.3, 1.1",
+  "exp": [
+   "1.3",
+   "2.3",
+   "5.2",
+   "5.3",
+   "1.1"
+  ],
+  "act": [
+   "1.3",
+   "2.3",
+   "5.2",
+   "5.3",
+   "1.1"
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_C2",
+  "n": "5.2 finding, action and evidence shown",
+  "exp": true,
+  "act": "Gap 5.2 — Long-term maintenance budget (Score 0 / 2) Finding No budget covers maintenance, watering or replacement of NBS. Why it matters NBS need continuing care. Without it they can fail within a few years. Suggested action Prepare an operation and maintenance budget and clarify who is responsible",
+  "pass": true
+ },
+ {
+  "id": "en_C3",
+  "n": "note says display order is not a validated ranking and actions are general prompts from the answers",
+  "exp": true,
+  "act": "Shown in a provisional display order: answers scored 0 first, then 1, then Unknown, each in indicator order. This is not a validated ranking of impact or urgency. The actions are general prompts based",
+  "pass": true
+ },
+ {
+  "id": "en_D1",
+  "n": "preliminary options include Green roof, Green corridor, Urban forest",
+  "exp": 3,
+  "act": 3,
+  "pass": true
+ },
+ {
+  "id": "en_D2",
+  "n": "top cards roof, street (Green corridor), tiny (Urban forest)",
+  "exp": [
+   "roof",
+   "street",
+   "tiny"
+  ],
+  "act": [
+   "roof",
+   "street",
+   "tiny"
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_D3",
+  "n": "Green roof status Requires verification",
+  "exp": "verify",
+  "act": "verify",
+  "pass": true
+ },
+ {
+  "id": "en_D4",
+  "n": "status chip text",
+  "exp": true,
+  "act": "Requires verification",
+  "pass": true
+ },
+ {
+  "id": "en_E1",
+  "n": "rain on roof 24 m³",
+  "exp": 24,
+  "act": 24,
+  "pass": true
+ },
+ {
+  "id": "en_E2",
+  "n": "substrate 64 m³",
+  "exp": 64,
+  "act": 64,
+  "pass": true
+ },
+ {
+  "id": "en_E3",
+  "n": "retention 6.43–14.83 m³",
+  "exp": [
+   6.43,
+   14.83
+  ],
+  "act": [
+   6.43,
+   14.83
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_E4",
+  "n": "CAPEX low/base/high",
+  "exp": [
+   23240,
+   41860,
+   78160
+  ],
+  "act": [
+   23240,
+   41860,
+   78160
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_E5",
+  "n": "OPEX low/base/high",
+  "exp": [
+   800,
+   2000,
+   4000
+  ],
+  "act": [
+   800,
+   2000,
+   4000
+  ],
+  "pass": true
+ },
+ {
+  "id": "en_E6",
+  "n": "costs labelled illustrative; mitigation not estimated; reference example labelled",
+  "exp": true,
+  "act": "",
+  "pass": true
+ },
+ {
+  "id": "en_F1",
+  "n": "CSV downloaded with the inline calculation",
+  "exp": true,
+  "act": 22307,
+  "pass": true
+ },
+ {
+  "id": "en_G",
+  "n": "no JavaScript errors",
+  "exp": [],
+  "act": [],
+  "pass": true
+ },
+ {
+  "id": "ar_live1",
+  "n": "header logo is the animated green circle",
+  "exp": true,
+  "act": true,
+  "pass": true
+ },
+ {
+  "id": "ar_live2",
+  "n": "no hero composite logo; footer composite logo present",
+  "exp": true,
+  "act": true,
+  "pass": true
+ },
+ {
+  "id": "ar_A1",
+  "n": "assessment area Türkiye — İzmir Green Roof Pilot; default scale Site / Project Area",
+  "exp": true,
+  "act": {
+   "sel": "تركيا — تجربة السطح الأخضر في إزمير",
+   "st": {
+    "area": "tr",
+    "mName": "",
+    "mCountry": "",
+    "mCity": "",
+    "type": "site",
+    "typeAuto": true,
+    "org": "",
+    "date": "2026-10-18"
+   }
+  },
+  "pass": true
+ },
+ {
+  "id": "ar_A2",
+  "n": "urban density High, public land Limited (stored high / low)",
+  "exp": [
+   "high",
+   "low"
+  ],
+  "act": [
+   "high",
+   "low"
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_A3",
+  "n": "climate risks Heatwaves and Flooding",
+  "exp": [
+   "flood",
+   "heat"
+  ],
+  "act": [
+   "flood",
+   "heat"
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_A4",
+  "n": "five criteria, fourteen indicators in order",
+  "exp": [
+   "1.1",
+   "1.2",
+   "1.3",
+   "2.1",
+   "2.2",
+   "2.3",
+   "3.1",
+   "3.2",
+   "3.3",
+   "4.1",
+   "4.2",
+   "5.1",
+   "5.2",
+   "5.3"
+  ],
+  "act": [
+   "1.1",
+   "1.2",
+   "1.3",
+   "2.1",
+   "2.2",
+   "2.3",
+   "3.1",
+   "3.2",
+   "3.3",
+   "4.1",
+   "4.2",
+   "5.1",
+   "5.2",
+   "5.3"
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_A5",
+  "n": "indicator 3.3 stored as Unknown",
+  "exp": true,
+  "act": true,
+  "pass": true
+ },
+ {
+  "id": "ar_B1",
+  "n": "C1 33% (2/6)",
+  "exp": [
+   33,
+   2,
+   6
+  ],
+  "act": [
+   33,
+   2,
+   6
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_B2",
+  "n": "C2 33% (2/6)",
+  "exp": [
+   33,
+   2,
+   6
+  ],
+  "act": [
+   33,
+   2,
+   6
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_B3",
+  "n": "C3 not rated (Unknown)",
+  "exp": [
+   null,
+   "incomplete"
+  ],
+  "act": [
+   null,
+   "incomplete"
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_B4",
+  "n": "C4 50% (2/4)",
+  "exp": [
+   50,
+   2,
+   4
+  ],
+  "act": [
+   50,
+   2,
+   4
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_B5",
+  "n": "C5 17% (1/6)",
+  "exp": [
+   17,
+   1,
+   6
+  ],
+  "act": [
+   17,
+   1,
+   6
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_B6",
+  "n": "overall score not displayed (tile shows Not shown, no percentage)",
+  "exp": true,
+  "act": "الدرجة الإجمالية المؤقتة غير معروضة لا تُعرض النسبة الإجمالية لأن 1 من المؤشرات غير معروفة (3.3). عالجها لعرض النتيجة الإجمالية. مؤقتة وثانوية. وليست مقياسًا مع",
+  "pass": true
+ },
+ {
+  "id": "ar_B7",
+  "n": "criteria table rows (C3 shows – and Not rated)",
+  "exp": true,
+  "act": [
+   [
+    "2",
+    "6",
+    "33%",
+    "جزئي"
+   ],
+   [
+    "2",
+    "6",
+    "33%",
+    "جزئي"
+   ],
+   [
+    "–",
+    "–",
+    "–",
+    "غير مُقيَّم: توجد إجابات غير معروفة"
+   ],
+   [
+    "2",
+    "4",
+    "50%",
+    "جزئي"
+   ],
+   [
+    "1",
+    "6",
+    "17%",
+    "غير كافٍ"
+   ]
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_C1",
+  "n": "first five gaps shown: 1.3, 2.3, 5.2, 5.3, 1.1",
+  "exp": [
+   "1.3",
+   "2.3",
+   "5.2",
+   "5.3",
+   "1.1"
+  ],
+  "act": [
+   "1.3",
+   "2.3",
+   "5.2",
+   "5.3",
+   "1.1"
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_C2",
+  "n": "5.2 finding, action and evidence shown",
+  "exp": true,
+  "act": "فجوة 5.2 — ميزانية الصيانة طويلة الأجل (الدرجة 0 / 2) ما ظهر لا توجد ميزانية تغطي صيانة الحلول أو ريّها أو استبدالها. لماذا يهم تحتاج الحلول إلى رعاية مستمرة، ومن دونها قد تفشل خلال سنوات قليلة. الإجراء المقترح إعداد ميزانية للتشغيل والصيانة وتوضيح الجهة المسؤولة عن تمويلها. الأدلة المطلوبة خطط الصي",
+  "pass": true
+ },
+ {
+  "id": "ar_C3",
+  "n": "note says display order is not a validated ranking and actions are general prompts from the answers",
+  "exp": true,
+  "act": "تُعرض بترتيب عرض مؤقت: الإجابات التي نالت 0 أولًا ثم 1 ثم «غير معروف»، وفق ترتيب المؤشرات. وهذا ليس ترتيبًا معتمدًا للأثر أو الإلحاح. والإجراءات مقترحات عامة مبنية على إجاباتك وليست استنتاجات عن الموق",
+  "pass": true
+ },
+ {
+  "id": "ar_D1",
+  "n": "preliminary options include Green roof, Green corridor, Urban forest",
+  "exp": 3,
+  "act": 3,
+  "pass": true
+ },
+ {
+  "id": "ar_D2",
+  "n": "top cards roof, street (Green corridor), tiny (Urban forest)",
+  "exp": [
+   "roof",
+   "street",
+   "tiny"
+  ],
+  "act": [
+   "roof",
+   "street",
+   "tiny"
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_D3",
+  "n": "Green roof status Requires verification",
+  "exp": "verify",
+  "act": "verify",
+  "pass": true
+ },
+ {
+  "id": "ar_D4",
+  "n": "status chip text",
+  "exp": true,
+  "act": "يتطلب تحققًا",
+  "pass": true
+ },
+ {
+  "id": "ar_E1",
+  "n": "rain on roof 24 m³",
+  "exp": 24,
+  "act": 24,
+  "pass": true
+ },
+ {
+  "id": "ar_E2",
+  "n": "substrate 64 m³",
+  "exp": 64,
+  "act": 64,
+  "pass": true
+ },
+ {
+  "id": "ar_E3",
+  "n": "retention 6.43–14.83 m³",
+  "exp": [
+   6.43,
+   14.83
+  ],
+  "act": [
+   6.43,
+   14.83
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_E4",
+  "n": "CAPEX low/base/high",
+  "exp": [
+   23240,
+   41860,
+   78160
+  ],
+  "act": [
+   23240,
+   41860,
+   78160
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_E5",
+  "n": "OPEX low/base/high",
+  "exp": [
+   800,
+   2000,
+   4000
+  ],
+  "act": [
+   800,
+   2000,
+   4000
+  ],
+  "pass": true
+ },
+ {
+  "id": "ar_E6",
+  "n": "costs labelled illustrative; mitigation not estimated; reference example labelled",
+  "exp": true,
+  "act": "",
+  "pass": true
+ },
+ {
+  "id": "ar_F1",
+  "n": "CSV downloaded with the inline calculation",
+  "exp": true,
+  "act": 21999,
+  "pass": true
+ },
+ {
+  "id": "ar_G",
+  "n": "no JavaScript errors",
+  "exp": [],
+  "act": [],
+  "pass": true
+ }
+]

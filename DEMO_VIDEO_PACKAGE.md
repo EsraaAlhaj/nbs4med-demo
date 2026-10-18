@@ -40,7 +40,7 @@ Reproduce with the browser at 1920 × 1080, English or Arabic. Nothing is pre-fi
 | Green roof applicability | **Requires verification**. Reason: structural suitability of the roof requires assessment. |
 | Physical quantities | Rain falling on the roof in this event: **24 m³** (800 m² × 30 mm). Substrate volume to buy: **64 m³** (800 m² × 0.08 m). |
 | Climate-risk mitigation impact | "Quantitative climate-risk mitigation impact is not currently estimated." |
-| Literature reference evidence | Rainwater retained in this single event (scenario): **6.43 to 14.83 m³**, published reference (source G01), not a validated local forecast. |
+| Literature reference evidence | Rainwater retained in this single event (scenario): **6.43 to 14.83 m³** (the screen rounds the upper value to 14.8; the underlying value is 14.832), published reference (source G01), not a validated local forecast. |
 | Indicative construction cost | Low **23,240**, base **41,860**, high **78,160 EUR**. Demo assumption. No price year. |
 | Indicative annual maintenance | Low **800**, base **2,000**, high **4,000 EUR** per year. Demo assumption. |
 | Reference cost example | Hamburg, 2017, source S04: **23,200 to 58,400 EUR** (median 35,200) for 800 m². Another place and year, not a local price. Shown only because 800 m² lies inside the 196 to 1,944 m² study range. |
