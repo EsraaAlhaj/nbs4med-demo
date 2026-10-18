@@ -109,6 +109,7 @@ h1{font-family:var(--serif);font-weight:700;font-size:46px;line-height:1.14;colo
 .res-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
 .res-list li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
 .res-list span{color:var(--soft);font-size:15px}
+.res-list b{font-weight:400;color:var(--ink)}
 
 /* assessment view */
 .as{background:#fff;min-height:70vh}
@@ -515,6 +516,19 @@ details.adv h3{margin-top:10px}
 .sdl.impl dt{font-weight:400;color:var(--ink)}
 .sdl.impl dd{margin:0;font-weight:600}
 .chkpanel h4{margin-top:20px}
+/* ---- landing page branding (static, unmodified logo image) ---- */
+.brandtile{display:inline-block;background:#fff;border:1px solid var(--line);padding:4px 8px;margin:0 0 22px;line-height:0}
+.brandlogo{display:block;width:300px;max-width:100%;height:auto}
+.brandlogo-foot{width:300px}
+.eu .wrap{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.hero-demo{font-size:14px;color:var(--soft);font-weight:400}
+@media(max-width:700px){.brandlogo,.brandlogo-foot{width:250px}}
+/* one-time fade-in of the landing copy only (not the logo); off with reduced motion */
+@media (prefers-reduced-motion:no-preference){
+  .hero-copy .eyebrow,.hero-copy h1,.hero-copy .lead,.hero-copy .facts,.hero-copy .hero-cta{animation:landfade .6s ease-out both}
+  .hero-copy h1{animation-delay:.05s}.hero-copy .lead{animation-delay:.1s}.hero-copy .facts{animation-delay:.15s}.hero-copy .hero-cta{animation-delay:.2s}
+}
+@keyframes landfade{from{opacity:0}to{opacity:1}}
 /* ---- results dashboard redesign ---- */
 .ovtop{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px 28px;align-items:stretch;margin:14px 0 12px}
 .ovscore{border:1px solid var(--line);border-top:5px solid var(--g800);background:var(--g50);padding:14px 18px 12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
@@ -783,10 +797,11 @@ details.adv h3{margin-top:10px}
 <div id="view-intro">
   <section class="hero" aria-labelledby="h1">
     <div class="wrap">
-      <div>
+      <div class="hero-copy">
+        <div class="brandtile"><img class="brandlogo" src="assets/nbs4med-interreg-eu-logo.png" width="456" height="201" alt="Interreg NEXT MED, co-funded by the European Union, NBS4MED" data-alt-en="Interreg NEXT MED, co-funded by the European Union, NBS4MED" data-alt-ar="إنترريج نكست ميد، بتمويل مشترك من الاتحاد الأوروبي، NBS4MED"></div>
         <p class="eyebrow" data-i18n="eyebrow">Interreg NEXT MED project · University of Jordan</p>
         <h1 id="h1" data-i18n="h1">Self-evaluation tool for nature-based solutions in Mediterranean cities</h1>
-        <p class="lead" data-i18n="lead">Check how well nature-based solutions are integrated in your city, see which options fit your climate risks, and get indicative impact and cost ranges.</p>
+        <p class="lead" data-i18n="lead">Assess NBS integration in your area, identify options relevant to local climate risks, and explore potential impacts and indicative costs.</p>
         <ul class="facts">
           <li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="f1">About 10 minutes</span></li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg><span data-i18n="f2">14 indicators, 5 criteria</span></li>
@@ -795,7 +810,7 @@ details.adv h3{margin-top:10px}
         <div class="hero-cta">
           <button class="btn btn-primary btn-lg" type="button" id="startBtn"><span data-i18n="start">Start assessment</span><svg class="ic flip" aria-hidden="true"><use href="#i-arrow"/></svg></button>
           <p class="hero-note" data-i18n="startNote">Results are not saved. Download the report before you close the page.</p>
-          <p class="hero-note" style="font-weight:600;color:#5A3500" data-i18n="demoLabel">Demo version: illustrative estimates, to be reviewed when project data become available</p>
+          <p class="hero-note hero-demo" data-i18n="demoShort">Prototype demo — estimates are illustrative and require local verification.</p>
         </div>
       </div>
       <figure class="hero-vis">
@@ -867,9 +882,9 @@ details.adv h3{margin-top:10px}
     <div class="wrap">
       <h2 id="res-h" data-i18n="resourcesH">Resources</h2>
       <ul class="res-list">
-        <li><a href="#resources">Method note: how scores and levels are calculated</a><span>To be published</span></li>
-        <li><a href="#resources">Indicator definitions and scoring guidance</a><span>To be published</span></li>
-        <li><a href="#resources">NBS4MED project page</a><span>Link to be added</span></li>
+        <li><b data-i18n="resM">Method note: how scores and levels are calculated</b><span data-i18n="resTbp">To be published</span></li>
+        <li><b data-i18n="resI">Indicator definitions and scoring guidance</b><span data-i18n="resTbp">To be published</span></li>
+        <li><b data-i18n="resP">NBS4MED project page</b><span data-i18n="resLk">Link to be added</span></li>
       </ul>
     </div>
   </section>
@@ -914,6 +929,7 @@ details.adv h3{margin-top:10px}
 <footer>
   <div class="eu">
     <div class="wrap">
+      <img class="brandlogo brandlogo-foot" src="assets/nbs4med-interreg-eu-logo.png" width="456" height="201" alt="Interreg NEXT MED, co-funded by the European Union, NBS4MED" data-alt-en="Interreg NEXT MED, co-funded by the European Union, NBS4MED" data-alt-ar="إنترريج نكست ميد، بتمويل مشترك من الاتحاد الأوروبي، NBS4MED">
       <p class="ack" data-i18n="ack">Interreg NEXT MED Programme. NBS4MED is co-funded by the European Union.</p>
     </div>
   </div>
@@ -933,7 +949,6 @@ details.adv h3{margin-top:10px}
         <ul><li>Contact: address to be added</li><li><a href="#resources">Privacy notice</a></li></ul>
       </div>
     </div>
-    <div class="legal" data-i18n="logoNote">Text acknowledgement only. Official NBS4MED, Interreg NEXT MED and European Union logos are not yet included and will be added when the approved artwork is supplied.</div>
   </div>
 </footer>
 
