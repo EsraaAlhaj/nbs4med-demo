@@ -12,7 +12,7 @@ for(const [lang,W] of [['en',1920],['ar',1920],['en',390],['ar',390]]){
  await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));await p.waitForTimeout(200);await p.screenshot({path:`${OUT}/${T}_footer.png`});
  if(MODE==='after'){
   const I=await p.evaluate(()=>[...document.querySelectorAll('img.brandlogo')].map(i=>({alt:i.alt,w:Math.round(i.getBoundingClientRect().width),h:Math.round(i.getBoundingClientRect().height),nw:i.naturalWidth,nh:i.naturalHeight,anim:getComputedStyle(i).animationName,tr:getComputedStyle(i).transform,parent:getComputedStyle(i.parentElement).animationName,ok:i.complete&&i.naturalWidth>0,ratio:i.getBoundingClientRect().width/i.getBoundingClientRect().height})));
-  ok(T,'two logo instances (landing and footer), both loaded',I.length===2&&I.every(x=>x.ok),I);
+  ok(T,'one official logo instance (footer), loaded',I.length===1&&I.every(x=>x.ok),I);
   ok(T,'natural size 456×201 and displayed at the same aspect ratio (no distortion)',I.every(x=>x.nw===456&&x.nh===201&&Math.abs(x.ratio-456/201)<0.02),I);
   ok(T,'logo static: no animation or transform on the image or its container',I.every(x=>x.anim==='none'&&x.tr==='none'&&x.parent==='none'),I);
   ok(T,'alt text present and in the page language',I.every(x=>lang==='ar'?/إنترريج/.test(x.alt):/Interreg NEXT MED/.test(x.alt)),I.map(x=>x.alt));
