@@ -78,7 +78,7 @@ a:hover{color:var(--g900)}
 
 /* intro */
 .hero{background:var(--g50);border-bottom:1px solid var(--line)}
-.hero .wrap{display:grid;grid-template-columns:6fr 5fr;gap:64px;padding-top:72px;padding-bottom:72px;align-items:center}
+.hero .wrap{display:grid;grid-template-columns:6fr 5fr;gap:64px;padding-top:20px;padding-bottom:72px;align-items:center}
 .eyebrow{font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g600);margin-bottom:16px}
 [dir=rtl] .eyebrow{letter-spacing:0;text-transform:none}
 h1{font-family:var(--serif);font-weight:700;font-size:46px;line-height:1.14;color:var(--g900);letter-spacing:-.005em}
@@ -278,7 +278,7 @@ footer a{color:#fff}
 @media (max-width:1000px){
   .nav{display:none}
   .top-end{margin-inline-start:auto}
-  .hero .wrap{grid-template-columns:1fr;gap:36px;padding-top:48px;padding-bottom:48px}
+  .hero .wrap{grid-template-columns:1fr;gap:36px;padding-top:22px;padding-bottom:48px}
   h1{font-size:38px}
   .as-grid{grid-template-columns:1fr;gap:20px;padding-top:24px}
   .as-side{display:none}
@@ -517,12 +517,16 @@ details.adv h3{margin-top:10px}
 .sdl.impl dd{margin:0;font-weight:600}
 .chkpanel h4{margin-top:20px}
 /* ---- landing page branding (static, unmodified logo image) ---- */
-.brandtile{display:inline-block;background:#fff;border:1px solid var(--line);padding:4px 8px;margin:0 0 22px;line-height:0}
+.brandtile{--lw:270px;display:block;width:max-content;max-width:100%;background:#fff;border:1px solid var(--line);padding:6px 8px;margin:0 0 10px;line-height:0;overflow:hidden}
+.brandtile .brandlogo{width:var(--lw);max-width:none;height:auto;display:block;margin:calc(var(--lw)*-.0614) calc(var(--lw)*-.0132) calc(var(--lw)*-.0439) calc(var(--lw)*-.0658)}
 .brandlogo{display:block;width:300px;max-width:100%;height:auto}
 .brandlogo-foot{width:300px}
 .eu .wrap{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.hero-copy .eyebrow{margin-bottom:12px}
+.hero-copy .facts{margin-top:20px}
+.hero-copy .hero-cta{margin-top:24px}
 .hero-demo{font-size:14px;color:var(--soft);font-weight:400}
-@media(max-width:700px){.brandlogo,.brandlogo-foot{width:250px}}
+@media(max-width:700px){.brandlogo-foot{width:250px}.brandtile{--lw:240px}.brandtile .brandlogo{width:var(--lw)}}
 /* one-time fade-in of the landing copy only (not the logo); off with reduced motion */
 @media (prefers-reduced-motion:no-preference){
   .hero-copy .eyebrow,.hero-copy h1,.hero-copy .lead,.hero-copy .facts,.hero-copy .hero-cta{animation:landfade .6s ease-out both}
