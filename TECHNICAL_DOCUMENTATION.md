@@ -189,7 +189,6 @@ The page is at the root of the repository, the application code is in `js/`, and
 | `docs/CALCULATIONS.md` | The canonical reference list of formulas and parameter values. | Documentation. |
 | `docs/GAP_ACTION_LOGIC.md` | How answers become gaps and suggested actions. | Documentation. |
 | `docs/BRANDING_ASSETS.md`, `docs/DEMO_VIDEO_PACKAGE.md` | Logo notes; the İzmir demonstration scenario. | Documentation. |
-| `docs/OPEN_DECISIONS.md` | Licence, provenance and branch decisions that the repository cannot settle by itself. | Documentation. |
 | `docs/qa/` | Historical quality-assurance and redesign reports (`docs/qa/FINAL_QA_REPORT.md`, `docs/qa/REDESIGN_REPORT.md`) and, in `docs/qa/evidence/`, the screenshots, PDFs and CSV files they cite. | Records only; not needed to run the tool. |
 | `assets/nbs4med-interreg-eu-logo.png` | The funding-acknowledgement logo in the footer. | Used by `index.html`. |
 | `run-demo.bat` | A Windows shortcut that starts a small local web server and opens the page. | Optional. |
@@ -757,7 +756,7 @@ Details, environment variables and the list of browser tests are in [`tests/READ
 - The website is published from the `main` branch **(Pages source to be confirmed in Settings → Pages)**; merging there changes the live site, so use pull requests and review. `index.html` must stay at the repository root and the scripts and data are loaded with relative paths (`js/`, `data/`, `assets/`).
 - Keep each `.js` data file in step with its `.json` source (`node tools/sync-data.js --check`).
 - The evidence folders in `docs/qa/evidence/` are large historical records, not application files. Pages also publishes them. They were kept unchanged.
-- Contribution and approval rules are in [`CONTRIBUTING.md`](CONTRIBUTING.md). Open licence, provenance and branch decisions are listed in [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md). No licence file is included; the reuse terms must be decided by the project **(to be confirmed)**.
+- Contribution and approval rules are in [`CONTRIBUTING.md`](CONTRIBUTING.md). No licence file is included; the reuse terms must be decided by the project **(to be confirmed)**.
 
 ---
 
