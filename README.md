@@ -78,11 +78,7 @@ Assessment scores, option matching, applicability status and impact/cost never f
 - **Matching coverage:** no match score is produced when coastal storms, land degradation or "Not sure" is selected, or when public land is Unknown, because rules exist only for heatwaves, flooding and drought.
 - **Illustrative costs:** unit prices are demo assumptions with no price year and are not local prices. Low/high values are scenario ranges, not confidence intervals.
 - **Impact:** the green-roof retention figure applies a published range from experimental roofs (80 mm substrate, events above 10 mm) without an upper rainfall limit or an adjustment for substrate depth; read it as an order of magnitude, not a result for a given roof. Quantitative local climate-risk mitigation impact is not estimated. Published results (for example green-roof event retention) are shown as literature-based reference evidence, not as a forecast for the user's site.
-- **Calculator coverage:** four of the nine options have no calculator.
-- **Not implemented:** climate type, a primary-risk selector, a readiness questionnaire beyond the 14 indicators, monitoring forms and budget comparison.
-- **Applicability checks:** screening only, not engineering approval.
-- **No saved assessments:** nothing is saved between visits.
-- **To be confirmed by the project team:** contact address, privacy notice, partner names and logos, and the licence (no licence file is included yet).
+
 
 ## 7. How to run
 
