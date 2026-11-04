@@ -1,6 +1,6 @@
-const {chromium}=require('/opt/node-tools/node_modules/playwright');const cp=require('child_process'),fs=require('fs');
-const OUT='/tmp/claude-0/-home-user-nbs4med-demo/8e17095f-3a8d-5f20-9992-4fb7fc03f0e7/scratchpad/pdf2out';fs.mkdirSync(OUT,{recursive:true});
-const FILE=process.argv[2]||'file:///home/user/nbs4med-demo/index.html';let pass=0,fail=0;const ok=(n,c,x)=>{c?pass++:(fail++,console.log('FAIL',n,JSON.stringify(x).slice(0,300)))};
+const TH=require('./helpers'),{chromium}=TH;const cp=require('child_process'),fs=require('fs');
+const OUT=TH.outDir('pdf2out');
+const FILE=process.argv[2]||TH.indexUrl;let pass=0,fail=0;const ok=(n,c,x)=>{c?pass++:(fail++,console.log('FAIL',n,JSON.stringify(x).slice(0,300)))};
 const cases=[
  ['complete',""],
  ['unknown',"st.sc['3.1']='U';st.sc['5.2']='U';"],
@@ -18,7 +18,7 @@ const cases=[
  ['pilot',"st.scope={area:'eg',mName:'',mCountry:'',mCity:'',type:'site',typeAuto:true,org:'',date:'2026-10-16'};"]
 ];
 const EX=['NBS01','NBS02','NBS03','NBS04','NBS05'];EX.forEach(s=>cases.push(['ex_'+s,'',s]));
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 for(const lang of ['en','ar'])for(const [id,setup,sol] of cases){
  const p=await b.newPage({viewport:{width:1100,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));await p.goto(FILE);await p.evaluate(()=>{window.print=()=>{}});
  if(lang==='ar')await p.click('.lang button[data-lang=ar]');

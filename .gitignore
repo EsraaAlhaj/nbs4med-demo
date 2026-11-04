@@ -3,3 +3,7 @@
 .DS_Store
 Thumbs.db
 
+
+# dependencies and test output
+node_modules/
+tests/output/

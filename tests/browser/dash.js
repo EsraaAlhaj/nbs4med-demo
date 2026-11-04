@@ -1,7 +1,7 @@
 // node dash.js <url> <lang> <outdir> [width] ; UI-driven İzmir scenario to results, inline calculator, screenshots
-const {chromium}=require('/opt/node-tools/node_modules/playwright');const fs=require('fs');
-const URL=process.argv[2],LANG=process.argv[3]||'en',OUT=process.argv[4],W=+(process.argv[5]||1920);fs.mkdirSync(OUT,{recursive:true});
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+const TH=require('./helpers'),{chromium}=TH;const fs=require('fs');
+const URL=process.argv[2]||TH.indexUrl,LANG=process.argv[3]||'en',OUT=process.argv[4]||TH.outDir('dash'),W=+(process.argv[5]||1920);fs.mkdirSync(OUT,{recursive:true});
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 const mobile=W<500;const p=await b.newPage({viewport:{width:W,height:mobile?844:1080},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!/fonts\.g|ERR_|Failed to load/.test(m.text()))errs.push(m.text())});
 await p.goto(URL);await p.addStyleTag({content:'html{scroll-behavior:auto!important}'});
 if(LANG==='ar')await p.click('.lang button[data-lang=ar]');

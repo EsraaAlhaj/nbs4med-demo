@@ -1,4 +1,4 @@
-/* Generated from demo_parameters.json. Edit the .json, then run tools\sync-data.ps1. */
+/* Generated from data/demo_parameters.json. Edit the .json, then run: node tools/sync-data.js */
 window.NBS4MED_PARAMS = {
   "meta": {
     "title": "NBS4MED demo parameters",

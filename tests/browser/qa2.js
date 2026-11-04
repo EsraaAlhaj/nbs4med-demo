@@ -1,7 +1,7 @@
 // Independent calculator verification through the real UI. node qa2.js
-const {chromium}=require('/opt/node-tools/node_modules/playwright');const fs=require('fs');
-const URL=process.argv[2]||'http://localhost:8765/index.html';
-const PM=JSON.parse(fs.readFileSync('/home/user/nbs4med-demo/demo_parameters.json','utf8')),EV=JSON.parse(fs.readFileSync('/home/user/nbs4med-demo/evidence.json','utf8')).evidence;
+const TH=require('./helpers'),{chromium}=TH;const fs=require('fs');
+const URL=process.argv[2]||TH.indexUrl;
+const PM=JSON.parse(fs.readFileSync(TH.dataPath('demo_parameters.json'),'utf8')),EV=JSON.parse(fs.readFileSync(TH.dataPath('evidence.json'),'utf8')).evidence;
 const P={};PM.parameters.forEach(p=>P[p.id]=p.value);
 const log=[];let pass=0,fail=0;
 const ok=(id,n,c,x)=>{c?pass++:(fail++,console.log('FAIL',id,n,x!==undefined?JSON.stringify(x).slice(0,400):''));log.push({id,n,pass:!!c,x:c?undefined:x})};
@@ -49,7 +49,7 @@ const INVALID=sid=>{const d=DEF[sid],r=[];Object.values(d).filter(x=>x.type!=='b
  Object.values(d).filter(x=>x.required).forEach(x=>r.push([x.id+' blank required',{[x.id]:''}]));
  if(sid==='NBS03')r.push(['shares sum 90',{share_trees:30,share_meadow:35,share_water:10,share_hard:15}],['shares sum 110',{share_trees:50,share_meadow:35,share_water:10,share_hard:15}]);
  return r};
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 const p=await b.newPage({viewport:{width:1920,height:1080}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!/fonts\.g|ERR_|Failed to load/.test(m.text()))errs.push(m.text())});
 await p.goto(URL);await p.addStyleTag({content:'html{scroll-behavior:auto!important}'});
 await p.evaluate(()=>{const C=NBS4MED_CORE;C.fillSample();C.st.risks={heat:true,flood:true};C.st.ctx={density:'mid',land:'mid'};C.nav('results')});await p.waitForSelector('#icSec');
@@ -58,7 +58,7 @@ const shown=(txt,v)=>fmtVariants(v).some(s=>txt.includes(s));
 let n=0;
 for(const sid of ['NBS01','NBS02','NBS03','NBS04','NBS05']){
  await p.evaluate(()=>NBS4MED_CORE.nav('results'));await p.waitForSelector('#icSec');
- await p.click(`#icSec [data-explore="${sid}"]`);await p.waitForSelector('#exResults');const openAdv=()=>p.evaluate(()=>document.querySelectorAll('#exInputs details').forEach(d=>d.open=true));await openAdv();
+ await p.click(`#icSec input[name=exsol][value="${sid}"]`);await p.waitForSelector('#exResults');const openAdv=()=>p.evaluate(()=>document.querySelectorAll('#exInputs details').forEach(d=>d.open=true));await openAdv();
  // valid cases
  for(const [name,over] of CASES(sid)){n++;const T=`${sid} ${name}`;
   const inp={...defaults(sid),...over};
@@ -109,5 +109,5 @@ for(const sid of ['NBS01','NBS02','NBS03','NBS04','NBS05']){
  const back=await p.evaluate(()=>NBS4MED_EXPLORE.state.res.status);ok(sid,'recovers to ok after invalid entries reset',back==='ok',back);
 }
 ok('all','no JS errors',errs.length===0,errs);
-fs.writeFileSync('qa2_log.json',JSON.stringify(log));
+fs.writeFileSync(TH.outDir()+'/qa2_log.json',JSON.stringify(log));
 console.log(`qa2: ${pass} passed, ${fail} failed (${log.length} checks)`);await b.close()})();

@@ -51,7 +51,7 @@ How answers are treated:
 
 ## 4. Main features
 
-All features below were checked against the source code (`index.html`, `app.js`, `explore.js`, `engine.js`, `guidance.js`).
+All features below were checked against the source code (`index.html`, `js/app.js`, `js/explore.js`, `js/engine.js`, `js/guidance.js`).
 
 - **Results dashboard:** assessment overview, criteria table and a comparison chart on a fixed 0–100% scale, indicator-level diagnosis, priority gaps with suggested actions, preliminary NbS options, and a Potential Impact & Indicative Cost section, all on one page.
 - **Recommendations:** rule-based matching of nine NbS options to the selected risks and site context (heatwaves, flooding and drought only), plus optional applicability checks per option.
@@ -66,18 +66,18 @@ The tool links five layers, kept deliberately separate:
 
 1. **Assessment framework:** the five criteria, 14 indicators and 0–2 rubrics are a provisional project rubric, to be reviewed against the PROMEA framework and the NBS repository. The five core climate risks follow the PROMEA framework as stated in the code. No formal PROMEA approval or partner agreement is recorded in this repository.
 2. **Recommendation rules:** option-to-risk weights (0–3) and land adjustments are provisional demonstration rules without PROMEA validation.
-3. **Evidence register:** `evidence.json` is a starter evidence register of 22 records from 8 sources. It is explicitly *not* an approved project repository, and no record is used as a local forecast.
+3. **Evidence register:** `data/evidence.json` is a starter evidence register of 22 records from 8 sources. It is explicitly *not* an approved project repository, and no record is used as a local forecast.
 4. **Calculation assumptions:** 43 demonstration parameters, all classed as demo assumptions and none partner-validated.
 5. **Reports:** reproduce what the user entered and what the tool computed, with its labels and limits.
 
-Assessment scores, option matching, applicability status and impact/cost never feed into one another. Details and formulas: [`TECHNICAL_DOCUMENTATION.md`](TECHNICAL_DOCUMENTATION.md) and [`CALCULATIONS.md`](CALCULATIONS.md).
+Assessment scores, option matching, applicability status and impact/cost never feed into one another. Details and formulas: [`TECHNICAL_DOCUMENTATION.md`](TECHNICAL_DOCUMENTATION.md) and [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md).
 
 ## 6. Current limitations
 
 - **Provisional methodology:** rubrics, thresholds, matching weights and the equal-weight combined score have not been validated.
 - **Matching coverage:** no match score is produced when coastal storms, land degradation or "Not sure" is selected, or when public land is Unknown, because rules exist only for heatwaves, flooding and drought.
 - **Illustrative costs:** unit prices are demo assumptions with no price year and are not local prices. Low/high values are scenario ranges, not confidence intervals.
-- **Impact:** quantitative local climate-risk mitigation impact is not estimated. Published results (for example green-roof event retention) are shown as literature-based reference evidence, not as a forecast for the user's site.
+- **Impact:** the green-roof retention figure applies a published range from experimental roofs (80 mm substrate, events above 10 mm) without an upper rainfall limit or an adjustment for substrate depth; read it as an order of magnitude, not a result for a given roof. Quantitative local climate-risk mitigation impact is not estimated. Published results (for example green-roof event retention) are shown as literature-based reference evidence, not as a forecast for the user's site.
 - **Calculator coverage:** four of the nine options have no calculator.
 - **Not implemented:** climate type, a primary-risk selector, a readiness questionnaire beyond the 14 indicators, monitoring forms and budget comparison.
 - **Applicability checks:** screening only, not engineering approval.
@@ -98,19 +98,47 @@ Assessment scores, option matching, applicability status and impact/cost never f
    ```
 3. On Windows, `run-demo.bat` starts the same local server and opens the page.
 
-## 8. Future development
+**Tests** (optional; Node.js 18 or newer): `npm test` runs the automated checks of the calculation engine, the data files, the documented examples and the file references, with no dependencies and no browser. The browser tests need `npm install`; see [`tests/README.md`](tests/README.md).
+
+## 8. Repository structure
+
+```
+index.html                    the page (entry point; must stay at the root)
+README.md                     this file
+TECHNICAL_DOCUMENTATION.md    how the tool works, with formulas, worked examples and a verification record
+CONTRIBUTING.md               development, testing, pull requests, approval of methodology changes
+package.json                  commands for the tests (the page itself has no dependency)
+run-demo.bat                  Windows launcher for a local server
+assets/                       logo
+js/                           application code: app.js, explore.js, engine.js, guidance.js
+data/                         evidence.json and demo_parameters.json (sources of truth), their .js copies,
+                              README.md (data dictionary)
+tools/                        sync-data.js: regenerates or checks the .js data copies
+tests/                        engine and link tests (Node.js); browser/ holds the Playwright tests
+docs/                         CALCULATIONS.md (canonical formulas and parameters), GAP_ACTION_LOGIC.md,
+                              BRANDING_ASSETS.md, DEMO_VIDEO_PACKAGE.md, OPEN_DECISIONS.md
+docs/qa/                      historical QA and redesign reports; their screenshots and files are in docs/qa/evidence/
+```
+
+Open decisions that this repository cannot settle by itself (licence, data provenance, branches) are listed in [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md). No licence has been chosen yet.
+
+## 9. Future development
 
 The prototype could evolve into a multi-municipality platform through methodological review with the partners, validation of evidence and calculations, completion of the missing assessment features, pilot testing with real users, and, only if the project decides so, a backend with a database, accounts and assessment history. **None of the backend, database, authentication or central storage exists today.** A phased roadmap is in [`TECHNICAL_DOCUMENTATION.md`](TECHNICAL_DOCUMENTATION.md#13-proposed-development-roadmap).
 
-## 9. Documentation and contribution
+## 10. Documentation and contribution
 
 | Document | Content |
 |---|---|
 | [`TECHNICAL_DOCUMENTATION.md`](TECHNICAL_DOCUMENTATION.md) | Architecture, code structure, scoring and matching logic, data, setup, limitations and roadmap |
-| [`CALCULATIONS.md`](CALCULATIONS.md) | Formulas, assumptions and the parameter table |
-| [`GAP_ACTION_LOGIC.md`](GAP_ACTION_LOGIC.md) | How answers become improvement actions |
-| [`BRANDING_ASSETS.md`](BRANDING_ASSETS.md) | Logo and branding notes |
-| [`FINAL_QA_REPORT.md`](FINAL_QA_REPORT.md), [`REDESIGN_REPORT.md`](REDESIGN_REPORT.md) | Quality-assurance and redesign records |
-| [`DEMO_VIDEO_PACKAGE.md`](DEMO_VIDEO_PACKAGE.md) | The illustrative İzmir green-roof demonstration scenario |
+| [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md) | Canonical formulas, assumptions and the parameter table |
+| [`data/README.md`](data/README.md) | Data dictionary, sources and unresolved provenance questions |
+| [`docs/GAP_ACTION_LOGIC.md`](docs/GAP_ACTION_LOGIC.md) | How answers become improvement actions |
+| [`docs/BRANDING_ASSETS.md`](docs/BRANDING_ASSETS.md) | Logo and branding notes |
+| [`docs/DEMO_VIDEO_PACKAGE.md`](docs/DEMO_VIDEO_PACKAGE.md) | The illustrative İzmir green-roof demonstration scenario |
+| [`docs/qa/FINAL_QA_REPORT.md`](docs/qa/FINAL_QA_REPORT.md), [`docs/qa/REDESIGN_REPORT.md`](docs/qa/REDESIGN_REPORT.md) | Historical quality-assurance and redesign records |
+| [`tests/README.md`](tests/README.md) | How to run the tests |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to contribute and which changes need approval |
+| [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md) | Open licence, provenance and branch decisions |
 
-To contribute, read the technical documentation first. Suggested changes to the methodology, evidence or parameters should be discussed with the project partners before they are merged, and any change to evidence or parameters must be applied to both the `.json` file and its `.js` copy (see the technical documentation).
+To contribute, read [`CONTRIBUTING.md`](CONTRIBUTING.md) and the technical documentation first. Suggested changes to the methodology, evidence or parameters should be discussed with the project partners before they are merged, and any change to evidence or parameters must be made in the `.json` file and copied with `node tools/sync-data.js`.

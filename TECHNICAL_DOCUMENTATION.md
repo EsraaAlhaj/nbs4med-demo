@@ -2,7 +2,7 @@
 
 **Purpose of this document.** It explains how the tool works for two kinds of reader at once: people with a background in urban planning, environmental science or nature-based solutions (NbS) who have never programmed, and technical reviewers who want to trace every result back to the code. Each major section starts with a short **plain-English** explanation, followed by **technical details** for those who want to go deeper.
 
-**What is described.** The prototype as it exists at commit `ab74b92` of the `main` branch. Line numbers such as `app.js:564` refer to that commit. For a short introduction to the project, read [`README.md`](README.md) first. The formulas and the full parameter table are kept in [`CALCULATIONS.md`](CALCULATIONS.md); this document explains them and does not replace that file.
+**What is described.** The prototype as it exists at commit `ab74b92` of the `main` branch. The application files were later moved to `js/` and `data/` without any change to their content, so line numbers such as `js/app.js:564` still apply (they are written here with the new paths, for example `js/app.js:564`). For a short introduction to the project, read [`README.md`](README.md) first. The formulas and the full parameter table are kept in [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md); this document explains them and does not replace that file.
 
 > **Status in one sentence.** This is a *preliminary prototype*: the scoring rubric, matching rules, evidence register and all cost parameters are provisional, have not been validated, and have not been approved by the project partners or by PROMEA (no document in the repository records such an approval). Section 10 lists what works, what is provisional, what is missing and what needs validation. Section 12 lists everything that was verified and every discrepancy found.
 
@@ -57,8 +57,8 @@
 ### Technical details
 
 - The tool is a **static website**: a set of files that the visitor's browser opens and runs by itself (section 4). There is no server-side code. The Actions history shows the automatic `pages-build-deployment` workflow publishing the `main` branch through GitHub Pages; the exact Pages source setting is not visible in the repository files **(to be confirmed in Settings → Pages)**.
-- All answers live in one in-memory JavaScript object (`st`, created at `app.js:473` by `freshState()`, `app.js:468`). Reloading or closing the page discards it. The code contains no `fetch`, `XMLHttpRequest`, form submission, `sendBeacon`, `localStorage`, `sessionStorage` or cookie use; the only external request is for fonts from Google Fonts.
-- The page can be opened at specific places with a URL fragment (`#assessment`, `#results`, `#explore`, `#about`, `#how`, `#resources`); see `route()` at `app.js:1254`. `#results` falls back to the assessment while it is incomplete.
+- All answers live in one in-memory JavaScript object (`st`, created at `js/app.js:473` by `freshState()`, `js/app.js:468`). Reloading or closing the page discards it. The code contains no `fetch`, `XMLHttpRequest`, form submission, `sendBeacon`, `localStorage`, `sessionStorage` or cookie use; the only external request is for fonts from Google Fonts.
+- The page can be opened at specific places with a URL fragment (`#assessment`, `#results`, `#explore`, `#about`, `#how`, `#resources`); see `route()` at `js/app.js:1254`. `#results` falls back to the assessment while it is incomplete.
 
 ---
 
@@ -135,9 +135,9 @@ Four options tie at 67; ties are shown in the fixed list order, so the three car
 
 ### Technical details
 
-- The question flow is defined by `STEPS` (`app.js:464`): `scope`, `ctx`, `risk`, then `crit` 0–4. `TOTAL_Q = 2 + 2 + 1 + 14` (`app.js:466`): area (1), scale (1), density and land (2), risks (1), indicators (14). The results page opens only when `allComplete()` is true.
-- "Fill with sample data" (`fillSample`, `app.js:1387`) loads a clearly labelled fictitious sample for testing; it is unrelated to the example above.
-- The İzmir green-roof scenario used for the project's demonstration video (area 800 m², event 30 mm) is documented in [`DEMO_VIDEO_PACKAGE.md`](DEMO_VIDEO_PACKAGE.md); the green-roof figures above are the engine's output for the same two inputs.
+- The question flow is defined by `STEPS` (`js/app.js:464`): `scope`, `ctx`, `risk`, then `crit` 0–4. `TOTAL_Q = 2 + 2 + 1 + 14` (`js/app.js:466`): area (1), scale (1), density and land (2), risks (1), indicators (14). The results page opens only when `allComplete()` is true.
+- "Fill with sample data" (`fillSample`, `js/app.js:1387`) loads a clearly labelled fictitious sample for testing; it is unrelated to the example above.
+- The İzmir green-roof scenario used for the project's demonstration video (area 800 m², event 30 mm) is documented in [`docs/DEMO_VIDEO_PACKAGE.md`](docs/DEMO_VIDEO_PACKAGE.md); the green-roof figures above are the engine's output for the same two inputs.
 
 ---
 
@@ -147,8 +147,8 @@ Four options tie at 67; ties are shown in the fixed list order, so the three car
 |---|---|---|
 | **Static website** | A site made only of files that the browser reads and runs. No computer on the internet processes the user's data. | It is why no answers are stored or sent anywhere. |
 | **HTML / CSS** | HTML is the page's content and structure; CSS is its appearance (colours, layout, right-to-left Arabic, print layout). | Both are in `index.html`. |
-| **JavaScript** | The programming language browsers run. It contains all the rules and calculations. | `app.js`, `explore.js`, `engine.js` and `guidance.js` are JavaScript. |
-| **JSON** | A plain-text way to store structured data (lists and labelled values) that both people and programs can read. | `evidence.json` and `demo_parameters.json` hold the evidence and the demonstration parameters. |
+| **JavaScript** | The programming language browsers run. It contains all the rules and calculations. | `js/app.js`, `js/explore.js`, `js/engine.js` and `js/guidance.js` are JavaScript. |
+| **JSON** | A plain-text way to store structured data (lists and labelled values) that both people and programs can read. | `data/evidence.json` and `data/demo_parameters.json` hold the evidence and the demonstration parameters. |
 | **Scoring logic** | The exact rules that turn answers into numbers. | Section 5. |
 | **Rubric** | The description of what a 0, 1 and 2 mean for one question. | Section 5 and the appendix of indicator rubrics. |
 | **Rule-based matching** | Choosing options by fixed, written rules (weights and conditions), not by a statistical or learned model. | Section 6. It is transparent, but only as good as its rules. |
@@ -171,51 +171,58 @@ Four options tie at 67; ties are shown in the fixed list order, so the three car
 
 ### In plain English
 
-Everything is in one folder. The page loads a few script files in a fixed order; two data files hold the evidence and the demonstration numbers; one script does the calculations, one does the assessment and results, one draws the impact-and-cost section and the reports, and one holds the question texts.
+The page is at the root of the repository, the application code is in `js/`, and the data is in `data/`. The page loads a few script files in a fixed order; two data files hold the evidence and the demonstration numbers; one script does the calculations, one does the assessment and results, one draws the impact-and-cost section and the reports, and one holds the question texts.
 
-| File | What it is for, in plain English | How it connects to the rest |
+| File or folder | What it is for, in plain English | How it connects to the rest |
 |---|---|---|
-| `index.html` | The page itself: the introduction, the footer and all the visual styling. It also loads the other files. | Loads every script below, in order. |
-| `app.js` | The "brain" of the assessment: the questions' structure, the 14 indicators, the scoring, the option matching, the screening checks, the results dashboard and the page navigation. | Uses `guidance.js` for question texts and `explore.js` for the impact-and-cost section and exports. Offers its results to `explore.js`. |
-| `guidance.js` | The wording for each question (English and Arabic): explanation, why it matters, suggested actions and the evidence needed. | Read by `app.js`. |
-| `engine.js` | The calculator: checks entries, computes quantities and costs. It never touches the page. | Reads the two data files. Used by `explore.js`. |
-| `explore.js` | The impact-and-cost section on the results page, plus both printable reports and the CSV. | Asks `engine.js` for every number and `app.js` for the assessment state. |
-| `evidence.json` and `evidence.js` | The evidence register: published findings and costs, sources, rules for using them. The `.js` file is a copy of the `.json` file so the page also works when opened from a disk. | Read by `engine.js` and `explore.js`. |
-| `demo_parameters.json` and `demo_parameters.js` | The demonstration numbers: calculator inputs (with defaults and limits), unit prices and other assumptions. Same copy arrangement. | Read by `engine.js` and `explore.js`. |
-| `CALCULATIONS.md` | The reference list of formulas and parameter values. | Documentation. |
-| `GAP_ACTION_LOGIC.md` | How answers become gaps and suggested actions. | Documentation. |
+| `index.html` | The page itself: the introduction, the footer and all the visual styling. It also loads the other files. | Loads every script below, in order. Must stay at the repository root (the public demo is served from there). |
+| `js/app.js` | The "brain" of the assessment: the questions' structure, the 14 indicators, the scoring, the option matching, the screening checks, the results dashboard and the page navigation. | Uses `js/guidance.js` for question texts and `js/explore.js` for the impact-and-cost section and exports. Offers its results to `js/explore.js`. |
+| `js/guidance.js` | The wording for each question (English and Arabic): explanation, why it matters, suggested actions and the evidence needed. | Read by `js/app.js`. |
+| `js/engine.js` | The calculator: checks entries, computes quantities and costs. It never touches the page. | Reads the two data files. Used by `js/explore.js`. |
+| `js/explore.js` | The impact-and-cost section on the results page, plus both printable reports and the CSV. | Asks `js/engine.js` for every number and `js/app.js` for the assessment state. |
+| `data/evidence.json` and `data/evidence.js` | The evidence register: published findings and costs, sources, rules for using them. The `.js` file is a generated copy of the `.json` file so the page also works when opened from a disk. | Read by `js/engine.js` and `js/explore.js`. |
+| `data/demo_parameters.json` and `data/demo_parameters.js` | The demonstration numbers: calculator inputs (with defaults and limits), unit prices and other assumptions. Same copy arrangement. | Read by `js/engine.js` and `js/explore.js`. |
+| `data/README.md` | The data dictionary: what each field means, where the values come from, and the unresolved provenance questions. | Documentation for the two data sets. |
+| `tools/sync-data.js` | Regenerates the `.js` data copies from the `.json` files, or checks that they match. | Run by hand; also used by the tests. |
+| `tests/engine.test.js`, `tests/links.test.js` | Automated checks that need no browser: the engine against the documented examples, the data copies, the parameter table in `docs/CALCULATIONS.md`, and all file references. | Run with `npm test`. |
+| `tests/browser/` | Browser test scripts (Playwright and Chromium), including `examples.js`, which checks the worked examples of this document against the real page. | See `tests/README.md`. |
+| `docs/CALCULATIONS.md` | The canonical reference list of formulas and parameter values. | Documentation. |
+| `docs/GAP_ACTION_LOGIC.md` | How answers become gaps and suggested actions. | Documentation. |
+| `docs/BRANDING_ASSETS.md`, `docs/DEMO_VIDEO_PACKAGE.md` | Logo notes; the İzmir demonstration scenario. | Documentation. |
+| `docs/OPEN_DECISIONS.md` | Licence, provenance and branch decisions that the repository cannot settle by itself. | Documentation. |
+| `docs/qa/` | Historical quality-assurance and redesign reports (`docs/qa/FINAL_QA_REPORT.md`, `docs/qa/REDESIGN_REPORT.md`) and, in `docs/qa/evidence/`, the screenshots, PDFs and CSV files they cite. | Records only; not needed to run the tool. |
 | `assets/nbs4med-interreg-eu-logo.png` | The funding-acknowledgement logo in the footer. | Used by `index.html`. |
 | `run-demo.bat` | A Windows shortcut that starts a small local web server and opens the page. | Optional. |
-| `qa-tests/`, `qa-evidence/`, `redesign-evidence/`, `branding-evidence/`, `header-logo-evidence/` | Browser test scripts and the screenshots and sample files they produced. | Records only; not needed to run the tool. |
-| `README.md`, `FINAL_QA_REPORT.md`, `REDESIGN_REPORT.md`, `BRANDING_ASSETS.md`, `DEMO_VIDEO_PACKAGE.md` | Project introduction, quality-assurance record, redesign notes, logo notes and the İzmir demonstration scenario. | Documentation. |
+| `package.json`, `CONTRIBUTING.md` | The commands for the tests (the page itself needs no dependency); contribution and approval rules. | Developer information. |
+| `README.md` | Project introduction. | Entry point. |
 
 ### Technical details
 
-**Technology.** HTML5; CSS inside `index.html` (responsive breakpoints, right-to-left support, reduced-motion support and `@media print` rules); plain browser JavaScript in an older style (`var`, functions, no modules, no framework, no build step); JSON data; inline SVG; Google Fonts (Source Sans 3, Source Serif 4, IBM Plex Sans Arabic; the only external request); the browser's `window.print()` and a Blob download; GitHub Pages hosting. There is no `package.json`, bundler or dependency. `app.js` has about 1,420 lines, `explore.js` 1,170, `engine.js` 300 and `guidance.js` 160.
+**Technology.** HTML5; CSS inside `index.html` (responsive breakpoints, right-to-left support, reduced-motion support and `@media print` rules); plain browser JavaScript in an older style (`var`, functions, no modules, no framework, no build step); JSON data; inline SVG; Google Fonts (Source Sans 3, Source Serif 4, IBM Plex Sans Arabic; the only external request); the browser's `window.print()` and a Blob download; GitHub Pages hosting. There is no bundler and the page has no dependency; `package.json` only lists the commands and the test tool (Playwright) used for the tests. `js/app.js` has about 1,420 lines, `js/explore.js` 1,170, `js/engine.js` 300 and `js/guidance.js` 160.
 
-**Load order** (`index.html`; order matters because later files read the objects created by earlier ones): `evidence.js` → `demo_parameters.js` → `engine.js` → a one-line script calling `NBS4MED_ENGINE.init(NBS4MED_EVIDENCE, NBS4MED_PARAMS)` → `explore.js` → `guidance.js` → `app.js`. The shared objects are `window.NBS4MED_EVIDENCE`, `NBS4MED_PARAMS`, `NBS4MED_ENGINE`, `NBS4MED_EXPLORE`, `NBS4MED_GUIDE` and `NBS4MED_CORE` (`app.js:1411`).
+**Load order** (`index.html`; order matters because later files read the objects created by earlier ones): `data/evidence.js` → `data/demo_parameters.js` → `js/engine.js` → a one-line script calling `NBS4MED_ENGINE.init(NBS4MED_EVIDENCE, NBS4MED_PARAMS)` → `js/explore.js` → `js/guidance.js` → `js/app.js`. The shared objects are `window.NBS4MED_EVIDENCE`, `NBS4MED_PARAMS`, `NBS4MED_ENGINE`, `NBS4MED_EXPLORE`, `NBS4MED_GUIDE` and `NBS4MED_CORE` (`js/app.js:1411`).
 
 ```mermaid
 flowchart TD
-    U["User in the browser"] --> W["app.js: eight-step wizard<br/>answers kept in memory (object st)"]
-    G["guidance.js<br/>question and action text"] --> W
-    W --> S["app.js: calc()<br/>criterion and overall scores"]
-    W --> M["app.js: matchStatus, suitability, screenOpt, recs<br/>option matching and applicability"]
-    S --> R["app.js: results dashboard<br/>overview, criteria, gaps, options"]
+    U["User in the browser"] --> W["js/app.js: eight-step wizard<br/>answers kept in memory (object st)"]
+    G["js/guidance.js<br/>question and action text"] --> W
+    W --> S["js/app.js: calc()<br/>criterion and overall scores"]
+    W --> M["js/app.js: matchStatus, suitability, screenOpt, recs<br/>option matching and applicability"]
+    S --> R["js/app.js: results dashboard<br/>overview, criteria, gaps, options"]
     M --> R
     G --> R
-    R --> X["explore.js: inline impact and cost section"]
-    D1["evidence.js"] --> E["engine.js: validation, quantities,<br/>outputs, costs"]
-    D2["demo_parameters.js"] --> E
+    R --> X["js/explore.js: inline impact and cost section"]
+    D1["data/evidence.js"] --> E["js/engine.js: validation, quantities,<br/>outputs, costs"]
+    D2["data/demo_parameters.js"] --> E
     E --> X
     X --> R
-    R --> O["explore.js: summary report, detailed report (print),<br/>CSV download"]
+    R --> O["js/explore.js: summary report, detailed report (print),<br/>CSV download"]
     S --> O
     M --> O
     X --> O
 ```
 
-**Data flow in words.** (1) The wizard stores each answer in `st`. (2) `calc()` (`app.js:564`) computes scores from the 14 indicator answers only. (3) `recs()` (`app.js:666`) computes option match scores from the risks and site context only, then merges the optional screening results. (4) `explore.js` calls `NBS4MED_ENGINE.calculate(solutionId, inputs, touched, prices)` (`engine.js:182`) for the selected option. (5) The reports and the CSV re-use the same state. The three streams (assessment scores, matching and screening, impact and cost) never feed into each other.
+**Data flow in words.** (1) The wizard stores each answer in `st`. (2) `calc()` (`js/app.js:564`) computes scores from the 14 indicator answers only. (3) `recs()` (`js/app.js:666`) computes option match scores from the risks and site context only, then merges the optional screening results. (4) `js/explore.js` calls `NBS4MED_ENGINE.calculate(solutionId, inputs, touched, prices)` (`js/engine.js:182`) for the selected option. (5) The reports and the CSV re-use the same state. The three streams (assessment scores, matching and screening, impact and cost) never feed into each other.
 
 ---
 ## 5. The scoring methodology
@@ -245,7 +252,7 @@ The overall ("combined") score is a **secondary**, provisional figure. The tool 
 | **C4** Stakeholder Engagement | 4.1 Community participation · 4.2 Coordination across departments and owners |
 | **C5** Funding & Sustainability | 5.1 Capital funding · 5.2 Long-term maintenance budget · 5.3 Co-benefits valued in decisions |
 
-Defined in `CRIT` and `IND` (`app.js:10`, `app.js:17`). The full three-level rubric for every indicator is in the [appendix](#appendix-the-indicator-rubrics). The code states that these descriptions are a **provisional project rubric for partner review** against the PROMEA framework and the NBS repository.
+Defined in `CRIT` and `IND` (`js/app.js:10`, `js/app.js:17`). The full three-level rubric for every indicator is in the [appendix](#appendix-the-indicator-rubrics). The code states that these descriptions are a **provisional project rubric for partner review** against the PROMEA framework and the NBS repository.
 
 ### 5.2 Possible responses
 
@@ -253,12 +260,12 @@ Defined in `CRIT` and `IND` (`app.js:10`, `app.js:17`). The full three-level rub
 |---|---|---|---|---|
 | 0, 1 or 2 | the number | yes | +2 | The chosen rubric text is kept as the "finding". |
 | Unknown | `'U'` | no | no | Makes the criterion and the overall result "incomplete". |
-| Not applicable | `'NA'` | no | no | Needs a non-empty justification (`indOk`, `app.js:513`). |
-| Unanswered | nothing | no | no | Blocks progress (`stepMissing`, `app.js:686`). |
+| Not applicable | `'NA'` | no | no | Needs a non-empty justification (`indOk`, `js/app.js:513`). |
+| Unanswered | nothing | no | no | Blocks progress (`stepMissing`, `js/app.js:686`). |
 
 Each indicator also accepts optional extras that never affect any score: a short rationale, a description of the evidence, and a confidence level (High: documented evidence; Medium: staff estimate; Low: informal judgement). Confidence is summarised separately in the overview. Indicator 1.2 additionally asks two yes/no/unknown questions about a local target and known coverage; they are recorded in the reports but are not used in the score.
 
-### 5.3 The formulas (from `calc()`, `app.js:564`)
+### 5.3 The formulas (from `calc()`, `js/app.js:564`)
 
 For each criterion *c*, let *n* be the number of its indicators scored 0, 1 or 2, and let *S* be the sum of those scores. Then:
 
@@ -281,7 +288,7 @@ p.pct=p.status==='complete'?Math.round(p.sum/p.max*100):null;
 
 The **overall** result uses exactly the same formula over all 14 indicators together (`ov` in `calc()`): total points ÷ (2 × total number of scored indicators), shown only when nothing is open. It is therefore *not* the average of the five criterion percentages; each scored indicator has equal weight, so a criterion with more scored indicators influences the total more.
 
-**Levels** (`lvlIdx`, `app.js:485`; names in `LEVELS`, `app.js:103`) are applied to the *rounded* percentage:
+**Levels** (`lvlIdx`, `js/app.js:485`; names in `LEVELS`, `js/app.js:103`) are applied to the *rounded* percentage:
 
 | Percentage | Level |
 |---|---|
@@ -311,14 +318,14 @@ The overall figure in the second column is 12 points from 13 scored indicators: 
 
 1. **A single remaining indicator can give 0% or 100%.** The code has no minimum number of scored indicators. In the example, C4 shows 100% from one answer because the other indicator is Not applicable. Whether a minimum should apply is a methodological decision for the project.
 2. **Levels use the rounded percentage.** For example 12 points out of 22 is 54.55% and rounds to 55%, so it is reported as *Adequate* although the unrounded value is below 55 (verified by running the code).
-3. **Equal weights and a mixed overall score.** All indicators weigh the same, so C4 (two indicators) counts less in the total than the other criteria (three each). The overall score also mixes C1 with C2–C5. The tool labels the overall score as secondary and provisional; see also [`GAP_ACTION_LOGIC.md`](GAP_ACTION_LOGIC.md), which lists further observations.
+3. **Equal weights and a mixed overall score.** All indicators weigh the same, so C4 (two indicators) counts less in the total than the other criteria (three each). The overall score also mixes C1 with C2–C5. The tool labels the overall score as secondary and provisional; see also [`docs/GAP_ACTION_LOGIC.md`](docs/GAP_ACTION_LOGIC.md), which lists further observations.
 4. **One Unknown hides a whole criterion.** This is conservative and avoids false precision, but a criterion with two good answers and one Unknown shows no percentage. The tool shows "2 of 3 indicators scored" and the lowest scored answer instead.
 5. **Unused value.** `calc()` also returns `weak` (the criterion with the lowest percentage), but no other code uses it in the current interface.
 6. **Rubrics are provisional.** Indicator 1.2 mixes coverage with an optional local target in one scored answer; indicator 5.1 assumes a plan for the NbS exists.
 
 ### 5.6 From answers to gaps and actions
 
-`gapItemsRaw()` (`app.js:1139`) lists every indicator answered 0 (*Gap*), 1 (*Partial*) or Unknown (*To verify*); 2 and Not applicable are not listed. The finding is the rubric text the user selected (for Unknown: a fixed sentence saying it is missing information, not weak performance). The suggested action, "why it matters" and "evidence needed" come from `guidance.js` and are the same for every user giving that answer, so they are **general prompts, not findings about the site**. Items are ordered by tier (0, then 1, then Unknown), then by indicator number; the page shows the first five and puts the rest behind "Show all". This is a transparent display order, not a validated priority ranking. Full details: [`GAP_ACTION_LOGIC.md`](GAP_ACTION_LOGIC.md).
+`gapItemsRaw()` (`js/app.js:1139`) lists every indicator answered 0 (*Gap*), 1 (*Partial*) or Unknown (*To verify*); 2 and Not applicable are not listed. The finding is the rubric text the user selected (for Unknown: a fixed sentence saying it is missing information, not weak performance). The suggested action, "why it matters" and "evidence needed" come from `js/guidance.js` and are the same for every user giving that answer, so they are **general prompts, not findings about the site**. Items are ordered by tier (0, then 1, then Unknown), then by indicator number; the page shows the first five and puts the rest behind "Show all". This is a transparent display order, not a validated priority ranking. Full details: [`docs/GAP_ACTION_LOGIC.md`](docs/GAP_ACTION_LOGIC.md).
 
 ### 5.7 What the assessment score is *not*
 
@@ -355,7 +362,7 @@ The tool compares nine NbS options with the **climate risks** and **site context
 
 ### 6.1 The rules in the code
 
-**Options and weights** (`OPT`, `app.js:106`). Weights run from 0 (not a target) to 3 (strongly addresses). "Land need" and "technical complexity" run from 0 (low) to 2 (high). An option has a calculator only where an NBS identifier is given.
+**Options and weights** (`OPT`, `js/app.js:106`). Weights run from 0 (not a target) to 3 (strongly addresses). "Land need" and "technical complexity" run from 0 (low) to 2 (high). An option has a calculator only where an NBS identifier is given.
 
 | Option | Heatwaves | Flooding | Drought | Land need | Complexity | Calculator |
 |---|---|---|---|---|---|---|
@@ -369,9 +376,9 @@ The tool compares nine NbS options with the **climate risks** and **site context
 | Rainwater retention basin | 1 | 3 | 3 | 2 (High) | 2 (High) | NBS04 |
 | Vegetated dune and shoreline | 0 | 1 | 0 | 1 (Medium) | 1 (Medium) | none |
 
-**When matching is produced** (`matchStatus`, `app.js:487`). No match score or ranking is produced, and an explanatory message is shown instead, if: "Not sure" is selected; no risk is selected; any selected risk is coastal storms or land degradation (no rules exist for them); urban density or public land has not been given; or public land is **Unknown**.
+**When matching is produced** (`matchStatus`, `js/app.js:487`). No match score or ranking is produced, and an explanatory message is shown instead, if: "Not sure" is selected; no risk is selected; any selected risk is coastal storms or land degradation (no rules exist for them); urban density or public land has not been given; or public land is **Unknown**.
 
-**The formula** (`rawMatch` and `suitability`, `app.js:614`–`625`). Let *n* be the number of selected risks and *raw* the sum of the option's weights for those risks.
+**The formula** (`rawMatch` and `suitability`, `js/app.js:614`–`625`). Let *n* be the number of selected risks and *raw* the sum of the option's weights for those risks.
 
 ```
 base       = raw / (3 × n) × 100
@@ -381,7 +388,7 @@ if density is High and land_need = 2:    base = base − 10
 score      = clamp( round(base), 0, 100 )
 ```
 
-**Ranking** (`recs`, `app.js:666`). Options marked *Not applicable* by the screening checks are set aside and listed separately with their reasons. Of the rest, options with a score above 0 are sorted from highest to lowest score; equal scores keep the fixed list order above. The top three are shown as cards. Options with a score of 0 appear under "Other options" with the reason (none of the selected risks is a target of that option), never described as technically unsuitable.
+**Ranking** (`recs`, `js/app.js:666`). Options marked *Not applicable* by the screening checks are set aside and listed separately with their reasons. Of the rest, options with a score above 0 are sorted from highest to lowest score; equal scores keep the fixed list order above. The top three are shown as cards. Options with a score of 0 appear under "Other options" with the reason (none of the selected risks is a target of that option), never described as technically unsuitable.
 
 ### 6.2 Worked example 1 (hypothetical "Example City": heatwaves + flooding, High density, Moderate public land, so *n* = 2, denominator = 6, `land_avail` = 1)
 
@@ -403,9 +410,9 @@ Permeable paving 3/3 = 100 (need 0, no adjustment) → **100**; rain garden and 
 
 ### 6.4 Optional applicability checks
 
-Each option has a short list of yes / no / unknown questions (`CHK`, `app.js:124`; which questions apply to which option: `RULE`, `app.js:167`). Examples: *Is there a roof that could host a green roof?*; *Is there a runoff source that could drain to a rain garden?*; *Is there a catchment that could feed a retention basin?* A follow-up question is hidden when its prerequisite is answered No (`DEP`, `app.js:166`). Answers are kept per question while the page is open.
+Each option has a short list of yes / no / unknown questions (`CHK`, `js/app.js:124`; which questions apply to which option: `RULE`, `js/app.js:167`). Examples: *Is there a roof that could host a green roof?*; *Is there a runoff source that could drain to a rain garden?*; *Is there a catchment that could feed a retention basin?* A follow-up question is hidden when its prerequisite is answered No (`DEP`, `js/app.js:166`). Answers are kept per question while the page is open.
 
-| Status (`screenOpt`, `app.js:635`) | When it applies |
+| Status (`screenOpt`, `js/app.js:635`) | When it applies |
 |---|---|
 | Not yet checked | No relevant question has been answered. |
 | Requires verification | A shown check is unanswered or Unknown, or a condition that can still be assessed or designed (for example soil or infiltration) is answered No. |
@@ -438,15 +445,15 @@ For five of the nine options the user can type a few figures about a planned pro
 
 None of this is a forecast for the user's site, and none of the prices are local prices. The tool states in the interface that *quantitative local climate-risk mitigation impact is not currently estimated*.
 
-### 7.1 General rules (`engine.js`)
+### 7.1 General rules (`js/engine.js`)
 
-- **Checks on the entries** (`resolveInputs`, `engine.js:84`): defaults fill optional blanks; a blank required value gives an error; commas are read as decimal points; zero, negative, non-numeric or out-of-range values are rejected. A missing value is **never** treated as zero.
+- **Checks on the entries** (`resolveInputs`, `js/engine.js:84`): defaults fill optional blanks; a blank required value gives an error; commas are read as decimal points; zero, negative, non-numeric or out-of-range values are rejected. A missing value is **never** treated as zero.
 - **Validity warnings.** Beyond the hard limits, each calculator has a narrower range for which the demo parameters were set (urban forest area 100–10,000 m²; green roof 50–5,000 m²; eco-park 500–50,000 m²; retention basin footprint 100–5,000 m²; green corridor length 50–2,000 m). An entry outside it is *accepted* with a warning. A warning also appears when the design rainfall depth is left at its default.
-- **Cost builder** (`buildCosts`, `engine.js:122`): `CAPEX = Σ(quantity × unit price)` and `Annual cost = Σ(quantity × annual unit cost)`, each computed with the low, base and high value of every unit price. Low is the sum of all low prices and high the sum of all high prices, so the range is an *illustrative scenario range*, not a confidence interval. A user-entered unit price replaces the three scenario values and the result is labelled as user-entered or mixed. Lump sums do not scale with area and no economies of scale are modelled. Land purchase, VAT unless stated, utility relocation, contingency, financing and replacement beyond annual maintenance are excluded.
+- **Cost builder** (`buildCosts`, `js/engine.js:122`): `CAPEX = Σ(quantity × unit price)` and `Annual cost = Σ(quantity × annual unit cost)`, each computed with the low, base and high value of every unit price. Low is the sum of all low prices and high the sum of all high prices, so the range is an *illustrative scenario range*, not a confidence interval. A user-entered unit price replaces the three scenario values and the result is labelled as user-entered or mixed. Lump sums do not scale with area and no economies of scale are modelled. Land purchase, VAT unless stated, utility relocation, contingency, financing and replacement beyond annual maintenance are excluded.
 - **Not calculated, by design:** air temperature, surface temperature and thermal comfort; annual retention; peak-flow reduction; annual captured volume; flood-risk reduction; and any aggregate impact of a multi-component park. The interface lists each with the reason.
 - **Source labels.** Every output is labelled *arithmetic on your inputs*, *demo assumption* or *published reference*.
 
-All unit prices and rates below are **demonstration assumptions** (class `demo_assumption`; none partner-validated) unless stated. The same values are in the table of [`CALCULATIONS.md`](CALCULATIONS.md); the cross-check in section 12 found no difference between that table and the data file.
+All unit prices and rates below are **demonstration assumptions** (class `demo_assumption`; none partner-validated) unless stated. The same values are in the table of [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md); the cross-check in section 12 found no difference between that table and the data file.
 
 ### 7.2 Urban forest (Miyawaki method), calculator NBS01
 
@@ -463,22 +470,7 @@ All unit prices and rates below are **demonstration assumptions** (class `demo_a
 
 **Formulas.** `plants = ceil(A × d)` (F-N01-PLANTS); `V = A × q × n / 1000` in m³ per year (F-N01-WATER), where *A* is the planted area, *d* the planting density, *q* the establishment water demand in litres per m² per day (low / base / high) and *n* the irrigation days.
 
-**Cost components and demonstration prices** (low / base / high):
-
-| Cost component | Quantity used | Capital cost parameter | low / base / high | Unit | Annual cost parameter | low / base / high | Unit |
-|---|---|---|---|---|---|---|---|
-| sapling | plants (plants) | `NBS01.sapling_price` | 2 / 4 / 8 | EUR/plant | – | – | – |
-| soil | area_m2 (m²) | `NBS01.soil_prep` | 3 / 6 / 12 | EUR/m² | – | – | – |
-| planting | area_m2 (m²) | `NBS01.planting_labour` | 2 / 4 / 8 | EUR/m² | – | – | – |
-| irrigation | area_m2 (m²) | `NBS01.irrigation_setup` | 1 / 2.5 / 5 | EUR/m² | – | – | – |
-| design | lump (lump sum) | `NBS01.design_lump` | 1500 / 3000 / 6000 | EUR (lump sum) | – | – | – |
-| maintenance | area_m2 (m²) | – | – | – | `NBS01.maintenance_annual` | 1.5 / 3 / 6 | EUR/m²/year |
-
-**Other demonstration parameters:**
-
-| Other parameter | Meaning | low / base / high | Unit |
-|---|---|---|---|
-| `NBS01.water_demand_lpd` | Establishment water demand | 2 / 4 / 8 | L/m²/day |
+**Cost components** (the quantity each one multiplies): capital: sapling (plants), soil (m²), planting (m²), irrigation (m²), design (lump sum); annual: maintenance (m²). The unit prices, annual costs and rates (parameters `NBS01.*`, low / base / high) are in [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md), section 4, which is the single place where they are listed; `tests/engine.test.js` checks that table against `data/demo_parameters.json`.
 
 
 **Numerical example (hypothetical: 2,000 m², 3 plants/m², 120 days).** Plants = 6,000. Water = 2,000 × 4 × 120 / 1000 = **960 m³/year** (base; 480 low, 1,920 high). CAPEX base = 6,000 × 4 + 2,000 × 6 + 2,000 × 4 + 2,000 × 2.5 + 3,000 = 24,000 + 12,000 + 8,000 + 5,000 + 3,000 = **52,000 EUR** (low 25,500; high 104,000). Annual base = 2,000 × 3 = **6,000 EUR** (low 3,000; high 12,000).
@@ -505,22 +497,12 @@ All unit prices and rates below are **demonstration assumptions** (class `demo_a
 - `V_sub = A × t` m³ (F-N02-SUB): substrate volume, *t* being the substrate depth.
 - `C_ref = A × c_case` EUR (F-REF-ROOF): the area multiplied by each of seven published cost cases for extensive roofs in Hamburg (29, 43, 43, 44, 47, 53 and 73 EUR per m² of total roof area, 2017 prices, VAT included, root-resistant waterproofing excluded; minimum 29, median 44, maximum 73). It is shown only for areas between 196 and 1,944 m², the range of those cases.
 
-**Cost components and demonstration prices** (low / base / high):
-
-| Cost component | Quantity used | Capital cost parameter | low / base / high | Unit | Annual cost parameter | low / base / high | Unit |
-|---|---|---|---|---|---|---|---|
-| substrate | substrate_m3 (m³) | `NBS02.substrate_price` | 60 / 90 / 140 | EUR/m³ | – | – | – |
-| drainage | area_m2 (m²) | `NBS02.drainage_layer` | 5 / 8 / 14 | EUR/m² | – | – | – |
-| vegetation | area_m2 (m²) | `NBS02.vegetation` | 6 / 12 / 25 | EUR/m² | – | – | – |
-| labour | area_m2 (m²) | `NBS02.install_labour` | 4 / 8 / 15 | EUR/m² | – | – | – |
-| waterproofing | area_m2 (m²) | `NBS02.waterproofing` | 8 / 14 / 25 | EUR/m² | – | – | – |
-| structural | lump (lump sum) | `NBS02.structural_check_lump` | 1000 / 2500 / 6000 | EUR (lump sum) | – | – | – |
-| maintenance | area_m2 (m²) | – | – | – | `NBS02.maintenance_annual` | 1 / 2.5 / 5 | EUR/m²/year |
+**Cost components** (the quantity each one multiplies): capital: substrate (m³), drainage (m²), vegetation (m²), labour (m²), waterproofing (m²) [optional, switched by `include_waterproofing`], structural (lump sum); annual: maintenance (m²). The unit prices, annual costs and rates (parameters `NBS02.*`, low / base / high) are in [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md), section 4, which is the single place where they are listed; `tests/engine.test.js` checks that table against `data/demo_parameters.json`.
 
 
 **Numerical example (hypothetical: 800 m², 30 mm, substrate depth 0.08 m, waterproofing included).** `V_rain` = 800 × 30 / 1000 = **24 m³**. `V_ret` = 24 × 0.268 = 6.432 and 24 × 0.618 = 14.832, shown as **6.43 – 14.8 m³** for one event. `V_sub` = 800 × 0.08 = **64 m³**. CAPEX base = 64 × 90 + 800 × (8 + 12 + 8 + 14) + 2,500 = 5,760 + 33,600 + 2,500 = **41,860 EUR** (low 23,240; high 78,160). Annual base = 800 × 2.5 = **2,000 EUR** (low 800; high 4,000). Reference cost = 800 × 29 = 23,200; 800 × 44 = 35,200; 800 × 73 = 58,400 EUR.
 
-**What it means.** The retained-volume range shows the order of magnitude that published experimental roofs retained in single events; the cost figures give a scenario range and a published comparison. **What it does not mean.** It is not a prediction for this roof, not annual retention, not peak-flow reduction, not flood-risk reduction, and it ignores local rainfall, roof design and substrate moisture. The reference cost is from another city and year and excludes the new waterproofing that the component cost includes by default, so the two cost figures are not directly comparable. The roof's structural suitability is not checked by any calculation; the "structural check and design" cost line is a budget item only.
+**What it means.** The retained-volume range shows the order of magnitude that published experimental roofs retained in single events; the cost figures give a scenario range and a published comparison. **What it does not mean.** It is not a prediction for this roof, not annual retention, not peak-flow reduction, not flood-risk reduction, and it ignores local rainfall, roof design and substrate moisture. **Limits of the calculation (verified by running the engine):** the published range comes from experimental roofs with an 80 mm extensive build-up, but the calculator applies the same range for any event depth above 10 mm up to its input limit of 300 mm, and for any substrate depth (the substrate-depth input changes only the substrate volume and cost). No warning is shown for large events or other substrate depths. For example 800 m², 300 mm gives 64.3–148.3 m³ retained out of 240 m³ of rain. Read the range as an order of magnitude for moderate events on a roof similar to the tested ones. The reference cost is from another city and year and excludes the new waterproofing that the component cost includes by default, so the two cost figures are not directly comparable. The roof's structural suitability is not checked by any calculation; the "structural check and design" cost line is a budget item only.
 
 ### 7.4 Smart eco-park (multifunctional eco-park), calculator NBS03
 
@@ -540,23 +522,7 @@ All unit prices and rates below are **demonstration assumptions** (class `demo_a
 
 **Formulas.** `A_i = A × share_i / 100` (F-N03-AREAS); the four shares must sum to 100% (checked to within 0.001). `V = n × (A_trees × q_t + A_meadow × q_m) / 1000` m³ per year (F-N03-WATER), with *q* in litres per m² per day. The irrigation-system cost applies to the tree and meadow area together.
 
-**Cost components and demonstration prices** (low / base / high):
-
-| Cost component | Quantity used | Capital cost parameter | low / base / high | Unit | Annual cost parameter | low / base / high | Unit |
-|---|---|---|---|---|---|---|---|
-| trees | area_trees (m²) | `NBS03.tree_area_build` | 25 / 45 / 80 | EUR/m² | `NBS03.tree_maint` | 2 / 4 / 8 | EUR/m²/year |
-| meadow | area_meadow (m²) | `NBS03.meadow_build` | 4 / 8 / 15 | EUR/m² | `NBS03.meadow_maint` | 0.5 / 1.2 / 2.5 | EUR/m²/year |
-| water | area_water (m²) | `NBS03.water_build` | 30 / 55 / 100 | EUR/m² | `NBS03.water_maint` | 3 / 6 / 12 | EUR/m²/year |
-| hard | area_hard (m²) | `NBS03.hard_build` | 30 / 55 / 90 | EUR/m² | `NBS03.hard_maint` | 0.5 / 1 / 2 | EUR/m²/year |
-| irrigation | area_irrigated (m²) | `NBS03.irrigation_system` | 4 / 8 / 15 | EUR/m² | – | – | – |
-| design | lump (lump sum) | `NBS03.design_lump` | 4000 / 8000 / 16000 | EUR (lump sum) | – | – | – |
-
-**Other demonstration parameters:**
-
-| Other parameter | Meaning | low / base / high | Unit |
-|---|---|---|---|
-| `NBS03.tree_water_lpd` | Tree area water demand | 2 / 4 / 6 | L/m²/day |
-| `NBS03.meadow_water_lpd` | Meadow water demand | 1 / 3 / 5 | L/m²/day |
+**Cost components** (the quantity each one multiplies): capital: trees (m²), meadow (m²), water (m²), hard (m²), irrigation (m²), design (lump sum); annual: trees (m²), meadow (m²), water (m²), hard (m²). The unit prices, annual costs and rates (parameters `NBS03.*`, low / base / high) are in [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md), section 4, which is the single place where they are listed; `tests/engine.test.js` checks that table against `data/demo_parameters.json`.
 
 
 **Numerical example (hypothetical: the default 5,000 m² park, shares 40/35/10/15, 120 days).** Areas: trees 2,000, meadow 1,750, water 500, hard 750 m². Water base = 120 × (2,000 × 4 + 1,750 × 3) / 1000 = **1,590 m³/year** (low 690; high 2,490). CAPEX base = 2,000 × 45 + 1,750 × 8 + 500 × 55 + 750 × 55 + 3,750 × 8 + 8,000 = 90,000 + 14,000 + 27,500 + 41,250 + 30,000 + 8,000 = **210,750 EUR** (low 113,500; high 376,000). Annual base = 2,000 × 4 + 1,750 × 1.2 + 500 × 6 + 750 × 1 = 8,000 + 2,100 + 3,000 + 750 = **13,850 EUR** (low 6,750; high 27,875).
@@ -580,23 +546,7 @@ All unit prices and rates below are **demonstration assumptions** (class `demo_a
 
 **Formulas.** `S = F × D × f` m³ (F-N04-STORE), with footprint *F*, average storage depth *D* and usable fraction *f* (0.7 / 0.8 / 0.9). `R = C × φ × h / 1000` m³ per event (F-N04-RUNOFF), with catchment *C*, runoff coefficient φ (0.6 / 0.75 / 0.9) and event depth *h* (mm). `S / R × 100` per cent (F-N04-RATIO). Without a catchment area, runoff and the ratio are **unavailable** (not zero). The low value of the ratio combines the lowest storage with the highest runoff and the high value the reverse, so the range is deliberately wide.
 
-**Cost components and demonstration prices** (low / base / high):
-
-| Cost component | Quantity used | Capital cost parameter | low / base / high | Unit | Annual cost parameter | low / base / high | Unit |
-|---|---|---|---|---|---|---|---|
-| excavation | excavation_m3 (m³) | `NBS04.excavation_price` | 10 / 20 / 40 | EUR/m³ | – | – | – |
-| liner | footprint_m2 (m²) | `NBS04.liner_price` | 3 / 6 / 12 | EUR/m² | – | – | – |
-| planting | footprint_m2 (m²) | `NBS04.planting_price` | 4 / 8 / 16 | EUR/m² | – | – | – |
-| structures | structures (structures) | `NBS04.structure_price` | 3000 / 6000 / 12000 | EUR/structure | – | – | – |
-| design | lump (lump sum) | `NBS04.design_lump` | 3000 / 6000 / 12000 | EUR (lump sum) | – | – | – |
-| maintenance | footprint_m2 (m²) | – | – | – | `NBS04.maintenance_annual` | 0.8 / 1.8 / 4 | EUR/m²/year |
-
-**Other demonstration parameters:**
-
-| Other parameter | Meaning | low / base / high | Unit |
-|---|---|---|---|
-| `NBS04.shape_factor` | Usable storage fraction of gross volume | 0.7 / 0.8 / 0.9 | dimensionless |
-| `NBS04.runoff_coeff` | Runoff coefficient of the catchment | 0.6 / 0.75 / 0.9 | dimensionless |
+**Cost components** (the quantity each one multiplies): capital: excavation (m³), liner (m²), planting (m²), structures (structures), design (lump sum); annual: maintenance (m²). The unit prices, annual costs and rates (parameters `NBS04.*`, low / base / high) are in [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md), section 4, which is the single place where they are listed; `tests/engine.test.js` checks that table against `data/demo_parameters.json`.
 
 
 **Numerical example (hypothetical: 500 m² footprint, 5,000 m² catchment, 25 mm event, 1 m depth, 2 inlets/outlets).** `S` = 500 × 1 × f = **350 / 400 / 450 m³**. `R` = 5,000 × φ × 25 / 1000 = **75 / 93.75 / 112.5 m³**. Ratio = 350/112.5 = 311%, 400/93.75 = 427% (base), 450/75 = 600%. CAPEX base = 500 × 20 + 500 × 6 + 500 × 8 + 2 × 6,000 + 6,000 = 10,000 + 3,000 + 4,000 + 12,000 + 6,000 = **35,000 EUR** (low 17,500; high 70,000). Annual base = 500 × 1.8 = **900 EUR** (low 400; high 2,000).
@@ -620,22 +570,7 @@ All unit prices and rates below are **demonstration assumptions** (class `demo_a
 
 **Formulas.** `A = L × W` m² and `trees = floor(L / s) × rows` (F-N05-AREA); `V = n × (trees × q_t + A × q_u) / 1000` m³ per year (F-N05-WATER), with *q_t* in litres per tree per day and *q_u* in litres per m² per day. A warning is shown if the entries give no trees.
 
-**Cost components and demonstration prices** (low / base / high):
-
-| Cost component | Quantity used | Capital cost parameter | low / base / high | Unit | Annual cost parameter | low / base / high | Unit |
-|---|---|---|---|---|---|---|---|
-| trees | trees (trees) | `NBS05.tree_price` | 150 / 300 / 600 | EUR/tree | `NBS05.tree_maint` | 10 / 25 / 50 | EUR/tree/year |
-| understory | area_m2 (m²) | `NBS05.understory_price` | 8 / 16 / 30 | EUR/m² | `NBS05.understory_maint` | 1 / 2 / 4 | EUR/m²/year |
-| irrigation | length_m (m) | `NBS05.irrigation_line` | 8 / 18 / 35 | EUR/m | – | – | – |
-| survey | lump (lump sum) | `NBS05.survey_lump` | 1500 / 3000 / 6000 | EUR (lump sum) | – | – | – |
-| design | lump (lump sum) | `NBS05.design_lump` | 2500 / 5000 / 10000 | EUR (lump sum) | – | – | – |
-
-**Other demonstration parameters:**
-
-| Other parameter | Meaning | low / base / high | Unit |
-|---|---|---|---|
-| `NBS05.tree_water_lpd` | Tree water demand | 20 / 40 / 80 | L/tree/day |
-| `NBS05.understory_water_lpd` | Understory water demand | 1 / 2 / 4 | L/m²/day |
+**Cost components** (the quantity each one multiplies): capital: trees (trees), understory (m²), irrigation (m), survey (lump sum), design (lump sum); annual: trees (trees), understory (m²). The unit prices, annual costs and rates (parameters `NBS05.*`, low / base / high) are in [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md), section 4, which is the single place where they are listed; `tests/engine.test.js` checks that table against `data/demo_parameters.json`.
 
 
 **Numerical example (hypothetical: 300 m long, 3 m wide, trees every 8 m, one row, 120 days).** Area = **900 m²**; trees = floor(300/8) = **37**. Water base = 120 × (37 × 40 + 900 × 2) / 1000 = **393.6 m³/year** (low 196.8; high 787.2). CAPEX base = 37 × 300 + 900 × 16 + 300 × 18 + 3,000 + 5,000 = 11,100 + 14,400 + 5,400 + 3,000 + 5,000 = **38,900 EUR** (low 19,150; high 75,700). Annual base = 37 × 25 + 900 × 2 = 925 + 1,800 = **2,725 EUR** (low 1,270; high 5,450).
@@ -650,7 +585,7 @@ All unit prices and rates below are **demonstration assumptions** (class `demo_a
 
 The tool relies on two data files. The **evidence register** collects published findings and costs with their limits and sources. The **demonstration parameters** are numbers chosen by the demo authors so that the calculators can run. Both are clearly labelled as provisional. The register is described in its own file as a *starter register for NBS4MED meeting review, not an approved project repository*, and the parameters as *demonstration assumptions, not project data, not validated by partners*.
 
-### 8.1 Evidence register (`evidence.json`)
+### 8.1 Evidence register (`data/evidence.json`)
 
 - **Origin and version.** Exported from a spreadsheet named `NBS4MED_Starter_Database (2).xlsx` (not in this repository), version "v2 (2026-10-11)"; all eight sources were recorded as accessed on 2026-10-11.
 - **Contents.** 5 solutions, 22 evidence records, 8 sources, 10 rules, 5 methods, a readiness table and a change log. A record states its outcome variable, statistic type, value, unit, context, year, study group, allowed use and what is missing for transfer to another place.
@@ -671,16 +606,16 @@ The tool relies on two data files. The **evidence register** collects published 
 | R05 | Catchment or storage data absent → no annual captured volume | "Proposed rule; not implemented" | `annual_capture` is listed as not calculated; runoff is unavailable without a catchment. |
 | R06 | Source context or price year mismatch → show the source example only | "Proposed rule; not implemented" | Reference costs are shown with place, year and a "not a local price" warning. |
 | R07 | Very low match score → separate comparison options from recommendations; threshold pending partners | "Proposed rule; not implemented" | **Not implemented.** Only options with a score of 0 are moved to "Other options". |
-| R08 | Different outcomes or statistics → never pool them | "Proposed; not partner approved" | Evidence is grouped by outcome and statistic and never pooled (`evidenceCards`, `engine.js`). |
+| R08 | Different outcomes or statistics → never pool them | "Proposed; not partner approved" | Evidence is grouped by outcome and statistic and never pooled (`evidenceCards`, `js/engine.js`). |
 | R09 | Several records from one study → count studies, not records | "Proposed; not partner approved" | The interface counts independent studies. |
 | R10 | Missing value or price → unavailable, never zero | "Proposed; not partner approved" | Missing entries give errors or "unavailable", never 0. |
 
 The register's own status wording does not match the application's behaviour for R01–R06 and R08–R10; see discrepancy D1 in section 12.
 
-### 8.3 Demonstration parameters (`demo_parameters.json`)
+### 8.3 Demonstration parameters (`data/demo_parameters.json`)
 
 - **Version** "demo-0.1" dated 2026-10-11; currency EUR; **no price year** (the values were not taken from a dated price list and no price index is applied).
-- **43 parameters**, all `demo_assumption`, with the `partner_validated` field empty for every one. Each carries a unit, low/base/high value, purpose, scope and valid range. They are tabulated per calculator in section 7 and in full in [`CALCULATIONS.md`](CALCULATIONS.md).
+- **43 parameters**, all `demo_assumption`, with the `partner_validated` field empty for every one. Each carries a unit, low/base/high value, purpose, scope and valid range. They are tabulated per calculator in section 7 and in full in [`docs/CALCULATIONS.md`](docs/CALCULATIONS.md).
 - **3 published-reference parameters** (event retention above and below 10 mm; the seven Hamburg cost cases), pointing to records G01, G02 and H1–H9.
 - **Calculator definitions** for NBS01–NBS05: input fields with defaults, limits and required flags, and the cost components.
 - **Stated exclusions:** land acquisition, VAT unless stated, utility relocation, contingency, financing and replacement beyond annual maintenance.
@@ -720,7 +655,7 @@ Printing, downloading and viewing never change any answer or result.
 
 ### Technical details
 
-Overview, criteria, chart and gaps: `overviewHtml` (`app.js:1103`), `critTableHtml` (`app.js:1122`), `critChartHtml` (`app.js:920`), `gapsSection`; options: `sectionB`; impact and cost: `sectionC` and `explore.js` (`compute` at `explore.js:732`, `resultsHtml` at `explore.js:613`, `costTables` at `explore.js:498`). Reports and CSV: `printSummary` (`explore.js:1058`), `sumPage1` (`:941`), `sumPage2` (`:1027`), `reportHtml` (`:830`), `csvRows` (`:1079`), `improvementAreas` (`:915`). The automatic interpretation text (`interpretation`, `app.js:1086`) names the highest and lowest rated criteria and any criteria that cannot be rated; it is deterministic text, not generated analysis. A partner feedback form is implemented (`fbHtml`) but hidden, and its confirmation message says feedback is not transmitted.
+Overview, criteria, chart and gaps: `overviewHtml` (`js/app.js:1103`), `critTableHtml` (`js/app.js:1122`), `critChartHtml` (`js/app.js:920`), `gapsSection`; options: `sectionB`; impact and cost: `sectionC` and `js/explore.js` (`compute` at `js/explore.js:732`, `resultsHtml` at `js/explore.js:613`, `costTables` at `js/explore.js:498`). Reports and CSV: `printSummary` (`js/explore.js:1058`), `sumPage1` (`:941`), `sumPage2` (`:1027`), `reportHtml` (`:830`), `csvRows` (`:1079`), `improvementAreas` (`:915`). The automatic interpretation text (`interpretation`, `js/app.js:1086`) names the highest and lowest rated criteria and any criteria that cannot be rated; it is deterministic text, not generated analysis. A partner feedback form is implemented (`fbHtml`) but hidden, and its confirmation message says feedback is not transmitted.
 
 ---
 
@@ -797,36 +732,32 @@ Setting state this way is for inspection; refresh the page afterwards.
 
 ### Update evidence or parameters
 
-1. Edit the `.json` file (`evidence.json` or `demo_parameters.json`); keep it valid JSON.
-2. Regenerate the matching `.js` file so it holds the same data. The headers of the `.js` files mention a script `tools\sync-data.ps1`, which **is not in this repository**. This Node.js snippet reproduces the existing files exactly, apart from line-ending characters (verified by comparing its output with the current files):
-   ```bash
-   node -e "
-   const fs=require('fs');
-   for (const [j,o,g] of [['evidence.json','evidence.js','NBS4MED_EVIDENCE'],['demo_parameters.json','demo_parameters.js','NBS4MED_PARAMS']]) {
-     const data=JSON.parse(fs.readFileSync(j,'utf8'));
-     fs.writeFileSync(o,'/* Generated from '+j+'. Edit the .json, then run tools\\\\sync-data.ps1. */\n'+'window.'+g+' = '+JSON.stringify(data,null,2)+';\n');
-   }"
-   ```
-3. Reload the page. A new value needs no code change; a new solution, input type or output type needs changes in `engine.js` and `explore.js`.
-4. If a value quoted in `CALCULATIONS.md` changes, update that file too: it is the single reference for formulas and parameter values.
+1. Edit the `.json` file in `data/` (`data/evidence.json` or `data/demo_parameters.json`); keep it valid JSON. The `.json` files are the source of truth; never edit the `.js` copies by hand.
+2. Regenerate the copies: `node tools/sync-data.js` (or `npm run sync-data`). `node tools/sync-data.js --check` only compares them and returns an error if a copy differs; it compares the parsed data, so line endings do not matter. The first-line comment of the generated files names this command. (Before the reorganisation the comment named a script, `tools\sync-data.ps1`, that was never committed; this tool replaces it.)
+3. Reload the page. A new value needs no code change; a new solution, input type or output type needs changes in `js/engine.js` and `js/explore.js`.
+4. If a value quoted in `docs/CALCULATIONS.md` changes, update that file too: it is the single reference for formulas and parameter values, and `npm test` fails if its parameter table no longer matches the JSON.
+5. Field meanings and the unresolved provenance questions are in [`data/README.md`](data/README.md).
 
 ### Change assessment content
 
-Indicator texts, rubrics, pilots, risks and option weights are constants at the top of `app.js`; the question wording and action texts are in `guidance.js`. Every text exists in English and Arabic; keep both in step. **Changing scoring, thresholds or matching weights is a methodology change**: agree it with the partners and document it (section 5, [`GAP_ACTION_LOGIC.md`](GAP_ACTION_LOGIC.md)).
+Indicator texts, rubrics, pilots, risks and option weights are constants at the top of `js/app.js`; the question wording and action texts are in `js/guidance.js`. Every text exists in English and Arabic; keep both in step. **Changing scoring, thresholds or matching weights is a methodology change**: agree it with the partners and document it (section 5, [`docs/GAP_ACTION_LOGIC.md`](docs/GAP_ACTION_LOGIC.md)).
 
 ### Testing
 
-- **Syntax check** (no dependencies): `node --check app.js`, and likewise for `explore.js`, `engine.js` and `guidance.js`. All four pass on the current files.
-- **Browser tests:** `qa-tests/` has thirteen Node.js scripts that drive the page with Playwright and Chromium. They are not turnkey: there is no `package.json`, they load Playwright and Chromium from fixed paths (`/opt/node-tools/...`, `/opt/pw-browsers/...`), and some refer to reference copies of the code in a scratch directory. Adjust those paths before reuse. Typical use: `node qa-tests/qa1.js <url-or-file-url>`.
-- **Recorded results.** [`FINAL_QA_REPORT.md`](FINAL_QA_REPORT.md) records results as of 2026-10-17 for an earlier build (for example 190 checks in the eight-stage flow and 864 in an independent calculator verification), and later pull request descriptions list further suites. Those records were not re-run for this document.
-- **Manual checks worth repeating after any change:** Arabic right-to-left layout; mobile width (about 390 px); both reports (two A4 pages for the summary); the CSV file; and the İzmir scenario in `DEMO_VIDEO_PACKAGE.md`.
+Details, environment variables and the list of browser tests are in [`tests/README.md`](tests/README.md).
+
+- **`npm test`** (Node.js 18 or newer, no dependencies, no browser) runs `tests/engine.test.js` (data copies, data integrity, the parameter table of `docs/CALCULATIONS.md`, the worked examples of section 7 for all five calculators with an independent recomputation of the costs, and the engine rules), `tests/links.test.js` (every file reference in `index.html` and the Markdown files) and `node tools/sync-data.js --check`.
+- **Syntax check:** `node --check js/app.js`, and likewise for `js/explore.js`, `js/engine.js` and `js/guidance.js`.
+- **Browser tests** (`npm install`, then `npm run test:browser`; Playwright and Chromium): `tests/browser/examples.js` checks the scoring and matching examples of sections 2, 5 and 6 on the real page; the other scripts are the quality-assurance suites described in `docs/qa/FINAL_QA_REPORT.md`. Machine-specific paths were replaced by paths relative to the repository, and scripts that had fallen behind the redesigned interface were updated. A few checks compare with older builds and are skipped unless one is supplied (see `tests/README.md`).
+- **Recorded results.** [`docs/qa/FINAL_QA_REPORT.md`](docs/qa/FINAL_QA_REPORT.md) records results as of 2026-10-17 for an earlier build. Run the tests again rather than relying on those numbers.
+- **Manual checks worth repeating after any change:** Arabic right-to-left layout; mobile width (about 390 px); both reports (two A4 pages for the summary); the CSV file; and the İzmir scenario in `docs/DEMO_VIDEO_PACKAGE.md`.
 
 ### Repository maintenance
 
-- The website is published from the `main` branch **(Pages source to be confirmed in Settings → Pages)**; merging there changes the live site, so use pull requests and review.
-- Keep each `.js` data file in step with its `.json` source.
-- The evidence folders are large records, not application files; they could be moved out of the published branch if size matters.
-- No licence file is included; the reuse terms must be decided by the project **(to be confirmed)**.
+- The website is published from the `main` branch **(Pages source to be confirmed in Settings → Pages)**; merging there changes the live site, so use pull requests and review. `index.html` must stay at the repository root and the scripts and data are loaded with relative paths (`js/`, `data/`, `assets/`).
+- Keep each `.js` data file in step with its `.json` source (`node tools/sync-data.js --check`).
+- The evidence folders in `docs/qa/evidence/` are large historical records, not application files. Pages also publishes them. They were kept unchanged.
+- Contribution and approval rules are in [`CONTRIBUTING.md`](CONTRIBUTING.md). Open licence, provenance and branch decisions are listed in [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md). No licence file is included; the reuse terms must be decided by the project **(to be confirmed)**.
 
 ---
 
@@ -838,34 +769,49 @@ This section records how the documentation was checked against the implementatio
 
 | Check | Method | Result |
 |---|---|---|
-| Scoring, matching and screening logic | The functions in `app.js` were read; then the page's own `calc()`, `recs()` and `gapItems()` were run in headless Chromium on the hypothetical inputs of sections 2, 5 and 6 (including Unknown, Not applicable, all-Not-applicable, coastal and unknown-land cases). | Every number in sections 2, 5 and 6 equals the program output; the match scores were also recomputed by hand. |
-| Calculator formulas and costs | `engine.js` was read; `NBS4MED_ENGINE.calculate` was run in Node on the example inputs of section 7, and each result was recomputed by hand (breakdowns shown in section 7). | All examples agree with the program output. |
-| Parameter table | Every row of the table in `CALCULATIONS.md` (43 parameters) was compared with `demo_parameters.json`: id, low/base/high value and unit. | No difference; all 43 parameters are present in both. |
-| Calculator inputs and cost components | Generated from `demo_parameters.json` by script, not typed. | Tables in section 7 match the data file. |
-| Data copies | `evidence.js` and `demo_parameters.js` were parsed and compared with the JSON files. | Identical data. |
-| Evidence register facts | Record counts, forecast flag, rule statuses, sources and G01/G02/H records were read from `evidence.json`. | Used as stated in section 8. |
+| Scoring, matching and screening logic | The functions in `js/app.js` were read; then the page's own `calc()`, `recs()` and `gapItems()` were run in headless Chromium on the hypothetical inputs of sections 2, 5 and 6 (including Unknown, Not applicable, all-Not-applicable, coastal and unknown-land cases). | Every number in sections 2, 5 and 6 equals the program output; the match scores were also recomputed by hand. |
+| Calculator formulas and costs | `js/engine.js` was read; `NBS4MED_ENGINE.calculate` was run in Node on the example inputs of section 7, and each result was recomputed by hand (breakdowns shown in section 7). | All examples agree with the program output. |
+| Parameter table | Every row of the table in `docs/CALCULATIONS.md` (43 parameters) was compared with `data/demo_parameters.json`: id, low/base/high value and unit. | No difference; all 43 parameters are present in both. |
+| Calculator inputs and cost components | Generated from `data/demo_parameters.json` by script, not typed. | Tables in section 7 match the data file. |
+| Data copies | `data/evidence.js` and `data/demo_parameters.js` were parsed and compared with the JSON files. | Identical data. |
+| Evidence register facts | Record counts, forecast flag, rule statuses, sources and G01/G02/H records were read from `data/evidence.json`. | Used as stated in section 8. |
 | Syntax and loading | `node --check` on the four scripts; the page was opened from `file://` with `#assessment` and no JavaScript errors were reported. | Pass. |
 | Privacy claims | The source files were searched for network calls and browser storage. | None found; only the font request. |
 
-**Not verified in this review:** the evidence values against the original publications; every visual state of the interface; the Arabic texts; the real print dialog and PDF output; browsers other than Chromium; and any claim that depends on approval by the partners or PROMEA (none is documented in the repository). The test results quoted from `FINAL_QA_REPORT.md` are reported as recorded and were not re-run.
+**Not verified in this review:** the evidence values against the original publications; every visual state of the interface; the Arabic texts; the real print dialog and PDF output; browsers other than Chromium; and any claim that depends on approval by the partners or PROMEA (none is documented in the repository). The test results quoted from `docs/qa/FINAL_QA_REPORT.md` are reported as recorded and were not re-run.
 
 ### 12.2 Discrepancies and points to resolve
 
 | # | Finding | Where | Suggested action |
 |---|---|---|---|
-| D1 | The evidence register marks R01–R07 "Proposed rule; not implemented" and R08–R10 "Proposed; not partner approved", while the application displays R01–R06, R08 and R10 in the rules panel and enforces the effect of R04, R05, R08, R09 and R10 in the engine. Only R07 is genuinely not implemented. | `evidence.json` (rules) vs `explore.js:562`, `engine.js` | Update the register's status text or document the rules as "demonstrated, not partner approved". |
-| D2 | G01 and G02 have `allowed_use = "source_example_only"`, but the engine multiplies a user-entered rainfall volume by the G01 range to give a retained-volume scenario. `CALCULATIONS.md` calls this a clearly labelled scenario. | `evidence.json`, `engine.js` (`F-N02-RET`) | Partners to decide whether this use is acceptable. |
-| D3 | `calc()` computes `weak` (the weakest criterion) but nothing uses it; `CALCULATIONS.md` §1 still refers to "weakest-dimension text" as unchanged code. | `app.js:584`–`585`, `CALCULATIONS.md` | Remove the dead value or the reference. |
-| D4 | Option weights for fire and air quality, and for coastal storms, are present in `OPT` but unused: no fire or air-quality risk can be selected and any coastal selection blocks matching. | `app.js:106`–`117` | Keep as planned data or remove; document either way. |
-| D5 | Equal match scores are ordered by list position, so which of several tied options appears on the three cards is arbitrary. The interface does not say so. | `app.js:671` | State the rule on screen or add a tie-break criterion. |
-| D6 | Level thresholds are applied to the rounded percentage (12/22 = 54.55% is reported as 55%, *Adequate*). | `app.js:485`, `app.js:574` | Decide whether thresholds apply before or after rounding. |
-| D7 | No minimum number of scored indicators per criterion: one scored indicator can produce 0% or 100%. | `app.js:564`–`586` | Decide whether a minimum is needed. |
-| D8 | The data files' headers and the earlier README refer to `tools\sync-data.ps1`, which is not in the repository. | `evidence.js`, `demo_parameters.js` | Add a sync script (section 11 gives a replacement). |
-| D9 | The validity ranges used for warnings are narrower than the hard input limits (for example urban forest area is accepted from 1 m² but warned below 100 m²). This is intended, but only visible as a warning. | `engine.js:182` onward | None needed; documented in section 7. |
-| D10 | The low and high values of the retention-basin volume balance combine opposite extremes (lowest storage with highest runoff), so the range is very wide (311%–600% in the example). | `engine.js` (`F-N04-RATIO`) | Document in the interface or narrow the definition. |
-| D11 | The partner feedback form is implemented but hidden, and nothing is transmitted. | `app.js` (`fbHtml`) | None, unless feedback collection is planned (section 13, phase 4). |
+| D1 | The evidence register marks R01–R07 "Proposed rule; not implemented" and R08–R10 "Proposed; not partner approved", while the application displays R01–R06, R08 and R10 in the rules panel and enforces the effect of R04, R05, R08, R09 and R10 in the engine. R01, R03 and R06 are fixed statements shown whatever the entries; R02 has real logic in the roof check. Only R07 is genuinely not implemented. | `data/evidence.json` (rules) vs `js/explore.js:562`, `js/engine.js` | Update the register's status text or document the rules as "demonstrated, not partner approved". |
+| D2 | G01 and G02 have `allowed_use = "source_example_only"`, but the engine multiplies a user-entered rainfall volume by the G01 range to give a retained-volume scenario. `docs/CALCULATIONS.md` calls this a clearly labelled scenario. | `data/evidence.json`, `js/engine.js` (`F-N02-RET`) | Partners to decide whether this use is acceptable. |
+| D3 | `calc()` computes `weak` (the weakest criterion) but nothing uses it. `docs/CALCULATIONS.md` §1 referred to "weakest-dimension text"; that sentence has been corrected, the unused value remains in the code. | `js/app.js:584`–`585`, `docs/CALCULATIONS.md` | Remove the dead value or the reference. |
+| D4 | Option weights for fire and air quality, and for coastal storms, are present in `OPT` but unused: no fire or air-quality risk can be selected and any coastal selection blocks matching. | `js/app.js:106`–`117` | Keep as planned data or remove; document either way. |
+| D5 | Equal match scores are ordered by list position, so which of several tied options appears on the three cards is arbitrary. The interface does not say so. | `js/app.js:671` | State the rule on screen or add a tie-break criterion. |
+| D6 | Level thresholds are applied to the rounded percentage (12/22 = 54.55% is reported as 55%, *Adequate*). | `js/app.js:485`, `js/app.js:574` | Decide whether thresholds apply before or after rounding. |
+| D7 | No minimum number of scored indicators per criterion: one scored indicator can produce 0% or 100%. | `js/app.js:564`–`586` | Decide whether a minimum is needed. |
+| D8 | The data-file headers referred to `tools\sync-data.ps1`, which was never in the repository. | `data/evidence.js`, `data/demo_parameters.js` | **Resolved in the reorganisation:** `tools/sync-data.js` was added and the headers now name it. |
+| D9 | The validity ranges used for warnings are narrower than the hard input limits (for example urban forest area is accepted from 1 m² but warned below 100 m²). This is intended, but only visible as a warning. | `js/engine.js:182` onward | None needed; documented in section 7. |
+| D10 | The low and high values of the retention-basin volume balance combine opposite extremes (lowest storage with highest runoff), so the range is very wide (311%–600% in the example). | `js/engine.js` (`F-N04-RATIO`) | Document in the interface or narrow the definition. |
+| D11 | The partner feedback form is implemented but hidden, and nothing is transmitted. | `js/app.js` (`fbHtml`) | None, unless feedback collection is planned (section 13, phase 4). |
+| D12 | The green-roof retention range (80 mm extensive roofs, events above 10 mm) is applied to any event depth up to the 300 mm input limit and to any substrate depth, without a warning (verified by running the engine). | `js/engine.js:224`–`227` | Add an upper depth limit or a warning, or document it prominently (done in section 7.3). A code change needs methodology agreement. |
 
-No other differences were found between this document and the implementation, and no difference was found between `CALCULATIONS.md` and the code for the formulas, example values and parameter table checked above.
+Discrepancies D8 and D3 (the documentation part) were addressed when the repository was reorganised; D12 was found while reorganising the tests and documentation. No other differences were found between this document and the implementation, and no difference was found between `docs/CALCULATIONS.md` and the code for the formulas, example values and parameter table checked above.
+
+### 12.3 Verification of the repository reorganisation
+
+When the files were moved into `js/`, `data/`, `docs/`, `tests/` and `tools/`, the following was run on the result (a one-off check; the baseline comparison is not part of the repository):
+
+| Check | Result |
+|---|---|
+| Behaviour before and after: scoring, matching, gap items (English and Arabic), CSV rows, hashes of the summary and detailed report HTML, the text of the rendered results page, and the engine outputs for all five calculators including edge cases, for 9 scenarios, captured from the original build and from the final tree | Identical (21 of 21 text and HTML captures, and all structured values) |
+| File contents | `js/*.js`, `data/*.json` and the logo are byte-identical to the originals; `index.html` differs only in its six script paths; `data/*.js` differ only in the first-line comment; no file was deleted and all 351 evidence files were kept |
+| `npm test` (18 engine tests, file-reference check, data copies in sync) | All pass |
+| Browser tests on the final tree over `file://`: `examples.js` 17, `qa1` 190, `qa2` 864, `qa3` 284, `qa4` 18, `qa6` 19, `qa7` 78, `qa8` 61, `t16` 66, `pdf2` 114 checks; `rl`, `qa5`, `demo_qa` and `dash` completed without failure | All pass. In `qa8` the byte-identity check of the supplied logo was skipped (the supplied file is not in the repository); `t16` ran its identity checks against the recovery reference build (commit `12f0917`) |
+| The page served over HTTP | All scripts, data files and the logo return 200; `#assessment` opens the assessment on a desktop and a 390 px viewport; no console errors |
+
+Not verified: the live GitHub Pages deployment of this layout (the sandbox used cannot reach github.io; the Pages build after merging must be checked), browsers other than Chromium, and the Pages source setting.
 
 ---
 
@@ -900,7 +846,7 @@ No other differences were found between this document and the implementation, an
 ### Phase 5: Backend and API (only if the project decides to store assessments)
 
 - **Objective:** add a server so that assessments can be saved, reopened and compared.
-- **Expected output:** an API design (for example REST with JSON) covering assessments, responses, recommendations and calculations; a decision on whether scoring and calculation logic stays in the browser, moves to the server, or is shared; migration of `engine.js` and the scoring rules into tested, versioned code.
+- **Expected output:** an API design (for example REST with JSON) covering assessments, responses, recommendations and calculations; a decision on whether scoring and calculation logic stays in the browser, moves to the server, or is shared; migration of `js/engine.js` and the scoring rules into tested, versioned code.
 - **Decisions to confirm:** technology stack and hosting; who operates and pays for the service; whether it must work offline; data location (relevant for an EU-funded project).
 
 ### Phase 6: Relational database (proposed PostgreSQL schema)
@@ -950,7 +896,7 @@ erDiagram
 ### Phase 8: Testing, documentation and deployment
 
 - **Objective:** make the platform maintainable.
-- **Expected output:** automated unit tests for scoring, matching and calculations (the existing `qa-tests/` scenarios and the İzmir example are good starting cases); API and end-to-end tests; continuous integration; a staging environment; dependency and security review; user and administrator guides; updated versions of this document and `CALCULATIONS.md`; a release and rollback process.
+- **Expected output:** automated unit tests for scoring, matching and calculations (the existing `tests/browser/` scenarios and the İzmir example are good starting cases); API and end-to-end tests; continuous integration; a staging environment; dependency and security review; user and administrator guides; updated versions of this document and `docs/CALCULATIONS.md`; a release and rollback process.
 - **Decisions to confirm:** hosting and deployment pipeline; who maintains the platform after the project ends; the licence and contribution rules for the code.
 
 ### Suggested order
