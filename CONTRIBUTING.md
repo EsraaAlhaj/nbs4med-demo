@@ -29,7 +29,7 @@ Run `npm test` before every pull request. Run the browser tests when you change 
 ## Pull requests
 
 - Branch from `main`, use a descriptive branch name, and open a pull request into `main`. Describe what changed, why, and how you tested it.
-- Do not merge your own pull request without a second look from the maintainer. Do not force-push shared branches.
+- Where possible, ask a project colleague to review the change before it is merged. Do not force-push shared branches.
 - Documentation changes that describe the implementation must be checked against the code (give file and line references, as the technical documentation does).
 
 ## Methodology changes need approval
