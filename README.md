@@ -100,7 +100,7 @@ Assessment scores, option matching, applicability status and impact/cost never f
 
 ## 8. Future development
 
-The prototype could evolve into a multi-municipality platform through methodological review with the partners, validation of evidence and calculations, completion of the missing assessment features, pilot testing with real users, and, only if the project decides so, a backend with a database, accounts and assessment history. **None of the backend, database, authentication or central storage exists today.** A phased roadmap is in [`TECHNICAL_DOCUMENTATION.md`](TECHNICAL_DOCUMENTATION.md#9-proposed-development-roadmap).
+The prototype could evolve into a multi-municipality platform through methodological review with the partners, validation of evidence and calculations, completion of the missing assessment features, pilot testing with real users, and, only if the project decides so, a backend with a database, accounts and assessment history. **None of the backend, database, authentication or central storage exists today.** A phased roadmap is in [`TECHNICAL_DOCUMENTATION.md`](TECHNICAL_DOCUMENTATION.md#13-proposed-development-roadmap).
 
 ## 9. Documentation and contribution
 
