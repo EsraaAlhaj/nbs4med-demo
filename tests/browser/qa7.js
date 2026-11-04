@@ -1,9 +1,9 @@
 // Redesign checks: node qa7.js [url]
-const {chromium}=require('/opt/node-tools/node_modules/playwright');const fs=require('fs');
-const URL=process.argv[2]||'http://localhost:8765/index.html',OUT='/home/user/nbs4med-demo/redesign-evidence/after';fs.mkdirSync(OUT,{recursive:true});
+const TH=require('./helpers'),{chromium}=TH;const fs=require('fs');
+const URL=process.argv[2]||TH.indexUrl,OUT=TH.outDir('redesign-evidence','after');
 const log=[];let pass=0,fail=0;const ok=(id,n,c,x)=>{c?pass++:(fail++,console.log('FAIL',id,n,JSON.stringify(x===undefined?'':x).slice(0,400)));log.push({id,n,pass:!!c,x:c?undefined:x})};
 const ANS={C1:{'1.1':'1','1.2':'1','1.3':'0'},C2:{'2.1':'1','2.2':'1','2.3':'0'},C3:{'3.1':'1','3.2':'1','3.3':'U'},C4:{'4.1':'1','4.2':'1'},C5:{'5.1':'1','5.2':'0','5.3':'0'}};
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 for(const [lang,W] of [['en',1920],['ar',1920],['en',390],['ar',390]]){
  const T=`${lang}${W}`,mobile=W<500;
  const p=await b.newPage({viewport:{width:W,height:mobile?844:1080},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!/fonts\.g|ERR_|Failed to load/.test(m.text()))errs.push(m.text())});
@@ -82,4 +82,4 @@ for(const [lang,W] of [['en',1920],['ar',1920],['en',390],['ar',390]]){
  }
  ok(T,'no JavaScript errors',errs.length===0,errs);
  await p.close()}
-fs.writeFileSync('qa7_log.json',JSON.stringify(log));console.log(`qa7: ${pass} passed, ${fail} failed`);await b.close()})();
+fs.writeFileSync(TH.outDir()+'/qa7_log.json',JSON.stringify(log));console.log(`qa7: ${pass} passed, ${fail} failed`);await b.close()})();

@@ -1,6 +1,6 @@
 // UI-driven eight-stage QA with varied combos. node qa1.js [fileurl]
-const {chromium}=require('/opt/node-tools/node_modules/playwright');
-const FILE=process.argv[2]||'file:///home/user/nbs4med-demo/index.html';
+const TH=require('./helpers'),{chromium}=TH;
+const FILE=process.argv[2]||TH.indexUrl;
 let pass=0,fail=0;const ok=(n,c,x)=>{c?pass++:(fail++,console.log('FAIL',n,x!==undefined?JSON.stringify(x).slice(0,500):''))};
 const IDS=['1.1','1.2','1.3','2.1','2.2','2.3','3.1','3.2','3.3','4.1','4.2','5.1','5.2','5.3'];
 const CR=[['1.1','1.2','1.3'],['2.1','2.2','2.3'],['3.1','3.2','3.3'],['4.1','4.2'],['5.1','5.2','5.3']];
@@ -13,7 +13,7 @@ const COMBOS={
  naC4:{...Object.fromEntries(IDS.map(i=>[i,'2'])),'4.1':'NA','4.2':'NA'},
  naOne:{...Object.fromEntries(IDS.map(i=>[i,'1'])),'1.1':'NA'},
 };
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 for(const lang of ['en','ar'])for(const [name,A] of Object.entries(COMBOS)){
  const p=await b.newPage({viewport:{width:1920,height:1080}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!/fonts\.g|ERR_|Failed to load/.test(m.text()))errs.push(m.text())});
  await p.goto(FILE);await p.addStyleTag({content:'html{scroll-behavior:auto!important}'});await p.evaluate(()=>{window.print=()=>{}});

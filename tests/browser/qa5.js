@@ -1,6 +1,6 @@
-const {chromium}=require('/opt/node-tools/node_modules/playwright');
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
-const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto('http://localhost:8765/index.html');await p.addStyleTag({content:'html{scroll-behavior:auto!important}'});
+const TH=require('./helpers'),{chromium}=TH;
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
+const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto(TH.indexUrl);await p.addStyleTag({content:'html{scroll-behavior:auto!important}'});
 await p.evaluate(()=>{const C=NBS4MED_CORE;C.fillSample();C.st.risks={heat:true,flood:true};C.st.ctx={density:'mid',land:'mid'};C.nav('results')});await p.waitForSelector('#rcH');
 await p.locator('#opt-roof [data-check]').click();await p.waitForTimeout(150);
 const names=await p.evaluate(()=>[...new Set([...document.querySelectorAll('.chkpanel input[type=radio]')].map(i=>i.name))]);console.log(names);
