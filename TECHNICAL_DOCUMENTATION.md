@@ -799,6 +799,20 @@ This section records how the documentation was checked against the implementatio
 
 Discrepancies D8 and D3 (the documentation part) were addressed when the repository was reorganised; D12 was found while reorganising the tests and documentation. No other differences were found between this document and the implementation, and no difference was found between `docs/CALCULATIONS.md` and the code for the formulas, example values and parameter table checked above.
 
+### 12.3 Verification of the repository reorganisation
+
+When the files were moved into `js/`, `data/`, `docs/`, `tests/` and `tools/`, the following was run on the result (a one-off check; the baseline comparison is not part of the repository):
+
+| Check | Result |
+|---|---|
+| Behaviour before and after: scoring, matching, gap items (English and Arabic), CSV rows, hashes of the summary and detailed report HTML, the text of the rendered results page, and the engine outputs for all five calculators including edge cases, for 9 scenarios, captured from the original build and from the final tree | Identical (21 of 21 text and HTML captures, and all structured values) |
+| File contents | `js/*.js`, `data/*.json` and the logo are byte-identical to the originals; `index.html` differs only in its six script paths; `data/*.js` differ only in the first-line comment; no file was deleted and all 351 evidence files were kept |
+| `npm test` (18 engine tests, file-reference check, data copies in sync) | All pass |
+| Browser tests on the final tree over `file://`: `examples.js` 17, `qa1` 190, `qa2` 864, `qa3` 284, `qa4` 18, `qa6` 19, `qa7` 78, `qa8` 61, `t16` 66, `pdf2` 114 checks; `rl`, `qa5`, `demo_qa` and `dash` completed without failure | All pass. In `qa8` the byte-identity check of the supplied logo was skipped (the supplied file is not in the repository); `t16` ran its identity checks against the recovery reference build (commit `12f0917`) |
+| The page served over HTTP | All scripts, data files and the logo return 200; `#assessment` opens the assessment on a desktop and a 390 px viewport; no console errors |
+
+Not verified: the live GitHub Pages deployment of this layout (the sandbox used cannot reach github.io; the Pages build after merging must be checked), browsers other than Chromium, and the Pages source setting.
+
 ---
 
 ## 13. Proposed development roadmap
