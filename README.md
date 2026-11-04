@@ -116,11 +116,11 @@ data/                         evidence.json and demo_parameters.json (sources of
 tools/                        sync-data.js: regenerates or checks the .js data copies
 tests/                        engine and link tests (Node.js); browser/ holds the Playwright tests
 docs/                         CALCULATIONS.md (canonical formulas and parameters), GAP_ACTION_LOGIC.md,
-                              BRANDING_ASSETS.md, DEMO_VIDEO_PACKAGE.md, OPEN_DECISIONS.md
+                              BRANDING_ASSETS.md, DEMO_VIDEO_PACKAGE.md
 docs/qa/                      historical QA and redesign reports; their screenshots and files are in docs/qa/evidence/
 ```
 
-Open decisions that this repository cannot settle by itself (licence, data provenance, branches) are listed in [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md). No licence has been chosen yet.
+No licence has been chosen yet. Open questions are recorded where they arise: data provenance in [`data/README.md`](data/README.md) and methodology discrepancies in [`TECHNICAL_DOCUMENTATION.md`](TECHNICAL_DOCUMENTATION.md), section 12.
 
 ## 9. Future development
 
@@ -139,6 +139,5 @@ The prototype could evolve into a multi-municipality platform through methodolog
 | [`docs/qa/FINAL_QA_REPORT.md`](docs/qa/FINAL_QA_REPORT.md), [`docs/qa/REDESIGN_REPORT.md`](docs/qa/REDESIGN_REPORT.md) | Historical quality-assurance and redesign records |
 | [`tests/README.md`](tests/README.md) | How to run the tests |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to contribute and which changes need approval |
-| [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md) | Open licence, provenance and branch decisions |
 
 To contribute, read [`CONTRIBUTING.md`](CONTRIBUTING.md) and the technical documentation first. Suggested changes to the methodology, evidence or parameters should be discussed with the project partners before they are merged, and any change to evidence or parameters must be made in the `.json` file and copied with `node tools/sync-data.js`.

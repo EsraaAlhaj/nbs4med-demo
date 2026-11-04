@@ -46,7 +46,7 @@ function anchorsOf(rel) {
 // names that appear in the documents but are not repository files: a file the page downloads, and file-name endings of generated screenshots
 const NOT_REPO_FILES = new Set([
   'nbs4med-demo-report.csv',                                              // the file name of the CSV download
-  'qa-tests/verify.js', 'verify_results.json', 'VIDEO_RECORDING_PLAN.md', // exist only on the unmerged branch demo/verification (see docs/OPEN_DECISIONS.md)
+  'qa-tests/verify.js', 'verify_results.json', 'VIDEO_RECORDING_PLAN.md', // exist only on the unmerged branch demo/verification
 ]);
 const isGeneratedSuffix = (t) => t.startsWith('_');
 

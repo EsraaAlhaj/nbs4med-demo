@@ -39,11 +39,11 @@ The following are **methodology**, not ordinary code changes: the questions, rub
 They are provisional and have not been validated or approved by the project partners. A pull request that changes them must:
 
 1. say so explicitly and explain the scientific reasoning and the source;
-2. record who in the project has agreed (link to the minutes, e-mail or decision record) **(the approval process itself is still to be defined by the project team; see [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md))**;
+2. record who in the project has agreed (link to the minutes, e-mail or decision record) **(the approval process itself is still to be defined by the project team)**;
 3. update `TECHNICAL_DOCUMENTATION.md`, `docs/CALCULATIONS.md` and the tests in the same pull request.
 
 Never present a result of this tool as validated or officially approved unless that status is documented.
 
 ## Licence and third-party material
 
-No licence has been chosen yet (see [`docs/OPEN_DECISIONS.md`](docs/OPEN_DECISIONS.md)). Until it is, please do not copy this repository's content elsewhere as if it were openly licensed. Do not add third-party text, data or images without confirming that the project may reuse them and how to credit them.
+No licence has been chosen yet. Until it is, please do not copy this repository's content elsewhere as if it were openly licensed. Do not add third-party text, data or images without confirming that the project may reuse them and how to credit them.

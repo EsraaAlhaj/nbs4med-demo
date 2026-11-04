@@ -103,10 +103,10 @@ Parameters taken from evidence records: event retention above 10 mm (G01), typic
 Nothing below is guessed; these items are not documented in the repository.
 
 1. **Original spreadsheet.** `meta.origin` names `NBS4MED_Starter_Database (2).xlsx`. It is not in this repository. Where is it kept, who maintains it, and is the JSON an exact export? *(unconfirmed)*
-2. **Permission to reproduce source values.** The register quotes values from third-party publications (Climate-ADAPT pages, a Hamburg report, a Helsinki cost-benefit analysis and journal articles). Whether the project may reproduce them in an open repository, and under what attribution, has not been checked. *(unconfirmed; see `docs/OPEN_DECISIONS.md`)*
+2. **Permission to reproduce source values.** The register quotes values from third-party publications (Climate-ADAPT pages, a Hamburg report, a Helsinki cost-benefit analysis and journal articles). Whether the project may reproduce them in an open repository, and under what attribution, has not been checked. *(unconfirmed)*
 3. **Comparison with the original publications.** The extraction status of each record is stated, but the values have not been re-checked against the publications as part of the repository work.
 4. **Owner and approval status.** Who approves changes to the register and the parameters, and whether any partner has reviewed them. `partner_validated` is empty for all 43 parameters; no document in the repository records partner approval.
 5. **Demonstration prices.** The 43 values are demonstration assumptions "set only so the calculation runs" (`meta.source_classes`). They are not attributed to any source, so there is no provenance to trace. They must be replaced with sourced local prices (with currency, price year and scope) before any cost is presented as more than illustrative.
 6. **Meaning of some fields.** `allowed_use` is documented only by its values; whether it should restrict how the engine uses a record is undecided. `readiness` and `changelog` have no description beyond their field names.
 7. **Arabic text.** Solution and parameter names have Arabic versions; evidence records, sources and rules are in English only.
-8. **Licence of the data.** No licence is chosen for this repository (see `docs/OPEN_DECISIONS.md`); the terms for the data files are undecided.
+8. **Licence of the data.** No licence is chosen for this repository; the terms for the data files are undecided.
