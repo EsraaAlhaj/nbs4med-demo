@@ -1,6 +1,6 @@
 // Real-browser journey QA (scenarios A, B). node qa3.js
-const {chromium}=require('/opt/node-tools/node_modules/playwright');const fs=require('fs');
-const URL='http://localhost:8765/index.html',OUT='/home/user/nbs4med-demo/qa-evidence';
+const TH=require('./helpers'),{chromium}=TH;const fs=require('fs');
+const URL=TH.indexUrl,OUT=TH.outDir('qa-evidence');
 const IDS=['1.1','1.2','1.3','2.1','2.2','2.3','3.1','3.2','3.3','4.1','4.2','5.1','5.2','5.3'];
 const CR=[['1.1','1.2','1.3'],['2.1','2.2','2.3'],['3.1','3.2','3.3'],['4.1','4.2'],['5.1','5.2','5.3']];
 const SC={
@@ -8,8 +8,8 @@ const SC={
  B:{ans:{'1.1':'1','1.2':'U','1.3':'0','2.1':'NA','2.2':'1','2.3':'1','3.1':'2','3.2':'1','3.3':'U','4.1':'NA','4.2':'NA','5.1':'1','5.2':'2','5.3':'0'},risks:['heat','flood'],area:'tr'}};
 const log=[];let pass=0,fail=0;const ok=(id,n,c,x)=>{c?pass++:(fail++,console.log('FAIL',id,n,x!==undefined?JSON.stringify(x).slice(0,400):''));log.push({id,n,pass:!!c,x:c?undefined:x})};
 const expCrit=A=>CR.map(ids=>{const v=ids.map(i=>A[i]).filter(x=>x!=='NA');if(!v.length)return {st:'na'};if(v.includes('U'))return {st:'inc'};const s=v.reduce((a,x)=>a+ +x,0),m=2*v.length;return {st:'ok',sum:s,max:m,pct:Math.round(s/m*100)}});
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
-const ver=b.version();fs.writeFileSync('browser.txt',ver);
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
+const ver=b.version();fs.writeFileSync(TH.outDir()+'/browser.txt',ver);
 for(const lang of ['en','ar'])for(const [sn,S] of Object.entries(SC)){
  const T=`${sn}/${lang}`,pre=`${OUT}/${lang}_scenario${sn}`;
  const p=await b.newPage({viewport:{width:1920,height:1080}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!/fonts\.g|ERR_|Failed to load/.test(m.text()))errs.push(m.text())});
@@ -94,10 +94,10 @@ for(const lang of ['en','ar'])for(const [sn,S] of Object.entries(SC)){
  // sections + screenshots
  const at=async(id,n)=>{await ev(id=>{const e=document.getElementById(id);window.scrollTo(0,e.getBoundingClientRect().top+scrollY-80)},id);await p.waitForTimeout(200);await p.screenshot({path:`${pre}_${n}.png`})};
  await ev(()=>window.scrollTo(0,0));await p.screenshot({path:pre+'_10_dashboard_top.png'});
- await at('ctH','11_criteria_table');await at('cpH','12_criteria_chart');await ev(()=>document.querySelector('details[data-rk="dg-C1"]').open=true);await at('dgH','13_indicator_diagnosis');await at('gpH','14_priority_gaps');await at('rcH','15_nbs_options');await at('icH','16_impact_cost');await at('elH','17_evidence_limitations');
+ await at('ctH','11_criteria_table');await at('cpH','12_criteria_chart');await ev(()=>document.querySelector('details[data-rk="dg-C1"]').open=true);await at('dgH','13_indicator_diagnosis');await at('gpH','14_priority_gaps');await at('rcH','15_nbs_options');await at('icH','16_impact_cost');
  await p.screenshot({path:pre+'_18_results_full.png',fullPage:true});
  // sections present
- const heads=await ev(()=>['asH','ctH','cpH','dgH','gpH','rcH','icH','elH'].map(i=>!!document.getElementById(i)));
+ const heads=await ev(()=>['asH','ctH','cpH','dgH','gpH','rcH','icH'].map(i=>!!document.getElementById(i)));
  ok(T,'all dashboard sections present',heads.every(Boolean),heads);
  ok(T,'download buttons present',await ev(()=>['dlPdf','dlPdfDetail','dlCsv'].every(i=>!!document.getElementById(i))));
  // chart sanity: bars match percentages
@@ -117,5 +117,5 @@ for(const lang of ['en','ar'])for(const [sn,S] of Object.entries(SC)){
  ok(T,'no JavaScript errors',errs.length===0,errs);
  await p.close();
 }
-fs.writeFileSync('qa3_log.json',JSON.stringify(log));
+fs.writeFileSync(TH.outDir()+'/qa3_log.json',JSON.stringify(log));
 console.log(`qa3: ${pass} passed, ${fail} failed (${log.length})`);await b.close()})();

@@ -1,8 +1,8 @@
 // usage: node demo.js <fileurl> <lang> <outdir>
-const {chromium}=require('/opt/node-tools/node_modules/playwright');const fs=require('fs');
-const FILE=process.argv[2]||'file:///home/user/nbs4med-demo/index.html',LANG=process.argv[3]||'en',OUT=process.argv[4]||'demo';fs.mkdirSync(OUT,{recursive:true});
+const TH=require('./helpers'),{chromium}=TH;const fs=require('fs');
+const FILE=process.argv[2]||TH.indexUrl,LANG=process.argv[3]||'en',OUT=process.argv[4]||TH.outDir('demo');fs.mkdirSync(OUT,{recursive:true});
 let pass=0,fail=0;const ok=(n,c,x)=>{c?pass++:(fail++,console.log('FAIL',n,x!==undefined?JSON.stringify(x).slice(0,400):''))};
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 const p=await b.newPage({viewport:{width:1920,height:1080}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!/fonts\.g|ERR_|Failed to load/.test(m.text()))errs.push(m.text())});
 await p.goto(FILE);await p.addStyleTag({content:'html{scroll-behavior:auto!important}'});
 const shot=async n=>{await p.waitForTimeout(250);await p.screenshot({path:`${OUT}/${LANG}_${n}.png`})};

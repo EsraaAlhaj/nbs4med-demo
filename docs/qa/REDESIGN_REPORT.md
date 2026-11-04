@@ -1,6 +1,8 @@
 # Results dashboard redesign: report for review
 
-Branch: `redesign/results-dashboard` (from `main` at `0515acd`). Not merged. Tested on `http://localhost:8765` with Chromium 141 (Playwright), 2026-10-17.
+> **Historical record** written when the branch was reviewed (2026-10-17). It describes the redesign as tested then. The before/after screenshots are now in `docs/qa/evidence/redesign-evidence/`, and the test scripts in `tests/browser/` (see `tests/README.md`).
+
+Branch: `redesign/results-dashboard` (from `main` at `0515acd`). Merged into `main` through pull request #4 (merge commit `5e89575`). Tested on `http://localhost:8765` with Chromium 141 (Playwright), 2026-10-17.
 
 ## What changed (presentation only)
 - **One dashboard.** Overview → criteria table and bar chart → indicator diagnosis → priority gaps and actions → NBS options (with applicability checks) → Potential Impact & Indicative Cost, all on the results page.
@@ -11,7 +13,7 @@ Branch: `redesign/results-dashboard` (from `main` at `0515acd`). Not merged. Tes
 - **Downloads** stay at the top of the page (Summary report 2 pages, Detailed report, CSV) and use the inline calculator's current state.
 
 ## Methodology unchanged
-The 5 criteria, 14 indicators, 0–2 rubrics, thresholds, Unknown/N/A handling, evidence and confidence fields, climate-risk selection, matching formula and weights, applicability rules, calculators and evidence database are untouched. `engine.js`, `evidence.*`, `demo_parameters.*` and `guidance.js` have no diff against `main`. The assessment-identity checks (t15, t16) pass.
+The 5 criteria, 14 indicators, 0–2 rubrics, thresholds, Unknown/N/A handling, evidence and confidence fields, climate-risk selection, matching formula and weights, applicability rules, calculators and evidence database are untouched. `js/engine.js`, `evidence.*`, `demo_parameters.*` and `js/guidance.js` have no diff against `main`. The assessment-identity checks (t15, t16) pass.
 
 ## Browser tests (all on the final code)
 | Suite | Result |
@@ -26,18 +28,18 @@ The 5 criteria, 14 indicators, 0–2 rubrics, thresholds, Unknown/N/A handling, 
 | pdf2 summary two-page fit | 114 pass |
 | İzmir demo UI run, EN and AR (3 checks each) | pass |
 
-İzmir values on the redesigned page equal `DEMO_VIDEO_PACKAGE.md`: C1 33%, C2 33%, C3 not rated, C4 50%, C5 17%; 24 m³, 64 m³, 6.43–14.83 m³; CAPEX 23,240 / 41,860 / 78,160 EUR; OPEX 800 / 2,000 / 4,000 EUR; cards Green roof, Green corridor, Urban forest. PDFs: summary 2 pages and detailed 12 pages in English and Arabic.
+İzmir values on the redesigned page equal `docs/DEMO_VIDEO_PACKAGE.md`: C1 33%, C2 33%, C3 not rated, C4 50%, C5 17%; 24 m³, 64 m³, 6.43–14.83 m³; CAPEX 23,240 / 41,860 / 78,160 EUR; OPEX 800 / 2,000 / 4,000 EUR; cards Green roof, Green corridor, Urban forest. PDFs: summary 2 pages and detailed 12 pages in English and Arabic.
 
 Older tests that targeted the removed Explore page or the removed section (t16, t15, t9b, t11, qa2, qa3, qa4, demo script) were updated to the new layout; the calculator assertions themselves were not weakened. The first qa7 run had two real findings that I fixed: the `#explore` redirect was scrolled back to the top by a second routing pass, and the test regexes were case-sensitive/English-only.
 
 ## Evidence
-- Before (current `main`, English and Arabic): `redesign-evidence/before/` (`*_10_dashboard_overview.png`, `*_10_results_overview_full.png`, `*_18_explore_inputs_default.png`, `*_19_explore_results.png`, `*_21_impact_and_cost_on_results.png`, summary pages `*_22_summary_p1/p2.png`).
-- After: `redesign-evidence/after/` — `{en,ar}1920_01_overview.png` … `_08_full_dashboard.png` (full dashboard), `_06_impact_cost_inline.png`, `_07_inline_results.png`, mobile `{en,ar}390_*.png`, summary and detailed PDFs, CSVs; İzmir run in `after/demo/`.
-- Test scripts: `qa-tests/` (qa7, dash, demo_qa and earlier suites).
+- Before (current `main`, English and Arabic): `docs/qa/evidence/redesign-evidence/before/` (`*_10_dashboard_overview.png`, `*_10_results_overview_full.png`, `*_18_explore_inputs_default.png`, `*_19_explore_results.png`, `*_21_impact_and_cost_on_results.png`, summary pages `*_22_summary_p1/p2.png`).
+- After: `docs/qa/evidence/redesign-evidence/after/` — `{en,ar}1920_01_overview.png` … `_08_full_dashboard.png` (full dashboard), `_06_impact_cost_inline.png`, `_07_inline_results.png`, mobile `{en,ar}390_*.png`, summary and detailed PDFs, CSVs; İzmir run in `after/demo/`.
+- Test scripts: `tests/browser/` (qa7, dash, demo_qa and earlier suites).
 
 ## Limitations
 - The IUCN results dashboard itself could not be opened from this environment (network policy). The benchmark was limited to public descriptions (percentage match per criterion, traffic-light levels, report); layout decisions follow those and the brief, not the live IUCN pages.
-- Official NBS4MED, Interreg NEXT MED and EU logos are still missing (text acknowledgement only); see `BRANDING_ASSETS.md`.
+- Official NBS4MED, Interreg NEXT MED and EU logos are still missing (text acknowledgement only); see `docs/BRANDING_ASSETS.md`.
 - Only the currently selected option's impact and cost go into the reports (as before).
-- The detailed PDFs (12 pages each, English and Arabic) were checked as full contact sheets (`redesign-evidence/after/*_detailed_contact_sheet.png`): no clipped or overlapping tables or text were visible at that scale, and Arabic tables stay right-to-left. Fine print was not proofread page by page.
+- The detailed PDFs (12 pages each, English and Arabic) were checked as full contact sheets (`docs/qa/evidence/redesign-evidence/after/*_detailed_contact_sheet.png`): no clipped or overlapping tables or text were visible at that scale, and Arabic tables stay right-to-left. Fine print was not proofread page by page.
 - The live GitHub Pages site still serves the previous version until this branch is merged.

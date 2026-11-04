@@ -1,15 +1,17 @@
 # NBS4MED Self-Evaluation Tool: Final QA Report
 
+> **Historical record.** This report describes the build tested on 2026-10-17. The screenshots, PDFs and CSV files it cites (now in `docs/qa/evidence/qa-evidence/`) show that build, not the current interface; the results dashboard was redesigned afterwards (see `docs/qa/REDESIGN_REPORT.md`). Paths in this report were updated when the repository was reorganised. The test scripts now live in `tests/browser/` and have been updated to the current interface; how to run them is described in `tests/README.md`.
+
 | Item | Value |
 |---|---|
-| Branch | `qa/final-review` (based on `enhancement/iucn-dashboard`); not merged into `main` |
-| Tested build | working tree at `e9bc52e` plus this report and `qa-tests/` (code identical to `e9bc52e`) |
+| Branch | `qa/final-review` (based on `enhancement/iucn-dashboard`); merged into `main` through pull request #3 (merge commit `0515acd`) |
+| Tested build | working tree at `e9bc52e` plus this report and `tests/browser/` (code identical to `e9bc52e`) |
 | Test date | 2026-10-17 |
 | Browser | Chromium 141.0.7390.37 (Playwright, headless), served by `python3 -m http.server 8765` at `http://localhost:8765/index.html` |
 | Viewports | 1920×1080, 1280×800, 768×1024, 390×844 (mobile, touch) |
 | Languages | English and Arabic (RTL) |
 
-Everything marked PASS was executed in the browser or on a generated file. Test scripts are in `qa-tests/`. They use absolute scratchpad paths for the reference worktree and output, so adjust those before reuse.
+Everything marked PASS was executed in the browser or on a generated file. Test scripts are in `tests/browser/`. When this report was written they used absolute scratchpad paths; the scripts have since been made portable (see `tests/README.md`).
 
 ## 1. Result summary
 
@@ -36,11 +38,11 @@ Failures during this session were all in the test scripts, not in the applicatio
 | ID | Feature | Scenario | Expected | Actual | Result | Evidence | Corrective action |
 |---|---|---|---|---|---|---|---|
 | J-01 | Step 1 validation | Click Next with no Assessment Area, EN/AR, A/B | Stays on step 1, inline error | As expected | PASS | qa3_log.json | none |
-| J-02 | Step 2 | Density and land selections | Moves to Site Context and on | As expected | PASS | qa-evidence/*_scenario*_03_risks.png | none |
+| J-02 | Step 2 | Density and land selections | Moves to Site Context and on | As expected | PASS | docs/qa/evidence/qa-evidence/*_scenario*_03_risks.png | none |
 | J-03 | Step 3 validation and multiple risks | Next with none; then heat+flood(+drought) | Blocked with none; multiple retained | As expected | PASS | same | none |
 | J-04 | 14 indicators once each | Walk C1–C5 | Exactly 14 ids, in order, one per stage | As expected | PASS | qa3_log.json | none |
 | J-05 | Read More | Open on first indicator of each criterion | Opens | As expected | PASS | qa3_log.json | none |
-| J-06 | Answer cards | Click card, Back, Next | Selection retained | As expected, all 14 | PASS | qa-evidence/*_05_C#.png | none |
+| J-06 | Answer cards | Click card, Back, Next | Selection retained | As expected, all 14 | PASS | docs/qa/evidence/qa-evidence/*_05_C#.png | none |
 | J-07 | Unanswered validation | Next with unanswered indicators | Blocked, inline error | As expected | PASS | qa3_log.json | none |
 | J-08 | Not Applicable justification | Select N/A, Next without text | Blocked; proceeds after text | As expected (scenario B: 2.1, 4.1, 4.2) | PASS | qa3_log.json | none |
 | J-09 | Evidence, confidence, rationale | Fill on 1.1 | Retained through navigation and in state | As expected | PASS | qa3_log.json | none |
@@ -51,7 +53,7 @@ Failures during this session were all in the test scripts, not in the applicatio
 | D-04 | Actions match answers | All combos | Actions only for 0, 1 and Unknown, in the defined order; none for 2 or N/A | As expected | PASS | qa1, qa3 | none |
 | D-05 | Unknown as missing information | Combos with Unknown | Labelled "To verify", wording says gap in information | As expected | PASS | qa1; B detailed PDF text | none |
 | D-06 | All dashboard sections | Both scenarios | Overview, table, chart, diagnosis, gaps, options, impact and cost, evidence and limitations, downloads | All present | PASS (after fix B-02) | `*_18_results_full.png` | B-02 |
-| D-07 | Layout 1920/1280/768/390, EN/AR | Overflow scan | No page-level overflow, RTL correct | As expected | PASS | qa-evidence/mobile/*.png | none |
+| D-07 | Layout 1920/1280/768/390, EN/AR | Overflow scan | No page-level overflow, RTL correct | As expected | PASS | docs/qa/evidence/qa-evidence/mobile/*.png | none |
 | D-08 | Mobile table readability | Criteria table at 390 px | Readable | Rows were tall and sideways-scrolling | FAIL, then PASS | before/after: mobile/en_04_criteria_table.png | B-03 |
 | C-01 | Five calculators, default inputs | NBS01–NBS05 | Equal independent model | 864 checks pass | PASS | qa2_log.json | none |
 | C-02 | Boundary values | Min and max of every input; roof area 196/1944/195/1945; storm 10/11 mm | Match model; no retention number at ≤10 mm; reference cost only within 196–1,944 m² | As expected | PASS | qa2_log.json | none |
@@ -62,16 +64,16 @@ Failures during this session were all in the test scripts, not in the applicatio
 | C-07 | Evidence classes | Roof | Physical = arithmetic; retention = published reference; costs = demo assumption | As expected | PASS | scenarioC/en_19_explore_results.png | none |
 | A-01 | Applicability consistency | Green roof: change availability and structure answers repeatedly | Status follows the answers and is reversible; assessment scores unchanged | See section 5 | PASS | qa5 output | none |
 | P-01 | Summary PDF page count | A, B, C × EN/AR | Exactly 2 A4 pages | 2 pages in all 6 | PASS | section 4 | none |
-| P-02 | Summary PDF visual inspection | Rendered pages viewed: EN B p2, AR B p1, EN/AR C | No clipping or overlap; estimates labelled illustrative | As expected | PASS | qa-evidence/pdfpages/, scenarioC/*_22_summary_p*.png | none |
-| P-03 | Detailed report content | EN B and C: text extracted | All 14 indicators, answers, rationale, evidence, confidence, gaps, calculations, limitations | Present | PASS (EN) | qa-evidence/*detailed.pdf | none |
+| P-02 | Summary PDF visual inspection | Rendered pages viewed: EN B p2, AR B p1, EN/AR C | No clipping or overlap; estimates labelled illustrative | As expected | PASS | docs/qa/evidence/qa-evidence/pdfpages/, scenarioC/*_22_summary_p*.png | none |
+| P-03 | Detailed report content | EN B and C: text extracted | All 14 indicators, answers, rationale, evidence, confidence, gaps, calculations, limitations | Present | PASS (EN) | docs/qa/evidence/qa-evidence/*detailed.pdf | none |
 | P-04 | Detailed report visual inspection | Rendered pages | No clipping | Pages rasterised, but only text was checked | NOT TESTED visually | n/a | n/a |
-| P-05 | Arabic detailed report | Text extracted | All 14 ids present | Ids present; wording not reviewed page by page | PARTIAL | qa-evidence/ar_*detailed.pdf | n/a |
+| P-05 | Arabic detailed report | Text extracted | All 14 ids present | Ids present; wording not reviewed page by page | PARTIAL | docs/qa/evidence/qa-evidence/ar_*detailed.pdf | n/a |
 | P-06 | CSV | A, B, C × EN/AR | Rectangular 11-column rows; every indicator row carries its response; N/A and Unknown labelled; costs equal browser | As expected (C: 23,240–78,160 base 41,860 matches screen) | PASS | `*_report.csv` | none |
-| S-01 | Scientific wording | Search for validation claims | No statement implying formal PROMEA validation | None found; the PROMEA panel says "not a formal PROMEA validation" | PASS | grep of app.js, explore.js | none |
+| S-01 | Scientific wording | Search for validation claims | No statement implying formal PROMEA validation | None found; the PROMEA panel says "not a formal PROMEA validation" | PASS | grep of js/app.js, js/explore.js | none |
 | S-02 | Distinct categories | Results and reports | Self-reported, provisional scores, matching, applicability, physical, reference, illustrative cost, unestimable impact are separated | As expected | PASS | section 4 and screenshots | none |
-| Q-01 | Wording of question 4.2 | Compare to rubric | Question matches the 0/1/2 descriptions | Question mentioned NGOs; rubric did not | FAIL, then PASS | guidance.js | B-01 |
+| Q-01 | Wording of question 4.2 | Compare to rubric | Question matches the 0/1/2 descriptions | Question mentioned NGOs; rubric did not | FAIL, then PASS | js/guidance.js | B-01 |
 | BR-01 | Official logos | Search repo and UI | Approved Interreg NEXT MED, EU and NBS4MED artwork | None in the repository | BLOCKER | footer text | none possible |
-| DM-01 | İzmir scenario vs DEMO_VIDEO_PACKAGE.md | UI-driven run EN/AR | Documented values | All equal (section 5) | PASS | scenarioC/ | none |
+| DM-01 | İzmir scenario vs docs/DEMO_VIDEO_PACKAGE.md | UI-driven run EN/AR | Documented values | All equal (section 5) | PASS | scenarioC/ | none |
 | DM-02 | Video file | n/a | n/a | No video exists | NOT TESTED / not produced | n/a | n/a |
 
 ## 3. Bugs found and fixed
@@ -82,11 +84,11 @@ Failures during this session were all in the test scripts, not in the applicatio
 
 ## 4. Generated files and verified page counts
 
-Summary PDFs (all 2 pages, A4): `qa-evidence/{en,ar}_scenario{A,B}_summary.pdf`, `qa-evidence/scenarioC/{en,ar}_summary.pdf`.
-Detailed PDFs: `qa-evidence/{en,ar}_scenarioA_detailed.pdf` (7, 6 pages), `qa-evidence/{en,ar}_scenarioB_detailed.pdf` (8, 7 pages), `qa-evidence/scenarioC/{en,ar}_detailed.pdf` (12 pages each; they include the impact and cost calculations).
-CSV: `qa-evidence/*_report.csv` and `qa-evidence/scenarioC/*_report.csv`.
+Summary PDFs (all 2 pages, A4): `docs/qa/evidence/qa-evidence/{en,ar}_scenario{A,B}_summary.pdf`, `docs/qa/evidence/qa-evidence/scenarioC/{en,ar}_summary.pdf`.
+Detailed PDFs: `docs/qa/evidence/qa-evidence/{en,ar}_scenarioA_detailed.pdf` (7, 6 pages), `docs/qa/evidence/qa-evidence/{en,ar}_scenarioB_detailed.pdf` (8, 7 pages), `docs/qa/evidence/qa-evidence/scenarioC/{en,ar}_detailed.pdf` (12 pages each; they include the impact and cost calculations).
+CSV: `docs/qa/evidence/qa-evidence/*_report.csv` and `docs/qa/evidence/qa-evidence/scenarioC/*_report.csv`.
 
-Screenshots (all in `qa-evidence/`):
+Screenshots (all in `docs/qa/evidence/qa-evidence/`):
 - Assessment question with descriptive answers: `*_scenario{A,B}_04_C1_question_cards.png`, `scenarioC/*_05_C1.png`, `mobile/*_02_assessment_cards.png`
 - Criteria table and bar chart: `*_11_criteria_table.png`, `*_12_criteria_chart.png`, `scenarioC/*_11_*`, `*_12_*`
 - Priority gaps and actions: `*_14_priority_gaps.png`, `scenarioC/*_14_gaps_and_actions.png`
@@ -98,13 +100,13 @@ Screenshots (all in `qa-evidence/`):
 
 ## 5. Independently checked numbers
 
-Calculators (qa2 re-derived every output from `demo_parameters.json` and `evidence.json`, not from `engine.js`):
+Calculators (qa2 re-derived every output from `data/demo_parameters.json` and `data/evidence.json`, not from `js/engine.js`):
 - Green roof 800 m², 30 mm: rain 24 m³; substrate 64 m³ (800 × 0.08); retained 6.43–14.83 m³ (26.8–61.8% of 24, record G01); CAPEX 23,240 / 41,860 / 78,160 EUR; annual 800 / 2,000 / 4,000 EUR; reference example 23,200–58,400 EUR (Hamburg 2017, median 35,200).
 - All five solutions match the model at default, custom, boundary and range-edge inputs. Rain-garden-type options with no calculator show no numbers.
 
 Scenario A criterion results (independent): C1 (2+1+0)/6 = 50%, C2 (2+1+0)/6 = 50%, C3 (1+2+1)/6 = 67%, C4 (0+1)/4 = 25%, C5 (2+0+1)/6 = 50%. The table matches.
 Scenario B: C1 and C3 not rated (Unknown), C2 2/4 = 50% (2.1 not applicable), C4 not applicable, C5 3/6 = 50%. The combined score is withheld.
-Scenario C (İzmir): C1 33%, C2 33%, C3 not rated, C4 50%, C5 17%; the gap order, cards, applicability status and cost values equal `DEMO_VIDEO_PACKAGE.md`, so no document change was needed other than the added row for the new section.
+Scenario C (İzmir): C1 33%, C2 33%, C3 not rated, C4 50%, C5 17%; the gap order, cards, applicability status and cost values equal `docs/DEMO_VIDEO_PACKAGE.md`, so no document change was needed other than the added row for the new section.
 
 Applicability (qa5, Green roof): start = unchecked; availability yes → verify; structure unknown → verify; structure yes → candidate; availability no → not applicable; availability unknown → verify; availability yes → candidate; structure unsuitable → not applicable; structure yes → candidate. Assessment scores were unchanged throughout.
 
@@ -120,7 +122,7 @@ After fixing the scripts, all suites passed.
 
 ## 7. Methodology unchanged
 
-The 5 criteria, 14 indicators, 0–2 rubrics, thresholds and scoring are identical to the recovery reference (`12f0917`): t15 and t16 compare them directly in the browser, and `git diff 12f0917` of `engine.js`, `evidence.js/json` and `demo_parameters.js/json` is empty. No criteria, weights, thresholds or formulas were changed.
+The 5 criteria, 14 indicators, 0–2 rubrics, thresholds and scoring are identical to the recovery reference (`12f0917`): t15 and t16 compare them directly in the browser, and `git diff 12f0917` of `js/engine.js`, `data/evidence.js/json` and `data/demo_parameters.js/json` is empty. No criteria, weights, thresholds or formulas were changed.
 
 ## 8. Remaining bugs and limitations
 
@@ -134,7 +136,7 @@ The 5 criteria, 14 indicators, 0–2 rubrics, thresholds and scoring are identic
 
 ## 9. Egypt meeting screen-recording sequence (no video has been produced)
 
-Preparation: Chrome or Edge, a clean profile, zoom 100%, 1920×1080, open the standalone preview. Follow `DEMO_VIDEO_PACKAGE.md` for inputs and narration (about 2:40).
+Preparation: Chrome or Edge, a clean profile, zoom 100%, 1920×1080, open the standalone preview. Follow `docs/DEMO_VIDEO_PACKAGE.md` for inputs and narration (about 2:40).
 1. Landing page, then Start.
 2. Step 1: choose the İzmir Green Roof Pilot. Step 2: High density, Limited land. Step 3: Heatwaves and Flooding.
 3. C1: show Read More and the descriptive cards; answer 1, 1, 0; show Not applicable needs a justification (optional).
@@ -149,6 +151,6 @@ Preparation: Chrome or Edge, a clean profile, zoom 100%, 1920×1080, open the st
 
 ## 11. Addendum: pre-merge changes (commits after `e9bc52e`)
 
-- **Green roof wording.** Public land availability never entered the Green roof score (its land need is 0, and the match formula only deducts points when land need exceeds availability). Only the explanation was misleading ("Land need fits the available public land"). The card, the summary PDF and the CSV now say that the option uses existing roof space, not public land, and that roof availability and structure still need checking; the "Land need" row shows "Ground space: not required (existing roof)". The matching formula and weights are unchanged. Verified by `qa-tests/qa6.js` (19 checks, English and Arabic): the roof score is identical for low, medium and high public land.
-- **Branding.** The drawn Interreg and EU marks and the drawn NBS4MED header mark were removed and replaced with text-only acknowledgements (see `BRANDING_ASSETS.md`).
+- **Green roof wording.** Public land availability never entered the Green roof score (its land need is 0, and the match formula only deducts points when land need exceeds availability). Only the explanation was misleading ("Land need fits the available public land"). The card, the summary PDF and the CSV now say that the option uses existing roof space, not public land, and that roof availability and structure still need checking; the "Land need" row shows "Ground space: not required (existing roof)". The matching formula and weights are unchanged. Verified by `tests/browser/qa6.js` (19 checks, English and Arabic): the roof score is identical for low, medium and high public land.
+- **Branding.** The drawn Interreg and EU marks and the drawn NBS4MED header mark were removed and replaced with text-only acknowledgements (see `docs/BRANDING_ASSETS.md`).
 - Regression after these changes: t16 66, t15 84, t9b 44, t10 57, t11 64, t13 23, pdf2 114 (one summary page overflowed by 5 px with the first wording; the text was shortened and rerun), qa1 190, qa2 864, qa3 284, qa4 18, qa6 19. All pass.

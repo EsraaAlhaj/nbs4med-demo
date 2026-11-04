@@ -1,8 +1,8 @@
-const {chromium}=require('/opt/node-tools/node_modules/playwright');
+const TH=require('./helpers'),{chromium}=TH;
 let pass=0,fail=0;const ok=(n,c,x)=>{c?pass++:(fail++,console.log('FAIL',n,JSON.stringify(x||'').slice(0,300)))};
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 for(const lang of ['en','ar'])for(const land of ['low','mid','high']){
- const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto(process.argv[2]||'http://localhost:8765/index.html');
+ const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto(process.argv[2]||TH.indexUrl);
  if(lang==='ar')await p.click('.lang button[data-lang=ar]');
  const r=await p.evaluate(land=>{const C=NBS4MED_CORE;C.fillSample();C.st.risks={heat:true,flood:true};C.st.ctx={density:'mid',land};C.nav('results');const x=C.recs();const all=x.ranked.concat(x.other||[]);const roof=all.find(q=>q.o.id==='roof');return {score:roof.s,why:C.whyText(roof)}},land);
  await p.waitForSelector('#opt-roof, details[data-rk=other]');

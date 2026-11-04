@@ -1,0 +1,16 @@
+{
+  "name": "nbs4med-demo",
+  "private": true,
+  "description": "NBS4MED Self-Evaluation Tool (preliminary prototype): static web page plus data tools and tests. The page itself needs no build step and no dependencies.",
+  "scripts": {
+    "test": "node tests/engine.test.js && node tests/links.test.js && node tools/sync-data.js --check",
+    "test:browser": "node tests/browser/examples.js && node tests/browser/qa1.js && node tests/browser/qa2.js && node tests/browser/qa3.js && node tests/browser/qa4.js && node tests/browser/qa5.js && node tests/browser/qa6.js && node tests/browser/qa7.js && node tests/browser/t16.js && node tests/browser/pdf2.js && node tests/browser/rl.js",
+    "sync-data": "node tools/sync-data.js"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

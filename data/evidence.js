@@ -1,4 +1,4 @@
-/* Generated from evidence.json. Edit the .json, then run tools\sync-data.ps1. */
+/* Generated from data/evidence.json. Edit the .json, then run: node tools/sync-data.js */
 window.NBS4MED_EVIDENCE = {
   "meta": {
     "title": "NBS4MED starter evidence database",

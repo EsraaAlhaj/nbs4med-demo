@@ -1,18 +1,18 @@
-const {chromium}=require('/opt/node-tools/node_modules/playwright');
+const TH=require('./helpers'),{chromium}=TH;
 let pass=0,fail=0;const ok=(n,c,x)=>{c?pass++:(fail++,console.log('FAIL',n,x!==undefined?JSON.stringify(x).slice(0,500):''))};
-const FILE=process.argv[2]||'file:///home/user/nbs4med-demo/index.html';
-const BASE='file:///tmp/claude-0/-home-user-nbs4med-demo/8e17095f-3a8d-5f20-9992-4fb7fc03f0e7/scratchpad/base5/index.html';
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+const FILE=process.argv[2]||TH.indexUrl;
+const BASE=TH.refIndexUrl; // optional: index.html of the recovery reference build (commit 12f0917); the identity checks are skipped without it
+(async()=>{const b=await chromium.launch({executablePath:TH.chromePath});
 const p=await b.newPage({viewport:{width:1920,height:1080}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!/fonts\.g|ERR_|Failed to load/.test(m.text()))errs.push(m.text())});
 await p.goto(FILE);await p.addStyleTag({content:'html{scroll-behavior:auto!important}'});await p.evaluate(()=>{window.print=()=>{}});
 const ev=(f,a)=>p.evaluate(f,a),txt=s=>p.evaluate(s=>document.querySelector(s).innerText,s);
 // protected baseline unchanged vs recovery reference (5 criteria, 14 indicators, rubrics, levels)
-const q=await b.newPage();await q.goto(BASE);
+const q=BASE?await b.newPage():null;if(q)await q.goto(BASE);else console.log('SKIP identity-to-reference checks (set NBS4MED_REF_INDEX)');
 const data=f=>f.evaluate(()=>JSON.stringify({crit:NBS4MED_CORE.CRIT,ind:NBS4MED_CORE.IND,lev:NBS4MED_CORE.LEVELS}));
-ok('5 criteria / 14 indicators / rubrics / levels unchanged',(await data(p))===(await data(q)));
+if(q)ok('5 criteria / 14 indicators / rubrics / levels unchanged',(await data(p))===(await data(q)));
 // scoring unchanged across scenarios
 const scen=()=>{const C=NBS4MED_CORE,out=[];[{},{'3.1':'U'},{'4.1':'NA','4.2':'NA'},'0','2','U'].forEach((k,n)=>{C.setState(C.freshState());C.fillSample();const s=C.st;if(typeof k==='string'){Object.keys(s.sc).forEach(i=>s.sc[i]=k==='U'?'U':+k)}else{Object.assign(s.sc,k);Object.keys(k).forEach(i=>{if(k[i]==='NA')s.just[i]='j'})}out.push(JSON.stringify(C.calc()))});return out};
-ok('scoring identical to the recovery reference',JSON.stringify(await ev(scen))===JSON.stringify(await q.evaluate(scen)));
+if(q)ok('scoring identical to the recovery reference',JSON.stringify(await ev(scen))===JSON.stringify(await q.evaluate(scen)));
 // guidance completeness
 const G=await ev(()=>{const g=NBS4MED_GUIDE,ids=NBS4MED_CORE.IND.map(i=>i.id);return ids.map(id=>{const e=g[id]||{};const ks=['q','what','why','consider','ev'];const miss=ks.filter(k=>!(e[k]&&e[k][0]&&e[k][1]));if(!(e.act&&e.act[0]&&e.act[0][1]&&e.act[1]&&e.act[1][1]))miss.push('act');return [id,miss]})});
 ok('every indicator has question, read-more, why, evidence and actions in EN and AR',G.every(x=>x[1].length===0),G.filter(x=>x[1].length));
@@ -39,7 +39,7 @@ ok('Unknown and N/A cards visually distinct (dashed)',await ev(()=>getComputedSt
 const set=async(sc)=>{await ev(sc=>{const C=NBS4MED_CORE;C.setState(C.freshState());C.fillSample();C.st.risks={heat:true,flood:true};C.st.ctx={density:'mid',land:'mid'};Object.assign(C.st.sc,sc||{});Object.keys(C.st.sc).forEach(k=>{if(C.st.sc[k]==='NA')C.st.just[k]='not relevant'});C.nav('results')},sc);await p.waitForTimeout(250)};
 await set({'1.1':1,'1.3':0,'3.3':'U','5.2':0,'2.3':0});
 let r=await txt('#resRoot');
-ok('A overview: area, scale, date, risks, completeness, evidence, interpretation, provisional overall',['Assessment area','Assessment scale','Assessment date','Selected climate risks','Completeness','Evidence and confidence','Interpretation','Provisional combined assessment score'].every(k=>new RegExp(k,'i').test(r)),r.slice(0,300));
+ok('A overview: area, scale, date, risks, completeness, evidence, interpretation, provisional overall',['Assessment area','Assessment scale','Assessment date','Selected climate risks','Completeness','Evidence and confidence','Interpretation','Provisional overall score'].every(k=>new RegExp(k,'i').test(r)),r.slice(0,300));
 const tbl=await ev(()=>{const t=document.querySelector('.crit-tbl');return {heads:[...t.querySelectorAll('thead th')].map(x=>x.innerText),rows:[...t.querySelectorAll('tbody tr:not(.grp)')].map(tr=>[...tr.children].map(c=>c.innerText.replace(/\s+/g,' ').trim())),groups:[...t.querySelectorAll('tr.grp th')].map(x=>x.innerText)}});
 ok('B criteria table columns',JSON.stringify(tbl.heads)===JSON.stringify(['Criterion','Your score','Maximum score','Percentage','Assessment level / status','Key finding']),tbl.heads);
 ok('B five criteria rows, C1 grouped apart from C2–C5',tbl.rows.length===5&&/CURRENT NBS INTEGRATION/i.test(tbl.groups[0])&&/ENABLING AND IMPLEMENTATION/i.test(tbl.groups[1]),tbl.groups);
@@ -76,18 +76,16 @@ ok('option card actions: check + explore (where supported)',!!(await p.$('.oc [d
 r=await txt('#resRoot');ok('dashboard has no numeric 0-100 match scores',!/\d+ ?\/ ?100/.test(r));
 ok('assessment and matching stay separate (statement)',/Assessment scores are not used for matching/.test(r));
 // impact & cost
-ok('Potential Impact & Indicative Cost: dedicated section with 5 supported solutions',/Potential Impact & Indicative Cost/.test(await txt('#icSec'))&&(await ev(()=>document.querySelectorAll('#icSec .icpick [data-explore]').length))===5);
-await p.click('#icSec .icpick [data-explore="NBS02"]');await p.waitForTimeout(250);
+ok('Potential Impact & Indicative Cost: dedicated section with 5 supported solutions',/Potential Impact & Indicative Cost/.test(await txt('#icSec'))&&(await ev(()=>document.querySelectorAll('#icSec input[name=exsol]').length))===5);
+await p.click('#icSec input[name=exsol][value="NBS02"]');await p.waitForTimeout(250);
 const ex=await txt('#exResults');
-ok('calculator: illustrative banner, evidence classes, three-way separation',/Illustrative Scenario Cost — Not a Local Price Estimate/.test(ex)&&/Evidence classes used in this tool/.test((await ev(()=>{document.querySelectorAll('#view-explore details').forEach(d=>d.open=true);return document.querySelector('#exResults').innerText})))&&/Climate-risk mitigation impact/.test(ex)&&/Physical quantities/.test(ex)&&/Literature reference evidence/.test(ex));
+ok('calculator: illustrative banner, evidence classes, three-way separation',/Illustrative Scenario Cost — Not a Local Price Estimate/.test(ex)&&/Evidence classes used in this tool/.test((await ev(()=>{document.querySelectorAll('#icSec details').forEach(d=>d.open=true);return document.querySelector('#exResults').innerText})))&&/Climate-risk mitigation impact/.test(ex)&&/Physical calculations/.test(ex)&&/Literature reference evidence/.test(ex));
 ok('cost components chart in breakdown',(await ev(()=>document.querySelectorAll('#exResults .cbars .cbr').length))>=4);
-await p.click('#exBack');await p.waitForTimeout(200);
 r=await txt('#icSec');ok('results shows banner, CAPEX and OPEX separately',/Illustrative Scenario Cost/.test(r)&&/Construction cost/.test(r)&&/Annual maintenance/.test(r));
 // user-entered prices change the label
-await ev(()=>{const E=NBS4MED_EXPLORE;E.open('NBS01')});await p.waitForTimeout(200);
+await p.click('#icSec input[name=exsol][value="NBS01"]');await p.waitForTimeout(200);
 await ev(()=>{document.querySelector('#advBox').open=true;[...document.querySelectorAll('#exInputs input[data-price]')].forEach(el=>{el.value='10';el.dispatchEvent(new Event('input',{bubbles:true}))})});await p.waitForTimeout(300);
 ok('all prices user-entered: label says based on your prices',/Based on prices you entered/.test(await txt('#exResults')));
-await p.click('#exBack');
 // PROMEA table
 await p.evaluate(()=>{document.querySelectorAll('#meth details').forEach(d=>d.open=true)});
 const pr=await txt('#meth');ok('PROMEA table: ten considerations, three status labels, no validation claim',['Climate Risks','Climate Type','Urban Context','NBS Categories','Cost','Stakeholders','Regulations','Technical Expertise','Maintenance','Evaluation'].every(k=>pr.includes(k))&&/Partially supported/.test(pr)&&/Pending further development/.test(pr)&&/not a formal PROMEA validation/.test(pr));
@@ -104,13 +102,13 @@ r=await txt('#resRoot');ok('Arabic dashboard: overview, table, gaps, impact & co
 ok('Arabic gap texts present',await ev(()=>NBS4MED_CORE.gapItems().every(g=>/[؀-ۿ]/.test(g.action+g.why+g.evidence))));
 await ev(()=>{NBS4MED_CORE.st.step=3;NBS4MED_CORE.nav('assess')});await p.waitForTimeout(150);
 ok('Arabic indicator page: cards, read more',/اقرأ المزيد/.test(await txt('#stepPanel'))&&/الدرجة 0 \/ 2/.test(await txt('#stepPanel')));
-await p.screenshot({path:'/tmp/claude-0/-home-user-nbs4med-demo/8e17095f-3a8d-5f20-9992-4fb7fc03f0e7/scratchpad/e_ind_ar.png'});
+await p.screenshot({path:TH.outDir('t16')+'/e_ind_ar.png'});
 await p.click('.lang button[data-lang=en]');
 // mobile
 const m=await b.newPage({viewport:{width:390,height:900}});await m.goto(FILE);
 for(const lang of ['en','ar']){if(lang==='ar')await m.click('.lang button[data-lang=ar]');
  await m.evaluate(()=>{const C=NBS4MED_CORE;C.fillSample();C.st.sc['3.3']='U';C.st.step=3;C.nav('assess')});await m.waitForTimeout(120);ok('mobile '+lang+' assessment cards no overflow',await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await m.evaluate(()=>{NBS4MED_CORE.nav('results');document.querySelectorAll('#resRoot details').forEach(d=>d.open=true)});await m.waitForTimeout(200);ok('mobile '+lang+' dashboard no overflow',await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),await m.evaluate(()=>document.documentElement.scrollWidth))}
-await m.screenshot({path:'/tmp/claude-0/-home-user-nbs4med-demo/8e17095f-3a8d-5f20-9992-4fb7fc03f0e7/scratchpad/e_mob.png',fullPage:true});
+await m.screenshot({path:TH.outDir('t16')+'/e_mob.png',fullPage:true});
 ok('no page errors',errs.length===0,errs);
 console.log(`t16: ${pass} passed, ${fail} failed`);await b.close()})()

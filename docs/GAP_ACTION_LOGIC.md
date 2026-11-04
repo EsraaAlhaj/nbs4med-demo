@@ -2,17 +2,17 @@
 
 ## How a gap is identified
 
-The five criteria, the fourteen indicators, the 0 to 2 rubrics and the scoring are unchanged (see `app.js`). The "Priority gaps and improvement actions" section only reads the answer given for each indicator. It does not use any other input and it does not call any model.
+The five criteria, the fourteen indicators, the 0 to 2 rubrics and the scoring are unchanged (see `js/app.js`). The "Priority gaps and improvement actions" section only reads the answer given for each indicator. It does not use any other input and it does not call any model.
 
 | Answer | Listed as | Finding shown | Suggested action |
 |---|---|---|---|
-| 0 | Gap | The rubric text the user selected for that indicator | `act[0]` for that indicator in `guidance.js` |
+| 0 | Gap | The rubric text the user selected for that indicator | `act[0]` for that indicator in `js/guidance.js` |
 | 1 | Partial | The rubric text the user selected | `act[1]` for that indicator |
 | Unknown | To verify | "No information is available for this indicator yet. This is a gap in information, not evidence of weak performance." | "Obtain or verify this information before drawing conclusions." |
 | 2 | Not listed | | |
 | Not applicable | Not listed | | |
 
-Every listed item also shows **Why it matters** and **Evidence needed**. Both are written once per indicator in `guidance.js` and are the same for every answer of that indicator. The 14 indicators × 3 answers (0, 1, Unknown) are all covered in English and Arabic, and the tests check this.
+Every listed item also shows **Why it matters** and **Evidence needed**. Both are written once per indicator in `js/guidance.js` and are the same for every answer of that indicator. The 14 indicators × 3 answers (0, 1, Unknown) are all covered in English and Arabic, and the tests check this.
 
 ## Display order
 

@@ -2,16 +2,18 @@
 
 Demo version: illustrative estimates, to be reviewed when project data become available.
 
-Nothing here is a local forecast. Every quantitative record in `evidence.json` has
+This file is the **canonical reference for the formulas and the parameter table**. `TECHNICAL_DOCUMENTATION.md` explains them and links here instead of repeating them, and `tests/engine.test.js` checks the table in section 4 against `data/demo_parameters.json`.
+
+Nothing here is a local forecast. Every quantitative record in `data/evidence.json` has
 `usable_for_local_forecast = false` and it was left that way. Published values are shown as
 reference evidence or used only as clearly labelled scenarios. Values that are not published
-are `demo_assumption` in `demo_parameters.json`. The `partner_validated` field is empty
+are `demo_assumption` in `data/demo_parameters.json`. The `partner_validated` field is empty
 for every parameter.
 
 ## 1. What did not change
 
-The 14 indicators, 5 criteria, answer options, score thresholds (30 / 55 / 80 %), weakest-dimension
-text and recommendation ranking are the same code as the frontend version. They were checked with
+The 14 indicators, 5 criteria, answer options, score thresholds (30 / 55 / 80 %), and recommendation ranking are the same code as the frontend version. (An earlier version of this note also listed
+"weakest-dimension text"; that text is no longer shown. `calc()` in `js/app.js` still computes the weakest criterion, but nothing uses it.) They were checked with
 ten randomised answer sets: scores, levels, criterion tables and recommendation rankings were
 identical to the previous version. The assessment result is kept separate from suitability, impact
 and cost.
@@ -66,7 +68,7 @@ independent studies, not records.
 
 ## 4. Parameter table
 
-Class values: `published_reference` (taken from a record in evidence.json), `demo_assumption`
+Class values: `published_reference` (taken from a record in data/evidence.json), `demo_assumption`
 (set by the demo authors only so that the calculation runs, not attributed to any study or partner),
 `partner_validated` (empty in this version). Currency EUR. No price year: the demo values were not
 taken from a dated price list and no price index is applied.
@@ -124,13 +126,13 @@ taken from a dated price list and no price index is applied.
 
 | Item | Where | Action |
 |---|---|---|
-| NBS repository and PROMEA decision-making framework | `evidence.json` | Replace or extend records; keep `usable_for_local_forecast` honest per record; run `tools\sync-data.ps1` |
-| All `demo_assumption` unit prices and design factors | `demo_parameters.json` | Replace with local item prices (currency, price year, scope) or partner values; then fill `partner_validated` |
-| Runoff coefficient, usable storage fraction, water demand rates | `demo_parameters.json` | Replace with design values for each pilot site |
-| Price-year update (method M02) and life-cycle cost (M05) | `engine.js` | Not implemented: no index and no discount rate were supplied |
-| Surface temperature, air temperature and thermal comfort | `engine.js`, evidence | Needs intervention-specific primary data and a comparator before any calculation |
+| NBS repository and PROMEA decision-making framework | `data/evidence.json` | Replace or extend records; keep `usable_for_local_forecast` honest per record; run `node tools/sync-data.js` |
+| All `demo_assumption` unit prices and design factors | `data/demo_parameters.json` | Replace with local item prices (currency, price year, scope) or partner values; then fill `partner_validated` |
+| Runoff coefficient, usable storage fraction, water demand rates | `data/demo_parameters.json` | Replace with design values for each pilot site |
+| Price-year update (method M02) and life-cycle cost (M05) | `js/engine.js` | Not implemented: no index and no discount rate were supplied |
+| Surface temperature, air temperature and thermal comfort | `js/engine.js`, evidence | Needs intervention-specific primary data and a comparator before any calculation |
 | Annual retention, peak reduction, captured volume | engine | Needs rainfall series and hydrologic modelling (PySWMM is deliberately not integrated) |
 | Smart-technology benefits of the eco-park | evidence | No separate evidence was collected |
-| Rule R07 threshold (very low match) | `app.js` ranking | Threshold pending partners |
-| Arabic text of evidence records | `evidence.json` | Records are shown in English as in the source database |
-| Demo label and assessment-to-solution mapping | `explore.js` | The five NBS4MED solutions map to the recommendation options: urban forest, green roof, smart eco-park (called multifunctional eco-park in the database), rainwater retention basin, green corridor |
+| Rule R07 threshold (very low match) | `js/app.js` ranking | Threshold pending partners |
+| Arabic text of evidence records | `data/evidence.json` | Records are shown in English as in the source database |
+| Demo label and assessment-to-solution mapping | `js/explore.js` | The five NBS4MED solutions map to the recommendation options: urban forest, green roof, smart eco-park (called multifunctional eco-park in the database), rainwater retention basin, green corridor |
